@@ -1,3 +1,9 @@
+# Programmeur Hivers 2023
+1.	Jonathan Audet  -   1262695  
+2.	Kevin Carufel   -   1962910       
+3.	Oleksi Kandratiev   -   2095166
+4.	Amadou Habil Ndiamoun Njikatoufon   -   2095142
+
 # Introduction 
 TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
 
