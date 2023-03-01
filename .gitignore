@@ -6,6 +6,12 @@
 .vscode
 **/.DS_Store
 
+# node
+node_modules/
+typings/
+npm-debug.log
+
+
 # User-specific files
 *.rsuser
 *.suo
