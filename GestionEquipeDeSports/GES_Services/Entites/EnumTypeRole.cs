@@ -10,7 +10,6 @@ namespace GES_Services.Entites
     {
         Athlete,
         Tuteur,
-        Entraineur,  
-        Administrateur
+        Entraineur
     }
 }

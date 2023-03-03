@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace GES_Services.Interfaces
 {
-    public interface IDepotUtilisateur
+    public interface IDepotAdministrateur
     {
-        
     }
 }
