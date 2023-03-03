@@ -26,7 +26,7 @@ export class FormEvenement extends React.Component{
                         <Form.Label>Une champ ici</Form.Label>
                         <Form.Control type="text"  />
                     </Form.Group>
-                    <Button class="btn btn-success">Ajouter un evenement</Button>
+                    <Button class="btn btn-success">Ajouter</Button>
                 </Form>
             </>
         );
