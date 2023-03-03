@@ -19,9 +19,7 @@ namespace GES_Services.Entites
         public Equipe()
         {
             ListeMembres = new List<Utilisateur>();
-            ListeEvenements = new List<Evenement>();
-        }
-        
-        
+            ListeEvenements = new List<Evenement>();            
+        }              
     }
 }

@@ -12,37 +12,59 @@ namespace GES_Services.Entites
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string Email { get; set; }
-        public string DateCreation { get; set; }
-        public string DateModification { get; set; }
-        public EnumTypeRole TypeRole { get; set; }
+        public string MotDePasse { get; set; }
+        
+        public DateTime DateCreation { get; set; }
+        public DateTime DateModification { get; set; }
+        
+        public bool EstEntraineur = false;
+        public bool EstTuteur = false;
+        public bool EstAthlete = false;
 
-        public Utilisateur()
+        private List<string> roles = new List<string>();
+
+        public Utilisateur(string nom, string prenom, string email, DateTime dateCreation, DateTime dateModification, bool estEntraineur, bool estTuteur, bool estAthlete)
         {
-
-        }
-
-        public Utilisateur(string nom, string prenom, string email, EnumTypeRole typeRole)
-        {
-            // random id for now
-            Id = new Random().Next(1, 1000);
-            if (nom != null)
+            if (nom.Trim().Length == 0 || nom == null)
             {
-                Nom = nom;
+                throw new Exception("Le nom ne peut pas être vide");
             }
 
-            if (prenom != null)
+            if (prenom.Trim().Length == 0 || prenom == null)
             {
-                Prenom = prenom;
+                throw new Exception("Le prénom ne peut pas être vide");
             }
 
-            if (email != null)
+            if (email.Trim().Length == 0 || email == null)
             {
-                Email = email;
+                throw new Exception("L'email ne peut pas être vide");
             }
                         
-            TypeRole = typeRole;
-            DateCreation = DateTime.Now.ToString();
-            DateModification = DateTime.Now.ToString();
+            Nom = nom;
+            Prenom = prenom;
+            Email = email;
+            
+            DateCreation = dateCreation;
+            DateModification = dateModification;
+            
+            EstEntraineur = estEntraineur;
+            EstTuteur = estTuteur;
+            EstAthlete = estAthlete;
+
+            if (EstEntraineur)
+            {
+                roles.Add("Entraineur");
+            }
+
+            if (EstTuteur)
+            {
+                roles.Add("Tuteur");
+            }
+
+            if (EstAthlete)
+            {
+                roles.Add("Athlete");
+            }
         }
     }
 }

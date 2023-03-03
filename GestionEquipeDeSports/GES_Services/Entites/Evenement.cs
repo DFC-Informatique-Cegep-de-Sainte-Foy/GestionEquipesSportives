@@ -13,20 +13,13 @@ namespace GES_Services.Entites
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
         public EnumTypeEvenement TypeEvenement { get; set; }
-        private List<Utilisateur> Participants { get; set; }
-        public List<Equipe> EquipesParticipantes { get; set; }
 
-
-        public Evenement()
+        public Evenement(string description,EnumTypeEvenement typeEvenement)
         {
             // random id for now
             Id = new Random().Next(1, 1000);
-            Participants = new List<Utilisateur>();
-        }
-
-        private void AddParticipant(Utilisateur participant)
-        {
-            Participants.Add(participant);
+            Description = description;
+            TypeEvenement = typeEvenement;
         }
     }
 }
