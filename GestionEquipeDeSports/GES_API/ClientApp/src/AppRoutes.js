@@ -1,7 +1,8 @@
 import { Equipes } from "./components/Equipes";
 import { Accueil } from "./components/Accueil";
 import { Evenements } from "./components/Evenements";
-import { Connexion } from "./components/Connexion"
+import { Connexion } from "./components/Connexion";
+import { FormEvenement } from "./components/FormulaireEvenement";
 
 const AppRoutes = [
   {
@@ -15,6 +16,10 @@ const AppRoutes = [
   {
     path: '/evenements',
     element: <Evenements   />
+  },
+  {
+    path: '/formulaireEvenement',
+    element: <FormEvenement />
   },
   {
     path: '/connexion',
