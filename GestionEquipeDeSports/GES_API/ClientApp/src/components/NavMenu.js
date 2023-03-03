@@ -28,17 +28,27 @@ export class NavMenu extends Component {
           <NavbarBrand tag={Link} to="/">GestionEquipeDeSports</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+
             <ul className="navbar-nav flex-grow">
+
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
               </NavItem>
+
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/equipes">Équipes</NavLink>
               </NavItem>
+
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/evenements">Évenements</NavLink>
               </NavItem>
+
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/connexion">Connexion</NavLink>
+              </NavItem>
+
             </ul>
+
           </Collapse>
         </Navbar>
       </header>
