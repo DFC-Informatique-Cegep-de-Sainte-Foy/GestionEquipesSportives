@@ -45,6 +45,7 @@ AssociationSportive VARCHAR(100)
 CREATE TABLE Evenement(
 IdEvenement INT IDENTITY PRIMARY KEY,
 Object VARCHAR(350) NOT NULL,
+Emplacement VARCHAR(200) NOT NULL,
 DateDebut DATETIME2,
 DateFin DATETIME2,
 DateCreation DATETIME2,
