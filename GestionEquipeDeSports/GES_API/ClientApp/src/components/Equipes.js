@@ -12,7 +12,7 @@ export class Equipes extends Component {
 
         <p>Ici seront les informations sur les équipes.</p>
         <Link to={'/formulaireEquipe'}>
-          <Button variant="success" >Ajouter une equipe</Button>
+          <Button variant="success" >Ajouter une équipe</Button>
         </Link>
       </div>
     );
