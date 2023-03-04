@@ -11,7 +11,7 @@ export class FormEquipe extends React.Component{
                     <Form.Group className="mb-3">
                         <Form.Label>Sport</Form.Label>
                         <Form.Select id="id_sport"  >
-                            <option disabled>Choisir une option</option>
+                            <option>Choisir une option</option>
                             <option value="soccer">Soccer</option>
                             <option value="baseball">Baseball</option>
                             <option value="football">Football</option>
@@ -23,11 +23,15 @@ export class FormEquipe extends React.Component{
                         <Form.Control type="text"  />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Description</Form.Label>
+                        <Form.Label>Region</Form.Label>
                         <Form.Control type="text"  />
                     </Form.Group>
-                    <Button variant="succes">Ajouter</Button>
-                    <Button variant="danger">Annuler</Button>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Association Sportive</Form.Label>
+                        <Form.Control type="text"  />
+                    </Form.Group>
+                    <Button variant="success" type="submit">Ajouter</Button>
+                    <Button variant="danger" className="float-end">Annuler</Button>
                 </Form>
             </>
         );
