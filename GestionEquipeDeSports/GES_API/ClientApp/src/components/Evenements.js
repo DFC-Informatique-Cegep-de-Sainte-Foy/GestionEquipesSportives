@@ -8,7 +8,7 @@ export function Evenements(){
         <div>
             <h1>Bienvenue dans la page des évenements</h1>
             <Link to={'/formulaireEvenement'}>
-                <Button class="btn btn-success" >Ajouter un evenement</Button>
+                <Button class="btn btn-success" >Ajouter un évenement</Button>
             </Link>
         </div>
     );

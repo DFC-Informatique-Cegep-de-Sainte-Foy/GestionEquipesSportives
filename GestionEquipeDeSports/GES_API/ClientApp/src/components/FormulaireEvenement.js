@@ -8,7 +8,7 @@ export class FormEvenement extends React.Component{
             <>
                 <h2>Ajouter un evenement</h2>
                 <Form>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                         <Form.Label>Sport</Form.Label>
                         <Form.Select id="id_sport"  >
                             <option disabled>Choisir une option</option>
@@ -18,14 +18,17 @@ export class FormEvenement extends React.Component{
                             <option value="natation">Natation</option>
                         </Form.Select>                    
                     </Form.Group>
-                    <Form.Group>
+
+                    <Form.Group className="mb-3">
                         <Form.Label>Nom Evenement</Form.Label>
                         <Form.Control type="text"  />
                     </Form.Group>
-                    <Form.Group>
+
+                    <Form.Group className="mb-3">
                         <Form.Label>Une champ ici</Form.Label>
                         <Form.Control type="text"  />
                     </Form.Group>
+                    
                     <Button class="btn btn-success">Ajouter</Button>
                 </Form>
             </>
