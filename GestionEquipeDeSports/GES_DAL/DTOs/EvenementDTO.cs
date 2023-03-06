@@ -17,7 +17,7 @@ namespace GES_DAL.DTOs
         public DateTime DateModification { get; set; }
         public EnumTypeEvenement TypeEvenement { get; set; }
 
-        public EvenementDTO(GES_Services.Entites.Evenement evenement)
+        public EvenementDTO(Evenement evenement)
         {
             Id = evenement.Id;
             Description = evenement.Description;
@@ -28,11 +28,9 @@ namespace GES_DAL.DTOs
             TypeEvenement = evenement.TypeEvenement;
         }
 
-        public GES_Services.Entites.Evenement VersEntite()
+        public Evenement VersEntite()
         {
             return new GES_Services.Entites.Evenement(Description, TypeEvenement, DateDebut, DateFin);
         }
-            
- 
     }
 }

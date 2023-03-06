@@ -10,4 +10,8 @@
     <Folder Include="DTOs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GES_Services\GES_Services.csproj" />
+  </ItemGroup>
+
 </Project>
