@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace GES_DAL
 {
-    internal class DepotEvenementsSQLServer
+    public class DepotEvenementsSQLServer
     {
+        
     }
 }
