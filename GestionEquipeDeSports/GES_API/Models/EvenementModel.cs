@@ -14,6 +14,7 @@ namespace GES_API.Models
         public DateTime DateCreation { get; set; }
         public DateTime DateModification { get; set; }
         public EnumTypeEvenement TypeEvenement { get; set; }
+        public bool Etat { get; set; }
 
         public EvenementModel()
         {
@@ -29,7 +30,7 @@ namespace GES_API.Models
             this.DateCreation = p_evenementModel.DateCreation;
             this.DateModification = p_evenementModel.DateModification;
             this.TypeEvenement = p_evenementModel.TypeEvenement;
-
+            this.Etat = p_evenementModel.Etat;
         }
 
         public srvm.Evenement VersEntite()
