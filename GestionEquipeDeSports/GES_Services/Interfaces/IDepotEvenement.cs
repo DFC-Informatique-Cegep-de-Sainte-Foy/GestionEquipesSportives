@@ -9,9 +9,9 @@ namespace GES_Services.Interfaces
 {
     public interface IDepotEvenement
     {
-        public bool AjouterEvenement(Evenement evenement);
-        public bool ModifierEvenement(Evenement evenement);
-        public bool SupprimerEvenement(Evenement evenement);
+        public void AjouterEvenement(Evenement evenement);
+        public void ModifierEvenement(Evenement evenement);
+        public void SupprimerEvenement(Evenement evenement);
         public Evenement ChercherEvenementParId(int id);
         public IEnumerable<Evenement> ListerEvenements();
     }

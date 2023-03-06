@@ -15,6 +15,8 @@ namespace GES_Services.Entites
         public DateTime DateCreation { get; private set; }
         public DateTime DateModification { get; private set; }
         public EnumTypeEvenement TypeEvenement { get; private set; }
+        public bool Etat { get; private set; }
+
 
         public Evenement(string description, EnumTypeEvenement typeEvenement, DateTime dateDebut, DateTime dateFin)
         {
@@ -43,6 +45,8 @@ namespace GES_Services.Entites
 
             DateCreation = DateTime.Now;
             DateModification = DateTime.Now;
+
+            Etat = true;
         }
     }
 }

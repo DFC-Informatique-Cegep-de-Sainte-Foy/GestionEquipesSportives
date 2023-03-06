@@ -26,19 +26,31 @@ namespace GES_Services.Manipulations
             return _depotEvenement.ChercherEvenementParId(id);
         }
 
-        public bool AjouterEvenement(Evenement evenement)
+        public void AjouterEvenement(Evenement evenement)
         {
-            return _depotEvenement.AjouterEvenement(evenement);
+            if (evenement is null)
+            {
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
+            }
+            _depotEvenement.AjouterEvenement(evenement);
         }
         
-        public bool ModifierEvenement(Evenement evenement)
+        public void ModifierEvenement(Evenement evenement)
         {
-           return _depotEvenement.ModifierEvenement(evenement);
+            if (evenement is null)
+            {
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
+            }
+            _depotEvenement.ModifierEvenement(evenement);
         }
 
-        public bool SupprimerEvenement(Evenement evenement)
+        public void SupprimerEvenement(Evenement evenement)
         {
-            return _depotEvenement.SupprimerEvenement(evenement);
+            if (evenement is null)
+            {
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
+            }
+            _depotEvenement.SupprimerEvenement(evenement);
         }
     }
 }
