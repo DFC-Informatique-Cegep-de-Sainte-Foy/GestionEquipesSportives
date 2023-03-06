@@ -13,5 +13,6 @@ namespace GES_Services.Interfaces
         public bool ModifierEvenement(Evenement evenement);
         public bool SupprimerEvenement(Evenement evenement);
         public Evenement ChercherEvenementParId(int id);
+        public IEnumerable<Evenement> ListerEvenements();
     }
 }
