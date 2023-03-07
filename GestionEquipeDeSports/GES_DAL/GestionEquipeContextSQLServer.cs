@@ -10,8 +10,7 @@ namespace GES_DAL
 {
     public class GestionEquipeContextSQLServer : DbContext
     {
-        public GestionEquipeContextSQLServer(DbContextOptions<GestionEquipeContextSQLServer> options)
-            : base(options)
+        public GestionEquipeContextSQLServer(DbContextOptions<GestionEquipeContextSQLServer> options): base(options)
         {
 
         }
