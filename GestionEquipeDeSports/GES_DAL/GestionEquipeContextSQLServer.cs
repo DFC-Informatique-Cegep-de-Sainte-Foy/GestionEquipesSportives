@@ -16,5 +16,6 @@ namespace GES_DAL
         }
 
         public DbSet<EvenementDTO> Evenements { get; set; }
+        public DbSet<EquipeDTO> Equipe { get; set; }
     }
 }
