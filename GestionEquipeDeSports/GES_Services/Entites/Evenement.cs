@@ -1,8 +1,8 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks;*/
 
 namespace GES_Services.Entites
 {
@@ -22,14 +22,12 @@ namespace GES_Services.Entites
         {
             // random id for now
             Id = new Random().Next(1, 1000);
+
             if (String.IsNullOrEmpty(description) || description.Trim().Length == 0)
             {
                 throw new ArgumentException("La description ne peut pas être vide", nameof(description));
             }
             
-            Description = description;
-            TypeEvenement = typeEvenement;
-
             if (dateDebut > dateFin)
             {
                 throw new ArgumentException("La date de début ne peut pas être supérieure à la date de fin", nameof(dateDebut));
@@ -39,6 +37,9 @@ namespace GES_Services.Entites
             {
                 throw new ArgumentException("La date de début ne peut pas être inférieure à la date actuelle", nameof(dateDebut));
             }
+
+            Description = description;
+            TypeEvenement = typeEvenement;
 
             DateDebut = dateDebut;
             DateFin = dateFin;
