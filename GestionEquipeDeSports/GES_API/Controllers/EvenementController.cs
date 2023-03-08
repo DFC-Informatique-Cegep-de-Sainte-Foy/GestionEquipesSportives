@@ -77,7 +77,7 @@ namespace GES_API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int p_id)
         {
             EvenementModel model = new EvenementModel(m_maniulationDepotEvenement.ChercherEvenementParId(p_id));
             if (model is null)

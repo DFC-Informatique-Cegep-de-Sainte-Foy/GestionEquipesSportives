@@ -1,6 +1,4 @@
-using GES_DAL;
 using GES_DAL.Depots;
-using GES_Services;
 using GES_Services.Interfaces;
 using GES_Services.Manipulations;
 using Microsoft.AspNetCore.Identity;
@@ -8,17 +6,25 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Connection String
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<GES_DAL.GestionEquipeContextSQLServer>(options =>
+    options.UseSqlServer(connectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//Manipulation du depot Evenement
 builder.Services.AddScoped<ManiulationDepotEvenement>();
 
+//Dependance entre l'interface Evenement et le DepotEvenementSQLServer
 builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<GestionEquipeContextSQLServer>();
+    .AddEntityFrameworkStores<GES_DAL.GestionEquipeContextSQLServer>();
 
 var app = builder.Build();
 
