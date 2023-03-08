@@ -7,7 +7,7 @@ using GES_Services.Entites;
 
 namespace GES_DAL.DTOs
 {
-    class EquipeDTO
+    public class EquipeDTO
     {
         public int Id { get; set; }
         public string Nom { get; set; }

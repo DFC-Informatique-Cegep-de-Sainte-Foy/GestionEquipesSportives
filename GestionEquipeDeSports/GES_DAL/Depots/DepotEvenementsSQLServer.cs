@@ -58,6 +58,11 @@ namespace GES_DAL.Depots
             return evenementDTO.VersEntite();
         }
 
+        public IEnumerable<Evenement> ListerEvenements()
+        {
+            throw new NotImplementedException();
+        }
+
         public void ModifierEvenement(Evenement evenement)
         {
             if (evenement is null)
