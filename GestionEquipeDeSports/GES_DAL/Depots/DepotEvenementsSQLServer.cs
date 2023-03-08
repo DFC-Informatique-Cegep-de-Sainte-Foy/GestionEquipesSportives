@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using srvm = GES_Services.Entites;
 
 namespace GES_DAL.Depots
 {
@@ -23,10 +24,7 @@ namespace GES_DAL.Depots
             this.m_context = context;
         }
 
-        public IEnumerable<Evenement> ListerEvenements()
-        {
-
-        }
+    
         public Evenement ChercherEvenementParId(int id)
         {
             //Search evenement in BD with m_context
