@@ -7,7 +7,7 @@ namespace GES_API.Models
     public class EvenementModel
     {
 
-        [Key] public int Id { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }

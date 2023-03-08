@@ -5,7 +5,7 @@ namespace GES_API.Models
 {
     public class EquipeModel
     {
-        [Key] public int Id { get; set; }
+        public int Id { get; set; }
         public string Nom { get; set; }
         public string Region { get; set; }
         public DateTime DateCreation { get; set; }
