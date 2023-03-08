@@ -15,7 +15,7 @@ namespace GES_DAL.Depots
 
         public DepotEquipeSQLServer(GestionEquipeContextSQLServer p_context)
         {
-            if(p_context is null)
+            if (p_context is null)
             {
                 throw new ArgumentNullException(nameof(p_context));
             }
@@ -26,7 +26,7 @@ namespace GES_DAL.Depots
         public IEnumerable<Equipe> ListerEquipes()
         {
             return this.m_context.Equipes.Select(eDTO => eDTO.VersEntite()).ToList();
-                
+
 
         }
         public Equipe ChercherEquipeParId(int id)
@@ -93,6 +93,5 @@ namespace GES_DAL.Depots
             m_context.Equipes.Update(equipeDTO);
             m_context.SaveChanges();
         }
-    }
     }
 }
