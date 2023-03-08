@@ -19,7 +19,7 @@ namespace GES_API.Models
             ;
         }
 
-        public EquipeModel(GES_Services.Entites.Equipe p_equipe)
+        public EquipeModel(Equipe p_equipe)
         {
             this.Id = p_equipe.Id;
             this.Nom = p_equipe.Nom;
@@ -28,9 +28,9 @@ namespace GES_API.Models
             this.DateModification = p_equipe.DateModification;
         }
 
-        public GES_Services.Entites.Equipe VersEntite()
+        public Equipe VersEntite()
         {
-            return new GES_Services.Entites.Equipe();
+            return new Equipe();
         }
     }
 }
