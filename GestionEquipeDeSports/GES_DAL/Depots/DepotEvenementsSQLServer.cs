@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using srvm = GES_Services.Entites;
 
 namespace GES_DAL.Depots
 {
@@ -60,7 +61,12 @@ namespace GES_DAL.Depots
 
         public IEnumerable<Evenement> ListerEvenements()
         {
-            throw new NotImplementedException();
+            IEnumerable<srvm.Evenement> listEvenements =
+                from Evenement in m_context.Evenements
+                where Evenement.Etat
+                select Evenement.VersEntite();
+
+            return listEvenements;
         }
 
         public void ModifierEvenement(Evenement evenement)
