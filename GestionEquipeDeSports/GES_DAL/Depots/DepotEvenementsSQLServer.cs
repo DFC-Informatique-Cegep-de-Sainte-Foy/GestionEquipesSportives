@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using srvm = GES_Services.Entites;
 
 namespace GES_DAL.Depots
 {
@@ -24,23 +23,10 @@ namespace GES_DAL.Depots
             this.m_context = context;
         }
 
-        public void AjouterEvenement(Evenement evenement)
+        public IEnumerable<Evenement> ListerEvenements()
         {
-            //Add evenement to BD with m_context
-            if (evenement is null)
-            {
-                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
-            }
 
-            if (m_context.Evenements.Any(e => e.Id == evenement.Id))
-            {
-                throw new InvalidOperationException($"l'evenement avec le id {evenement.Id} existe deja");
-            }
-
-            m_context.Evenements.Add(new EvenementDTO(evenement));
-            m_context.SaveChanges();
         }
-
         public Evenement ChercherEvenementParId(int id)
         {
             //Search evenement in BD with m_context
@@ -57,6 +43,22 @@ namespace GES_DAL.Depots
             }
 
             return evenementDTO.VersEntite();
+        }
+        public void AjouterEvenement(Evenement evenement)
+        {
+            //Add evenement to BD with m_context
+            if (evenement is null)
+            {
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
+            }
+
+            if (m_context.Evenements.Any(e => e.Id == evenement.Id))
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {evenement.Id} existe deja");
+            }
+
+            m_context.Evenements.Add(new EvenementDTO(evenement));
+            m_context.SaveChanges();
         }
 
         public IEnumerable<Evenement> ListerEvenements()

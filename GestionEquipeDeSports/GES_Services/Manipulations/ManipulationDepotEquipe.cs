@@ -16,25 +16,41 @@ namespace GES_Services.Manipulations
             this.m_depotEquipe = p_depotEquipe;
         }
 
-        public IEnumerable<Equipe> ListerEquipe()
+        public IEnumerable<Equipe> ListerEquipes()
         {
-            return this.m_depotEquipe.ListerEquipe();
+            return this.m_depotEquipe.ListerEquipes();
         }
         public Equipe ChercherEquipeParId(int p_id)
         {
+            if(p_id < 0)
+            {
+                throw new ArgumentOutOfRangeException("Le paramètre p_id ne peut pas être négatif", nameof(p_id));
+            }
             return this.m_depotEquipe.ChercherEquipeParId(p_id);
         }
-        public bool AjouterEquipe(Equipe p_equipe)
+        public void AjouterEquipe(Equipe p_equipe)
         {
-            return this.m_depotEquipe.AjouterEquipe(p_equipe);
+            if(p_equipe == null)
+            {
+                throw new ArgumentNullException("Le paramètre p_equipe ne peut pas être null", nameof(p_equipe));
+            }
+            this.m_depotEquipe.AjouterEquipe(p_equipe);
         }
-        public bool ModifierEquipe(Equipe p_equipe)
+        public void ModifierEquipe(Equipe p_equipe)
         {
-            return this.m_depotEquipe.ModifierEquipe(p_equipe);
+            if (p_equipe == null)
+            {
+                throw new ArgumentNullException("Le paramètre p_equipe ne peut pas être null", nameof(p_equipe));
+            }
+            this.m_depotEquipe.ModifierEquipe(p_equipe);
         }
-        public bool SupprimerEquipe(Equipe p_equipe)
+        public void SupprimerEquipe(Equipe p_equipe)
         {
-            return this.m_depotEquipe.SupprimerEquipe(p_equipe);
+            if (p_equipe == null)
+            {
+                throw new ArgumentNullException("Le paramètre p_equipe ne peut pas être null", nameof(p_equipe));
+            }
+            this.m_depotEquipe.SupprimerEquipe(p_equipe);
         }
     }
 }

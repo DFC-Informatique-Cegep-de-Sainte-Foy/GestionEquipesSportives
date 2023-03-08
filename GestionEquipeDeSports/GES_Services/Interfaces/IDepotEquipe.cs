@@ -9,10 +9,10 @@ namespace GES_Services.Interfaces
 {
     public interface IDepotEquipe
     {
-        public IEnumerable<Equipe> ListerEquipe();
+        public IEnumerable<Equipe> ListerEquipes();
         public Equipe ChercherEquipeParId(int id);
-        public bool AjouterEquipe(Equipe equipe);
-        public bool ModifierEquipe(Equipe equipe);
-        public bool SupprimerEquipe(Equipe equipe);
+        public void AjouterEquipe(Equipe equipe);
+        public void ModifierEquipe(Equipe equipe);
+        public void SupprimerEquipe(Equipe equipe);
     }
 }
