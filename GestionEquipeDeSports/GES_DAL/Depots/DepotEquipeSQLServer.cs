@@ -1,17 +1,17 @@
 ﻿using GES_DAL.DTOs;
 using GES_Services.Entites;
 using GES_Services.Interfaces;
-/*using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;*/
+using System.Threading.Tasks;
 
 namespace GES_DAL.Depots
 {
     class DepotEquipeSQLServer : IDepotEquipe
     {
-        private GestionEquipeContextSQLServer m_context;
+        public GestionEquipeContextSQLServer m_context;
 
         public DepotEquipeSQLServer(GestionEquipeContextSQLServer p_context)
         {
