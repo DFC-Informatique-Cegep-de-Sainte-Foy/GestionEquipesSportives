@@ -16,7 +16,7 @@ namespace GES_Services.Manipulations
             this.m_depotEquipe = p_depotEquipe;
         }
 
-        public IEnumerable<Equipe> ListerEquipe()
+        public IEnumerable<Equipe> ListerEquipes()
         {
             return this.m_depotEquipe.ListerEquipes();
         }
