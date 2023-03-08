@@ -1,8 +1,24 @@
+using GES_DAL;
+using GES_DAL.Depots;
+using GES_Services;
+using GES_Services.Interfaces;
+using GES_Services.Manipulations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddScoped<ManiulationDepotEvenement>();
+
+builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<GestionEquipeContextSQLServer>();
 
 var app = builder.Build();
 
@@ -16,7 +32,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 
 app.MapControllerRoute(
     name: "default",

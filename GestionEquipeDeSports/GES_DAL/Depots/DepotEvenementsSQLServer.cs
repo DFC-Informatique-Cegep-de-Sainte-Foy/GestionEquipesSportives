@@ -5,8 +5,7 @@ using GES_Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;*/
-
+using System.Threading.Tasks;
 
 namespace GES_DAL.Depots
 {
@@ -60,6 +59,16 @@ namespace GES_DAL.Depots
 
             m_context.Evenements.Add(new EvenementDTO(evenement));
             m_context.SaveChanges();
+        }
+
+        public IEnumerable<Evenement> ListerEvenements()
+        {
+            IEnumerable<srvm.Evenement> listEvenements =
+                from Evenement in m_context.Evenements
+                where Evenement.Etat
+                select Evenement.VersEntite();
+
+            return listEvenements;
         }
 
         public void ModifierEvenement(Evenement evenement)
