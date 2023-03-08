@@ -22,7 +22,7 @@ namespace GES_API.Controllers
         [ProducesResponseType(200)]
         public ActionResult<IEnumerable<EvenementModel>> Get()
         {
-            return Ok(this.m_maniulationDepotEvenement.ListerEvenements);
+            return Ok(this.m_maniulationDepotEvenement.ListerEvenements());
         }
 
         // GET api/<EvenementController>/5
