@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GES_Services.Manipulations
 {
-    class ManipulationDepotEquipe
+    public class ManipulationDepotEquipe
     {
         private IDepotEquipe m_depotEquipe;
         public ManipulationDepotEquipe(IDepotEquipe p_depotEquipe)
