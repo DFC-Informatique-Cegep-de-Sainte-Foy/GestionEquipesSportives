@@ -14,6 +14,7 @@ namespace GES_DAL.DTOs
         public string Description { get; set; }
         public DateTime DateCreation { get; set; }
         public DateTime DateModification { get; set; }
+        public bool Etat { get; set; }
         public List<Utilisateur> Membres { get; set; }
         public List<Evenement> Evenements { get; set; }
 
@@ -24,6 +25,7 @@ namespace GES_DAL.DTOs
             this.Description = p_equipe.Description;
             this.DateCreation = p_equipe.DateCreation;
             this.DateModification = p_equipe.DateModification;
+            this.Etat = p_equipe.Etat;
             this.Membres = p_equipe.Membres;
             this.Evenements = p_equipe.Evenements;
         }

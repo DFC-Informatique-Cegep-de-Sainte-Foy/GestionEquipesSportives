@@ -13,6 +13,7 @@ namespace GES_Services.Entites
         public string Description { get; private set; }
         public DateTime DateCreation { get; private set; }
         public DateTime DateModification { get; private set; }
+        public bool Etat { get; private set; }
         public List<Utilisateur> Membres { get; private set; }
         public List<Evenement> Evenements { get; private set; }
 
@@ -38,6 +39,7 @@ namespace GES_Services.Entites
             this.Description = p_description;
             this.DateCreation = p_dateCreation;
             this.DateModification = p_dateModification;
+            this.Etat = true;
         }
     }
 }

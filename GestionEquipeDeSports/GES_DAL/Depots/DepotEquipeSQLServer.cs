@@ -89,12 +89,9 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'équipe avec le id {p_equipe.Id} n'existe pas dans le dépot");
             }
 
-            this.m_context.Remove(equipeDTO);
-            this.m_context.SaveChanges();
-
-            /*p_equipeDTO.Etat = false;
-            m_context.Evenements.Update(evenementDTO);
-            m_context.SaveChanges();*/
+            equipeDTO.Etat = false;
+            m_context.Equipes.Update(equipeDTO);
+            m_context.SaveChanges();
         }
     }
     }
