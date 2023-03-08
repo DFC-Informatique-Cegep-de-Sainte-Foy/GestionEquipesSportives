@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace GES_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Evenements")]
     [ApiController]
     public class EvenementController : ControllerBase
     {

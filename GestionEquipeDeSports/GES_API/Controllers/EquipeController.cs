@@ -4,7 +4,7 @@ using GES_API.Models;
 
 namespace GES_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Equipe")]
     [ApiController]
     public class EquipeController : ControllerBase
     {
