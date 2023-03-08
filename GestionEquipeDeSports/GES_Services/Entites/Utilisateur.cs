@@ -8,14 +8,13 @@ namespace GES_Services.Entites
 {
     public class Utilisateur
     {
-        public int Id { get; set; }
-        public string Nom { get; set; }
-        public string Prenom { get; set; }
-        public string Email { get; set; }
-        public string MotDePasse { get; set; }
-        
-        public DateTime DateCreation { get; set; }
-        public DateTime DateModification { get; set; }
+        public int Id { get; private set; }
+        public string Nom { get; private set; }
+        public string Prenom { get; private set; }
+        public string Email { get; private set; }
+        public string MotDePasse { get; private set; }        
+        public DateTime DateCreation { get; private set; }
+        public DateTime DateModification { get; private set; }
         
         public bool EstEntraineur = false;
         public bool EstTuteur = false;

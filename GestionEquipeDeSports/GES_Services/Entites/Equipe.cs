@@ -8,13 +8,13 @@ namespace GES_Services.Entites
 {
     public class Equipe
     {
-        public int Id { get; set; }
-        public string Nom { get; set; }
-        public string Description { get; set; }
-        public DateTime DateCreation { get; set; }
-        public DateTime DateModification { get; set; }
-        public List<Utilisateur> Membres { get; set; }
-        public List<Evenement> Evenements { get; set; }
+        public int Id { get; private set; }
+        public string Nom { get; private set; }
+        public string Description { get; private set; }
+        public DateTime DateCreation { get; private set; }
+        public DateTime DateModification { get; private set; }
+        public List<Utilisateur> Membres { get; private set; }
+        public List<Evenement> Evenements { get; private set; }
 
         public Equipe()
         {
