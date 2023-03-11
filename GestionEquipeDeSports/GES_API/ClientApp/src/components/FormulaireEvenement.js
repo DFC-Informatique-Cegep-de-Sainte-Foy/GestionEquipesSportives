@@ -113,7 +113,7 @@ export class FormEvenement extends React.Component{
                     <Form.Group className="mb-3">
                         <Form.Label>Date de début</Form.Label>
                         <Form.Control 
-                            type="text"
+                            type="datetime-local"
                             name="date_debut"
                             value={this.state.date_debut}
                             className={dateDebutErreur ? "is-invalid form-control" : "form-control"}
@@ -124,7 +124,7 @@ export class FormEvenement extends React.Component{
                     <Form.Group className="mb-3">
                         <Form.Label>Date de fin</Form.Label>
                         <Form.Control 
-                            type="text"
+                            type="datetime-local"
                             name="date_fin"
                             value={this.state.date_fin}
                             className={dateFinErreur ? "is-invalid form-control" : "form-control"}
