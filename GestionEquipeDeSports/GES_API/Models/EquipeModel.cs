@@ -7,12 +7,15 @@ namespace GES_API.Models
     {
         [Key] public int Id { get; set; }
         public string Nom { get; set; }
-        public string Region { get; set; }
+        public string Description { get; set; }
         public DateTime DateCreation { get; set; }
         public DateTime DateModification { get; set; }
         public bool Etat { get; set; }
-        public string Sport { get; set; }
-        public string AssociationSportive { get; set; }
+        public List<Utilisateur> Membres { get; set; }
+        public List<Evenement> Evenements { get; set; }
+
+        /*public string Sport { get; set; }
+        public string AssociationSportive { get; set; }*/
 
         public EquipeModel()
         {
@@ -23,14 +26,25 @@ namespace GES_API.Models
         {
             this.Id = p_equipe.Id;
             this.Nom = p_equipe.Nom;
-            //this.Region = p_equipe.
+            this.Description = p_equipe.Description;
             this.DateCreation = p_equipe.DateCreation;
             this.DateModification = p_equipe.DateModification;
+            this.Etat = p_equipe.Etat;
+            this.Membres = p_equipe.Membres;
+            this.Evenements = p_equipe.Evenements;
         }
 
         public Equipe VersEntite()
         {
-            return new Equipe();
+            Equipe equipe = new Equipe(
+                this.Id,
+                this.Nom,
+                this.Description,
+                this.DateCreation,
+                this.DateModification
+                );
+
+            return equipe;
         }
     }
 }
