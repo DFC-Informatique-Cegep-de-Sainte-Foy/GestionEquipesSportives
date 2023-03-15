@@ -15,7 +15,7 @@ namespace GES_Services.Entites
         public DateTime DateModification { get; private set; }
         public bool Etat { get; private set; }
         public List<Utilisateur> Membres { get; private set; }
-        public List<Evenement> Evenements { get; private set; }
+       public List<Evenement> Evenements { get; private set; }
 
         public Equipe()
         {
@@ -41,6 +41,18 @@ namespace GES_Services.Entites
             this.DateCreation = p_dateCreation;
             this.DateModification = p_dateModification;
             this.Etat = true;
+        }
+
+        public Equipe(int id, string nom, string description, DateTime dateCreation, DateTime dateModification, bool etat, List<Utilisateur> membres, List<Evenement> evenements)
+        {
+            Id = id;
+            Nom = nom;
+            Description = description;
+            DateCreation = dateCreation;
+            DateModification = dateModification;
+            Etat = etat;
+            Membres = membres;
+            Evenements = evenements;
         }
     }
 }

@@ -45,9 +45,18 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
+
+//app.UseOpenApi();
+//app.UseSwaggerUi3();// /swagger
 
 app.MapFallbackToFile("index.html");;
 

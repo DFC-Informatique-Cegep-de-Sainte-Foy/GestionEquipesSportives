@@ -1,6 +1,7 @@
 ﻿using GES_Services.Entites;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace GES_DAL.DTOs
 {
     public class EvenementDTO
     {
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
         public string Description { get; set; }
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
@@ -33,7 +34,9 @@ namespace GES_DAL.DTOs
 
         public Evenement VersEntite()
         {
-            return new Evenement(Description, TypeEvenement, DateDebut, DateFin);
+            return new Evenement(Id, Description, DateDebut, DateFin, 
+                DateCreation, DateModification, TypeEvenement, Etat);
+
         }
     }
 }

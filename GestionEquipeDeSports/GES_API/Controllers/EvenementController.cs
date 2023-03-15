@@ -2,22 +2,30 @@
 using GES_Services.Manipulations;
 using GES_API.Models;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Authorization;
+using GES_Services.Entites;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GES_API.Controllers
 {
-    [Route("api/Evenements")]
+    [Route("api/evenements")]
     [ApiController]
     public class EvenementController : ControllerBase
     {
-        
+        //List<EvenementModel> evenementModels = new List<EvenementModel>()
+        //{
+        //    new EvenementModel { Id = 1, Description = "Evenement 1", DateDebut = DateTime.Now, DateFin = DateTime.Now, DateCreation = DateTime.Now, DateModification = DateTime.Now, TypeEvenement = EnumTypeEvenement.entrainement, Etat = true },
+        //    new EvenementModel { Id = 2, Description = "Evenement 2", DateDebut = DateTime.Now, DateFin = DateTime.Now, DateCreation = DateTime.Now, DateModification = DateTime.Now, TypeEvenement = EnumTypeEvenement.partie, Etat = true }
+        //};
+
         private ManiulationDepotEvenement m_maniulationDepotEvenement;
+        
         public EvenementController(ManiulationDepotEvenement p_maniulationDepotEvenement)
         {
             this.m_maniulationDepotEvenement = p_maniulationDepotEvenement;
         }
-        // GET: api/<EvenementController>
+        // GET: api/evenements
         [HttpGet]
         [ProducesResponseType(200)]
         public ActionResult<IEnumerable<EvenementModel>> Get()

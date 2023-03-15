@@ -23,7 +23,7 @@ namespace GES_DAL.Depots
 
             this.m_context = context;
         }
-
+        
     
         public Evenement ChercherEvenementParId(int id)
         {
@@ -61,12 +61,8 @@ namespace GES_DAL.Depots
 
         public IEnumerable<Evenement> ListerEvenements()
         {
-            IEnumerable<srvm.Evenement> listEvenements =
-                from Evenement in m_context.Evenements
-                where Evenement.Etat
-                select Evenement.VersEntite();
-
-            return listEvenements;
+            //retourne la liste des evenements dans la BD
+            return m_context.Evenements.Select(e => e.VersEntite());
         }
 
         public void ModifierEvenement(Evenement evenement)

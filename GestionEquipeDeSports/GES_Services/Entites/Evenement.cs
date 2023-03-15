@@ -49,5 +49,17 @@ namespace GES_Services.Entites
 
             Etat = true;
         }
+
+        public Evenement(int id, string description, DateTime dateDebut, DateTime dateFin, DateTime dateCreation, DateTime dateModification, EnumTypeEvenement typeEvenement, bool etat)
+        {
+            Id = id;
+            Description = description;
+            DateDebut = dateDebut;
+            DateFin = dateFin;
+            DateCreation = dateCreation;
+            DateModification = dateModification;
+            TypeEvenement = typeEvenement;
+            Etat = etat;
+        }
     }
 }
