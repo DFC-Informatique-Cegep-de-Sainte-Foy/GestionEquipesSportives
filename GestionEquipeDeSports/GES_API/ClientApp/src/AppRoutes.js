@@ -4,7 +4,7 @@ import { Evenements } from "./components/Evenements";
 import { Connexion } from "./components/Connexion";
 import { FormEvenement } from "./components/FormulaireEvenement";
 import { FormEquipe } from "./components/FormulaireEquipe";
-import { Entraineur } from "./components/Entraineur";
+import { Entraineurs } from "./components/Entraineurs";
 import { FormEntraineur } from "./components/FormulaireEntraineur";
 
 const AppRoutes = [
@@ -29,11 +29,11 @@ const AppRoutes = [
     element: <FormEquipe />
   },
   {
-    path: '/entraineur',
-    element: <Entraineur />
+    path: '/entraineurs',
+    element: <Entraineurs />
   },
   {
-    path: '/formulaireEntraimeur',
+    path: '/formulaireEntraineur',
     element: <FormEntraineur />
   },
   {
