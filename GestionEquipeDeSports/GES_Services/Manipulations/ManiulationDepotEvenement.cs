@@ -16,6 +16,7 @@ namespace GES_Services.Manipulations
         {
             _depotEvenement = depotEvenement;
         }
+        
         public IEnumerable<Evenement> ListerEvenements()
         {
             return _depotEvenement.ListerEvenements();

@@ -11,6 +11,7 @@ namespace GES_Services.Manipulations
     public class ManipulationDepotEquipe
     {
         private IDepotEquipe m_depotEquipe;
+        
         public ManipulationDepotEquipe(IDepotEquipe p_depotEquipe)
         {
             this.m_depotEquipe = p_depotEquipe;
@@ -28,6 +29,7 @@ namespace GES_Services.Manipulations
             }
             return this.m_depotEquipe.ChercherEquipeParId(p_id);
         }
+        
         public void AjouterEquipe(Equipe p_equipe)
         {
             if(p_equipe == null)
@@ -36,6 +38,7 @@ namespace GES_Services.Manipulations
             }
             this.m_depotEquipe.AjouterEquipe(p_equipe);
         }
+        
         public void ModifierEquipe(Equipe p_equipe)
         {
             if (p_equipe == null)
@@ -44,6 +47,7 @@ namespace GES_Services.Manipulations
             }
             this.m_depotEquipe.ModifierEquipe(p_equipe);
         }
+        
         public void SupprimerEquipe(Equipe p_equipe)
         {
             if (p_equipe == null)

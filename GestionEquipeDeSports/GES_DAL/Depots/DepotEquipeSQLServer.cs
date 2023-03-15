@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GES_DAL.Depots
 {
-    class DepotEquipeSQLServer : IDepotEquipe
+    public class DepotEquipeSQLServer : IDepotEquipe
     {
         public GestionEquipeContextSQLServer m_context;
 
