@@ -23,18 +23,19 @@ namespace GES_Services.Entites
             Evenements = new List<Evenement>();            
         }
 
-        public Equipe(string p_nom, string p_description, DateTime p_dateCreation, DateTime p_dateModification)
+        public Equipe(int p_id, string p_nom, string p_description, DateTime p_dateCreation, DateTime p_dateModification)
         {
             if (string.IsNullOrWhiteSpace(p_nom))
             {
-                throw new ArgumentNullException("Le nom ne peut pas être vide.");
+                throw new ArgumentNullException("Le paramètre p_nom ne peut pas être null.", nameof(p_nom));
             }
 
             if (string.IsNullOrWhiteSpace(p_description))
             {
-                throw new ArgumentNullException("La description ne peut être vide.");
+                throw new ArgumentNullException("La description ne peut être vide.", nameof(p_description));
             }
 
+            this.Id = p_id;
             this.Nom = p_nom;
             this.Description = p_description;
             this.DateCreation = p_dateCreation;
