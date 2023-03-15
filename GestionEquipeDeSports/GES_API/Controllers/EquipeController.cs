@@ -95,15 +95,5 @@ namespace GES_API.Controllers
 
             return NoContent();
         }
-
-
-
-
-
-
-
-
-
-
     }
 }
