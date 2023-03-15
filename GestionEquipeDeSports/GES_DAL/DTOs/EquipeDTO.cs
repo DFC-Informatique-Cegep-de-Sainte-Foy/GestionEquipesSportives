@@ -1,8 +1,8 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;*/
+using System.Threading.Tasks;
 using GES_Services.Entites;
 
 namespace GES_DAL.DTOs
@@ -33,6 +33,7 @@ namespace GES_DAL.DTOs
         public Equipe VersEntite()
         {
             Equipe equipe = new Equipe(
+                this.Id,
                 this.Nom,
                 this.Description,
                 this.DateCreation,
