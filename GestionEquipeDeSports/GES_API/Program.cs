@@ -26,8 +26,6 @@ builder.Services.AddScoped<ManipulationDepotEquipe>();
 //Dependance entre l'interface Evenement et le DepotEvenementSQLServer
 builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
 
-builder.Services.AddScoped<IDepotEquipe, DepotEquipeSQLServer>();
-
 //Dependance entre l'interface Equipe et le DepotEquipeSQLServer
 builder.Services.AddScoped<IDepotEquipe, DepotEquipeSQLServer>();
 
