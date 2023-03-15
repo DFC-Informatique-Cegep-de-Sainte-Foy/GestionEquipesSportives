@@ -34,6 +34,7 @@ namespace GES_DAL.DTOs
         public Equipe VersEntite()
         {
             Equipe equipe = new Equipe(
+                this.Id,
                 this.Nom,
                 this.Description,
                 this.DateCreation,

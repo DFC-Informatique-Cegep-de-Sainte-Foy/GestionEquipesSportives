@@ -20,8 +20,14 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //Manipulation du depot Evenement
 builder.Services.AddScoped<ManiulationDepotEvenement>();
 
+//Manipulation du depot Equipe
+builder.Services.AddScoped<ManipulationDepotEquipe>();
+
 //Dependance entre l'interface Evenement et le DepotEvenementSQLServer
 builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
+
+//Dependance entre l'interface Equipe et le DepotEquipeSQLServer
+builder.Services.AddScoped<IDepotEquipe, DepotEquipeSQLServer>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<GES_DAL.GestionEquipeContextSQLServer>();
@@ -39,9 +45,18 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
+
+//app.UseOpenApi();
+//app.UseSwaggerUi3();// /swagger
 
 app.MapRazorPages();
 

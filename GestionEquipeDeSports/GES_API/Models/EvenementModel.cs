@@ -36,10 +36,14 @@ namespace GES_API.Models
         public srvm.Evenement VersEntite()
         {
             return new srvm.Evenement(
-                this.Description,
-                this.TypeEvenement,
-                this.DateDebut,
-                this.DateFin
+                    this.Id,
+                    this.Description,
+                    this.DateDebut,
+                    this.DateFin,
+                    this.DateCreation,
+                    this.DateModification,
+                    this.TypeEvenement,
+                    this.Etat
                 );
         }
     }

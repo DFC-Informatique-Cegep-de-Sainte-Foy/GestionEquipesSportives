@@ -11,8 +11,8 @@ namespace GES_Services.Interfaces
     {
         public IEnumerable<Equipe> ListerEquipes();
         public Equipe ChercherEquipeParId(int id);
-        public void AjouterEquipe(Equipe equipe);
-        public void ModifierEquipe(Equipe equipe);
-        public void SupprimerEquipe(Equipe equipe);
+        public void AjouterEquipe(Equipe p_equipe);
+        public void ModifierEquipe(Equipe p_equipe);
+        public void SupprimerEquipe(Equipe p_equipe);
     }
 }

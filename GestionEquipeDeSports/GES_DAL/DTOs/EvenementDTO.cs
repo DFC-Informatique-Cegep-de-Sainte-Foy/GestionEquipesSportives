@@ -34,7 +34,9 @@ namespace GES_DAL.DTOs
 
         public Evenement VersEntite()
         {
-            return new Evenement(Description, TypeEvenement, DateDebut, DateFin);
+            return new Evenement(Id, Description, DateDebut, DateFin, 
+                DateCreation, DateModification, TypeEvenement, Etat);
+
         }
     }
 }
