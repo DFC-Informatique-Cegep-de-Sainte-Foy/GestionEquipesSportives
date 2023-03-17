@@ -29,7 +29,7 @@ namespace GES_DAL.DTOs
         {
             Id = evenement.Id;
             Description = evenement.Description;
-            Emplacement= evenement.Emplacement;
+            Emplacement = evenement.Emplacement;
             DateDebut = evenement.DateDebut;
             DateFin = evenement.DateFin;
             DateCreation = evenement.DateCreation;
@@ -42,7 +42,6 @@ namespace GES_DAL.DTOs
         {
             return new Evenement(Id, Description, Emplacement, DateDebut, DateFin, 
                 DateCreation, DateModification, TypeEvenement, Etat);
-
         }
     }
 }

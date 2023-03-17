@@ -44,15 +44,16 @@ Sport VARCHAR(30),
 AssociationSportive VARCHAR(100)
 );
 
-CREATE TABLE Evenement(
-IdEvenement INT IDENTITY PRIMARY KEY,
+CREATE TABLE Evenements(
+Id INT IDENTITY PRIMARY KEY,
 Description VARCHAR(350) NOT NULL,
 Emplacement VARCHAR(200) NOT NULL,
 DateDebut DATETIME2,
 DateFin DATETIME2,
 DateCreation DATETIME2,
+DateModification DATETIME2,
 TypeEvenement INT FOREIGN KEY REFERENCES dbo.TypeEvenement (IdTypeEvenement),
-FK_Id_Etat INT FOREIGN KEY REFERENCES dbo.Etat (IdEtat)
+Etat INT FOREIGN KEY REFERENCES dbo.Etat (IdEtat)
 );
 
 CREATE TABLE ConnJoueurEquipe(
@@ -63,5 +64,6 @@ FK_Id_Roles INT FOREIGN KEY REFERENCES dbo.Roles (IdRoles),
 
 CREATE TABLE ConnEquipeEvenement(
 FK_Id_Equipe INT FOREIGN KEY REFERENCES dbo.Equipe (IdEquipe),
-FK_Id_Evenement INT FOREIGN KEY REFERENCES dbo.Evenement (IdEvenement)
+FK_Id_Evenement INT FOREIGN KEY REFERENCES dbo.Evenement (Id)
 );
+
