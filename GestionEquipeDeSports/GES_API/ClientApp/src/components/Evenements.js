@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
+import { BiTrash, BiEdit } from "react-icons/bi";
 
 export class Evenements extends React.Component {
     constructor(props) {
@@ -19,7 +20,15 @@ export class Evenements extends React.Component {
                 evenements: result
             });
         });
-    }    
+    }
+    
+    formatDateTime(donnees){
+        var dateTimeEntree = donnees;
+        var date = dateTimeEntree.split('T')[0];
+        var time = dateTimeEntree.split('T')[1].split(':');
+        var dateTimeSortie = date + ' ' + time[0] + ':' + time[1];
+        return dateTimeSortie;
+    }
 
     render() {
         return (
@@ -48,12 +57,20 @@ export class Evenements extends React.Component {
                                         <td>{ev.id}</td>
                                         <td>{ev.description}</td>
                                         <td>{ev.emplacement}</td>
-                                        <td>{ev.dateDebut}</td>
-                                        <td>{ev.dateFin}</td>
-                                        <td>{ev.dateCreation}</td>
-                                        <td>{ev.dateModification}</td>
+                                        <td>{this.formatDateTime(ev.dateDebut)}</td>
+                                        <td>{this.formatDateTime(ev.dateFin)}</td>
+                                        <td>{this.formatDateTime(ev.dateCreation)}</td>
+                                        <td>{this.formatDateTime(ev.dateModification)}</td>
                                         <td>{ev.typeEvenement}</td>
                                         <td>{ev.etat}</td>
+                                        <td>
+                                            <Link >
+                                                <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>
+                                            </Link>
+                                            <Link >
+                                                <Button variant='danger' size="sm" title="Supprimer"> <BiTrash /> </Button>
+                                            </Link>
+                                        </td>
                                     </tr>
                             ))
                         }

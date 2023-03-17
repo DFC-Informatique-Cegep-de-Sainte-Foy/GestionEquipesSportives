@@ -2,7 +2,7 @@
   "name": "gestionequipedesports",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://localhost:7225/", 
+  "proxy": "https://localhost:7225/",
   "dependencies": {
     "bootstrap": "^5.2.3",
     "http-proxy-middleware": "^2.0.6",
@@ -12,6 +12,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "react-router-bootstrap": "^0.26.1",
     "react-router-dom": "^6.8.2",
     "react-router-native": "^6.8.2",
