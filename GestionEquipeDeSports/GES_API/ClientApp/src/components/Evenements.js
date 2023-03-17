@@ -12,7 +12,7 @@ export class Evenements extends React.Component {
     }
 
     componentDidMount(){
-        fetch("https://localhost:7225/api/evenements")
+        fetch("api/evenements")
         .then(res => res.json())
         .then((result) => {
             this.setState({
