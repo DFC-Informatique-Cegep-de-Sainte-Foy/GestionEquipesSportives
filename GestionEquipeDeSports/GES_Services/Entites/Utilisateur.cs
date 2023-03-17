@@ -22,6 +22,11 @@ namespace GES_Services.Entites
 
         private List<string> roles = new List<string>();
 
+        public Utilisateur()
+        {
+            ;
+        }
+
         public Utilisateur(string nom, string prenom, string email, DateTime dateCreation, DateTime dateModification, bool estEntraineur, bool estTuteur, bool estAthlete)
         {
             if (nom.Trim().Length == 0 || nom == null)

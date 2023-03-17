@@ -19,6 +19,12 @@ namespace GES_DAL.DTOs
         public List<Utilisateur> Membres { get; set; }
         public List<Evenement> Evenements { get; set; }
 
+
+        public EquipeDTO()
+        {
+            ;
+        }
+
         public EquipeDTO(Equipe p_equipe)
         {
             this.Id = p_equipe.Id;

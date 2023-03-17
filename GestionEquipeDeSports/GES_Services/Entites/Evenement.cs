@@ -15,7 +15,7 @@ namespace GES_Services.Entites
         public DateTime DateCreation { get; private set; }
         public DateTime DateModification { get; private set; }
         public EnumTypeEvenement TypeEvenement { get; private set; }
-        public bool Etat { get; private set; }
+        public int Etat { get; private set; }
 
 
         public Evenement(string description, EnumTypeEvenement typeEvenement, DateTime dateDebut, DateTime dateFin)
@@ -47,10 +47,10 @@ namespace GES_Services.Entites
             DateCreation = DateTime.Now;
             DateModification = DateTime.Now;
 
-            Etat = true;
+            Etat = 1;
         }
 
-        public Evenement(int id, string description, DateTime dateDebut, DateTime dateFin, DateTime dateCreation, DateTime dateModification, EnumTypeEvenement typeEvenement, bool etat)
+        public Evenement(int id, string description, DateTime dateDebut, DateTime dateFin, DateTime dateCreation, DateTime dateModification, EnumTypeEvenement typeEvenement, int etat)
         {
             Id = id;
             Description = description;
