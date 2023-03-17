@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export class FormEntraineur extends Component{
     constructor(props){
@@ -34,7 +35,15 @@ export class FormEntraineur extends Component{
         console.log(this.state.prenom_entraineur);
         console.log(this.state.age_entraineur);
         console.log(this.state.email);
+        console.log(this.telephone);
         console.log('ajout un entraineur');
+        this.setState({
+            nom_entraineur: '',
+            prenom_entraineur: '',
+            age_entraineur: '',
+            email: '',
+            telephone: ''
+        })
     }
 
     render(){
@@ -43,7 +52,7 @@ export class FormEntraineur extends Component{
                 <h2>Créer un entraineur</h2>                
                 <Form onSubmit={this.ajouterEntraineur}>
                     <Row className="mb-3">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} sm={6}>
                             <Form.Label>Nom</Form.Label>
                             <Form.Control
                                 type="text"
@@ -51,7 +60,7 @@ export class FormEntraineur extends Component{
                                 value={this.state.nom_entraineur} 
                                 onChange={this.handleInputChangee} />                            
                         </Form.Group>
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} sm={6}>
                             <Form.Label>Prénom</Form.Label>
                             <Form.Control
                                 type="text"
@@ -62,15 +71,18 @@ export class FormEntraineur extends Component{
                     </Row>
 
                     <Row className="mb-3">
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} sm={6}>
                             <Form.Label>Age</Form.Label>
                             <Form.Control
                                 type="number"
                                 name="age_entraineur"
+                                min="5"
+                                max="100"
+                                step="1"
                                 value={this.state.age_entraineur}
                                 onChange={this.handleInputChangee} />
                         </Form.Group>
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} sm={6}>
                             <Form.Label>Courriel</Form.Label>
                             <Form.Control
                                 type="email"
@@ -90,6 +102,9 @@ export class FormEntraineur extends Component{
                     </Form.Group>
 
                     <Button variant="success" className="mb-3" type="submit">Ajouter</Button>
+                    <Link to={'/entraineurs'}>
+                        <Button variant="secondary" className="float-end">Retour à la page des entraîneurs</Button>
+                    </Link>
                 </Form>
             </div>
         );

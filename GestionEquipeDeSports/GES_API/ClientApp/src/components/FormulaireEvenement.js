@@ -8,6 +8,7 @@ export class FormEvenement extends React.Component{
         this.state = {
             nom_sport: '',
             nom_evenement: '',
+            emplacement: '',
             date_debut: '',
             date_fin: '',
             form_valide: false,
@@ -32,14 +33,18 @@ export class FormEvenement extends React.Component{
     ajouterEvenement(e){
         e.preventDefault();
         if(this.validationFormulaire()){
-            console.log(this.state.nom_sport);
-            console.log(this.state.nom_evenement);
-            console.log(this.state.date_debut);
-            console.log(this.state.date_fin);
+            let evenement = {
+                description: this.state.nom_evenement,
+                emplacement: this.state.emplacement,
+                dateDebut: this.state.date_debut,
+                dateFin: this.state.date_fin
+            };
+            console.log(evenement);
             console.log('validation a reussi');
             this.setState({
                 nom_sport: '',
                 nom_evenement: '',
+                emplacement: '',
                 date_debut: '',
                 date_fin: ''
             });
@@ -49,7 +54,7 @@ export class FormEvenement extends React.Component{
     }
 
     validationFormulaire(){
-        const {nom_sport, nom_evenement, date_debut, date_fin} = this.state;
+        const {nom_sport, nom_evenement, emplacement, date_debut, date_fin} = this.state;
         let erreurFormulaire = {};
         let formulaireEstValide = true;
 
@@ -61,6 +66,14 @@ export class FormEvenement extends React.Component{
         if(!nom_evenement){
             formulaireEstValide = false;
             erreurFormulaire["nomEvenementErreur"] = "Veillez entrer un nom d'evenement";
+        }
+
+        if(!emplacement){
+            formulaireEstValide = false;
+            erreurFormulaire["emplacementErreur"] = "Veillez entrer un emplacement";
+        } else if(emplacement.length < 2){
+            formulaireEstValide = false;
+            erreurFormulaire["emplacementErreur"] = "Veuillez entrer plus de 2 caractères";
         }
 
         if(!date_debut){
@@ -78,7 +91,7 @@ export class FormEvenement extends React.Component{
     }
 
     render(){
-        const{nomSportErreur, nomEvenementErreur, dateDebutErreur, dateFinErreur} = this.state.estErreur;
+        const{nomSportErreur, nomEvenementErreur, emplacementErreur, dateDebutErreur, dateFinErreur} = this.state.estErreur;
         return(
             <>
                 <h2>Ajouter un evenement</h2>
@@ -108,6 +121,17 @@ export class FormEvenement extends React.Component{
                             className={nomEvenementErreur ? "is-invalid form-control" : "form-control"}
                             onChange={this.handleInputChangee}  />
                             {nomEvenementErreur && <div style={{color: "red"}}>{nomEvenementErreur}</div>}
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Emplacement</Form.Label>
+                        <Form.Control 
+                            type="text"
+                            name="emplacement"
+                            value={this.state.emplacement}
+                            className={emplacementErreur ? "is-invalid form-control" : "form-control"}
+                            onChange={this.handleInputChangee}  />
+                            {emplacementErreur && <div style={{color: "red"}}>{emplacementErreur}</div>}
                     </Form.Group>
 
                     <Form.Group className="mb-3">
