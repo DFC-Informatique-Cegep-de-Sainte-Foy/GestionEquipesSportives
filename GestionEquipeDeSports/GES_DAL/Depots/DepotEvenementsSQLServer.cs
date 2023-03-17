@@ -95,7 +95,7 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'evenement avec le id {evenement.Id} n'existe pas");
             }
 
-            evenementDTO.Etat = false;
+            evenementDTO.Etat = 0;
             m_context.Evenements.Update(evenementDTO);
             m_context.SaveChanges();
         }       

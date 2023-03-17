@@ -14,7 +14,7 @@ namespace GES_API.Models
         public DateTime DateCreation { get; set; }
         public DateTime DateModification { get; set; }
         public EnumTypeEvenement TypeEvenement { get; set; }
-        public bool Etat { get; set; }
+        public int Etat { get; set; }
 
         public EvenementModel()
         {
