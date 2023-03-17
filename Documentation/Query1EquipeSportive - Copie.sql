@@ -73,9 +73,8 @@ INSERT INTO TypeEvenement(IdTypeEvenement,Description) VALUES(2,'Partie');
 INSERT INTO TypeEvenement(IdTypeEvenement,Description) VALUES(3,'Autre');
  
 
-INSERT INTO Etat(IdEtat,Description) VALUES(1,'Actif');
-INSERT INTO Etat(IdEtat,Description) VALUES(2,'Inactif');
-INSERT INTO Etat(IdEtat,Description) VALUES(3,'Actif');
+INSERT INTO Etat(IdEtat,Description) VALUES(0,'Actif');
+INSERT INTO Etat(IdEtat,Description) VALUES(1,'Inactif');
  
 
 INSERT INTO Evenements(Description, Emplacement, DateDebut, DateFin,DateCreation, DateModification,TypeEvenement,Etat)

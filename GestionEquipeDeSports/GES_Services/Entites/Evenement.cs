@@ -18,12 +18,8 @@ namespace GES_Services.Entites
         public EnumTypeEvenement TypeEvenement { get; private set; }
         public int Etat { get; private set; }
 
-
         public Evenement(string description, EnumTypeEvenement typeEvenement, DateTime dateDebut, DateTime dateFin)
         {
-            // random id for now
-            Id = new Random().Next(1, 1000);
-
             if (String.IsNullOrEmpty(description) || description.Trim().Length == 0)
             {
                 throw new ArgumentException("La description ne peut pas être vide", nameof(description));
@@ -73,12 +69,15 @@ namespace GES_Services.Entites
             }
 
             Id = p_id;
+
             Description = p_description;
             Emplacement = p_emplacement;
+
             DateDebut = p_dateDebut;
             DateFin = p_dateFin;
             DateCreation = p_dateCreation;
             DateModification = p_dateModification;
+
             TypeEvenement = p_typeEvenement;
             Etat = p_etat;
         }

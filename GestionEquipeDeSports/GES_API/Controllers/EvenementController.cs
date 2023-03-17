@@ -13,11 +13,6 @@ namespace GES_API.Controllers
     [ApiController]
     public class EvenementController : ControllerBase
     {
-        //List<EvenementModel> evenementModels = new List<EvenementModel>()
-        //{
-        //    new EvenementModel { Id = 1, Description = "Evenement 1", DateDebut = DateTime.Now, DateFin = DateTime.Now, DateCreation = DateTime.Now, DateModification = DateTime.Now, TypeEvenement = EnumTypeEvenement.entrainement, Etat = true },
-        //    new EvenementModel { Id = 2, Description = "Evenement 2", DateDebut = DateTime.Now, DateFin = DateTime.Now, DateCreation = DateTime.Now, DateModification = DateTime.Now, TypeEvenement = EnumTypeEvenement.partie, Etat = true }
-        //};
 
         private ManiulationDepotEvenement m_maniulationDepotEvenement;
         
@@ -25,6 +20,7 @@ namespace GES_API.Controllers
         {
             this.m_maniulationDepotEvenement = p_maniulationDepotEvenement;
         }
+
         // GET: api/evenements
         [HttpGet]
         [ProducesResponseType(200)]
