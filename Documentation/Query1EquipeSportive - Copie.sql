@@ -3,20 +3,22 @@ USE Equipe_sportive;
 
 GO
 CREATE TABLE Roles(
-Id TINYINT PRIMARY KEY,
-Description VARCHAR(20)
-);
-CREATE TABLE Etat(
-Id TINYINT PRIMARY KEY,
-Description VARCHAR(20)
-);
-CREATE TABLE TypeEvenement(
-Id TINYINT PRIMARY KEY,
+IdRoles TINYINT PRIMARY KEY,
 Description VARCHAR(20)
 );
 
-CREATE TABLE Utilisateurs(
-Id INT IDENTITY PRIMARY KEY,
+CREATE TABLE Etat(
+IdEtat TINYINT PRIMARY KEY,
+Description VARCHAR(20)
+);
+
+CREATE TABLE TypeEvenement(
+IdTypeEvenement TINYINT PRIMARY KEY,
+Description VARCHAR(20)
+);
+
+CREATE TABLE Utilisateur(
+IdUtilisateur INT IDENTITY PRIMARY KEY,
 Nom VARCHAR(30),
 Prenom VARCHAR(30),
 Email VARCHAR(100),
@@ -28,40 +30,40 @@ EstAthlete BIT,
 EstTuteur BIT,
 EstEntraineur BIT,
 EstAdmin Bit,
-Etat TINYINT FOREIGN KEY REFERENCES dbo.Etat (Id)
+FK_Id_Etat TINYINT FOREIGN KEY REFERENCES dbo.Etat (IdEtat)
 );
 
-CREATE TABLE Equipes(
-Id INT IDENTITY PRIMARY KEY,
+CREATE TABLE Equipe(
+IdEquipe INT IDENTITY PRIMARY KEY,
 Nom VARCHAR(50),
 Region VARCHAR(30),
-Etat TINYINT FOREIGN KEY REFERENCES dbo.Etat (Id),
+Etat TINYINT FOREIGN KEY REFERENCES dbo.Etat (IdEtat),
 DateCreation DATETIME2,
 DateModification DATETIME2,
 Sport VARCHAR(30),
 AssociationSportive VARCHAR(100)
 );
 
-CREATE TABLE Evenements(
-Id INT IDENTITY PRIMARY KEY,
+CREATE TABLE Evenement(
+IdEvenement INT IDENTITY PRIMARY KEY,
 Description VARCHAR(350) NOT NULL,
 Emplacement VARCHAR(200) NOT NULL,
 DateDebut DATETIME2,
 DateFin DATETIME2,
 DateCreation DATETIME2,
 DateModification DATETIME2,
-Type TINYINT FOREIGN KEY REFERENCES dbo.TypeEvenement (Id),
-Etat TINYINT FOREIGN KEY REFERENCES dbo.Etat (Id)
+FK_Id_TypeEvenement TINYINT FOREIGN KEY REFERENCES dbo.TypeEvenement (IdTypeEvenement),
+FK_Id_Etat TINYINT FOREIGN KEY REFERENCES dbo.Etat (IdEtat)
 );
 
 
 CREATE TABLE ConnJoueurEquipe(
-Id INT FOREIGN KEY REFERENCES dbo.Utilisateur (Id),
-Id INT FOREIGN KEY REFERENCES dbo.Equipe (Id),
-Roles TINYINT FOREIGN KEY REFERENCES dbo.Roles (Id),
+Id INT FOREIGN KEY REFERENCES dbo.Utilisateur (IdUtilisateur),
+FK_Id_Equipe INT FOREIGN KEY REFERENCES dbo.Equipe (IdEquipe),
+FK_Id_Roles TINYINT FOREIGN KEY REFERENCES dbo.Roles (IdRoles),
 );
 
 CREATE TABLE ConnEquipeEvenement(
-Id INT FOREIGN KEY REFERENCES dbo.Equipe (Id),
-Id INT FOREIGN KEY REFERENCES dbo.Evenement (Id)
+FK_Id_Equipe INT FOREIGN KEY REFERENCES dbo.Equipe (IdEquipe),
+FK_Id_Evenement INT FOREIGN KEY REFERENCES dbo.Evenement (IdEvenement)
 );
