@@ -51,11 +51,9 @@ Emplacement VARCHAR(200) NOT NULL,
 DateDebut DATETIME2,
 DateFin DATETIME2,
 DateCreation DATETIME2,
-DateModification DATETIME2,
-FK_Id_TypeEvenement TINYINT FOREIGN KEY REFERENCES dbo.TypeEvenement (IdTypeEvenement),
+TypeEvenement TINYINT FOREIGN KEY REFERENCES dbo.TypeEvenement (IdTypeEvenement),
 FK_Id_Etat TINYINT FOREIGN KEY REFERENCES dbo.Etat (IdEtat)
 );
-
 
 CREATE TABLE ConnJoueurEquipe(
 Id INT FOREIGN KEY REFERENCES dbo.Utilisateur (IdUtilisateur),
