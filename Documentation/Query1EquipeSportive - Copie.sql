@@ -64,6 +64,29 @@ FK_Id_Roles INT FOREIGN KEY REFERENCES dbo.Roles (IdRoles),
 
 CREATE TABLE ConnEquipeEvenement(
 FK_Id_Equipe INT FOREIGN KEY REFERENCES dbo.Equipe (IdEquipe),
-FK_Id_Evenement INT FOREIGN KEY REFERENCES dbo.Evenement (Id)
+FK_Id_Evenement INT FOREIGN KEY REFERENCES dbo.Evenements (Id)
 );
 
+
+INSERT INTO TypeEvenement(IdTypeEvenement,Description) VALUES(1,'Entrainement');
+INSERT INTO TypeEvenement(IdTypeEvenement,Description) VALUES(2,'Partie');
+INSERT INTO TypeEvenement(IdTypeEvenement,Description) VALUES(3,'Autre');
+ 
+
+INSERT INTO Etat(IdEtat,Description) VALUES(1,'Actif');
+INSERT INTO Etat(IdEtat,Description) VALUES(2,'Inactif');
+INSERT INTO Etat(IdEtat,Description) VALUES(3,'Actif');
+ 
+
+INSERT INTO Evenements(Description, Emplacement, DateDebut, DateFin,DateCreation, DateModification,TypeEvenement,Etat)
+    VALUES ('Match de foot', 'Sainte-foy', '2023-03-15','2023-03-17','2023-03-12','2023-03-15',1,1);
+
+ 
+
+INSERT INTO Evenements(Description, Emplacement, DateDebut, DateFin,DateCreation, DateModification,TypeEvenement,Etat)
+    VALUES ('Partie de soccer', 'Sagenay', '2023-03-15','2023-03-17','2023-03-12','2023-03-15',2,2);
+
+ 
+
+INSERT INTO Evenements(Description, Emplacement, DateDebut, DateFin,DateCreation, DateModification,TypeEvenement,Etat)
+    VALUES ('Match de basketball', 'Yaoundé', '2023-03-20','2023-03-23','2023-03-15','2023-03-15',3,3);
