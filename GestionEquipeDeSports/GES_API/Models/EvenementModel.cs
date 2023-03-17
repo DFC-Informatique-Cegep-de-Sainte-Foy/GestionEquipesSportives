@@ -6,7 +6,6 @@ namespace GES_API.Models
 {
     public class EvenementModel
     {
-
         public int Id { get; set; }
         public string Description { get; set; }
         public string Emplacement { get; set; }
