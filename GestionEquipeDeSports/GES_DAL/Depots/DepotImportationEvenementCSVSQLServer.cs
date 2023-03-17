@@ -1,7 +1,9 @@
-﻿using GES_Services.Entites;
+﻿using GES_DAL.DTOs;
+using GES_Services.Entites;
 using GES_Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +16,9 @@ namespace GES_DAL.Depots
 
         private readonly string separateurChamps = "\",\"";
 
-        private string m_nomFichierAImporter;
+        private static string m_nomFichierAImporter;
+
+        private string m_lien = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, m_nomFichierAImporter);
 
         public DepotImportationEvenementCSVSQLServer(GestionEquipeContextSQLServer context )
         {
@@ -24,26 +28,53 @@ namespace GES_DAL.Depots
 
         public void AjouterEvenements(List<Evenement> p_evenements)
         {
-            throw new NotImplementedException();
+            foreach (Evenement item in p_evenements)
+            {
+                if (m_context.Evenements.Any(e => e.Id == item.Id))
+                {
+                    throw new InvalidOperationException($"l'evenement avec le id {item.Id} existe deja");
+                }
+
+                m_context.Evenements.Add(new EvenementDTO(item));
+                m_context.SaveChanges();
+            }
+            File.Delete(m_nomFichierAImporter);
+        }
+        public bool EstPresentFichier(string p_nomFichierAImporter)
+        {
+            m_nomFichierAImporter = p_nomFichierAImporter;
+            bool present = false;
+            if (string.IsNullOrWhiteSpace(m_lien))
+            {
+                throw new ArgumentOutOfRangeException(nameof(m_lien));
+            }
+
+            if (!File.Exists(m_lien))
+            {
+                throw new InvalidOperationException($"Impossible de trouver le fichier {m_lien}");
+            }
+            present = true;
+            return present;
+
         }
 
         public IEnumerable<Evenement> LireEvenements(string p_nomFichierAImporter)
         {
+            m_nomFichierAImporter = p_nomFichierAImporter;
             if (string.IsNullOrWhiteSpace(p_nomFichierAImporter))
             {
                 throw new ArgumentOutOfRangeException(nameof(p_nomFichierAImporter));
             }
 
-            if (!File.Exists(p_nomFichierAImporter))
+            if (!File.Exists(m_lien))
             {
-                throw new InvalidOperationException($"Impossible de trouver le fichier {p_nomFichierAImporter}");
+                throw new InvalidOperationException($"Impossible de trouver le fichier {m_lien}");
             }
 
-            this.m_nomFichierAImporter = p_nomFichierAImporter;
-
+            
             List<Evenement> evenements = new List<Evenement>(); 
 
-            using (StreamReader sr = File.OpenText(m_nomFichierAImporter))
+            using (StreamReader sr = File.OpenText(m_lien))
             {
                 string ligneCourante;
                 int numLigneCourante = 0;
@@ -83,7 +114,7 @@ namespace GES_DAL.Depots
                     catch (Exception ex)
                     {
 
-                        throw new InvalidDataException($"Le fichier {this.m_nomFichierAImporter} n'est pas au bon format à la ligne {numLigneCourante}", ex);
+                        throw new InvalidDataException($"Le fichier {m_lien} n'est pas au bon format à la ligne {numLigneCourante}", ex);
 
                     }
                 }

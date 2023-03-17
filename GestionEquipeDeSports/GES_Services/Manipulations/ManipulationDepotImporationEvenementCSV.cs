@@ -23,6 +23,14 @@ namespace GES_Services.Manipulations
             }
             _DeportImportaionEvenementCSV.AjouterEvenements(p_evenements);
         }
+        public bool EstPresentFichier(string p_nomFichierAImporter)
+        {
+            if (string.IsNullOrWhiteSpace(p_nomFichier.Trim())) ;
+            {
+                throw new ArgumentNullException("Il doit y avoir un nom de fichier");
+            }
+            return _DeportImportaionEvenementCSV.EstPresentFichier(p_nomFichierAImporter);
+        }
         public IEnumerable<Evenement> LireEvenements(string p_nomFichier)
         {
             if (string.IsNullOrWhiteSpace(p_nomFichier.Trim()));

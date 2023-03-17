@@ -21,12 +21,20 @@ namespace GES_API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public void Post(string p_nomFichier)
+        public ActionResult Post(string p_nomFichier)
         {
-            
+            if (string.IsNullOrWhiteSpace(p_nomFichier.Trim()))
+            {
+                return BadRequest();
+            }
+            if (!_ManipulationDepotImporationEvenementCSV.EstPresentFichier(p_nomFichier))
+            {
+                return BadRequest();
+            }
             List<Evenement> evenements = new List<Evenement>();
             evenements = (List<Evenement>)_ManipulationDepotImporationEvenementCSV.LireEvenements(p_nomFichier);
             _ManipulationDepotImporationEvenementCSV.AjouterEvenements(evenements);
+            return Ok();
         }
 
     }
