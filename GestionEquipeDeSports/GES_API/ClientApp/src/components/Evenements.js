@@ -1,5 +1,5 @@
 import React from "react";
-import Button from 'react-bootstrap/Button'
+import { Button, Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
 
 export class Evenements extends React.Component {
@@ -28,10 +28,10 @@ export class Evenements extends React.Component {
                 <Link to={'/formulaireEvenement'}>
                     <Button variant="success" className="btn btn-success" >Ajouter un évenement</Button>
                 </Link>
-                <table>
+                <Table striped bordered>
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>#</th>
                             <th>Evenement</th>
                             <th>Emplacement</th>
                             <th>Date début</th>
@@ -44,9 +44,9 @@ export class Evenements extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.evenements.map(ev => (
-                                    <tr key={ev.Id}>
-                                        <td>{ev.Id}</td>
-                                        <td>{ev.evenement}</td>
+                                    <tr key={ev.id}>
+                                        <td>{ev.id}</td>
+                                        <td>{ev.description}</td>
                                         <td>{ev.emplacement}</td>
                                         <td>{ev.dateDebut}</td>
                                         <td>{ev.dateFin}</td>
@@ -58,7 +58,7 @@ export class Evenements extends React.Component {
                             ))
                         }
                     </tbody>
-                </table>
+                </Table>
             </div>
         );
     }
