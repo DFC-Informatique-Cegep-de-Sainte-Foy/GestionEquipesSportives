@@ -23,11 +23,17 @@ builder.Services.AddScoped<ManiulationDepotEvenement>();
 //Manipulation du depot Equipe
 builder.Services.AddScoped<ManipulationDepotEquipe>();
 
+//Manipulation du depot Evenement CSV
+builder.Services.AddScoped<ManipulationDepotImporationEvenementCSV>();
+
 //Dependance entre l'interface Evenement et le DepotEvenementSQLServer
 builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
 
 //Dependance entre l'interface Equipe et le DepotEquipeSQLServer
 builder.Services.AddScoped<IDepotEquipe, DepotEquipeSQLServer>();
+
+//Dependance entre l'interface evenementCSV et le DepotImportationEvenementCSVSQLServer
+builder.Services.AddScoped<IDepotImportationEvenementCSV, DepotImportationEvenementCSVSQLServer>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<GES_DAL.GestionEquipeContextSQLServer>();

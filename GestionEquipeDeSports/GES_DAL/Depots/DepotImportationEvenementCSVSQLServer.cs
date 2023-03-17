@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GES_DAL.Depots
 {
-    internal class DepotImportationEvenementCSVSQLServer : IDepotImportationEvenementCSV
+    public class DepotImportationEvenementCSVSQLServer : IDepotImportationEvenementCSV
     {
         public GestionEquipeContextSQLServer m_context;
 
