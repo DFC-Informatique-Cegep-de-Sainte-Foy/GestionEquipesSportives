@@ -9,6 +9,7 @@ namespace GES_API.Models
 
         public int Id { get; set; }
         public string Description { get; set; }
+        public string Emplacement { get; set; }
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
         public DateTime DateCreation { get; set; }
@@ -21,10 +22,11 @@ namespace GES_API.Models
             ;
         }
 
-        public EvenementModel(srvm.Evenement p_evenementModel)
+        public EvenementModel(Evenement p_evenementModel)
         {
             this.Id = p_evenementModel.Id;
             this.Description = p_evenementModel.Description;
+            this.Emplacement = p_evenementModel.Emplacement;
             this.DateDebut = p_evenementModel.DateDebut;
             this.DateFin = p_evenementModel.DateFin;
             this.DateCreation = p_evenementModel.DateCreation;
@@ -33,11 +35,12 @@ namespace GES_API.Models
             this.Etat = p_evenementModel.Etat;
         }
 
-        public srvm.Evenement VersEntite()
+        public Evenement VersEntite()
         {
-            return new srvm.Evenement(
+            return new Evenement(
                     this.Id,
                     this.Description,
+                    this.Emplacement,
                     this.DateDebut,
                     this.DateFin,
                     this.DateCreation,

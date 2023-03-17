@@ -10,6 +10,7 @@ namespace GES_Services.Entites
     {
         public int Id { get; private set; }
         public string Description { get; private set; }
+        public string Emplacement { get; private set; }
         public DateTime DateDebut { get; private set; }
         public DateTime DateFin { get; private set; }
         public DateTime DateCreation { get; private set; }
@@ -50,10 +51,11 @@ namespace GES_Services.Entites
             Etat = 1;
         }
 
-        public Evenement(int id, string description, DateTime dateDebut, DateTime dateFin, DateTime dateCreation, DateTime dateModification, EnumTypeEvenement typeEvenement, int etat)
+        public Evenement(int id, string description, string emplacement, DateTime dateDebut, DateTime dateFin, DateTime dateCreation, DateTime dateModification, EnumTypeEvenement typeEvenement, int etat)
         {
             Id = id;
             Description = description;
+            Emplacement = emplacement;
             DateDebut = dateDebut;
             DateFin = dateFin;
             DateCreation = dateCreation;

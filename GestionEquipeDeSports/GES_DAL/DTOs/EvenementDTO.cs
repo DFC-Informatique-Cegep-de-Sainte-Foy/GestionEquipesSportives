@@ -12,6 +12,7 @@ namespace GES_DAL.DTOs
     {
         [Key] public int Id { get; set; }
         public string Description { get; set; }
+        public string Emplacement { get;  set; }
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
         public DateTime DateCreation { get; set; }
@@ -28,6 +29,7 @@ namespace GES_DAL.DTOs
         {
             Id = evenement.Id;
             Description = evenement.Description;
+            Emplacement= evenement.Emplacement;
             DateDebut = evenement.DateDebut;
             DateFin = evenement.DateFin;
             DateCreation = evenement.DateCreation;
@@ -38,7 +40,7 @@ namespace GES_DAL.DTOs
 
         public Evenement VersEntite()
         {
-            return new Evenement(Id, Description, DateDebut, DateFin, 
+            return new Evenement(Id, Description, Emplacement, DateDebut, DateFin, 
                 DateCreation, DateModification, TypeEvenement, Etat);
 
         }
