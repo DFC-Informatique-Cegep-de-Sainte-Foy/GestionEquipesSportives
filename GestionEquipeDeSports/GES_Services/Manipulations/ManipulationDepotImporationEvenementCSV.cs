@@ -25,7 +25,7 @@ namespace GES_Services.Manipulations
         }
         public bool EstPresentFichier(string p_nomFichierAImporter)
         {
-            if (string.IsNullOrWhiteSpace(p_nomFichierAImporter.Trim())) ;
+            if (string.IsNullOrWhiteSpace(p_nomFichierAImporter.Trim())) 
             {
                 throw new ArgumentNullException("Il doit y avoir un nom de fichier");
             }
@@ -33,7 +33,7 @@ namespace GES_Services.Manipulations
         }
         public IEnumerable<Evenement> LireEvenements(string p_nomFichier)
         {
-            if (string.IsNullOrWhiteSpace(p_nomFichier.Trim()));
+            if (string.IsNullOrWhiteSpace(p_nomFichier.Trim())) 
             {
                 throw new ArgumentNullException("Il doit y avoir un nom de fichier");
             }

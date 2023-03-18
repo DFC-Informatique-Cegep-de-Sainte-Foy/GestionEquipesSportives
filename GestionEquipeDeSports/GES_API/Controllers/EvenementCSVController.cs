@@ -17,22 +17,22 @@ namespace GES_API.Controllers
             _ManipulationDepotImporationEvenementCSV = manipulationDepotImporationEvenementCSV;
         }
 
-        // POST api/<EvenementCSV>
+        // POST api/csv/evenements
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public ActionResult Post(string p_nomFichier)
+        public ActionResult Post([FromBody] NomFichierModel p_nomFichier)
         {
-            if (string.IsNullOrWhiteSpace(p_nomFichier.Trim()))
+            if (string.IsNullOrWhiteSpace(p_nomFichier.nomFichier.Trim()))
             {
                 return BadRequest();
             }
-            if (!_ManipulationDepotImporationEvenementCSV.EstPresentFichier(p_nomFichier))
+            if (!_ManipulationDepotImporationEvenementCSV.EstPresentFichier(p_nomFichier.nomFichier))
             {
                 return BadRequest();
             }
             List<Evenement> evenements = new List<Evenement>();
-            evenements = (List<Evenement>)_ManipulationDepotImporationEvenementCSV.LireEvenements(p_nomFichier);
+            evenements = (List<Evenement>)_ManipulationDepotImporationEvenementCSV.LireEvenements(p_nomFichier.nomFichier);
             _ManipulationDepotImporationEvenementCSV.AjouterEvenements(evenements);
             return Ok();
         }

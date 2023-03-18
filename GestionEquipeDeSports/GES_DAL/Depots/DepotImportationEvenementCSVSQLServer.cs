@@ -16,7 +16,7 @@ namespace GES_DAL.Depots
 
         private readonly string separateurChamps = "\",\"";
 
-        private static string m_nomFichierAImporter;
+        private static string m_nomFichierAImporter = "";
 
         private string m_lien = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, m_nomFichierAImporter);
 
@@ -43,6 +43,7 @@ namespace GES_DAL.Depots
         public bool EstPresentFichier(string p_nomFichierAImporter)
         {
             m_nomFichierAImporter = p_nomFichierAImporter;
+            m_lien = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, m_nomFichierAImporter);
             bool present = false;
             if (string.IsNullOrWhiteSpace(m_lien))
             {
@@ -61,6 +62,7 @@ namespace GES_DAL.Depots
         public IEnumerable<Evenement> LireEvenements(string p_nomFichierAImporter)
         {
             m_nomFichierAImporter = p_nomFichierAImporter;
+            m_lien = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, m_nomFichierAImporter);
             if (string.IsNullOrWhiteSpace(p_nomFichierAImporter))
             {
                 throw new ArgumentOutOfRangeException(nameof(p_nomFichierAImporter));
@@ -82,41 +84,47 @@ namespace GES_DAL.Depots
                 {
                     ligneCourante = sr.ReadLine();
                     ++numLigneCourante;
-                    try
+                    if (numLigneCourante > 1)
                     {
-                        ligneCourante = ligneCourante.Substring(0,ligneCourante.Length - 1);
-                        string[] valeursColonne = ligneCourante.Split(separateurChamps);
-                        EnumTypeEvenement typeEvenement;
-                        DateTime dateDebut;
-                        DateTime dateFin;
-                        DateTime.TryParse(valeursColonne[1] +","+ valeursColonne[2], out dateDebut);
-                        DateTime.TryParse(valeursColonne[3] +","+ valeursColonne[4], out dateFin);
-                        if (valeursColonne[5] == "Partie")
+                        try
                         {
-                            typeEvenement = EnumTypeEvenement.partie;
+                            ligneCourante = ligneCourante.Substring(0, ligneCourante.Length);
+                            string[] valeursColonne = ligneCourante.Split(",");
+                            EnumTypeEvenement typeEvenement;
+                            DateTime dateDebut;
+                            DateTime dateFin;
+                            DateTime.TryParse(valeursColonne[1] + "," + valeursColonne[2], out dateDebut);
+                            DateTime.TryParse(valeursColonne[3] + "," + valeursColonne[4], out dateFin);
+                            if (valeursColonne[6] == "Partie")
+                            {
+                                typeEvenement = EnumTypeEvenement.partie;
+                            }
+                            else if (valeursColonne[6] == "Entrainement")
+                            {
+                                typeEvenement = EnumTypeEvenement.entrainement;
+                            }
+                            else
+                            {
+                                typeEvenement = EnumTypeEvenement.autre;
+                            }
+
+                            Evenement evenement = new Evenement(
+                                valeursColonne[0],
+                                valeursColonne[5],
+                                typeEvenement,
+                                dateDebut,
+                                dateFin
+                                );
+                            evenements.Add( evenement );
                         }
-                        else if(valeursColonne[5] == "Entrainement")
+                        catch (Exception ex)
                         {
-                            typeEvenement = EnumTypeEvenement.entrainement;
+
+                            throw new InvalidDataException($"Le fichier {m_lien} n'est pas au bon format à la ligne {numLigneCourante}", ex);
+
                         }
-                        else
-                        {
-                            typeEvenement = EnumTypeEvenement.autre;
-                        }
+                    }
                         
-                        Evenement evenement = new Evenement(
-                            valeursColonne[0],
-                            typeEvenement,
-                            dateDebut,
-                            dateFin
-                            );
-                    }
-                    catch (Exception ex)
-                    {
-
-                        throw new InvalidDataException($"Le fichier {m_lien} n'est pas au bon format à la ligne {numLigneCourante}", ex);
-
-                    }
                 }
                 sr.Close();
             }
