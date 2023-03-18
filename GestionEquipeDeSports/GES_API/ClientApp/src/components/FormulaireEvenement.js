@@ -1,167 +1,152 @@
-import React from "react";
-import {Form, Button} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export class FormEvenement extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            nom_sport: '',
-            nom_evenement: '',
-            emplacement: '',
-            date_debut: '',
-            date_fin: '',
-            form_valide: false,
-            estErreur: {}
-        }
 
-        this.handleInputChangee = this.handleInputChangee.bind(this);
-        this.ajouterEvenement = this.ajouterEvenement.bind(this);
-        this.initialState = this.state;
+export function FormEvenement(){
+    const [descriptionEvenement, setDescriptionEvenement] = useState("");
+    const [emplacementEvenement, setEmplacementEvenement] = useState("");
+    const [dateDebutEvenement, setDateDebutEvenement] = useState("");
+    const [dateFinEvenement, setDateFinEvenement] = useState("");
+    const [dateCreationEvenement, setDateCreationEvenement] = useState("");
+    const [dateModificationEvenement, setDateModificationEvenement] = useState("");
+    const [typeEvenement, setTypeEvenement] = useState("");
+    const [etatEvenement, setEtatEvenement] = useState("");
+
+
+    const optionsRequete = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            Description: descriptionEvenement, 
+            Emplacement: emplacementEvenement, 
+            DateDebut: dateDebutEvenement,
+            DateFin: dateFinEvenement,
+            DateCreation: dateCreationEvenement,
+            DateModification: dateModificationEvenement,
+            TypeEvenement: typeEvenement,
+            Etat: etatEvenement})
     };
 
-    handleInputChangee(event){
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
 
-        this.setState({
-            [name]: value
-        });
-    }
+    function handleChange(e){
+        if(e.target.id === "description")
+        {
+            setDescriptionEvenement(e.taget.value);
+        }
+        else if(e.target.id === "emplacement")
+        {
+            setEmplacementEvenement(e.target.value);
+        }
+        else if(e.target.id === "dateDebut")
+        {
+            setDateDebutEvenement(e.target.value);
+        }
 
-    ajouterEvenement(e){
-        e.preventDefault();
-        if(this.validationFormulaire()){
-            let evenement = {
-                description: this.state.nom_evenement,
-                emplacement: this.state.emplacement,
-                dateDebut: this.state.date_debut,
-                dateFin: this.state.date_fin
-            };
-            console.log(evenement);
-            console.log('validation a reussi');
-            this.setState({
-                nom_sport: '',
-                nom_evenement: '',
-                emplacement: '',
-                date_debut: '',
-                date_fin: ''
-            });
-        }else{
-            console.log('erreur validation formulaire');
+        else if(e.target.id === "dateFin")
+        {
+            setDateFinEvenement(e.target.value);
+        }
+        else if(e.target.id === "dateCreation")
+        {
+            setDateCreationEvenement(e.target.value);
+        }
+
+        else if(e.target.id === "dateModification")
+        {
+            setDateModificationEvenement(e.target.value);
+        }
+        else if(e.target.id === "typeEvenement")
+        {
+            setTypeEvenementEvenement(e.target.value);
+        }
+        else if(e.target.id === "etat")
+        {
+            setEtatEvenement(e.target.value);
         }
     }
 
-    validationFormulaire(){
-        const {nom_sport, nom_evenement, emplacement, date_debut, date_fin} = this.state;
-        let erreurFormulaire = {};
-        let formulaireEstValide = true;
+    return(
+        <div className="container col-xl-10">
+            <div className="row align-items-center g-lg-5 py-5">
+                <div className="col-xl-10 mx-auto col-lg-5">
+                    <div className="p-4 p-md-5 border rounded-3 bg-light">
+                        <div className="mb-3">
+                            <h1 className="text-center">Ajouter un nouvel évenement</h1>
+                        </div>
+                        
+                        <form>
+                            <div className="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" onChange={handleChange} className="form-control" id="description" name="description" placeholder="Entrer la description"/>
+                            </div>
+                            <div className="form-group">
+                                <label for="emplacement">Emplacement</label>
+                                <input type="text" onChange={handleChange} className="form-control" id="emplacement" name="emplacement" placeholder="Entrer l'emplacement"/>
+                            </div>
+                            <div className="form-group">
+                                <label for="dateDebut">Date début</label>
+                                <input type="datetime" onChange={handleChange} className="form-control" id="dateDebut" name="dateDebut" placeholder="Entrer la dateDebut"/>
+                            </div><p></p>
 
-        if(!nom_sport){
-            formulaireEstValide = false;
-            erreurFormulaire["nomSportErreur"] = "Veillez choisir un sport";
-        }
+                            <div className="form-group">
+                                <label for="dateFin">Date Fin</label>
+                                <input type="datetime" onChange={handleChange} className="form-control" id="dateFin" name="dateFin" placeholder="Entrer la dateFin"/>
+                            </div><p></p>
 
-        if(!nom_evenement){
-            formulaireEstValide = false;
-            erreurFormulaire["nomEvenementErreur"] = "Veillez entrer un nom d'evenement";
-        }
+                            <div className="form-group">
+                                <label for="dateCreation">Date Création</label>
+                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateCreation" name="dateCreation" placeholder="Entrer la dateCreation"/>
+                            </div><p></p>
 
-        if(!emplacement){
-            formulaireEstValide = false;
-            erreurFormulaire["emplacementErreur"] = "Veillez entrer un emplacement";
-        } else if(emplacement.length < 2){
-            formulaireEstValide = false;
-            erreurFormulaire["emplacementErreur"] = "Veuillez entrer plus de 2 caractères";
-        }
+                            <div className="form-group">
+                                <label for="dateModification">Date Modification</label>
+                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateModification" name="dateModification" placeholder="Entrer la dateModification"/>
+                            </div><p></p>
 
-        if(!date_debut){
-            formulaireEstValide = false;
-            erreurFormulaire["dateDebutErreur"] = "veillez entrer une date de début";
-        }
+                            <div className="form-group">
+                                <label for="typeEvenement">Type Evenement</label>
+                                <input type="number" onChange={handleChange} className="form-control" id="typeEvenement" name="typeEvenement" placeholder="Entrer le typeEvenement"/>
+                            </div><p></p>
 
-        if(!date_fin){
-            formulaireEstValide = false;
-            erreurFormulaire["dateFinErreur"] = "Veillez entrer une date de fin";
-        }
+                            <div className="form-group">
+                                <label for="etat">Etat</label>
+                                <input type="number" onChange={handleChange} className="form-control" id="etat" name="etat" placeholder="Entrer l'etat"/>
+                            </div><p></p>
+                            
+                            <Link style={{textDecoration: 'none', color: 'white'}} to="/evenements">
+                                <button type="button" onClick={ () =>
+                                    fetch('api/evenements', optionsRequete)
+                                    .then(function(reponse){
+                                        console.log(reponse);
+                                        return reponse.json();
 
-        this.setState({estErreur: erreurFormulaire});
-        return formulaireEstValide;
-    }
+                                    }).catch(function(error){
+                                        console.log(error)
+                                    })
+                                } className="btn btn-primary">Ajouter</button>&nbsp;
+                            </Link>
 
-    render(){
-        const{nomSportErreur, nomEvenementErreur, emplacementErreur, dateDebutErreur, dateFinErreur} = this.state.estErreur;
-        return(
-            <>
-                <h2>Ajouter un evenement</h2>
-                <Form onSubmit={this.ajouterEvenement}>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Sport</Form.Label>
-                        <Form.Select 
-                            name="nom_sport"
-                            value={this.state.nom_sport}
-                            className={nomSportErreur ? "is-invalid form-control" : "form-control"}
-                            onChange={this.handleInputChangee}  >
-                                <option value="">Choisir une option</option>
-                                <option value="soccer">Soccer</option>
-                                <option value="baseball">Baseball</option>
-                                <option value="football">Football</option>
-                                <option value="natation">Natation</option>
-                        </Form.Select>
-                        {nomSportErreur && <div style={{color: "red"}}>{nomSportErreur}</div>}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Nom Evenement</Form.Label>
-                        <Form.Control 
-                            type="text"
-                            name="nom_evenement"
-                            value={this.state.nom_evenement}
-                            className={nomEvenementErreur ? "is-invalid form-control" : "form-control"}
-                            onChange={this.handleInputChangee}  />
-                            {nomEvenementErreur && <div style={{color: "red"}}>{nomEvenementErreur}</div>}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Emplacement</Form.Label>
-                        <Form.Control 
-                            type="text"
-                            name="emplacement"
-                            value={this.state.emplacement}
-                            className={emplacementErreur ? "is-invalid form-control" : "form-control"}
-                            onChange={this.handleInputChangee}  />
-                            {emplacementErreur && <div style={{color: "red"}}>{emplacementErreur}</div>}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Date de début</Form.Label>
-                        <Form.Control 
-                            type="datetime-local"
-                            name="date_debut"
-                            value={this.state.date_debut}
-                            className={dateDebutErreur ? "is-invalid form-control" : "form-control"}
-                            onChange={this.handleInputChangee}  />
-                            {dateDebutErreur && <div style={{color: "red"}}>{dateDebutErreur}</div>}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Date de fin</Form.Label>
-                        <Form.Control 
-                            type="datetime-local"
-                            name="date_fin"
-                            value={this.state.date_fin}
-                            className={dateFinErreur ? "is-invalid form-control" : "form-control"}
-                            onChange={this.handleInputChangee}  />
-                            {dateFinErreur && <div style={{color: "red"}}>{dateFinErreur}</div>}
-                    </Form.Group>
-                    
-                    <Button variant="success" className="mb-3" type="submit">Ajouter</Button>
-                    <Link to={'/evenements'}>
-                        <Button variant="secondary" className="float-end">Retour à la liste des événements</Button>
-                    </Link>
-                </Form>
-            </>
-        );
-    }
+                            <Link to="/evenements">
+                                <button type="button" className="btn btn-danger">Annuler</button>
+                            </Link>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
+//export default PageAjouter;
+
+
+
+
+
+
+
+
+
+
+
+
+
