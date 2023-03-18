@@ -15,6 +15,7 @@ export function FormEvenement(){
 
     const optionsRequete = {
         method: 'POST',
+        mode: 'cors', 
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             Description: descriptionEvenement, 
@@ -57,7 +58,7 @@ export function FormEvenement(){
         }
         else if(e.target.id === "typeEvenement")
         {
-            setTypeEvenementEvenement(e.target.value);
+            setTypeEvenement(e.target.value);
         }
         else if(e.target.id === "etat")
         {
