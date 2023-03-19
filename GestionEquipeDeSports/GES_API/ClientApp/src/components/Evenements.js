@@ -24,9 +24,9 @@ export class Evenements extends React.Component {
     render() {
         return (
             <div>
-                <h1>Bienvenue dans la page des évenements</h1>
+                <h1>Bienvenue dans la page des événements</h1>
                 <Link to={'/formulaireEvenement'}>
-                    <Button variant="success" className="btn btn-success" >Ajouter un évenement</Button>
+                    <Button variant="success" className="btn btn-success" >Ajouter un événement</Button><p></p>
                 </Link>
                 <Table striped bordered>
                     <thead>

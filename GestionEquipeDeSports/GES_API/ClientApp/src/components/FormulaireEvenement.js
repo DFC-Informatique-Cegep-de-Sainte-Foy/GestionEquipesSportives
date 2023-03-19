@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 export function FormEvenement(){
     const [descriptionEvenement, setDescriptionEvenement] = useState("");
@@ -11,11 +10,10 @@ export function FormEvenement(){
     const [dateModificationEvenement, setDateModificationEvenement] = useState("");
     const [typeEvenement, setTypeEvenement] = useState("");
     const [etatEvenement, setEtatEvenement] = useState("");
-
+    const [erreurDonnees, setErreurDonnees] = useState(false);
 
     const optionsRequete = {
         method: 'POST',
-        //mode: 'cors', 
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             Description: descriptionEvenement, 
@@ -28,14 +26,11 @@ export function FormEvenement(){
             Etat: etatEvenement})
     };
 
-
     function handleChange(e){
         if(e.target.id === "description")
         {
             console.log(e.target.value);
-            let valeurDescription = document.getElementById("description").textContent;
-            //setDescriptionEvenement(e.target.value);
-            setDescriptionEvenement(valeurDescription);
+            setDescriptionEvenement(e.target.value);
         }
         else if(e.target.id === "emplacement")
         {
@@ -72,6 +67,33 @@ export function FormEvenement(){
             console.log(e.target.value);
             setEtatEvenement(e.target.value);
         }
+    }
+
+    function verifierDonnees()
+    {       
+        if( descriptionEvenement !== "" &&
+            emplacementEvenement !== "" &&
+            dateDebutEvenement < dateFinEvenement &&
+            dateCreationEvenement !== "" &&
+            dateModificationEvenement !== "" &&
+            typeEvenement >= 0 &&
+            etatEvenement >= 0 )
+        {
+            setErreurDonnees(false);
+
+            fetch('api/evenements', optionsRequete)
+            .then(function(reponse){
+                console.log(reponse);
+                return reponse.json();
+
+            }).catch(function(error){
+                console.log(error)
+            })              
+        }
+        else
+        {
+            setErreurDonnees(true);
+        }        
     }
 
     return(
@@ -122,19 +144,9 @@ export function FormEvenement(){
                                 <input type="number" onChange={handleChange} className="form-control" id="etat" name="etat" placeholder="Entrer l'etat"/>
                             </div><p></p>
                             
-                            <Link style={{textDecoration: 'none', color: 'white'}} to="/evenements">
-                                <button type="button" onClick={ () =>
-                                    fetch('api/evenements', optionsRequete)
-                                    .then(function(reponse){
-                                        console.log(reponse);
-                                        return reponse.json();
-
-                                    }).catch(function(error){
-                                        console.log(error)
-                                    })
-                                } className="btn btn-primary">Ajouter</button>&nbsp;
-                            </Link>
-
+                            {erreurDonnees && <span style={{color:'red'}}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}
+                            <p></p>
+                            <button type="button" onClick={verifierDonnees} className="btn btn-primary">Ajouter</button>&nbsp;
                             <Link to="/evenements">
                                 <button type="button" className="btn btn-danger">Annuler</button>
                             </Link>
