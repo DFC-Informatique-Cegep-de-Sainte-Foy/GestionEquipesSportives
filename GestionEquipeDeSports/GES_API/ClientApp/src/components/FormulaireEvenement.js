@@ -62,12 +62,10 @@ export function FormEvenement() {
         }*/
     }
 
-    function verifierDonnees() {
-        if (descriptionEvenement !== "" &&
-            emplacementEvenement !== "" &&
-            dateDebutEvenement < dateFinEvenement &&
-            dateCreationEvenement !== "" &&
-            dateModificationEvenement !== "") {
+    function verifierDonnees() 
+    {
+        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement && dateCreationEvenement !== "" && dateModificationEvenement !== "") 
+        {
             setErreurDonnees(false);
 
             fetch('api/evenements', optionsRequete)
@@ -77,9 +75,11 @@ export function FormEvenement() {
 
                 }).catch(function (error) {
                     console.log(error)
-                })
+                }
+            )
         }
-        else {
+        else 
+        {
             setErreurDonnees(true);
         }
     }
