@@ -15,7 +15,7 @@ export function FormEvenement(){
 
     const optionsRequete = {
         method: 'POST',
-        mode: 'cors', 
+        //mode: 'cors', 
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             Description: descriptionEvenement, 
@@ -32,37 +32,43 @@ export function FormEvenement(){
     function handleChange(e){
         if(e.target.id === "description")
         {
-            setDescriptionEvenement(e.taget.value);
+            //setDescriptionEvenement(e.taget.value);
+            console.log(e.target.value);
         }
         else if(e.target.id === "emplacement")
         {
-            setEmplacementEvenement(e.target.value);
+            console.log(e.target.value);
+            //setEmplacementEvenement(e.target.value);
         }
         else if(e.target.id === "dateDebut")
         {
-            setDateDebutEvenement(e.target.value);
+            console.log(e.target.value);
+            //setDateDebutEvenement(e.target.value);
         }
-
         else if(e.target.id === "dateFin")
         {
-            setDateFinEvenement(e.target.value);
+            console.log(e.target.value);
+            //setDateFinEvenement(e.target.value);
         }
         else if(e.target.id === "dateCreation")
         {
-            setDateCreationEvenement(e.target.value);
+            console.log(e.target.value);
+            //setDateCreationEvenement(e.target.value);
         }
-
         else if(e.target.id === "dateModification")
         {
-            setDateModificationEvenement(e.target.value);
+            console.log(e.target.value);
+            //setDateModificationEvenement(e.target.value);
         }
         else if(e.target.id === "typeEvenement")
         {
-            setTypeEvenement(e.target.value);
+            console.log(e.target.value);
+            //setTypeEvenement(e.target.value);
         }
         else if(e.target.id === "etat")
         {
-            setEtatEvenement(e.target.value);
+            console.log(e.target.value);
+            //setEtatEvenement(e.target.value);
         }
     }
 
@@ -72,7 +78,7 @@ export function FormEvenement(){
                 <div className="col-xl-10 mx-auto col-lg-5">
                     <div className="p-4 p-md-5 border rounded-3 bg-light">
                         <div className="mb-3">
-                            <h1 className="text-center">Ajouter un nouvel évenement</h1>
+                            <h1 className="text-center">Ajouter un nouvel événement</h1>
                         </div>
                         
                         <form>
