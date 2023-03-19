@@ -41,14 +41,14 @@ export class Evenements extends React.Component {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Evenement</th>
+                            <th>Événement</th>
                             <th>Emplacement</th>
                             <th>Date début</th>
                             <th>Date fin</th>
-                            <th>Date creation</th>
+                            <th>Date création</th>
                             <th>Date modification</th>
                             <th>Type evenement</th>
-                            <th>Etat</th>
+                            <th>Etat</th>                            
                         </tr>
                     </thead>
                     <tbody>
