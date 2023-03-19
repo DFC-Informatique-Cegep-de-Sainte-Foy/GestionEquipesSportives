@@ -32,43 +32,45 @@ export function FormEvenement(){
     function handleChange(e){
         if(e.target.id === "description")
         {
-            //setDescriptionEvenement(e.taget.value);
             console.log(e.target.value);
+            let valeurDescription = document.getElementById("description").textContent;
+            //setDescriptionEvenement(e.target.value);
+            setDescriptionEvenement(valeurDescription);
         }
         else if(e.target.id === "emplacement")
         {
             console.log(e.target.value);
-            //setEmplacementEvenement(e.target.value);
+            setEmplacementEvenement(e.target.value);
         }
         else if(e.target.id === "dateDebut")
         {
             console.log(e.target.value);
-            //setDateDebutEvenement(e.target.value);
+            setDateDebutEvenement(e.target.value);
         }
         else if(e.target.id === "dateFin")
         {
             console.log(e.target.value);
-            //setDateFinEvenement(e.target.value);
+            setDateFinEvenement(e.target.value);
         }
         else if(e.target.id === "dateCreation")
         {
             console.log(e.target.value);
-            //setDateCreationEvenement(e.target.value);
+            setDateCreationEvenement(e.target.value);
         }
         else if(e.target.id === "dateModification")
         {
             console.log(e.target.value);
-            //setDateModificationEvenement(e.target.value);
+            setDateModificationEvenement(e.target.value);
         }
         else if(e.target.id === "typeEvenement")
         {
             console.log(e.target.value);
-            //setTypeEvenement(e.target.value);
+            setTypeEvenement(e.target.value);
         }
         else if(e.target.id === "etat")
         {
             console.log(e.target.value);
-            //setEtatEvenement(e.target.value);
+            setEtatEvenement(e.target.value);
         }
     }
 
@@ -83,40 +85,40 @@ export function FormEvenement(){
                         
                         <form>
                             <div className="form-group">
-                                <label for="description">Description</label>
+                                <label htmlFor="description">Description</label>
                                 <input type="text" onChange={handleChange} className="form-control" id="description" name="description" placeholder="Entrer la description"/>
                             </div>
                             <div className="form-group">
-                                <label for="emplacement">Emplacement</label>
+                                <label htmlFor="emplacement">Emplacement</label>
                                 <input type="text" onChange={handleChange} className="form-control" id="emplacement" name="emplacement" placeholder="Entrer l'emplacement"/>
                             </div>
                             <div className="form-group">
-                                <label for="dateDebut">Date début</label>
-                                <input type="datetime" onChange={handleChange} className="form-control" id="dateDebut" name="dateDebut" placeholder="Entrer la dateDebut"/>
+                                <label htmlFor="dateDebut">Date début</label>
+                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateDebut" name="dateDebut" placeholder="Entrer la dateDebut"/>
                             </div><p></p>
 
                             <div className="form-group">
-                                <label for="dateFin">Date Fin</label>
-                                <input type="datetime" onChange={handleChange} className="form-control" id="dateFin" name="dateFin" placeholder="Entrer la dateFin"/>
+                                <label htmlFor="dateFin">Date Fin</label>
+                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateFin" name="dateFin" placeholder="Entrer la dateFin"/>
                             </div><p></p>
 
                             <div className="form-group">
-                                <label for="dateCreation">Date Création</label>
+                                <label htmlFor="dateCreation">Date Création</label>
                                 <input type="datetime-local" onChange={handleChange} className="form-control" id="dateCreation" name="dateCreation" placeholder="Entrer la dateCreation"/>
                             </div><p></p>
 
                             <div className="form-group">
-                                <label for="dateModification">Date Modification</label>
+                                <label htmlFor="dateModification">Date Modification</label>
                                 <input type="datetime-local" onChange={handleChange} className="form-control" id="dateModification" name="dateModification" placeholder="Entrer la dateModification"/>
                             </div><p></p>
 
                             <div className="form-group">
-                                <label for="typeEvenement">Type Evenement</label>
+                                <label htmlFor="typeEvenement">Type Evenement</label>
                                 <input type="number" onChange={handleChange} className="form-control" id="typeEvenement" name="typeEvenement" placeholder="Entrer le typeEvenement"/>
                             </div><p></p>
 
                             <div className="form-group">
-                                <label for="etat">Etat</label>
+                                <label htmlFor="etat">Etat</label>
                                 <input type="number" onChange={handleChange} className="form-control" id="etat" name="etat" placeholder="Entrer l'etat"/>
                             </div><p></p>
                             
@@ -143,7 +145,7 @@ export function FormEvenement(){
         </div>
     );
 }
-//export default PageAjouter;
+
 
 
 
