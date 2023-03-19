@@ -63,22 +63,18 @@ namespace GES_Services.Entites
             {
                 throw new ArgumentException("La date de début ne peut pas être supérieure à la date de fin", nameof(p_dateDebut));
             }
-
             if (p_etat < 0)
             {
                 throw new ArgumentOutOfRangeException("Le paramètre p_etat ne peut pas être négatif", nameof(p_etat));
             }
 
             Id = p_id;
-
             Description = p_description;
             Emplacement = p_emplacement;
-
             DateDebut = p_dateDebut;
             DateFin = p_dateFin;
             DateCreation = p_dateCreation;
             DateModification = p_dateModification;
-
             TypeEvenement = p_typeEvenement;
             Etat = p_etat;
         }

@@ -54,7 +54,8 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
             m_maniulationDepotEvenement.AjouterEvenement(p_evenementModel.VersEntite());
-            return Ok();
+            return CreatedAtAction(nameof(Get), new { id = p_evenementModel.Id }, p_evenementModel);
+            //return Ok();
         }
 
         // PUT api/<EvenementController>/5
