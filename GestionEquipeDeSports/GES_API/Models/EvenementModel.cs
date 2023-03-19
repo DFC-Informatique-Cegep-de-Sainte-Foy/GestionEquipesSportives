@@ -51,29 +51,32 @@ namespace GES_API.Models
         {
             EnumTypeEvenement enumTypeEvenement;
 
-            if (this.TypeEvenement == "partie")
+            if (this.TypeEvenement == "2")
             {
-                enumTypeEvenement = EnumTypeEvenement.partie;
+                enumTypeEvenement = (EnumTypeEvenement)1;
+                //enumTypeEvenement = EnumTypeEvenement.partie;
             }
-            else if (this.TypeEvenement == "entrainement")
+            else if (this.TypeEvenement == "1")
             {
-                enumTypeEvenement = EnumTypeEvenement.entrainement;
+                enumTypeEvenement = (EnumTypeEvenement)0;
+                // enumTypeEvenement = EnumTypeEvenement.entrainement;
             }
             else
             {
-                enumTypeEvenement = EnumTypeEvenement.autre;
+                enumTypeEvenement = (EnumTypeEvenement)2;
+                //enumTypeEvenement = EnumTypeEvenement.autre;
             }
 
             return new Evenement(
-                    this.Id,
+                    //this.Id,
                     this.Description,
                     this.Emplacement,
                     this.DateDebut,
                     this.DateFin,
-                    this.DateCreation,
-                    this.DateModification,
-                    enumTypeEvenement,
-                    this.Etat
+                    //this.DateCreation,
+                    //this.DateModification,
+                    enumTypeEvenement
+                    //this.Etat
                 );
         }
     }

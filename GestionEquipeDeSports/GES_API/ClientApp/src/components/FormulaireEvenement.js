@@ -6,8 +6,8 @@ export function FormEvenement() {
     const [emplacementEvenement, setEmplacementEvenement] = useState("");
     const [dateDebutEvenement, setDateDebutEvenement] = useState("");
     const [dateFinEvenement, setDateFinEvenement] = useState("");
-    const [dateCreationEvenement, setDateCreationEvenement] = useState("");
-    const [dateModificationEvenement, setDateModificationEvenement] = useState("");
+    // const [dateCreationEvenement, setDateCreationEvenement] = useState("");
+    // const [dateModificationEvenement, setDateModificationEvenement] = useState("");
     const [typeEvenement, setTypeEvenement] = useState("");
     //const [etatEvenement, setEtatEvenement] = useState("");
     const [erreurDonnees, setErreurDonnees] = useState(false);
@@ -20,8 +20,8 @@ export function FormEvenement() {
             Emplacement: emplacementEvenement,
             DateDebut: dateDebutEvenement,
             DateFin: dateFinEvenement,
-            DateCreation: dateCreationEvenement,
-            DateModification: dateModificationEvenement,
+            // DateCreation: dateCreationEvenement,
+            // DateModification: dateModificationEvenement,
             TypeEvenement: typeEvenement
             //Etat: etatEvenement
         })
@@ -44,14 +44,14 @@ export function FormEvenement() {
             console.log(e.target.value);
             setDateFinEvenement(e.target.value);
         }
-        else if (e.target.id === "dateCreation") {
-            console.log(e.target.value);
-            setDateCreationEvenement(e.target.value);
-        }
-        else if (e.target.id === "dateModification") {
-            console.log(e.target.value);
-            setDateModificationEvenement(e.target.value);
-        }
+        // else if (e.target.id === "dateCreation") {
+        //     console.log(e.target.value);
+        //     setDateCreationEvenement(e.target.value);
+        // }
+        // else if (e.target.id === "dateModification") {
+        //     console.log(e.target.value);
+        //     setDateModificationEvenement(e.target.value);
+        // }
         else if (e.target.id === "typeEvenement") {
             console.log(e.target.value);
             setTypeEvenement(e.target.value);
@@ -64,7 +64,7 @@ export function FormEvenement() {
 
     function verifierDonnees() 
     {
-        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement && dateCreationEvenement !== "" && dateModificationEvenement !== "") 
+        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement /*&& dateCreationEvenement !== "" && dateModificationEvenement !== ""*/) 
         {
             setErreurDonnees(false);
 
@@ -113,22 +113,12 @@ export function FormEvenement() {
                             </div><p></p>
 
                             <div className="form-group">
-                                <label htmlFor="dateCreation">Date Création</label>
-                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateCreation" name="dateCreation" placeholder="Entrer la dateCreation" />
-                            </div><p></p>
-
-                            <div className="form-group">
-                                <label htmlFor="dateModification">Date Modification</label>
-                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateModification" name="dateModification" placeholder="Entrer la dateModification" />
-                            </div><p></p>
-
-                            <div className="form-group">
                                 <label htmlFor="typeEvenement">Type Événement</label>
                                 <select id="typeEvenement" name="typeEvenement" onChange={handleChange} className="form-control">
                                     <option value="">Choisir un événement</option>
-                                    <option value="partie">Partie</option>
-                                    <option value="entrainement">Entrainement</option>
-                                    <option value="autre">autre</option>
+                                    <option value="1">Entrainement</option>
+                                    <option value="2">Partie</option>
+                                    <option value="3">Autre</option>
                                 </select>
                             </div><p></p>
 
