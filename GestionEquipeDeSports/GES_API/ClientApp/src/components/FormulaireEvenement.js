@@ -125,9 +125,9 @@ export function FormEvenement() {
                             <div className="form-group">
                                 <label htmlFor="typeEvenement">Type Evenement</label>
                                 <select id="typeEvenement" name="typeEvenement" onChange={handleChange} className="form-control">
-                                    <option value="option1">Partie</option>
-                                    <option value="option2">Entrainement</option>
-                                    <option value="option3">autre</option>
+                                    <option value="partie">Partie</option>
+                                    <option value="entrainement">Entrainement</option>
+                                    <option value="autre">autre</option>
                                 </select>
                             </div><p></p>
 
