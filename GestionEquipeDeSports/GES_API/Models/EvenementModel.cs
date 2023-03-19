@@ -30,6 +30,7 @@ namespace GES_API.Models
             this.DateFin = p_evenementModel.DateFin;
             this.DateCreation = p_evenementModel.DateCreation;
             this.DateModification = p_evenementModel.DateModification;
+
             if (p_evenementModel.TypeEvenement == EnumTypeEvenement.partie)
             {
                 this.TypeEvenement = "partie";
@@ -49,6 +50,7 @@ namespace GES_API.Models
         public Evenement VersEntite()
         {
             EnumTypeEvenement enumTypeEvenement;
+
             if (this.TypeEvenement == "partie")
             {
                 enumTypeEvenement = EnumTypeEvenement.partie;
@@ -61,6 +63,7 @@ namespace GES_API.Models
             {
                 enumTypeEvenement = EnumTypeEvenement.autre;
             }
+
             return new Evenement(
                     this.Id,
                     this.Description,
