@@ -95,6 +95,7 @@ namespace GES_DAL.Depots
                             DateTime dateFin;
                             DateTime.TryParse(valeursColonne[1] + "," + valeursColonne[2], out dateDebut);
                             DateTime.TryParse(valeursColonne[3] + "," + valeursColonne[4], out dateFin);
+                            
                             if (valeursColonne[6] == "Partie")
                             {
                                 typeEvenement = EnumTypeEvenement.partie;
@@ -107,15 +108,18 @@ namespace GES_DAL.Depots
                             {
                                 typeEvenement = EnumTypeEvenement.autre;
                             }
-
-                            Evenement evenement = new Evenement(
+                            if (ligneCourante != ",,,,,,")
+                            {
+                                Evenement evenement = new Evenement(
                                 valeursColonne[0],
                                 valeursColonne[5],
                                 typeEvenement,
                                 dateDebut,
                                 dateFin
                                 );
-                            evenements.Add( evenement );
+                                evenements.Add(evenement);
+                            }
+                            
                         }
                         catch (Exception ex)
                         {

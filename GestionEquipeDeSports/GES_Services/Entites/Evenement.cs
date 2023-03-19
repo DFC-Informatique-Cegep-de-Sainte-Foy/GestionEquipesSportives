@@ -30,10 +30,10 @@ namespace GES_Services.Entites
                 throw new ArgumentException("La date de début ne peut pas être supérieure à la date de fin", nameof(dateDebut));
             }
 
-            if (dateDebut < DateTime.Now)
-            {
-                throw new ArgumentException("La date de début ne peut pas être inférieure à la date actuelle", nameof(dateDebut));
-            }
+            //if (dateDebut < DateTime.Now)
+            //{
+            //    throw new ArgumentException("La date de début ne peut pas être inférieure à la date actuelle", nameof(dateDebut));
+            //}
 
             Description = description;
             TypeEvenement = typeEvenement;
