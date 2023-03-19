@@ -13,7 +13,7 @@ namespace GES_API.Models
         public DateTime DateFin { get; set; }
         public DateTime DateCreation { get; set; }
         public DateTime DateModification { get; set; }
-        public EnumTypeEvenement TypeEvenement { get; set; }
+        public string TypeEvenement { get; set; }
         public int Etat { get; set; }
 
         public EvenementModel()
@@ -30,12 +30,37 @@ namespace GES_API.Models
             this.DateFin = p_evenementModel.DateFin;
             this.DateCreation = p_evenementModel.DateCreation;
             this.DateModification = p_evenementModel.DateModification;
-            this.TypeEvenement = p_evenementModel.TypeEvenement;
+            if (p_evenementModel.TypeEvenement == EnumTypeEvenement.partie)
+            {
+                this.TypeEvenement = "partie";
+            }      
+            else if (p_evenementModel.TypeEvenement == EnumTypeEvenement.entrainement)
+            {
+                this.TypeEvenement = "entrainement";
+            }
+            else
+            {
+                this.TypeEvenement = "autre";
+            }           
+
             this.Etat = p_evenementModel.Etat;
         }
 
         public Evenement VersEntite()
         {
+            EnumTypeEvenement enumTypeEvenement;
+            if (this.TypeEvenement == "partie")
+            {
+                enumTypeEvenement = EnumTypeEvenement.partie;
+            }
+            else if (this.TypeEvenement == "entrainement")
+            {
+                enumTypeEvenement = EnumTypeEvenement.entrainement;
+            }
+            else
+            {
+                enumTypeEvenement = EnumTypeEvenement.autre;
+            }
             return new Evenement(
                     this.Id,
                     this.Description,
@@ -44,7 +69,7 @@ namespace GES_API.Models
                     this.DateFin,
                     this.DateCreation,
                     this.DateModification,
-                    this.TypeEvenement,
+                    enumTypeEvenement,
                     this.Etat
                 );
         }
