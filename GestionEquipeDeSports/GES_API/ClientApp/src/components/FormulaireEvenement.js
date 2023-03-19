@@ -9,7 +9,7 @@ export function FormEvenement() {
     const [dateCreationEvenement, setDateCreationEvenement] = useState("");
     const [dateModificationEvenement, setDateModificationEvenement] = useState("");
     const [typeEvenement, setTypeEvenement] = useState("");
-    const [etatEvenement, setEtatEvenement] = useState("");
+    //const [etatEvenement, setEtatEvenement] = useState("");
     const [erreurDonnees, setErreurDonnees] = useState(false);
 
     const optionsRequete = {
@@ -22,8 +22,8 @@ export function FormEvenement() {
             DateFin: dateFinEvenement,
             DateCreation: dateCreationEvenement,
             DateModification: dateModificationEvenement,
-            TypeEvenement: typeEvenement,
-            Etat: etatEvenement
+            TypeEvenement: typeEvenement
+            //Etat: etatEvenement
         })
     };
 
@@ -56,10 +56,10 @@ export function FormEvenement() {
             console.log(e.target.value);
             setTypeEvenement(e.target.value);
         }
-        else if (e.target.id === "etat") {
+       /* else if (e.target.id === "etat") {
             console.log(e.target.value);
             setEtatEvenement(e.target.value);
-        }
+        }*/
     }
 
     function verifierDonnees() {
@@ -125,15 +125,11 @@ export function FormEvenement() {
                             <div className="form-group">
                                 <label htmlFor="typeEvenement">Type Evenement</label>
                                 <select id="typeEvenement" name="typeEvenement" onChange={handleChange} className="form-control">
+                                    <option value="">Choisir un événement</option>
                                     <option value="partie">Partie</option>
                                     <option value="entrainement">Entrainement</option>
                                     <option value="autre">autre</option>
                                 </select>
-                            </div><p></p>
-
-                            <div className="form-group">
-                                <label htmlFor="etat">Etat</label>
-                                <input type="number" onChange={handleChange} className="form-control" id="etat" name="etat" placeholder="Entrer l'etat" />
                             </div><p></p>
 
                             {erreurDonnees && <span style={{ color: 'red' }}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}
