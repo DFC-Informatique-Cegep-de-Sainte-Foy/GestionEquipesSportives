@@ -15,10 +15,10 @@ namespace GES_Services.Entites
         public DateTime DateFin { get; private set; }
         public DateTime DateCreation { get; private set; }
         public DateTime DateModification { get; private set; }
-        public EnumTypeEvenement TypeEvenement { get; private set; }
+        public int TypeEvenement { get; private set; }
         public int Etat { get; private set; }
 
-        public Evenement(string description,string emplacement, DateTime dateDebut, DateTime dateFin, EnumTypeEvenement typeEvenement)
+        public Evenement(string description,string emplacement, DateTime dateDebut, DateTime dateFin, int typeEvenement)
         {
             if (String.IsNullOrEmpty(description) || description.Trim().Length == 0)
             {
@@ -45,7 +45,7 @@ namespace GES_Services.Entites
             Etat = 1;
         }
 
-        public Evenement(int p_id, string p_description, string p_emplacement, DateTime p_dateDebut, DateTime p_dateFin, DateTime p_dateCreation, DateTime p_dateModification, EnumTypeEvenement p_typeEvenement, int p_etat)
+        public Evenement(int p_id, string p_description, string p_emplacement, DateTime p_dateDebut, DateTime p_dateFin, DateTime p_dateCreation, DateTime p_dateModification, int p_typeEvenement, int p_etat)
         {
             if(p_id < 0)
             {

@@ -17,7 +17,7 @@ namespace GES_DAL.DTOs
         public DateTime DateFin { get; set; }
         public DateTime DateCreation { get; set; }
         public DateTime DateModification { get; set; }
-        public EnumTypeEvenement TypeEvenement { get; set; }
+        public int TypeEvenement { get; set; }
         public int Etat { get; set; }
 
         public EvenementDTO()

@@ -90,7 +90,7 @@ namespace GES_DAL.Depots
                         {
                             ligneCourante = ligneCourante.Substring(0, ligneCourante.Length);
                             string[] valeursColonne = ligneCourante.Split(",");
-                            EnumTypeEvenement typeEvenement;
+                            int typeEvenement;
                             DateTime dateDebut;
                             DateTime dateFin;
                             DateTime.TryParse(valeursColonne[1] + "," + valeursColonne[2], out dateDebut);
@@ -98,15 +98,15 @@ namespace GES_DAL.Depots
                             
                             if (valeursColonne[6] == "Partie")
                             {
-                                typeEvenement = EnumTypeEvenement.partie;
+                                typeEvenement = 2;
                             }
                             else if (valeursColonne[6] == "Entrainement")
                             {
-                                typeEvenement = EnumTypeEvenement.entrainement;
+                                typeEvenement = 1;
                             }
                             else
                             {
-                                typeEvenement = EnumTypeEvenement.autre;
+                                typeEvenement = 3;
                             }
                             if (ligneCourante != ",,,,,,")
                             {

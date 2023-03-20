@@ -13,7 +13,7 @@ namespace GES_API.Models
         public DateTime DateFin { get; set; }
         public DateTime DateCreation { get; set; }
         public DateTime DateModification { get; set; }
-        public string TypeEvenement { get; set; }
+        public int TypeEvenement { get; set; }
         public int Etat { get; set; }
 
         public EvenementModel()
@@ -30,8 +30,8 @@ namespace GES_API.Models
             this.DateFin = p_evenementModel.DateFin;
             this.DateCreation = p_evenementModel.DateCreation;
             this.DateModification = p_evenementModel.DateModification;
-
-            if (p_evenementModel.TypeEvenement == EnumTypeEvenement.partie)
+            this.TypeEvenement = p_evenementModel.TypeEvenement;
+            /*if (p_evenementModel.TypeEvenement == EnumTypeEvenement.partie)
             {
                 this.TypeEvenement = "partie";
             }      
@@ -42,14 +42,14 @@ namespace GES_API.Models
             else
             {
                 this.TypeEvenement = "autre";
-            }           
+            }           */
 
             this.Etat = p_evenementModel.Etat;
         }
 
         public Evenement VersEntite()
         {
-            EnumTypeEvenement enumTypeEvenement;
+            /*EnumTypeEvenement enumTypeEvenement;
 
             if (this.TypeEvenement == "2")
             {
@@ -65,7 +65,7 @@ namespace GES_API.Models
             {
                 enumTypeEvenement = (EnumTypeEvenement)2;
                 //enumTypeEvenement = EnumTypeEvenement.autre;
-            }
+            }*/
 
             return new Evenement(
                     //this.Id,
@@ -75,8 +75,8 @@ namespace GES_API.Models
                     this.DateFin,
                     //this.DateCreation,
                     //this.DateModification,
-                    enumTypeEvenement
-                    //this.Etat
+                    this.TypeEvenement
+                //this.Etat
                 );
         }
     }
