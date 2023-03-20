@@ -30,6 +30,30 @@ export class Evenements extends React.Component {
         return dateTimeSortie;
     }
 
+    affichageTypeEvenement(data){
+        //console.log(data);
+        if(data === 1){
+            return "Entrainement";
+        } else if(data === 2){
+            return "Partie";
+        } else if (data === 3){
+            return "Autre";
+        }else{
+            return data;
+        }
+    }
+
+    affichageEtat(data){
+        console.log(data);
+        if(data === 1){
+            return "Actif";
+        } else if(data === 2){
+            return 'Inactif';
+        }else{
+            return data;
+        }
+    }
+
     render() {
         return (
             <div>
@@ -61,8 +85,8 @@ export class Evenements extends React.Component {
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
                                 <td>{this.formatDateTime(ev.dateCreation)}</td>
                                 <td>{this.formatDateTime(ev.dateModification)}</td>
-                                <td>{ev.typeEvenement}</td>
-                                <td>{ev.etat}</td>
+                                <td>{this.affichageTypeEvenement(ev.typeEvenement)}</td>
+                                <td>{this.affichageEtat(ev.etat)}</td>
                                 <td>
                                     <Link >
                                         <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>
