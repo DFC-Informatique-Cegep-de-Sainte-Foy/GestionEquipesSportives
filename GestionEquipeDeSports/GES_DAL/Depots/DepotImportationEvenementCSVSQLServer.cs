@@ -112,10 +112,10 @@ namespace GES_DAL.Depots
                             {
                                 Evenement evenement = new Evenement(
                                 valeursColonne[0],
-                                valeursColonne[5],
-                                typeEvenement,
+                                valeursColonne[5],                                
                                 dateDebut,
-                                dateFin
+                                dateFin,
+                                typeEvenement
                                 );
                                 evenements.Add(evenement);
                             }

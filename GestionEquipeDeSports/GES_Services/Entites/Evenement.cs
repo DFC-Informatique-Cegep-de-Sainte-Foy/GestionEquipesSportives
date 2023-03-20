@@ -18,7 +18,7 @@ namespace GES_Services.Entites
         public EnumTypeEvenement TypeEvenement { get; private set; }
         public int Etat { get; private set; }
 
-        public Evenement(string description,string emplacement, EnumTypeEvenement typeEvenement, DateTime dateDebut, DateTime dateFin)
+        public Evenement(string description,string emplacement, DateTime dateDebut, DateTime dateFin, EnumTypeEvenement typeEvenement)
         {
             if (String.IsNullOrEmpty(description) || description.Trim().Length == 0)
             {

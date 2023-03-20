@@ -47,11 +47,12 @@ namespace GES_API.Controllers
         [ProducesResponseType(400)]
         public ActionResult Post([FromBody] EvenementModel p_evenementModel)
         {
-            if (!ModelState.IsValid)
+            if (p_evenementModel == null)
             {
-                return BadRequest();
+                throw new ArgumentNullException(nameof(p_evenementModel));
             }
-            m_maniulationDepotEvenement.AjouterEvenement(p_evenementModel.VersEntite());
+            GES_Services.Entites.Evenement evenem = p_evenementModel.VersEntite();
+            this.m_maniulationDepotEvenement.AjouterEvenement(evenem);
             return CreatedAtAction(nameof(Get), new { id = p_evenementModel.Id }, p_evenementModel);
         }
 
