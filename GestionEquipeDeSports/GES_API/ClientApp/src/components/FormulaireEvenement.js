@@ -6,10 +6,7 @@ export function FormEvenement() {
     const [emplacementEvenement, setEmplacementEvenement] = useState("");
     const [dateDebutEvenement, setDateDebutEvenement] = useState("");
     const [dateFinEvenement, setDateFinEvenement] = useState("");
-    // const [dateCreationEvenement, setDateCreationEvenement] = useState("");
-    // const [dateModificationEvenement, setDateModificationEvenement] = useState("");
     const [typeEvenement, setTypeEvenement] = useState("");
-    //const [etatEvenement, setEtatEvenement] = useState("");
     const [erreurDonnees, setErreurDonnees] = useState(false);
 
     const optionsRequete = {
@@ -20,10 +17,7 @@ export function FormEvenement() {
             Emplacement: emplacementEvenement,
             DateDebut: dateDebutEvenement,
             DateFin: dateFinEvenement,
-            // DateCreation: dateCreationEvenement,
-            // DateModification: dateModificationEvenement,
             TypeEvenement: typeEvenement
-            //Etat: etatEvenement
         })
     };
 
@@ -44,14 +38,6 @@ export function FormEvenement() {
             console.log(e.target.value);
             setDateFinEvenement(e.target.value);
         }
-        // else if (e.target.id === "dateCreation") {
-        //     console.log(e.target.value);
-        //     setDateCreationEvenement(e.target.value);
-        // }
-        // else if (e.target.id === "dateModification") {
-        //     console.log(e.target.value);
-        //     setDateModificationEvenement(e.target.value);
-        // }
         else if (e.target.id === "typeEvenement") {
             console.log(e.target.value);
             setTypeEvenement(e.target.value);
@@ -64,7 +50,7 @@ export function FormEvenement() {
 
     function verifierDonnees() 
     {
-        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement /*&& dateCreationEvenement !== "" && dateModificationEvenement !== ""*/) 
+        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) 
         {
             setErreurDonnees(false);
 
