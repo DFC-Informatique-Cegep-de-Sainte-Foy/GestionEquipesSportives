@@ -10,12 +10,14 @@ namespace GES_DAL.DTOs
 {
     public class EquipeDTO
     {
-        [Key] public int Id { get; set; }
+        [Key] public int IdEquipe { get; set; }
         public string Nom { get; set; }
-        public string Description { get; set; }
+        public string Region { get; set; }
         public DateTime DateCreation { get; set; }
         public DateTime DateModification { get; set; }
-        public bool Etat { get; set; }
+        public int Etat { get; set; }
+        public string Sport { get; set; }
+        public string AssociationSportive { get; set; }
         public List<Utilisateur> Membres { get; set; }
         public List<Evenement> Evenements { get; set; }
 
@@ -27,12 +29,14 @@ namespace GES_DAL.DTOs
 
         public EquipeDTO(Equipe p_equipe)
         {
-            this.Id = p_equipe.Id;
+            this.IdEquipe = p_equipe.IdEquipe;
             this.Nom = p_equipe.Nom;
-            this.Description = p_equipe.Description;
+            this.Region = p_equipe.Region;
             this.DateCreation = p_equipe.DateCreation;
             this.DateModification = p_equipe.DateModification;
             this.Etat = p_equipe.Etat;
+            this.Sport = p_equipe.Sport;
+            this.AssociationSportive = p_equipe.AssociationSportive;
             this.Membres = p_equipe.Membres;
             this.Evenements = p_equipe.Evenements;
         }
@@ -40,11 +44,14 @@ namespace GES_DAL.DTOs
         public Equipe VersEntite()
         {
             Equipe equipe = new Equipe(
-                this.Id,
-                this.Nom,
-                this.Description,
-                this.DateCreation,
-                this.DateModification
+                IdEquipe,
+                Nom,
+                Region,
+                DateCreation,
+                DateModification,
+                Etat,
+                Sport,
+                AssociationSportive
                 );
 
             return equipe;

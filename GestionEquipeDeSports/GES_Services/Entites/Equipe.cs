@@ -8,12 +8,14 @@ namespace GES_Services.Entites
 {
     public class Equipe
     {
-        public int Id { get; private set; }
+        public int IdEquipe { get; private set; }
         public string Nom { get; private set; }
-        public string Description { get; private set; }
+        public string Region { get; private set; }
         public DateTime DateCreation { get; private set; }
         public DateTime DateModification { get; private set; }
-        public bool Etat { get; private set; }
+        public int Etat { get; private set; }
+        public string Sport { get; private set; }
+        public string AssociationSportive { get; private set; }
         public List<Utilisateur> Membres { get; private set; }
        public List<Evenement> Evenements { get; private set; }
 
@@ -23,36 +25,38 @@ namespace GES_Services.Entites
             Evenements = new List<Evenement>();            
         }
 
-        public Equipe(int p_id, string p_nom, string p_description, DateTime p_dateCreation, DateTime p_dateModification)
+        public Equipe(string p_nom, string p_region, string p_sport, string p_associationSportive)
         {
             if (string.IsNullOrWhiteSpace(p_nom))
             {
                 throw new ArgumentNullException("Le paramètre p_nom ne peut pas être null.", nameof(p_nom));
             }
 
-            if (string.IsNullOrWhiteSpace(p_description))
+            if (string.IsNullOrWhiteSpace(p_region))
             {
-                throw new ArgumentNullException("La description ne peut être vide.", nameof(p_description));
+                throw new ArgumentNullException("La description ne peut être vide.", nameof(p_region));
             }
 
-            this.Id = p_id;
+            //this.IdEquipe = p_id;
             this.Nom = p_nom;
-            this.Description = p_description;
-            this.DateCreation = p_dateCreation;
-            this.DateModification = p_dateModification;
-            this.Etat = true;
+            this.Region = p_region;
+            this.DateCreation = DateTime.Now;
+            this.DateModification = DateTime.Now;
+            this.Sport = p_sport;
+            this.AssociationSportive = p_associationSportive;
+            this.Etat = 1;
         }
 
-        public Equipe(int id, string nom, string description, DateTime dateCreation, DateTime dateModification, bool etat, List<Utilisateur> membres, List<Evenement> evenements)
+        public Equipe(int p_id, string p_nom, string p_region, DateTime p_dateCreation, DateTime p_dateModification, int p_etat, string p_sport, string p_associationSportive)
         {
-            Id = id;
-            Nom = nom;
-            Description = description;
-            DateCreation = dateCreation;
-            DateModification = dateModification;
-            Etat = etat;
-            Membres = membres;
-            Evenements = evenements;
+            IdEquipe = p_id;
+            Nom = p_nom;
+            Region = p_region;
+            DateCreation = p_dateCreation;
+            DateModification = p_dateModification;
+            Etat = p_etat;
+            Sport = p_sport;
+            AssociationSportive = p_associationSportive;
         }
     }
 }

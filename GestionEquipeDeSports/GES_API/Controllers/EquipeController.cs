@@ -61,7 +61,7 @@ namespace GES_API.Controllers
         [ProducesResponseType(404)]
         public ActionResult Put(int p_id, [FromBody] EquipeModel p_equipeModel)
         {
-            if (!ModelState.IsValid || p_equipeModel.Id != p_id)
+            if (!ModelState.IsValid || p_equipeModel.IdEquipe != p_id)
             {
                 return BadRequest();
             }
