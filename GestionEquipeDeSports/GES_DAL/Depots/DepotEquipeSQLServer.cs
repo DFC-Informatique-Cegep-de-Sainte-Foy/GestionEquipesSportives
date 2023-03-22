@@ -1,6 +1,9 @@
-﻿using GES_DAL.DTOs;
+﻿using GES_DAL.Data;
+using GES_DAL.Models;
 using GES_Services.Entites;
+using Entite = GES_Services.Entites;
 using GES_Services.Interfaces;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +14,8 @@ namespace GES_DAL.Depots
 {
     public class DepotEquipeSQLServer : IDepotEquipe
     {
-        public GestionEquipeContextSQLServer m_context;
-        public DepotEquipeSQLServer(GestionEquipeContextSQLServer p_context)
+        public Equipe_sportiveContext m_context;
+        public DepotEquipeSQLServer(Equipe_sportiveContext p_context)
         {
             if (p_context is null)
             {
@@ -21,79 +24,102 @@ namespace GES_DAL.Depots
 
             this.m_context = p_context;
         }
-        public IEnumerable<Equipe> ListerEquipes()
+
+        public void AjouterEquipe(Entite.Equipe p_equipe)
         {
-            //retourne la liste des équipes dans la BD
-            return this.m_context.Equipes.Select(e => e.VersEntite());
-            //IEnumerable<Equipe> equipes = this.m_context.Equipes
-            //                              .Where(eDTO => eDTO.Etat)
-            //                              .Select(eDTO => eDTO.VersEntite())
-            //                              .ToList();
-            //return equipes;
+            throw new NotImplementedException();
         }
-        public Equipe ChercherEquipeParId(int p_id)
+
+        public Entite.Equipe ChercherEquipeParId(Guid id)
         {
-            if (p_id < 0)
-            {
-                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur à 0", nameof(p_id));
-            }
-
-            EquipeDTO equipeDTO = this.m_context.Equipes.FirstOrDefault(eDTO => eDTO.IdEquipe == p_id);
-
-            if (equipeDTO is null)
-            {
-                throw new InvalidOperationException($"l'équipe avec le id {p_id} n'existe pas dans le dépot");
-            }
-
-            return equipeDTO.VersEntite();
+            throw new NotImplementedException();
         }
-        public void AjouterEquipe(Equipe p_equipe)
+
+        public IEnumerable<Entite.Equipe> ListerEquipes()
         {
-            if (p_equipe is null)
-            {
-                throw new ArgumentNullException("le paramàtre p_equipe ne peut pas être null", nameof(p_equipe));
-            }
-
-            if (this.m_context.Equipes.Any(eDTO => eDTO.IdEquipe == p_equipe.IdEquipe))
-            {
-                throw new InvalidOperationException($"l'équipe avec le id {p_equipe.IdEquipe} existe déjà dans le dépot");
-            }
-
-            this.m_context.Equipes.Add(new EquipeDTO(p_equipe));
-            this.m_context.SaveChanges();
+            throw new NotImplementedException();
         }
-        public void ModifierEquipe(Equipe p_equipe)
+
+        public void ModifierEquipe(Entite.Equipe p_equipe)
         {
-            if (p_equipe is null)
-            {
-                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(p_equipe));
-            }
-
-            if (!this.m_context.Evenements.Any(eDTO => eDTO.Id == p_equipe.IdEquipe))
-            {
-                throw new InvalidOperationException($"l'evenement avec le id {p_equipe.IdEquipe} n'existe pas");
-            }
-
-            this.m_context.Equipes.Update(new EquipeDTO(p_equipe));
-            this.m_context.SaveChanges();
+            throw new NotImplementedException();
         }
-        public void SupprimerEquipe(Equipe p_equipe)
+
+        public void SupprimerEquipe(Entite.Equipe p_equipe)
         {
-            if (p_equipe is null)
-            {
-                throw new ArgumentNullException("le paramètre p_equipe ne peut pas etre null", nameof(p_equipe));
-            }
-
-            EquipeDTO? equipeDTO = this.m_context.Equipes.Where(eDTO => eDTO.IdEquipe == p_equipe.IdEquipe).SingleOrDefault();
-
-            if (equipeDTO is null)
-            {
-                throw new InvalidOperationException($"l'équipe avec le id {p_equipe.IdEquipe} n'existe pas dans le dépot");
-            }
-
-            equipeDTO.Etat = 2;
-            m_context.Equipes.Update(equipeDTO);
-            m_context.SaveChanges();
+            throw new NotImplementedException();
         }
+        //public IEnumerable<Entite.Equipe> ListerEquipes()
+        //{
+        //    List<Entite.Equipe> equipes = new List<Entite.Equipe>();
+
+
+        //    return equipes;
+        //}
+        //public Entite.Equipe ChercherEquipeParId(Guid p_id)
+        //{
+        //    //if (!p_id)
+        //    //{
+        //    //    throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur à 0", nameof(p_id));
+        //    //}
+
+        //    GES_DAL.Models.Equipe equipe = this.m_context.Equipes.FirstOrDefault(eDTO => eDTO.IdEquipe == p_id);
+
+
+        //    if (equipe is null)
+        //    {
+        //        throw new InvalidOperationException($"l'équipe avec le id {p_id} n'existe pas dans le dépot");
+        //    }
+
+        //    return equipe;
+        //}
+        //public void AjouterEquipe(Entite.Equipe p_equipe)
+        //{
+        //    if (p_equipe is null)
+        //    {
+        //        throw new ArgumentNullException("le paramàtre p_equipe ne peut pas être null", nameof(p_equipe));
+        //    }
+
+        //    if (this.m_context.Equipes.Any(eDTO => eDTO.Id == p_equipe.Id))
+        //    {
+        //        throw new InvalidOperationException($"l'équipe avec le id {p_equipe.Id} existe déjà dans le dépot");
+        //    }
+
+        //    this.m_context.Equipes.Add(new EquipeDTO(p_equipe));
+        //    this.m_context.SaveChanges();
+        //}
+        //public void ModifierEquipe(Entite.Equipe p_equipe)
+        //{
+        //    if (p_equipe is null)
+        //    {
+        //        throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(p_equipe));
+        //    }
+
+        //    if (!this.m_context.Evenements.Any(eDTO => eDTO.Id == p_equipe.Id))
+        //    {
+        //        throw new InvalidOperationException($"l'evenement avec le id {p_equipe.Id} n'existe pas");
+        //    }
+
+        //    this.m_context.Equipes.Update(new EquipeDTO(p_equipe));
+        //    this.m_context.SaveChanges();
+        //}
+        //public void SupprimerEquipe(Entite.Equipe p_equipe)
+        //{
+        //    if (p_equipe is null)
+        //    {
+        //        throw new ArgumentNullException("le paramètre p_equipe ne peut pas etre null", nameof(p_equipe));
+        //    }
+
+        //    EquipeDTO? equipeDTO = this.m_context.Equipes.Where(eDTO => eDTO.Id == p_equipe.Id).SingleOrDefault();
+
+        //    if (equipeDTO is null)
+        //    {
+        //        throw new InvalidOperationException($"l'équipe avec le id {p_equipe.Id} n'existe pas dans le dépot");
+        //    }
+
+        //    equipeDTO.Etat = false;
+        //    m_context.Equipes.Update(equipeDTO);
+        //    m_context.SaveChanges();
+        //}
     }
 }

@@ -21,12 +21,9 @@ namespace GES_Services.Manipulations
         {
             return this.m_depotEquipe.ListerEquipes();
         }
-        public Equipe ChercherEquipeParId(int p_id)
+        public Equipe ChercherEquipeParId(Guid p_id)
         {
-            if(p_id < 0)
-            {
-                throw new ArgumentOutOfRangeException("Le paramètre p_id ne peut pas être négatif", nameof(p_id));
-            }
+  
             return this.m_depotEquipe.ChercherEquipeParId(p_id);
         }
         

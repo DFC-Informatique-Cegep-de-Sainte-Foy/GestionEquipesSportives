@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace GES_Services.Entites
 {
-    public enum EnumTypeRole
+    public enum EnumSports
     {
-        Athlete,
-        Tuteur,
-        Entraineur,
-        Administrateur
+        autre,
+        baseball,
+        basketball,
+        football,
+        hockey,
+        soccer,
+        tennis,
+        volleyball
     }
 }

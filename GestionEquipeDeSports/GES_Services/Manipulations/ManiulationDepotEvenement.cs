@@ -22,7 +22,7 @@ namespace GES_Services.Manipulations
             return _depotEvenement.ListerEvenements();
         }
 
-        public Evenement ChercherEvenementParId(int id)
+        public Evenement ChercherEvenementParId(Guid id)
         {
             return _depotEvenement.ChercherEvenementParId(id);
         }

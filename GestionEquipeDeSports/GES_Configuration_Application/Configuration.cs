@@ -4,7 +4,7 @@ namespace GES_Configuration_Application
 {
     public class Configuration
     {
-        private static IConfigurationRoot _configuration;
+        private static IConfigurationRoot? _configuration;
         private static IConfigurationRoot Settings
         {
             get

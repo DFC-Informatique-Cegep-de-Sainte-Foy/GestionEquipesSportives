@@ -4,7 +4,7 @@ using GES_API.Models;
 
 namespace GES_API.Controllers
 {
-    [Route("api/Equipe")]
+    [Route("api/equipe")]
     [ApiController]
     public class EquipeController : ControllerBase
     {
@@ -30,7 +30,7 @@ namespace GES_API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<EquipeModel> Get(int id)
+        public ActionResult<EquipeModel> Get(Guid id)
         {
             EquipeModel model = new EquipeModel(this.m_manipulationDepotEquipe.ChercherEquipeParId(id));
             if(model != null)
@@ -54,7 +54,7 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
-            this.m_manipulationDepotEquipe.AjouterEquipe(p_equipeModel.VersEntite());
+            this.m_manipulationDepotEquipe.AjouterEquipe(p_equipeModel.DeModelVersEntite());
             return Ok();
         }
 
@@ -63,7 +63,7 @@ namespace GES_API.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public ActionResult Put(int p_id, [FromBody] EquipeModel p_equipeModel)
+        public ActionResult Put(Guid p_id, [FromBody] EquipeModel p_equipeModel)
         {
             if (!ModelState.IsValid || p_equipeModel.IdEquipe != p_id)
             {
@@ -77,7 +77,7 @@ namespace GES_API.Controllers
                 return NotFound();
             }
 
-            this.m_manipulationDepotEquipe.ModifierEquipe(p_equipeModel.VersEntite());
+            this.m_manipulationDepotEquipe.ModifierEquipe(p_equipeModel.DeModelVersEntite());
 
             return NoContent();
         }
@@ -86,7 +86,7 @@ namespace GES_API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public ActionResult Delete(int p_id)
+        public ActionResult Delete(Guid p_id)
         {
             EquipeModel equipeModel = new EquipeModel(this.m_manipulationDepotEquipe.ChercherEquipeParId(p_id));
 
@@ -95,7 +95,7 @@ namespace GES_API.Controllers
                 return NotFound();
             }
 
-            this.m_manipulationDepotEquipe.SupprimerEquipe(equipeModel.VersEntite());
+            this.m_manipulationDepotEquipe.SupprimerEquipe(equipeModel.DeModelVersEntite());
 
             return NoContent();
         }

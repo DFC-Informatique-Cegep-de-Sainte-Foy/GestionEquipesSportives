@@ -1,74 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GES_Services.Entites
-{
-    public class Utilisateur
+namespace GES_Services.Entites;
+    public partial class Utilisateur
     {
-        public int Id { get; private set; }
-        public string Nom { get; private set; }
-        public string Prenom { get; private set; }
-        public string Email { get; private set; }
-        public string MotDePasse { get; private set; }        
-        public DateTime DateCreation { get; private set; }
-        public DateTime DateModification { get; private set; }
-        
-        public bool EstEntraineur = false;
-        public bool EstTuteur = false;
-        public bool EstAthlete = false;
-
-        private List<string> roles = new List<string>();
-
-        public Utilisateur()
+        public Utilisateur(Guid guid, string nom, string prenom, string email, string adresse, string numTelephone, 
+                           bool? estAthlete, bool? estTuteur, bool? estEntraineur, bool? estAdmin)
         {
-            ;
-        }
 
-        public Utilisateur(string nom, string prenom, string email, DateTime dateCreation, DateTime dateModification, bool estEntraineur, bool estTuteur, bool estAthlete)
-        {
-            if (nom.Trim().Length == 0 || nom == null)
+            if(guid == null)
             {
-                throw new Exception("Le nom ne peut pas être vide");
+                throw new ArgumentNullException(nameof(guid));
             }
 
-            if (prenom.Trim().Length == 0 || prenom == null)
+            IdUtilisateur = guid;
+            if(nom == null)
             {
-                throw new Exception("Le prénom ne peut pas être vide");
+                throw new ArgumentNullException($"Le parametre nom: {nom} est invalide", nameof(nom));
             }
-
-            if (email.Trim().Length == 0 || email == null)
-            {
-                throw new Exception("L'email ne peut pas être vide");
-            }
-                        
             Nom = nom;
+            if(prenom == null)
+            {
+                throw new ArgumentNullException($"Le parametre prenom: {prenom} est invalide", nameof(prenom));
+            }
             Prenom = prenom;
+            if(email == null)
+            {
+                throw new ArgumentNullException($"Le parametre email: {email} est invalide", nameof(email));
+            }
             Email = email;
-            
-            DateCreation = dateCreation;
-            DateModification = dateModification;
-            
-            EstEntraineur = estEntraineur;
-            EstTuteur = estTuteur;
+            if(adresse == null)
+            {
+                throw new ArgumentNullException($"Le parametre email: {email} est invalide", nameof(email));
+            }
+            Adresse = adresse;
+            if(numTelephone == null)
+            {
+                throw new ArgumentNullException($"Le parametre numero telephone: {numTelephone} est invalide", nameof(numTelephone));
+            }
+            NumTelephone = numTelephone;
+
+            DateCreation = DateTime.Now;
+            DateModification = DateTime.Now;
+
+                        
             EstAthlete = estAthlete;
-
-            if (EstEntraineur)
-            {
-                roles.Add("Entraineur");
-            }
-
-            if (EstTuteur)
-            {
-                roles.Add("Tuteur");
-            }
-
-            if (EstAthlete)
-            {
-                roles.Add("Athlete");
-            }
+            EstTuteur = estTuteur;
+            EstEntraineur = estEntraineur;
+            EstAdmin = estAdmin;
         }
+
+        public Guid IdUtilisateur { get; private set; }
+        public string? Nom { get; private set; }
+        public string? Prenom { get; private set; }
+        public string? Email { get; private set; }
+        public string? Adresse { get; private set; }
+        public string? NumTelephone { get; private set; }
+        public DateTime? DateCreation { get; private set; }
+        public DateTime? DateModification { get; private set; }
+        public bool? EstAthlete { get; private set; }
+        public bool? EstTuteur { get; private set; }
+        public bool? EstEntraineur { get; private set; }
+        public bool? EstAdmin { get; private set; }
     }
-}

@@ -1,3 +1,4 @@
+using GES_DAL.Data;
 using GES_DAL.Depots;
 using GES_Services.Interfaces;
 using GES_Services.Manipulations;
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Connection String
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<GES_DAL.GestionEquipeContextSQLServer>(options =>
+builder.Services.AddDbContext<Equipe_sportiveContext>(options =>
     options.UseSqlServer(connectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -36,7 +37,7 @@ builder.Services.AddScoped<IDepotEquipe, DepotEquipeSQLServer>();
 builder.Services.AddScoped<IDepotImportationEvenementCSV, DepotImportationEvenementCSVSQLServer>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<GES_DAL.GestionEquipeContextSQLServer>();
+    .AddEntityFrameworkStores<Equipe_sportiveContext>();
 
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
