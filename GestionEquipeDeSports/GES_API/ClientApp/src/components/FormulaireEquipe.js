@@ -11,6 +11,7 @@ export class FormEquipe extends React.Component{
             region: '',
             association_sportive: '',
             formValide: false,
+            message: '',
             estErreur: {}
         }
 
@@ -33,12 +34,29 @@ export class FormEquipe extends React.Component{
     ajouterEquipe(e){
         e.preventDefault();
         if(this.validationFormulaire()){
-            //alert('La validation a réussi');
-            console.log(this.state.nom_sport);
-            console.log(this.state.nom_equipe);
-            console.log(this.state.region);
-            console.log(this.state.association_sportive);
+            let equipeJson = {
+                Nom: this.state.nom_equipe,
+                Region: this.state.region,
+                Sport: this.state.nom_sport,
+                AssociationSportive: this.state.association_sportive,
+            };
             console.log('validation a reussi');
+            console.log(JSON.stringify(equipeJson));
+            fetch('api/Equipe',{
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(equipeJson)
+            })
+            .then( reponse => {
+                console.log(reponse);
+                if(reponse){
+                    this.setState({message:'Une nouvelle équipe a été créée'});
+                }
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+
             this.setState({
                 nom_sport: '',
                 nom_equipe: '',
@@ -51,7 +69,7 @@ export class FormEquipe extends React.Component{
     }
 
     validationFormulaire(){
-        const {nom_sport, nom_equipe, region} = this.state;
+        const {nom_sport, nom_equipe, region, association_sportive} = this.state;
         let erreurFormulaire = {};
         let formulaireEstValide = true;
 
@@ -70,12 +88,17 @@ export class FormEquipe extends React.Component{
             erreurFormulaire["nomRegionErreur"] = "Veillez entrer un region";
         }
 
+        if(!association_sportive){
+            formulaireEstValide = false;
+            erreurFormulaire["nomAssociationErreur"] = "Veillez entrer un association sportive";
+        }
+
         this.setState({estErreur: erreurFormulaire});
         return formulaireEstValide;
     }
 
     render(){
-        const{sportErreur, nomEquipeErreur, nomRegionErreur} = this.state.estErreur;
+        const{sportErreur, nomEquipeErreur, nomRegionErreur, nomAssociationErreur} = this.state.estErreur;
         return(
             <>
                 <div>
@@ -121,7 +144,13 @@ export class FormEquipe extends React.Component{
 
                     <Form.Group className="mb-3">
                         <Form.Label>Association Sportive</Form.Label>
-                        <Form.Control type="text" name="association_sportive" value={this.state.association_sportive} onChange={this.handleInputChangee} />
+                        <Form.Control 
+                            type="text" 
+                            name="association_sportive" 
+                            value={this.state.association_sportive} 
+                            className={nomAssociationErreur ? "is-invalid form-control" : "form-control"}
+                            onChange={this.handleInputChangee} />
+                            {nomAssociationErreur && <div style={{color: "red"}}>{nomAssociationErreur}</div>}
                     </Form.Group>                    
                     
                     <Button variant="success" className="mb-3" type="submit" >Ajouter</Button>

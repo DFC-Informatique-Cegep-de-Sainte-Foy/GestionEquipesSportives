@@ -11,6 +11,10 @@ namespace GES_API.Controllers
         private ManipulationDepotEquipe m_manipulationDepotEquipe;
         public EquipeController(ManipulationDepotEquipe p_manipulationDepotEquipe)
         {
+            if(p_manipulationDepotEquipe == null)
+            {
+                throw new ArgumentNullException(nameof(p_manipulationDepotEquipe));
+            }
             this.m_manipulationDepotEquipe = p_manipulationDepotEquipe;
         }
 

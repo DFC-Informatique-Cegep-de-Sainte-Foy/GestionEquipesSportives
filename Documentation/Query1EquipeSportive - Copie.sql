@@ -33,7 +33,7 @@ EstAdmin Bit,
 FK_Id_Etat INT FOREIGN KEY REFERENCES dbo.Etat (IdEtat)
 );
 
-CREATE TABLE Equipe(
+CREATE TABLE Equipes(
 IdEquipe INT IDENTITY PRIMARY KEY,
 Nom VARCHAR(50),
 Region VARCHAR(30),

@@ -17,7 +17,7 @@ namespace GES_Services.Entites
         public string Sport { get; private set; }
         public string AssociationSportive { get; private set; }
         public List<Utilisateur> Membres { get; private set; }
-       public List<Evenement> Evenements { get; private set; }
+        public List<Evenement> Evenements { get; private set; }
 
         public Equipe()
         {

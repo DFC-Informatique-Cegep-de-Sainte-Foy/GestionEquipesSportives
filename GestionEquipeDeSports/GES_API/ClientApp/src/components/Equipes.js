@@ -18,14 +18,22 @@ export class Equipes extends Component {
                 equipes: result
             });
         });
-}
+  }
+
+  formatDateTime(donnees) {
+    var dateTimeEntree = donnees;
+    var date = dateTimeEntree.split('T')[0];
+    var time = dateTimeEntree.split('T')[1].split(':');
+    var dateTimeSortie = date + ' ' + time[0] + ':' + time[1];
+    return dateTimeSortie;
+  }
 
   render() {
     return (
       <div>
         <h1>Page des équipes</h1>
         <Link to={'/formulaireEquipe'}>
-          <Button variant="success" >Ajouter une équipe</Button>
+          <Button variant="success" className="btn btn-success">Ajouter une équipe</Button><p></p>
         </Link>
         <Table striped bordered>
           <thead>
@@ -47,8 +55,8 @@ export class Equipes extends Component {
                 <td>{eq.nom}</td>
                 <td>{eq.region}</td>
                 <td>{eq.etat}</td>
-                <td>{eq.dateCreation}</td>
-                <td>{eq.dateModification}</td>
+                <td>{this.formatDateTime(eq.dateCreation)}</td>
+                <td>{this.formatDateTime(eq.dateModification)}</td>
                 <td>{eq.sport}</td>
                 <td>{eq.associationSportive}</td>
               </tr>

@@ -13,8 +13,8 @@ namespace GES_API.Models
         public int Etat { get; set; }
         public string Sport { get; set; }
         public string AssociationSportive { get; set; }
-        public List<Utilisateur> Membres { get; set; }
-        public List<Evenement> Evenements { get; set; }
+        //public List<Utilisateur> Membres { get; set; }
+        //public List<Evenement> Evenements { get; set; }
 
         /*public string Sport { get; set; }
         public string AssociationSportive { get; set; }*/
@@ -34,8 +34,8 @@ namespace GES_API.Models
             this.Etat = p_equipe.Etat;
             this.Sport = p_equipe.Sport;
             this.AssociationSportive = p_equipe.AssociationSportive;
-            this.Membres = p_equipe.Membres;
-            this.Evenements = p_equipe.Evenements;
+            //this.Membres = p_equipe.Membres;
+            //this.Evenements = p_equipe.Evenements;
         }
 
         public Equipe VersEntite()
