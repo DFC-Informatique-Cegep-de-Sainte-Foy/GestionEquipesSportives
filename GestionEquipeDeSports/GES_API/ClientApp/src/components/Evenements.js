@@ -31,7 +31,6 @@ export class Evenements extends React.Component {
     }
 
     affichageTypeEvenement(data){
-        //console.log(data);
         if(data === 1){
             return "Entrainement";
         } else if(data === 2){
@@ -44,7 +43,6 @@ export class Evenements extends React.Component {
     }
 
     affichageEtat(data){
-        console.log(data);
         if(data === 1){
             return "Actif";
         } else if(data === 2){

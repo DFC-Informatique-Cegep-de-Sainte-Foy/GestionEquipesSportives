@@ -23,11 +23,13 @@ namespace GES_DAL.Depots
         }
         public IEnumerable<Equipe> ListerEquipes()
         {
-            IEnumerable<Equipe> equipes = this.m_context.Equipes
-                                          .Where(eDTO => eDTO.Etat)
-                                          .Select(eDTO => eDTO.VersEntite())
-                                          .ToList();
-            return equipes;
+            //retourne la liste des équipes dans la BD
+            return this.m_context.Equipes.Select(e => e.VersEntite());
+            //IEnumerable<Equipe> equipes = this.m_context.Equipes
+            //                              .Where(eDTO => eDTO.Etat)
+            //                              .Select(eDTO => eDTO.VersEntite())
+            //                              .ToList();
+            //return equipes;
         }
         public Equipe ChercherEquipeParId(int p_id)
         {
@@ -36,7 +38,7 @@ namespace GES_DAL.Depots
                 throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur à 0", nameof(p_id));
             }
 
-            EquipeDTO equipeDTO = this.m_context.Equipes.FirstOrDefault(eDTO => eDTO.Id == p_id);
+            EquipeDTO equipeDTO = this.m_context.Equipes.FirstOrDefault(eDTO => eDTO.IdEquipe == p_id);
 
             if (equipeDTO is null)
             {
@@ -52,9 +54,9 @@ namespace GES_DAL.Depots
                 throw new ArgumentNullException("le paramàtre p_equipe ne peut pas être null", nameof(p_equipe));
             }
 
-            if (this.m_context.Equipes.Any(eDTO => eDTO.Id == p_equipe.Id))
+            if (this.m_context.Equipes.Any(eDTO => eDTO.IdEquipe == p_equipe.IdEquipe))
             {
-                throw new InvalidOperationException($"l'équipe avec le id {p_equipe.Id} existe déjà dans le dépot");
+                throw new InvalidOperationException($"l'équipe avec le id {p_equipe.IdEquipe} existe déjà dans le dépot");
             }
 
             this.m_context.Equipes.Add(new EquipeDTO(p_equipe));
@@ -67,9 +69,9 @@ namespace GES_DAL.Depots
                 throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(p_equipe));
             }
 
-            if (!this.m_context.Evenements.Any(eDTO => eDTO.Id == p_equipe.Id))
+            if (!this.m_context.Evenements.Any(eDTO => eDTO.Id == p_equipe.IdEquipe))
             {
-                throw new InvalidOperationException($"l'evenement avec le id {p_equipe.Id} n'existe pas");
+                throw new InvalidOperationException($"l'evenement avec le id {p_equipe.IdEquipe} n'existe pas");
             }
 
             this.m_context.Equipes.Update(new EquipeDTO(p_equipe));
@@ -82,14 +84,14 @@ namespace GES_DAL.Depots
                 throw new ArgumentNullException("le paramètre p_equipe ne peut pas etre null", nameof(p_equipe));
             }
 
-            EquipeDTO? equipeDTO = this.m_context.Equipes.Where(eDTO => eDTO.Id == p_equipe.Id).SingleOrDefault();
+            EquipeDTO? equipeDTO = this.m_context.Equipes.Where(eDTO => eDTO.IdEquipe == p_equipe.IdEquipe).SingleOrDefault();
 
             if (equipeDTO is null)
             {
-                throw new InvalidOperationException($"l'équipe avec le id {p_equipe.Id} n'existe pas dans le dépot");
+                throw new InvalidOperationException($"l'équipe avec le id {p_equipe.IdEquipe} n'existe pas dans le dépot");
             }
 
-            equipeDTO.Etat = false;
+            equipeDTO.Etat = 2;
             m_context.Equipes.Update(equipeDTO);
             m_context.SaveChanges();
         }
