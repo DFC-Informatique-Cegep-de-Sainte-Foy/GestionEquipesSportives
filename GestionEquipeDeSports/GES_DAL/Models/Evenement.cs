@@ -27,6 +27,20 @@ namespace GES_DAL.Models
         public virtual ICollection<EquipeEvenement> EquipeEvenements { get; set; }
         public virtual ICollection<EvenementJoueur> EvenementJoueurs { get; set; }
 
+
+        public Evenement(GES_Services.Entites.Evenement evenement)
+        {
+            IdEvenement = evenement.IdEvenement;
+            Description = evenement.Description;
+            Emplacement = evenement.Emplacement;
+            DateDebut = evenement.DateDebut;
+            DateFin = evenement.DateFin;
+            DateCreation= evenement.DateCreation;
+            DateModification = evenement.DateModification;
+            IdTypeEvenement = (int)evenement.TypeEvenement;
+            Etat = evenement.Etat;
+        }
+
         public GES_Services.Entites.Evenement DeDTOVersEntite()
         {
             //conversion de cette property IdTypeEvenement vers ce type EnumTypeEvenement

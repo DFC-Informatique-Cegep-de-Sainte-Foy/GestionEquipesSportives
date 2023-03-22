@@ -49,10 +49,10 @@ namespace GES_DAL.Depots
         {
             throw new NotImplementedException();
         }
+
         //public IEnumerable<Entite.Equipe> ListerEquipes()
         //{
         //    List<Entite.Equipe> equipes = new List<Entite.Equipe>();
-
 
         //    return equipes;
         //}

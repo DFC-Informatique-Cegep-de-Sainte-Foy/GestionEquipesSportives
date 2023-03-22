@@ -1,4 +1,4 @@
-﻿using GES_DAL.DTOs;
+﻿using GES_DAL.Data;
 using GES_Services.Entites;
 using GES_Services.Interfaces;
 using System;
@@ -12,7 +12,7 @@ namespace GES_DAL.Depots
 {
     public class DepotImportationEvenementCSVSQLServer : IDepotImportationEvenementCSV
     {
-        public GestionEquipeContextSQLServer m_context;
+        public Equipe_sportiveContext m_context;
 
         private readonly string separateurChamps = "\",\"";
 
@@ -20,22 +20,22 @@ namespace GES_DAL.Depots
 
         private string m_lien = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, m_nomFichierAImporter);
 
-        public DepotImportationEvenementCSVSQLServer(GestionEquipeContextSQLServer context )
+        public DepotImportationEvenementCSVSQLServer(Equipe_sportiveContext context)
         {
-            
-            this.m_context = context;   
+
+            this.m_context = context;
         }
 
         public void AjouterEvenements(List<Evenement> p_evenements)
         {
             foreach (Evenement item in p_evenements)
             {
-                if (m_context.Evenements.Any(e => e.Id == item.Id))
+                if (m_context.Evenements.Any(e => e.IdEvenement == item.IdEvenement))
                 {
-                    throw new InvalidOperationException($"l'evenement avec le id {item.Id} existe deja");
+                    throw new InvalidOperationException($"l'evenement avec le id {item.IdEvenement} existe deja");
                 }
 
-                m_context.Evenements.Add(new EvenementDTO(item));
+                m_context.Evenements.Add(new GES_DAL.Models.Evenement(item));
                 m_context.SaveChanges();
             }
             File.Delete(m_nomFichierAImporter);
@@ -73,8 +73,8 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"Impossible de trouver le fichier {m_lien}");
             }
 
-            
-            List<Evenement> evenements = new List<Evenement>(); 
+
+            List<Evenement> evenements = new List<Evenement>();
 
             using (StreamReader sr = File.OpenText(m_lien))
             {
@@ -95,7 +95,7 @@ namespace GES_DAL.Depots
                             DateTime dateFin;
                             DateTime.TryParse(valeursColonne[1] + "," + valeursColonne[2], out dateDebut);
                             DateTime.TryParse(valeursColonne[3] + "," + valeursColonne[4], out dateFin);
-                            
+
                             if (valeursColonne[6] == "Partie")
                             {
                                 typeEvenement = 2;
@@ -110,16 +110,18 @@ namespace GES_DAL.Depots
                             }
                             if (ligneCourante != ",,,,,,")
                             {
+
                                 Evenement evenement = new Evenement(
-                                valeursColonne[0],
-                                valeursColonne[5],                                
-                                dateDebut,
-                                dateFin,
-                                typeEvenement
-                                );
+                                            valeursColonne[0],
+                                            dateDebut,
+                                            dateFin,
+                                            valeursColonne[5],
+                                            valeursColonne[6]
+                                    );
+
                                 evenements.Add(evenement);
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -128,7 +130,7 @@ namespace GES_DAL.Depots
 
                         }
                     }
-                        
+
                 }
                 sr.Close();
             }

@@ -6,6 +6,32 @@ namespace GES_Services.Entites
 {
     public class Evenement
     {
+        public Evenement(string description, DateTime dateDebut, DateTime dateFin, string emplacement, string typeEvenement)
+        {
+            Description= description;
+            DateDebut = dateDebut;
+            DateFin = dateFin;
+            Emplacement = emplacement;
+           
+            if (typeEvenement == "entrainement")
+            {
+                TypeEvenement = EnumTypeEvenement.entrainement;
+            }
+            else if (typeEvenement == "partie")
+            {
+                TypeEvenement = EnumTypeEvenement.partie;
+            }
+            else if (typeEvenement == "autre")
+            {
+                TypeEvenement = EnumTypeEvenement.autre;
+            }
+            else
+            {
+                throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
+            }
+
+        }
+
         public Evenement(Guid guid, string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, EnumTypeEvenement typeEvenement)
         {            
 
@@ -50,7 +76,8 @@ namespace GES_Services.Entites
             //    }
             //}
         }
-
+            
+      
         public Guid IdEvenement { get; private set; }
         public string Description { get; private set; } = null!;
         public string Emplacement { get; private set; } = null!;

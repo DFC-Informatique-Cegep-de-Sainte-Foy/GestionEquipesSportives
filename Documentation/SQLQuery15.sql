@@ -94,14 +94,14 @@ INSERT INTO Etats(IdEtat,Description) VALUES(1,'Inactif');
  
 --GO
 --INSERT INTO Evenement(Description, Emplacement, DateDebut, DateFin,DateCreation, DateModification, IdTypeEvenement, Etat)
---    VALUES ('Match de foot', 'Sainte-foy', '2023-03-15','2023-03-17','2023-03-13','2023-03-14', 1, 1);
+--   VALUES ('Match de foot', 'Sainte-foy', '2023-03-15','2023-03-17','2023-03-13','2023-03-14', 1, 1);
 
 --GO
 --INSERT INTO Evenement(Description, Emplacement, DateDebut, DateFin, DateCreation, DateModification, IdTypeEvenement, Etat)
 --    VALUES ('Partie de soccer', 'Sagenay', '2023-03-15','2023-03-17','2023-03-12','2023-03-15',2,0);
 
---GO
---INSERT INTO Evenement(Description, Emplacement, DateDebut, DateFin, DateCreation, DateModification, IdTypeEvenement, Etat)
---    VALUES ('Match de basketball', 'Yaoundé', '2023-03-20','2023-03-23','2023-03-15','2023-03-15',1,1);
+GO
+INSERT INTO Evenement(IdEvenement, Description, Emplacement, DateDebut, DateFin, DateCreation, DateModification, IdTypeEvenement, Etat)
+    VALUES ('EEED1CC8-5DCE-4273-906E-57290EE21414','Match de basketball', 'Yaoundé', '2023-03-20','2023-03-23','2023-03-15','2023-03-15', 1, 0);
 
 --Select * from Evenement;

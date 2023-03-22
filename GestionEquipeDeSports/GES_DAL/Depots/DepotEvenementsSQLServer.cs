@@ -26,102 +26,77 @@ namespace GES_DAL.Depots
 
         public void AjouterEvenement(Evenement evenement)
         {
-            throw new NotImplementedException();
+            //Add evenement to BD with m_context
+            if (evenement is null)
+            {
+                throw new ArgumentNullException($"le parametre {evenement} ne peut pas etre null", nameof(evenement));
+            }
+
+            if (m_context.Evenements.Any(e => e.IdEvenement == evenement.IdEvenement))
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {evenement.IdEvenement} existe deja");
+            }
+
+            m_context.Evenements.Add(new GES_DAL.Models.Evenement(evenement));
+            m_context.SaveChanges();
         }
 
         public Evenement ChercherEvenementParId(Guid id)
         {
-            throw new NotImplementedException();
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(id));
+            }
+
+            GES_DAL.Models.Evenement? evenementDTO = m_context.Evenements.FirstOrDefault(e => e.IdEvenement == id);
+
+            if (evenementDTO is null)
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {id} n'existe pas");
+            }
+
+            return evenementDTO.DeDTOVersEntite();
         }
 
         public IEnumerable<Evenement> ListerEvenements()
         {
-            throw new NotImplementedException();
+            return m_context.Evenements.Where(e => e.Etat == true).Select(e => e.DeDTOVersEntite());
         }
 
         public void ModifierEvenement(Evenement evenement)
         {
-            throw new NotImplementedException();
+            if (evenement is null)
+            {
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
+            }
+
+            if (!this.m_context.Evenements.Any(e => e.IdEvenement == evenement.IdEvenement))
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {evenement.IdEvenement} n'existe pas");
+            }
+
+            m_context.Evenements.Update(new GES_DAL.Models.Evenement(evenement));
+            m_context.SaveChanges();
         }
 
         public void SupprimerEvenement(Evenement evenement)
         {
-            throw new NotImplementedException();
+            if (evenement is null)
+            {
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
+            }
+
+            GES_DAL.Models.Evenement? evenementDTO = m_context.Evenements.Where(e => e.IdEvenement == evenement.IdEvenement).SingleOrDefault();
+
+            if (evenementDTO is null)
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {evenement.IdEvenement} n'existe pas");
+            }
+
+            evenementDTO.Etat = false;
+            m_context.Evenements.Update(evenementDTO);
+            m_context.SaveChanges();
         }
 
-        //public Evenement ChercherEvenementParId(int id)
-        //{
-        //    //Search evenement in BD with m_context
-        //    if (id < 0)
-        //    {
-        //        throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(id));
-        //    }
-
-        //    EvenementDTO evenementDTO = m_context.Evenements.FirstOrDefault(e => e.Id == id);
-
-        //    if (evenementDTO is null)
-        //    {
-        //        throw new InvalidOperationException($"l'evenement avec le id {id} n'existe pas");
-        //    }
-
-        //    return evenementDTO.VersEntite();
-        //}
-        //public void AjouterEvenement(Evenement evenement)
-        //{
-        //    //Add evenement to BD with m_context
-        //    if (evenement is null)
-        //    {
-        //        throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
-        //    }
-
-        //    if (m_context.Evenements.Any(e => e.Id == evenement.Id))
-        //    {
-        //        throw new InvalidOperationException($"l'evenement avec le id {evenement.Id} existe deja");
-        //    }
-
-        //    m_context.Evenements.Add(new EvenementDTO(evenement));
-        //    m_context.SaveChanges();
-        //}
-
-        //public IEnumerable<Evenement> ListerEvenements()
-        //{
-        //    //retourne la liste des evenements dans la BD
-        //    return m_context.Evenements.Select(e => e.VersEntite());
-        //}
-
-        //public void ModifierEvenement(Evenement evenement)
-        //{
-        //    if (evenement is null)
-        //    {
-        //        throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
-        //    }
-
-        //    if (!this.m_context.Evenements.Any(e => e.Id == evenement.Id))
-        //    {
-        //        throw new InvalidOperationException($"l'evenement avec le id {evenement.Id} n'existe pas");
-        //    }
-
-        //    m_context.Evenements.Update(new EvenementDTO(evenement));
-        //    m_context.SaveChanges();
-        //}
-
-        //public void SupprimerEvenement(Evenement evenement)
-        //{
-        //    if (evenement is null)
-        //    {
-        //        throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
-        //    }
-
-        //    EvenementDTO? evenementDTO = m_context.Evenements.Where(e => e.Id == evenement.Id).SingleOrDefault();
-
-        //    if(evenementDTO is null)
-        //    {
-        //        throw new InvalidOperationException($"l'evenement avec le id {evenement.Id} n'existe pas");
-        //    }
-
-        //    evenementDTO.Etat = 0;
-        //    m_context.Evenements.Update(evenementDTO);
-        //    m_context.SaveChanges();
-        //}       
+        }
     }
-}
