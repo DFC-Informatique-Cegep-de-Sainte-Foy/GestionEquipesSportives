@@ -6,13 +6,13 @@
             "value": "bc058abe-2bd9-4fe6-997e-a7406e675b2f"
         },
         "name": {
-            "value": "EquipeSportiveReact"
+            "value": "GestionEquipeSportive"
         },
         "location": {
             "value": "East US"
         },
         "hostingPlanName": {
-            "value": "service-plan-webapp"
+            "value": "ASP-myapprg-b424"
         },
         "serverFarmResourceGroup": {
             "value": "myapp-rg"
@@ -38,14 +38,8 @@
         "workerSizeId": {
             "value": "0"
         },
-        "currentStack": {
-            "value": "dotnet"
-        },
-        "phpVersion": {
-            "value": "OFF"
-        },
-        "netFrameworkVersion": {
-            "value": "v6.0"
+        "linuxFxVersion": {
+            "value": "DOTNETCORE|6.0"
         }
     }
 }
