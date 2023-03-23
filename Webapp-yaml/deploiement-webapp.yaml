@@ -5,18 +5,18 @@ metadata:
   name: webapp-dep-#{namespace}#
   namespace: #{namespace}#
   labels:
-    app: GC.WebReact
+    app: GestionEquipeSportive
     tier: web
 spec:
   replicas: #{miseEchelleQuantite}#
   selector:
     matchLabels:
-      app: GC.WebReact
+      app: GestionEquipeSportive
       tier: web
   template:
     metadata:
       labels:
-        app: GC.WebReact
+        app: GestionEquipeSportive
         tier: web
     spec:
       containers:
