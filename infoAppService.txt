@@ -1,0 +1,22 @@
+nom appweb = EquipeSportiveReact
+nom service plan = service-plan-webapp
+
+
+Abonnement = bc058abe-2bd9-4fe6-997e-a7406e675b2f
+Groupe de ressources = myapp-rg
+Nom = EquipeSportiveReact
+
+
+Plan App Service (nouveauté)
+Nom = service-plan-webapp
+Système d'exploitation = Windows
+Région = East US
+Référence = Gratuit
+ACU = Infrastructure partagée
+Mémoire = 1 Go de mémoire
+
+
+_CI_Ressources_ApplicationWeb/src
+
+
+groupeDeRessources: myapp-rg

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-svc-#{namespace}#
+  namespace: #{namespace}#
+  labels:
+    app: GC.WebReact
+    tier: web
+spec:
+  selector:
+    app: GC.WebReact
+    tier: web
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-dep-#{namespace}#
+  namespace: #{namespace}#
+  labels:
+    app: GC.WebReact
+    tier: web
+spec:
+  replicas: #{miseEchelleQuantite}#
+  selector:
+    matchLabels:
+      app: GC.WebReact
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: GC.WebReact
+        tier: web
+    spec:
+      containers:
+        - name: webreact-image-test
+          image: kevin012/webreact-image-test:latest
+          env:
+            - name: ConnectionStrings__DefaultConnection
+              value: #{ConnectionStrings__DefaultConnection}#
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+          ports:
+           - name: http
+             containerPort: 80
