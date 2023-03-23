@@ -67,8 +67,7 @@ export class Evenements extends React.Component {
                             <th>Emplacement</th>
                             <th>Date début</th>
                             <th>Date fin</th>
-                            <th>Type événement</th>
-                            <th>Etat</th>                            
+                            <th>Type événement</th>                         
                         </tr>
                     </thead>
                     <tbody>
@@ -80,7 +79,6 @@ export class Evenements extends React.Component {
                                 <td>{this.formatDateTime(ev.dateDebut)}</td>
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
                                 <td>{this.affichageTypeEvenement(ev.typeEvenement)}</td>
-                                <td>{this.affichageEtat(ev.etat)}</td>
                                 <td>
                                     <Link >
                                         <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>
