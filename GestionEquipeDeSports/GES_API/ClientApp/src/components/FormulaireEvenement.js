@@ -8,6 +8,7 @@ export function FormEvenement() {
     const [dateFinEvenement, setDateFinEvenement] = useState("");
     const [typeEvenement, setTypeEvenement] = useState("");
     const [erreurDonnees, setErreurDonnees] = useState(false);
+    const [confirmationAjout, setConfirmationAjout] = useState("");
 
     const optionsRequete = {
         method: 'POST',
@@ -53,7 +54,7 @@ export function FormEvenement() {
             fetch('api/evenements', optionsRequete)
                 .then(function (reponse) {
                     console.log(reponse);
-                    return reponse.json();
+                    setConfirmationAjout("Ajout de l'évenement réussi!");
 
                 }).catch(function (error) {
                     console.log(error)
@@ -74,24 +75,29 @@ export function FormEvenement() {
                         <div className="mb-3">
                             <h1 className="text-center">Ajouter un nouvel événement</h1>
                         </div>
+                        <small className="text-success">{confirmationAjout}</small>
 
                         <form>
                             <div className="form-group">
                                 <label htmlFor="description">Description</label>
-                                <input type="text" onChange={handleChange} className="form-control" id="description" name="description" placeholder="Entrer la description" />
+                                <input type="text" onChange={handleChange} className="form-control" id="description" name="description" placeholder="Entrer la description" />                                             
                             </div>
+
                             <div className="form-group">
                                 <label htmlFor="emplacement">Emplacement</label>
                                 <input type="text" onChange={handleChange} className="form-control" id="emplacement" name="emplacement" placeholder="Entrer l'emplacement" />
+                                <small>Veuillez entrer un emplacement</small>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="dateDebut">Date début</label>
                                 <input type="datetime-local" onChange={handleChange} className="form-control" id="dateDebut" name="dateDebut" placeholder="Entrer la dateDebut" />
+                                <small>Veuillez entrer une date de début</small>
                             </div><p></p>
 
                             <div className="form-group">
                                 <label htmlFor="dateFin">Date Fin</label>
                                 <input type="datetime-local" onChange={handleChange} className="form-control" id="dateFin" name="dateFin" placeholder="Entrer la dateFin" />
+                                <small>Veuillez entrer une date de fin</small>
                             </div><p></p>
 
                             <div className="form-group">
@@ -102,6 +108,7 @@ export function FormEvenement() {
                                     <option value="2">Partie</option>
                                     <option value="3">Autre</option>
                                 </select>
+                                <small>Veuillez choisir un type d'événement</small>
                             </div><p></p>
 
                             {erreurDonnees && <span style={{ color: 'red' }}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}
