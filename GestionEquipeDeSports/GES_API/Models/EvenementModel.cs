@@ -69,7 +69,6 @@ namespace GES_API.Models
                     this.DateDebut,
                     this.DateFin,
                     enumTypeEvenement
-
                 );
         }
     }

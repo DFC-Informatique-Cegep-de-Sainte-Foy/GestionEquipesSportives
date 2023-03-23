@@ -61,7 +61,5 @@ namespace GES_DAL.Models
                                this.DateFin,
                                enumTypeEvenement);
         }
-
-
     }
 }

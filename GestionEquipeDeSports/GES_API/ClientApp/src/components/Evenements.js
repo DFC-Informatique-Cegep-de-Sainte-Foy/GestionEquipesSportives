@@ -67,8 +67,6 @@ export class Evenements extends React.Component {
                             <th>Emplacement</th>
                             <th>Date début</th>
                             <th>Date fin</th>
-                            <th>Date création</th>
-                            <th>Date modification</th>
                             <th>Type événement</th>
                             <th>Etat</th>                            
                         </tr>
@@ -81,8 +79,6 @@ export class Evenements extends React.Component {
                                 <td>{ev.emplacement}</td>
                                 <td>{this.formatDateTime(ev.dateDebut)}</td>
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
-                                <td>{this.formatDateTime(ev.dateCreation)}</td>
-                                <td>{this.formatDateTime(ev.dateModification)}</td>
                                 <td>{this.affichageTypeEvenement(ev.typeEvenement)}</td>
                                 <td>{this.affichageEtat(ev.etat)}</td>
                                 <td>
