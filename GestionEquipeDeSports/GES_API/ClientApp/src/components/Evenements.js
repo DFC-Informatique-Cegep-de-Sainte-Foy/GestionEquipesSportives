@@ -42,7 +42,7 @@ export class Evenements extends React.Component {
         }
     }
 
-    affichageEtat(data){
+    /*affichageEtat(data){
         if(data === 1){
             return "Actif";
         } else if(data === 2){
@@ -50,7 +50,7 @@ export class Evenements extends React.Component {
         }else{
             return data;
         }
-    }
+    }*/
 
     render() {
         return (

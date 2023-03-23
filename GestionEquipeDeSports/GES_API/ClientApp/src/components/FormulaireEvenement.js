@@ -42,10 +42,6 @@ export function FormEvenement() {
             console.log(e.target.value);
             setTypeEvenement(e.target.value);
         }
-       /* else if (e.target.id === "etat") {
-            console.log(e.target.value);
-            setEtatEvenement(e.target.value);
-        }*/
     }
 
     function verifierDonnees() 
