@@ -34,7 +34,7 @@ namespace GES_DAL.Depots
 
             if (m_context.Evenements.Any(e => e.IdEvenement == evenement.IdEvenement))
             {
-                throw new InvalidOperationException($"l'evenement avec le id {evenement.IdEvenement} existe deja");
+                throw new InvalidOperationException($"l'evenement avec le id {evenement.IdEvenement} existe déjà");
             }
 
             m_context.Evenements.Add(new GES_DAL.Models.Evenement(evenement));
