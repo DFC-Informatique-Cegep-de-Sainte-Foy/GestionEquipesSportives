@@ -24,7 +24,7 @@
             "value": ""
         },
         "serverName": {
-            "value": "gestionequipe-sql-server"
+            "value": "synthese-sqlserver"
         },
         "licenseType": {
             "value": ""
@@ -54,7 +54,7 @@
             "value": true
         },
         "clientIpValue": {
-            "value": "199.202.104.234"
+            "value": "96.21.113.237"
         },
         "databaseTags": {
             "value": {}
@@ -114,7 +114,7 @@
             "value": false
         },
         "privateEndpointNestedTemplateId": {
-            "value": "pe-426fab5f-c7da-4754-b8b8-912a5f9b2014"
+            "value": "pe-66f260fe-1404-4554-a756-02bcfb562017"
         },
         "privateEndpointSubscriptionId": {
             "value": ""
@@ -156,7 +156,7 @@
             "value": "privatelink.database.windows.net"
         },
         "privateEndpointDnsRecordUniqueId": {
-            "value": "426fab5f-c7da-4754-b8b8-912a5f9b2017"
+            "value": "66f260fe-1404-4554-a756-02bcfb56201a"
         },
         "privateEndpointTemplateLink": {
             "value": "https://sqlazureextension.hosting.portal.azure.net/sqlazureextension/Content/2.1.0225764/DeploymentTemplates/PrivateEndpoint.json"
@@ -171,7 +171,7 @@
             "value": "https://sqlazureextension.hosting.portal.azure.net/sqlazureextension/Content/2.1.0225764/DeploymentTemplates/PrivateDnsForPrivateEndpointIpConfig.json"
         },
         "clientIpRuleName": {
-            "value": "ClientIp-2023-3-20_10-7-33"
+            "value": "ClientIp-2023-3-22_23-7-47"
         },
         "minimalTlsVersion": {
             "value": "1.2"
@@ -189,7 +189,7 @@
             "value": "/subscriptions/bc058abe-2bd9-4fe6-997e-a7406e675b2f/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default"
         },
         "administratorLogin": {
-            "value": "env-admin"
+            "value": "synthese"
         },
         "administratorLoginPassword": {
             "value": null

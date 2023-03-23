@@ -6,13 +6,13 @@
             "value": "bc058abe-2bd9-4fe6-997e-a7406e675b2f"
         },
         "name": {
-            "value": "GestionEquipe"
+            "value": "EquipeSportiveReact"
         },
         "location": {
             "value": "East US"
         },
         "hostingPlanName": {
-            "value": "ASP-myapprg-8fcf"
+            "value": "service-plan-webapp"
         },
         "serverFarmResourceGroup": {
             "value": "myapp-rg"
@@ -24,10 +24,10 @@
             "value": "FtpsOnly"
         },
         "sku": {
-            "value": "Shared"
+            "value": "Free"
         },
         "skuCode": {
-            "value": "D1"
+            "value": "F1"
         },
         "numberOfWorkers": {
             "value": "1"
