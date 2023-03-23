@@ -20,8 +20,8 @@ spec:
         tier: web
     spec:
       containers:
-        - name: webreact-image-test
-          image: kevin012/webreact-image-test:latest
+        - name: gestionEquipeSportive
+          image: kevin012/gestionEquipeSportive
           env:
             - name: ConnectionStrings__DefaultConnection
               value: #{ConnectionStrings__DefaultConnection}#
