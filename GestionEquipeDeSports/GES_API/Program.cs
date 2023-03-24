@@ -2,6 +2,7 @@ using GES_DAL.Data;
 using GES_DAL.Depots;
 using GES_Services.Interfaces;
 using GES_Services.Manipulations;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,71 +21,96 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //Manipulation du depot Evenement
 builder.Services.AddScoped<ManiulationDepotEvenement>();
-
 //Manipulation du depot Equipe
 builder.Services.AddScoped<ManipulationDepotEquipe>();
-
 //Manipulation du depot Evenement CSV
 builder.Services.AddScoped<ManipulationDepotImporationEvenementCSV>();
 
 //Dependance entre l'interface Evenement et le DepotEvenementSQLServer
 builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
-
 //Dependance entre l'interface Equipe et le DepotEquipeSQLServer
 builder.Services.AddScoped<IDepotEquipe, DepotEquipeSQLServer>();
-
 //Dependance entre l'interface evenementCSV et le DepotImportationEvenementCSVSQLServer
 builder.Services.AddScoped<IDepotImportationEvenementCSV, DepotImportationEvenementCSVSQLServer>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<Equipe_sportiveContext>();
 
-
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
+builder.Services.AddHealthChecks().AddSqlServer(connectionString, tags: new[] { "db" });
 
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("https://localhost:7225",
-                                              "https://localhost:44474"); // add the allowed origins  
-                      });
-});
+//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(name: MyAllowSpecificOrigins,
+//                      policy =>
+//                      {
+//                          policy.WithOrigins("https://localhost:7225",
+//                                              "https://localhost:44474"); // add the allowed origins  
+//                      });
+//});
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseMigrationsEndPoint();
+}
+else
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+try
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        using (var context = scope.ServiceProvider.GetService<Equipe_sportiveContext>())
+        {
+            context.Database.Migrate();
+        }
+    }
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine(ex.Message);
+    throw;
+}
+
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseCors(MyAllowSpecificOrigins);
+////////////////app.UseCors(MyAllowSpecificOrigins);
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//        name: "default",
+//        pattern: "{controller}/{action=Index}/{id?}");
+//    endpoints.MapRazorPages();
+//});
+
+app.MapControllerRoute(
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
-    endpoints.MapRazorPages();
-});
+app.MapRazorPages();
 
 //app.UseOpenApi();
 //app.UseSwaggerUi3();// /swagger
 
-app.MapRazorPages();
-
 app.MapFallbackToFile("index.html");;
+
+app.MapHealthChecks("/healthz/live", new HealthCheckOptions
+{
+    Predicate = healthCheck => !healthCheck.Tags.Contains("db")
+});
+
+app.MapHealthChecks("/healthz/db");
 
 app.Run();
