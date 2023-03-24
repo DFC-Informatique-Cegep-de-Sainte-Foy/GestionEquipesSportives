@@ -50,7 +50,7 @@ export const PageUnEvenement = () => {
                 <p>Date début - {formatDateTime(dateDebut)}</p>
                 <p>Date fin - {formatDateTime(dateFin)}</p>
                 <Link to={'/evenements'}>
-                    <Button variant="success" className="float-end">Retour à la page des événements</Button>
+                    <Button variant="success">Retour à la page des événements</Button>
                 </Link>
             </div>
         </>

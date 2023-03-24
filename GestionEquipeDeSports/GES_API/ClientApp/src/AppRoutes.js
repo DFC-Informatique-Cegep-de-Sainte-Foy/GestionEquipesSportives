@@ -7,6 +7,7 @@ import { FormEquipe } from "./components/FormulaireEquipe";
 import { Entraineurs } from "./components/Entraineurs";
 import { FormEntraineur } from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./components/PageUnEvenement";
+import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
 
 const AppRoutes = [
   {
@@ -44,6 +45,10 @@ const AppRoutes = [
   {
     path: '/unEvenement/:id',
     element: <PageUnEvenement />
+  },
+  {
+    path: '/modifieEvenement/:id',
+    element: <PageModifieUnEvenement />
   }
 ];
 

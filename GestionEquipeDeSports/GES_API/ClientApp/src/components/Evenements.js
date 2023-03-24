@@ -80,7 +80,7 @@ export class Evenements extends React.Component {
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
                                 <td>{this.affichageTypeEvenement(ev.typeEvenement)}</td>
                                 <td>
-                                    <Link >
+                                    <Link to={{ pathname: `/modifieEvenement/${ev.idEvenement}`}}>
                                         <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>
                                     </Link>
                                     <Link >
