@@ -20,7 +20,7 @@ spec:
         tier: web
     spec:
       containers:
-        - name: gestionEquipeSportive
+        - name: gestion-equipe-sportive
           image: kevin012/gestionEquipeSportive
           env:
             - name: ConnectionStrings__DefaultConnection
