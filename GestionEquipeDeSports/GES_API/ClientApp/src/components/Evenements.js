@@ -72,9 +72,9 @@ export class Evenements extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.evenements.map((ev, index) => (
-                            <tr key={ev.id}>
+                            <tr key={ev.idEvenement}>
                                 <td>{index+1}</td>
-                                <td>{ev.description}</td>
+                                <td><Link to={{ pathname: `/unEvenement/${ev.idEvenement}`}}>{ev.description}</Link></td>
                                 <td>{ev.emplacement}</td>
                                 <td>{this.formatDateTime(ev.dateDebut)}</td>
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
