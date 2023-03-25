@@ -9,6 +9,7 @@ export const PageModifieUnEvenement = () => {
     const [dateDebut, setDateDebut] = useState('');
     const [dateFin, setDateFin] = useState('');
     const [typeEvenement, setTypeEvenement] = useState('');
+    const [erreurValidation, setErreurValidation] = useState(false);
 
     function getEvenement(id){
         fetch(`api/evenements/${id}`)
@@ -36,6 +37,29 @@ export const PageModifieUnEvenement = () => {
 
     function verifierDonnees(){
         console.log('Ici validera les données du formulaire et les soumettra au serveur ');
+        
+            //if(!erreurValidation){
+                // PUT request fetch
+                const requestOptions = {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        id: id,
+                        description: description,
+                        emplacement: emplacement,
+                        dateDebut: dateDebut,
+                        dateFin: dateFin,
+                        typeEvenement: typeEvenement
+                    })
+                };
+                fetch(`api/evenement/${id}`, requestOptions)
+                    .then(response => response.json())
+                    .catch(function (error) {
+                        console.log(error)
+                    });
+            //}
     }
 
     return(

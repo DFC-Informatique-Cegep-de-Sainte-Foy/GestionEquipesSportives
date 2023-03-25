@@ -83,7 +83,7 @@ export class Evenements extends React.Component {
                                     <Link to={{ pathname: `/modifieEvenement/${ev.idEvenement}`}}>
                                         <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>
                                     </Link>
-                                    <Link >
+                                    <Link to={{ pathname: `/supprimerEvenement/${ev.idEvenement}`}}>
                                         <Button variant='danger' size="sm" title="Supprimer"> <BiTrash /> </Button>
                                     </Link>
                                 </td>

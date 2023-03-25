@@ -114,9 +114,9 @@ export function FormEvenement() {
                             {erreurDonnees && <span style={{ color: 'red' }}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}
                             <p></p>
 
-                            <Link to="/evenements">
-                                <button type="button" onClick={verifierDonnees} className="btn btn-primary">Ajouter</button>&nbsp;
-                            </Link>
+                            
+                            <button type="button" onClick={verifierDonnees} className="btn btn-primary">Ajouter</button>&nbsp;
+                            
                             
                             <Link to="/evenements">
                                 <button type="button" className="btn btn-danger">Annuler</button>
