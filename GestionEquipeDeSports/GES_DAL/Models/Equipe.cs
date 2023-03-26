@@ -24,6 +24,17 @@ namespace GES_DAL.Models
         public virtual ICollection<EquipeEvenement> EquipeEvenements { get; set; }
         public virtual ICollection<EquipeJoueur> EquipeJoueurs { get; set; }
 
+        public Equipe(GES_Services.Entites.Equipe p_equipe)
+        {
+            this.IdEquipe = p_equipe.IdEquipe;
+            this.Nom = p_equipe.Nom;
+            this.Region = p_equipe.Region;
+            this.Etat = p_equipe.Etat;
+            this.DateCreation = p_equipe?.DateCreation;
+            this.DateModification = p_equipe.DateModification;
+            this.Sport = p_equipe.Sport;
+            this.AssociationSportive = p_equipe.AssociationSportive;
+        }
 
         //conversion de GES_DAL.Models.Equipe vers GES_Services.Entites.Equipe
         public GES_Services.Entites.Equipe FromDTO()

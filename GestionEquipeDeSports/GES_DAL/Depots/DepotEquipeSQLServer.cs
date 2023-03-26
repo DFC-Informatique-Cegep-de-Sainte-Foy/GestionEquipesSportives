@@ -27,17 +27,39 @@ namespace GES_DAL.Depots
 
         public void AjouterEquipe(Entite.Equipe p_equipe)
         {
-            throw new NotImplementedException();
+            if (p_equipe is null)
+            {
+                throw new ArgumentNullException($"le parametre {p_equipe} ne peut pas etre null", nameof(p_equipe));
+            }
+
+            if (m_context.Equipes.Any(e => e.IdEquipe == p_equipe.IdEquipe))
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {p_equipe.IdEquipe} existe déjà");
+            }
+
+            m_context.Equipes.Add(new GES_DAL.Models.Equipe(p_equipe));
+            m_context.SaveChanges();
         }
 
-        public Entite.Equipe ChercherEquipeParId(Guid id)
+        public Entite.Equipe ChercherEquipeParId(Guid p_id)
         {
-            throw new NotImplementedException();
+            if (p_id == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
+            }
+            GES_DAL.Models.Equipe? equipeDTO = m_context.Equipes.FirstOrDefault(e => e.IdEquipe == p_id);
+
+            if (equipeDTO is null)
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {p_id} n'existe pas");
+            }
+
+            return equipeDTO.FromDTO();
         }
 
         public IEnumerable<Entite.Equipe> ListerEquipes()
         {
-            throw new NotImplementedException();
+            return this.m_context.Equipes.Where(e => e.Etat == true).Select(e => e.FromDTO());
         }
 
         public void ModifierEquipe(Entite.Equipe p_equipe)
