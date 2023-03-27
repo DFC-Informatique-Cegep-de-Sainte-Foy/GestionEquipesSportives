@@ -36,7 +36,7 @@ namespace GES_API.Controllers
             return NotFound();
         }
 
-        //GET: api/<EquipeEvenementController>
+        //POST: api/<EquipeEvenementController>
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]

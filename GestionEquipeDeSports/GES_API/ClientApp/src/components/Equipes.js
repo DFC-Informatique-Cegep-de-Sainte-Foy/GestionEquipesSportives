@@ -52,7 +52,7 @@ export class Equipes extends Component {
             {this.state.equipes.map((eq, index) => (
               <tr key={eq.idEquipe}>
                 <td>{index+1}</td>
-                <td>{eq.nom}</td>
+                <td><Link to={{ pathname: `/uneEquipe/${eq.idEquipe}`}}>{eq.nom}</Link></td>
                 <td>{eq.region}</td>
                 <td>{eq.etat}</td>
                 <td>{this.formatDateTime(eq.dateCreation)}</td>
