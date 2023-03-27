@@ -5,7 +5,7 @@ namespace GES_Services.Entites;
     public partial class Utilisateur
     {
         public Utilisateur(Guid guid, string nom, string prenom, string email, string adresse, string numTelephone, 
-                           bool? estAthlete, bool? estTuteur, bool? estEntraineur, bool? estAdmin)
+                           bool? estJoueur, bool? estTuteur, bool? estEntraineur, bool? estAdmin)
         {
 
             if(guid == null)
@@ -44,7 +44,7 @@ namespace GES_Services.Entites;
             DateModification = DateTime.Now;
 
                         
-            EstAthlete = estAthlete;
+            EstJoueur = estJoueur;
             EstTuteur = estTuteur;
             EstEntraineur = estEntraineur;
             EstAdmin = estAdmin;
@@ -58,7 +58,7 @@ namespace GES_Services.Entites;
         public string? NumTelephone { get; private set; }
         public DateTime? DateCreation { get; private set; }
         public DateTime? DateModification { get; private set; }
-        public bool? EstAthlete { get; private set; }
+        public bool? EstJoueur { get; private set; }
         public bool? EstTuteur { get; private set; }
         public bool? EstEntraineur { get; private set; }
         public bool? EstAdmin { get; private set; }

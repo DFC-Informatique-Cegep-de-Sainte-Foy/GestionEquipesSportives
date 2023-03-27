@@ -29,7 +29,16 @@ namespace GES_DAL.Depots
 
         EquipeEvenement IDepotEquipeEvenement.ChercherEquipeEvenemntParId(Guid p_id)
         {
-            throw new NotImplementedException();
+            if(p_id == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
+            }
+            GES_DAL.Models.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.FirstOrDefault(ee => ee.FkIdEquipe == p_id);
+            if(equipeEvenementDTO == null)
+            {
+                throw new InvalidOperationException($"l'equipe avec le id {p_id} n'existe pas");
+            }
+            return equipeEvenementDTO.FromDTO();
         }
 
         public IEnumerable<Entite.EquipeEvenement> ListerEquipeEvenemnt()

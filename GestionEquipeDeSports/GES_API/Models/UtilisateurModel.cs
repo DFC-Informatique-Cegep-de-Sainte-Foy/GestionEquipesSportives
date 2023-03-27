@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GES_Services.Entites;
 
-namespace GES_DAL.Models
+namespace GES_API.Models
 {
-    public partial class Utilisateur
+    public class UtilisateurModel
     {
-        public Utilisateur()
-        {
-            EquipeJoueurs = new HashSet<EquipeJoueur>();
-            EvenementJoueurs = new HashSet<EvenementJoueur>();
-        }
-
         public Guid IdUtilisateur { get; set; }
         public string? Nom { get; set; }
         public string? Prenom { get; set; }
@@ -23,13 +16,11 @@ namespace GES_DAL.Models
         public bool? EstTuteur { get; set; }
         public bool? EstEntraineur { get; set; }
         public bool? EstAdmin { get; set; }
-        public bool? FkIdEtat { get; set; }
-
-        public virtual Etat? FkIdEtatNavigation { get; set; }
-        public virtual ICollection<EquipeJoueur> EquipeJoueurs { get; set; }
-        public virtual ICollection<EvenementJoueur> EvenementJoueurs { get; set; }
-
-        public Utilisateur(GES_Services.Entites.Utilisateur p_utilisateur)
+        public UtilisateurModel()
+        {
+            ;
+        }
+        public UtilisateurModel(Utilisateur p_utilisateur)
         {
             this.IdUtilisateur = p_utilisateur.IdUtilisateur;
             this.Nom = p_utilisateur.Nom;
@@ -44,16 +35,19 @@ namespace GES_DAL.Models
             this.EstEntraineur = p_utilisateur.EstEntraineur;
             this.EstAdmin = p_utilisateur.EstAdmin;
         }
-        public GES_Services.Entites.Utilisateur FromDTO()
+        public Utilisateur DeModelVersEntite()
         {
-            return new GES_Services.Entites.Utilisateur(
-                IdUtilisateur, 
-                Nom, 
-                Prenom, 
-                Email, 
-                Adresse, 
-                NumTelephone, 
-                EstJoueur, EstTuteur, EstEntraineur, EstAdmin);
+            return new Utilisateur(
+                this.IdUtilisateur, 
+                this.Nom, 
+                this.Prenom, 
+                this.Email, 
+                this.Adresse, 
+                this.NumTelephone, 
+                this.EstJoueur, 
+                this.EstTuteur, 
+                this.EstEntraineur, 
+                this.EstAdmin);
         }
     }
 }

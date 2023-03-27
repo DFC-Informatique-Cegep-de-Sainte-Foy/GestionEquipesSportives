@@ -33,7 +33,15 @@ namespace GES_API.Controllers
         [ProducesResponseType(400)]
         public ActionResult<EquipeEvenementModel> Get(Guid p_id)
         {
-            return NotFound();
+            EquipeEvenementModel model = new EquipeEvenementModel(this.m_manipulationDepotEquipeEvenement.ChercherEquipeEvenementParId(p_id));
+            if(model != null)
+            {
+                return Ok(model);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         //POST: api/<EquipeEvenementController>

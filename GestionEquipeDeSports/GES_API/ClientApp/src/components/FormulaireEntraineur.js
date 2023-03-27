@@ -102,8 +102,8 @@ export class FormEntraineur extends Component{
                     </Form.Group>
 
                     <Button variant="success" className="mb-3" type="submit">Ajouter</Button>
-                    <Link to={'/entraineurs'}>
-                        <Button variant="secondary" className="float-end">Retour à la page des entraîneurs</Button>
+                    <Link to={'/utilisateurs'}>
+                        <Button variant="secondary" className="float-end">Retour à la page des utilisateurs</Button>
                     </Link>
                 </Form>
             </div>
