@@ -80,29 +80,29 @@ export function FormEvenement() {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="description">Description</label>
-                                <input type="text" onChange={handleChange} className="form-control" id="description" name="description" placeholder="Entrer la description" />                                             
+                                <input type="text" onChange={handleChange} className="form-control" id="description" name="description" placeholder="Entrer la description" required/>                                             
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="emplacement">Emplacement</label>
-                                <input type="text" onChange={handleChange} className="form-control" id="emplacement" name="emplacement" placeholder="Entrer l'emplacement" />
+                                <input type="text" onChange={handleChange} className="form-control" id="emplacement" name="emplacement" placeholder="Entrer l'emplacement" required/>
                                 <small>Veuillez entrer un emplacement</small>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="dateDebut">Date début</label>
-                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateDebut" name="dateDebut" placeholder="Entrer la dateDebut" />
+                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateDebut" name="dateDebut" placeholder="Entrer la dateDebut" required/>
                                 <small>Veuillez entrer une date de début</small>
                             </div><p></p>
 
                             <div className="form-group">
                                 <label htmlFor="dateFin">Date Fin</label>
-                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateFin" name="dateFin" placeholder="Entrer la dateFin" />
+                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateFin" name="dateFin" placeholder="Entrer la dateFin" required/>
                                 <small>Veuillez entrer une date de fin</small>
                             </div><p></p>
 
                             <div className="form-group">
                                 <label htmlFor="typeEvenement">Type Événement</label>
-                                <select id="typeEvenement" name="typeEvenement" onChange={handleChange} className="form-control">
+                                <select id="typeEvenement" name="typeEvenement" onChange={handleChange} className="form-control" required>
                                     <option value="">Choisir un événement</option>
                                     <option value="1">Entrainement</option>
                                     <option value="2">Partie</option>
