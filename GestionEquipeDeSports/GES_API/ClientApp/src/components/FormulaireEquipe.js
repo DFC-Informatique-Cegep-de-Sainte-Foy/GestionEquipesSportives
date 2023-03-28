@@ -1,138 +1,117 @@
-import { React, useState } from "react";
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
-export const FormEquipe = () => {
-    const [nomEquipe, setNomEquipe] = useState('');
-    const [region, setRegion] = useState('');
-    const [sport, setSport] = useState('');
-    const [associationSportive, setAssociationSportive] = useState('');
-    const [nomEquipeErreur, setNomEquipeErreur] = useState('');
-    const [regionErreur, setRegionErreur] = useState('');
-    const [sportErreur, setSportErreur] = useState('');
-    const [associationSportiveErreur, setAssociationSportiveErreur] = useState('');
-    const [formValidation, setFormValidation] = useState(true);
+const DisplayingErrorMessagesSchema = Yup.object().shape({
+    nomEquipe: Yup.string()
+    .min(3, 'Trés court!')
+    .max(30, 'Très long!')
+    .required('Ce champ est obligatoire!'),
+    region: Yup.string()
+    .min(3, 'Trés court!')
+    .max(30, 'Très long!')
+    .required('Ce champ est obligatoire!'),
+    sport: Yup.string()
+    .min(3, 'Trés court!')
+    .max(30, 'Très long!')
+    .required('Ce champ est obligatoire!'),
+    associationSportive: Yup.string()
+    .min(4, 'Trés court!')
+    .max(30, 'Très long!')
+    .required('Ce champ est obligatoire!'),
+});
 
-    function verifierDonnees(){
-        if(!nomEquipe){
-            setFormValidation(false);
-            setNomEquipeErreur('Veillez entrez un nom');
-        }else{
-            setNomEquipeErreur('');
-        }
+export const FormEquipe = () => {   
 
-        if(!region){
-            setFormValidation(false);
-            setRegionErreur('Veillez entrez un nregion');
-        }else{
-            setRegionErreur('');
-        }
+    function soumettreFormulaire(values){
+        console.log('formulaire est Valid!');            
+        //POST request fetch
 
-        if(!sport){
-            setFormValidation(false);
-            setSportErreur('Veillez entrez un sport');
-        }else{
-            setSportErreur('');
-        }
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: values                
+        };
+        fetch('api/equipe', requestOptions)
+            .then(function (reponse) {
+                console.log(reponse);
 
-        if(!associationSportive){
-            setFormValidation(false);
-            setAssociationSportiveErreur('Veillez entrez un nregion');
-        }else{
-            setAssociationSportiveErreur('');
-        }
-
-        if(nomEquipeErreur && regionErreur && sportErreur && associationSportiveErreur){
-            setFormValidation(true);
-        }
-    }
-
-    function soumettreFormulaire(){
-        verifierDonnees();
-        if(!formValidation){
-            //POST request fetch
-            // const requestOptions = {
-            //     method: 'POST',
-            //     headers: { 
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({ 
-            //         Nom: nomEquipe,
-            //         Region: region,
-            //         Sport: sport,
-            //         AssociationSportive: associationSportive
-            //     })
-            // };
-
-        }
+            }).catch(function (error) {
+                console.log(error)
+            })
     }
 
     return(
         <>
-            <Container>
-                <Row className="justify-content-md-center">
-                    <Col sm={6}>
-                        <h2>Ajouter une équipe</h2>
-                    </Col>
-                </Row>
+            <Container>                
                 <Row className="justify-content-md-center">
                     <Col sm={8}>
+                        <Formik
+                            initialValues={{
+                                nomEquipe: '',
+                                region: '',
+                                sport: '',
+                                associationSportive: '',
+                            }}
+                            validationSchema={DisplayingErrorMessagesSchema}
+                            onSubmit={values => {
+                                console.log(values);
+                                soumettreFormulaire(values);
+                            }}
+                        >
+                        {({ errors, touched }) => (
                         <Form className="p-4 p-md-5 border rounded-3 bg-light">
-                            <Form.Group className="mb-3">
-                                <Form.Label>Nom équipe</Form.Label>
-                                <Form.Control 
-                                    type="text" 
-                                    name="nom_equipe" 
-                                    className={nomEquipeErreur ? "is-invalid form-control" : "form-control"}
-                                    defaultValue={nomEquipe} 
-                                    onChange={(event) => setNomEquipe(event.target.value)} />
-                                {nomEquipeErreur && <div style={{color: "red"}}>{nomEquipeErreur}</div>}
-                            </Form.Group>
+                            <Row className="justify-content-md-center">
+                                <Col sm={8}>
+                                    <h2>Ajouter une équipe</h2>
+                                </Col>
+                            </Row>
+                            <label>Nom de l'équipe</label>
+                            <div className="form-group">                                
+                                <Field name="nomEquipe" type="text" className="form-control"/>
+                                {touched.nomEquipe && errors.nomEquipe && <div style={{color: "red"}}>{errors.nomEquipe}</div>}
+                            </div>
 
-                            <Form.Group className="mb-3">
-                                <Form.Label>Region</Form.Label>
-                                <Form.Control 
-                                    type="text" 
-                                    name="region" 
-                                    defaultValue={region}
-                                    className={regionErreur ? "is-invalid form-control" : "form-control"}
-                                    onChange={(event) => setRegion(event.target.value)} />
-                                {regionErreur && <div style={{color: "red"}}>{regionErreur}</div>}
-                            </Form.Group>
+                            <label>Region</label>
+                            <div className="form-group">
+                                <Field name="region" className="form-control"/>
+                                {touched.region && errors.region && <div style={{color: "red"}}>{errors.region}</div>}
+                            </div>
 
-                            <Form.Group className="mb-3">
-                                <Form.Label>Sport</Form.Label>
-                                <Form.Select 
-                                    name="nom_sport" 
-                                    defaultValue={sport}
-                                    className={sportErreur ? "is-invalid form-control" : "form-control"}
-                                    onChange={(event) => setSport(event.target.value)} >
-                                        <option value="">Choisir une option</option>
-                                        <option value="soccer">Soccer</option>
-                                        <option value="baseball">Baseball</option>
-                                        <option value="football">Football</option>
-                                        <option value="natation">Natation</option>
-                                </Form.Select>
-                                {sportErreur && <div style={{color: "red"}}>{sportErreur}</div>}
-                            </Form.Group>
+                            <label>Sport</label>
+                            <div className="form-group">
+                                <Field as="select" name="sport" className="form-control">
+                                    <option value="">Choisir un sport</option>
+                                    <option value="Soccer">Soccer</option>
+                                    <option value="Hockey">Hockey</option>
+                                    <option value="Footbol">Footbol</option>
+                                    <option value="Natation">Natation</option>
+                                </Field>
+                                {touched.sport && errors.sport && <div style={{color: "red"}}>{errors.sport}</div>}
+                            </div>
 
-                            <Form.Group className="mb-3">
-                                <Form.Label>Association Sportive</Form.Label>
-                                <Form.Control 
-                                    type="text" 
-                                    name="association_sportive" 
-                                    defaultValue={associationSportive}
-                                    className={associationSportiveErreur ? "is-invalid form-control" : "form-control"}
-                                    onChange={(event) => setAssociationSportive(event.target.value)} />
-                                    {associationSportiveErreur && <div style={{color: "red"}}>{associationSportiveErreur}</div>}
-                            </Form.Group>
+                            <label>Association sportive</label>
+                            <div className="form-group">
+                                <Field name="associationSportive" className="form-control"/>
+                                {touched.associationSportive && errors.associationSportive && <div style={{color: "red"}}>{errors.associationSportive}</div>}
+                            </div>
 
-                            <Button className="me-4" variant='primary' onClick={soumettreFormulaire} >Ajouter</Button>
-                            <Link to={'/equipes'}>
-                                <Button variant="secondary" className="float-end">Retour à la page des équipes</Button>
-                            </Link>
+                            <div className="row">
+                                <div className="col-6 p-3">
+                                    <Button variant='primary' type="submit" >Ajouter</Button>
+                                </div>
+                                <div className="col-6 p-3">
+                                    <Link to={'/equipes'}>
+                                        <Button variant="secondary" className="float-end">Retour à la page des équipes</Button>
+                                    </Link>
+                                </div>
+                            </div>
 
                         </Form>
+                        )}
+                        </Formik>
                     </Col>
                 </Row>
             </Container>
