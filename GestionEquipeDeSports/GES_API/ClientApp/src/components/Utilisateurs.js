@@ -20,12 +20,10 @@ export class Utilisateurs extends Component{
             });
     }
 
-    formatDateTime(donnees) {
-        var dateTimeEntree = donnees;
-        var date = dateTimeEntree.split('T')[0];
-        var time = dateTimeEntree.split('T')[1].split(':');
-        var dateTimeSortie = date + ' ' + time[0] + ':' + time[1];
-        return dateTimeSortie;
+    formatTypeUtilisateur(donnees){
+        if(donnees){
+            return 'X';
+        }
     }
 
     render(){
@@ -43,9 +41,7 @@ export class Utilisateurs extends Component{
                             <th>Prenom</th>
                             <th>Email</th>
                             <th>Adresse</th>
-                            <th>Numero téléphone</th>
-                            <th>Date creation</th>
-                            <th>Date modification</th>
+                            <th>Numéro de téléphone</th>
                             <th>Joueur</th>
                             <th>Tuteur</th>
                             <th>Entraineur</th>
@@ -61,12 +57,10 @@ export class Utilisateurs extends Component{
                                 <td>{u.email}</td>
                                 <td>{u.adresse}</td>
                                 <td>{u.numTelephone}</td>
-                                <td>{this.formatDateTime(u.dateCreation)}</td>
-                                <td>{this.formatDateTime(u.dateModification)}</td>
-                                <td>{u.estJoueur}</td>
-                                <td>{u.estTuteur}</td>
-                                <td>{u.estEntraineur}</td>
-                                <td>{u.estAdmin}</td>
+                                <td>{this.formatTypeUtilisateur(u.estJoueur)}</td>
+                                <td>{this.formatTypeUtilisateur(u.estTuteur)}</td>
+                                <td>{this.formatTypeUtilisateur(u.estEntraineur)}</td>
+                                <td>{this.formatTypeUtilisateur(u.estAdmin)}</td>
                             </tr>
                         ))
                         }
