@@ -61,13 +61,14 @@ namespace GES_API.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public ActionResult Put(Guid p_id, [FromBody] EvenementModel p_evenementModel)
+        public ActionResult Put(Guid id, [FromBody] EvenementModel p_evenementModel)
         {
-            if (!ModelState.IsValid || p_evenementModel.Id != p_id)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            EvenementModel model = new EvenementModel(m_maniulationDepotEvenement.ChercherEvenementParId(p_id));
+            //if (p)
+            EvenementModel model = new EvenementModel(m_maniulationDepotEvenement.ChercherEvenementParId(id));
             if (model is null)
             {
                 return NotFound();
@@ -80,9 +81,9 @@ namespace GES_API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public ActionResult Delete(Guid p_id)
+        public ActionResult Delete(Guid id)
         {
-            EvenementModel model = new EvenementModel(m_maniulationDepotEvenement.ChercherEvenementParId(p_id));
+            EvenementModel model = new EvenementModel(m_maniulationDepotEvenement.ChercherEvenementParId(id));
             if (model is null)
             {
                 return NotFound();
