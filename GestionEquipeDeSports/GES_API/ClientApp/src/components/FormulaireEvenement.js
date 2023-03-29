@@ -73,7 +73,6 @@ export function FormEvenement() {
                             <h1 className="text-center">Ajouter un nouvel événement</h1>
                         </div>
                         <small className="text-success">{confirmationAjout}</small>
-
                         <form>
                             <div className="form-group">
                                 <label htmlFor="description">Description</label>
@@ -105,7 +104,7 @@ export function FormEvenement() {
                                     <option value="2">Partie</option>
                                     <option value="3">Autre</option>
                                 </select>
-                                <small>Veuillez choisir un type d'événement</small>
+                                
                             </div><p></p>
 
                             {erreurDonnees && <span style={{ color: 'red' }}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}
