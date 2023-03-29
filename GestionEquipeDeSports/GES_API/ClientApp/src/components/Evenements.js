@@ -72,18 +72,18 @@ export class Evenements extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.evenements.map((ev, index) => (
-                            <tr key={ev.id}>
+                            <tr key={ev.idEvenement}>
                                 <td>{index+1}</td>
-                                <td>{ev.description}</td>
+                                <td><Link to={{ pathname: `/unEvenement/${ev.idEvenement}`}}>{ev.description}</Link></td>
                                 <td>{ev.emplacement}</td>
                                 <td>{this.formatDateTime(ev.dateDebut)}</td>
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
                                 <td>{this.affichageTypeEvenement(ev.typeEvenement)}</td>
                                 <td>
-                                    <Link >
+                                    <Link to={{ pathname: `/modifieEvenement/${ev.idEvenement}`}}>
                                         <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>
                                     </Link>
-                                    <Link >
+                                    <Link to={{ pathname: `/supprimerEvenement/${ev.idEvenement}`}}>
                                         <Button variant='danger' size="sm" title="Supprimer"> <BiTrash /> </Button>
                                     </Link>
                                 </td>

@@ -4,8 +4,12 @@ import { Evenements } from "./components/Evenements";
 import { Connexion } from "./components/Connexion";
 import { FormEvenement } from "./components/FormulaireEvenement";
 import { FormEquipe } from "./components/FormulaireEquipe";
-import { Entraineurs } from "./components/Entraineurs";
+import { Utilisateurs } from "./components/Utilisateurs";
 import { FormEntraineur } from "./components/FormulaireEntraineur";
+import { PageUnEvenement } from "./components/PageUnEvenement";
+import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
+import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
+import { PageUneEquipe } from "./components/PageUneEquipe";
 
 const AppRoutes = [
   {
@@ -29,8 +33,8 @@ const AppRoutes = [
     element: <FormEquipe />
   },
   {
-    path: '/entraineurs',
-    element: <Entraineurs />
+    path: '/utilisateurs',
+    element: <Utilisateurs />
   },
   {
     path: '/formulaireEntraineur',
@@ -39,6 +43,22 @@ const AppRoutes = [
   {
     path: '/connexion',
     element: <Connexion />
+  },
+  {
+    path: '/unEvenement/:id',
+    element: <PageUnEvenement />
+  },
+  {
+    path: '/modifieEvenement/:id',
+    element: <PageModifieUnEvenement />
+  },
+  {
+    path: '/supprimerEvenement/:id',
+    element: <PageSupprimerEvenement />
+  },
+  {
+    path: '/uneEquipe/:id',
+    element: <PageUneEquipe />
   }
 ];
 

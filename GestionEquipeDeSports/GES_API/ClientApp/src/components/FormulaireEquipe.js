@@ -1,165 +1,121 @@
 import React from "react";
-import {Form, Button, Alert} from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
-export class FormEquipe extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            nom_sport: '',
-            nom_equipe: '',
-            region: '',
-            association_sportive: '',
-            formValide: false,
-            message: '',
-            estErreur: {}
-        }
+const DisplayingErrorMessagesSchema = Yup.object().shape({
+    nomEquipe: Yup.string()
+    .min(3, 'Trés court!')
+    .max(30, 'Très long!')
+    .required('Ce champ est obligatoire!'),
+    region: Yup.string()
+    .min(3, 'Trés court!')
+    .max(30, 'Très long!')
+    .required('Ce champ est obligatoire!'),
+    sport: Yup.string()
+    .min(3, 'Trés court!')
+    .max(30, 'Très long!')
+    .required('Ce champ est obligatoire!'),
+    associationSportive: Yup.string()
+    .min(4, 'Trés court!')
+    .max(30, 'Très long!')
+    .required('Ce champ est obligatoire!'),
+});
 
-        this.handleInputChangee = this.handleInputChangee.bind(this);
-        this.ajouterEquipe = this.ajouterEquipe.bind(this);
-        this.initialState = this.state;
-    };
+export const FormEquipe = () => {   
 
-    handleInputChangee(event){
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
+    function soumettreFormulaire(values){
+        console.log('formulaire est Valid!');            
+        //POST request fetch
 
-        this.setState({
-            [name]: value
-        });
-        // this.validationFormulaire();
-    }
-
-    ajouterEquipe(e){
-        e.preventDefault();
-        if(this.validationFormulaire()){
-            let equipeJson = {
-                Nom: this.state.nom_equipe,
-                Region: this.state.region,
-                Sport: this.state.nom_sport,
-                AssociationSportive: this.state.association_sportive,
-            };
-            console.log('validation a reussi');
-            console.log(JSON.stringify(equipeJson));
-            fetch('api/Equipe',{
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(equipeJson)
-            })
-            .then( reponse => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: values                
+        };
+        fetch('api/equipe', requestOptions)
+            .then(function (reponse) {
                 console.log(reponse);
-                if(reponse){
-                    this.setState({message:'Une nouvelle équipe a été créée'});
-                }
-            })
-            .catch(function (error) {
+
+            }).catch(function (error) {
                 console.log(error)
             })
-
-            this.setState({
-                nom_sport: '',
-                nom_equipe: '',
-                region: '',
-                association_sportive: ''
-            });
-        }else{
-            console.log('erreur validation formulaire!');
-        }
     }
 
-    validationFormulaire(){
-        const {nom_sport, nom_equipe, region, association_sportive} = this.state;
-        let erreurFormulaire = {};
-        let formulaireEstValide = true;
+    return(
+        <>
+            <Container>                
+                <Row className="justify-content-md-center">
+                    <Col sm={8}>
+                        <Formik
+                            initialValues={{
+                                nomEquipe: '',
+                                region: '',
+                                sport: '',
+                                associationSportive: '',
+                            }}
+                            validationSchema={DisplayingErrorMessagesSchema}
+                            onSubmit={values => {
+                                console.log(values);
+                                soumettreFormulaire(values);
+                            }}
+                        >
+                        {({ errors, touched }) => (
+                        <Form className="p-4 p-md-5 border rounded-3 bg-light">
+                            <Row className="justify-content-md-center">
+                                <Col sm={8}>
+                                    <h2>Ajouter une équipe</h2>
+                                </Col>
+                            </Row>
+                            <label>Nom de l'équipe</label>
+                            <div className="form-group">                                
+                                <Field name="nomEquipe" type="text" className="form-control"/>
+                                {touched.nomEquipe && errors.nomEquipe && <div style={{color: "red"}}>{errors.nomEquipe}</div>}
+                            </div>
 
-        if(!nom_sport){
-            formulaireEstValide = false;
-            erreurFormulaire["sportErreur"] = "Veuillez sélectionner un sport";
-        }
+                            <label>Region</label>
+                            <div className="form-group">
+                                <Field name="region" className="form-control"/>
+                                {touched.region && errors.region && <div style={{color: "red"}}>{errors.region}</div>}
+                            </div>
 
-        if(!nom_equipe){
-            formulaireEstValide = false;
-            erreurFormulaire["nomEquipeErreur"] = "Veillez entrer un nom";
-        }
+                            <label>Sport</label>
+                            <div className="form-group">
+                                <Field as="select" name="sport" className="form-control">
+                                    <option value="">Choisir un sport</option>
+                                    <option value="Soccer">Soccer</option>
+                                    <option value="Hockey">Hockey</option>
+                                    <option value="Footbol">Footbol</option>
+                                    <option value="Natation">Natation</option>
+                                </Field>
+                                {touched.sport && errors.sport && <div style={{color: "red"}}>{errors.sport}</div>}
+                            </div>
 
-        if(!region){
-            formulaireEstValide = false;
-            erreurFormulaire["nomRegionErreur"] = "Veillez entrer un region";
-        }
+                            <label>Association sportive</label>
+                            <div className="form-group">
+                                <Field name="associationSportive" className="form-control"/>
+                                {touched.associationSportive && errors.associationSportive && <div style={{color: "red"}}>{errors.associationSportive}</div>}
+                            </div>
 
-        if(!association_sportive){
-            formulaireEstValide = false;
-            erreurFormulaire["nomAssociationErreur"] = "Veillez entrer un association sportive";
-        }
+                            <div className="row">
+                                <div className="col-6 p-3">
+                                    <Button variant='primary' type="submit" >Ajouter</Button>
+                                </div>
+                                <div className="col-6 p-3">
+                                    <Link to={'/equipes'}>
+                                        <Button variant="secondary" className="float-end">Retour à la page des équipes</Button>
+                                    </Link>
+                                </div>
+                            </div>
 
-        this.setState({estErreur: erreurFormulaire});
-        return formulaireEstValide;
-    }
-
-    render(){
-        const{sportErreur, nomEquipeErreur, nomRegionErreur, nomAssociationErreur} = this.state.estErreur;
-        return(
-            <>
-                <div>
-                <h2>Ajouter une équipe</h2>
-                <Form onSubmit={this.ajouterEquipe}>
-                    {this.state.erreur && <Alert variant="danger">{this.state.error}</Alert>}
-                    <Form.Group className="mb-3">
-                        <Form.Label>Sport</Form.Label>
-                        <Form.Select 
-                            name="nom_sport" 
-                            value={this.state.nom_sport} 
-                            className={sportErreur ? "is-invalid form-control" : "form-control"}
-                            onChange={this.handleInputChangee} >
-                                <option value="">Choisir une option</option>
-                                <option value="soccer">Soccer</option>
-                                <option value="baseball">Baseball</option>
-                                <option value="football">Football</option>
-                                <option value="natation">Natation</option>
-                        </Form.Select>
-                        {sportErreur && <div style={{color: "red"}}>{sportErreur}</div>}
-                    </Form.Group>
-                    
-                    <Form.Group className="mb-3">
-                        <Form.Label>Nom Equipe</Form.Label>
-                        <Form.Control 
-                            type="text" name="nom_equipe" 
-                            className={nomEquipeErreur ? "is-invalid form-control" : "form-control"}
-                            value={this.state.nom_equipe} 
-                            onChange={this.handleInputChangee} />
-                            {nomEquipeErreur && <div style={{color: "red"}}>{nomEquipeErreur}</div>}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Region</Form.Label>
-                        <Form.Control 
-                            type="text" 
-                            name="region" 
-                            value={this.state.region} 
-                            className={nomRegionErreur ? "is-invalid form-control" : "form-control"}
-                            onChange={this.handleInputChangee} />
-                            {nomRegionErreur && <div style={{color: "red"}}>{nomRegionErreur}</div>}
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Association Sportive</Form.Label>
-                        <Form.Control 
-                            type="text" 
-                            name="association_sportive" 
-                            value={this.state.association_sportive} 
-                            className={nomAssociationErreur ? "is-invalid form-control" : "form-control"}
-                            onChange={this.handleInputChangee} />
-                            {nomAssociationErreur && <div style={{color: "red"}}>{nomAssociationErreur}</div>}
-                    </Form.Group>                    
-                    
-                    <Button variant="success" className="mb-3" type="submit" >Ajouter</Button>
-                    <Link to={'/equipes'}>
-                        <Button variant="secondary" className="float-end">Retour à la page des équipes</Button>
-                    </Link>
-                </Form>
-                </div>
-            </>
-        );
-    }
+                        </Form>
+                        )}
+                        </Formik>
+                    </Col>
+                </Row>
+            </Container>
+        </>
+    );
 }
+

@@ -10,9 +10,10 @@ namespace GES_Services.Interfaces
 {
     public interface IDepotUtilisateur
     {
-        public bool AjouterUtilisateur(Utilisateur utilisateur);
-        public bool ModifierUtilisateur(Utilisateur utilisateur);
-        public bool SupprimerUtilisateur(Utilisateur utilisateur);
-        public Utilisateur ChercherUtilisateurParId(int id);
+        public void AjouterUtilisateur(Utilisateur utilisateur);
+        public void ModifierUtilisateur(Utilisateur utilisateur);
+        public void SupprimerUtilisateur(Utilisateur utilisateur);
+        public Utilisateur ChercherUtilisateurParId(Guid id);
+        public IEnumerable<Utilisateur> ListerUtilisateurs();
     }
 }

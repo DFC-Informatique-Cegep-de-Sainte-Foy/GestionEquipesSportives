@@ -20,14 +20,6 @@ export class Equipes extends Component {
         });
   }
 
-  formatDateTime(donnees) {
-    var dateTimeEntree = donnees;
-    var date = dateTimeEntree.split('T')[0];
-    var time = dateTimeEntree.split('T')[1].split(':');
-    var dateTimeSortie = date + ' ' + time[0] + ':' + time[1];
-    return dateTimeSortie;
-  }
-
   render() {
     return (
       <div>
@@ -41,9 +33,6 @@ export class Equipes extends Component {
               <th>#</th>
               <th>Nom</th>
               <th>Region</th>
-              <th>Etat</th>
-              <th>Date creation</th>
-              <th>Date modification</th>
               <th>Sport</th>
               <th>Association sportive</th>
             </tr>
@@ -52,11 +41,8 @@ export class Equipes extends Component {
             {this.state.equipes.map((eq, index) => (
               <tr key={eq.idEquipe}>
                 <td>{index+1}</td>
-                <td>{eq.nom}</td>
+                <td><Link to={{ pathname: `/uneEquipe/${eq.idEquipe}`}}>{eq.nom}</Link></td>
                 <td>{eq.region}</td>
-                <td>{eq.etat}</td>
-                <td>{this.formatDateTime(eq.dateCreation)}</td>
-                <td>{this.formatDateTime(eq.dateModification)}</td>
                 <td>{eq.sport}</td>
                 <td>{eq.associationSportive}</td>
               </tr>

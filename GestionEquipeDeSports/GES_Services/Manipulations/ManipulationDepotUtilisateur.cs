@@ -42,9 +42,17 @@ namespace GES_Services.Manipulations
             _depotUtilisateur.SupprimerUtilisateur(utilisateur);
         }
 
-        public Utilisateur ChercherUtilisateurParId(int id)
-        {            
-            return _depotUtilisateur.ChercherUtilisateurParId(id);
+        public Utilisateur ChercherUtilisateurParId(Guid p_id)
+        {
+            if (p_id == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
+            }
+            return _depotUtilisateur.ChercherUtilisateurParId(p_id);
+        }
+        public IEnumerable<Utilisateur> ListerUtilisateurs()
+        {
+            return this._depotUtilisateur.ListerUtilisateurs();
         }
     }
 }

@@ -9,12 +9,12 @@ using GES_Services.Entites;
 
 namespace GES_API.Controllers
 {
-    [Route("api/evenements")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class EvenementController : ControllerBase
+    public class EvenementsController : ControllerBase
     {
         private ManiulationDepotEvenement m_maniulationDepotEvenement;
-        public EvenementController(ManiulationDepotEvenement p_maniulationDepotEvenement)
+        public EvenementsController(ManiulationDepotEvenement p_maniulationDepotEvenement)
         {
             this.m_maniulationDepotEvenement = p_maniulationDepotEvenement;
         }
