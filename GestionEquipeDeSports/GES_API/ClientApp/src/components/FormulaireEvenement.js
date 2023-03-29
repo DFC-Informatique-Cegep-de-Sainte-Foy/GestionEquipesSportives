@@ -104,7 +104,7 @@ export function FormEvenement() {
                                     <option value="2">Partie</option>
                                     <option value="3">Autre</option>
                                 </select>
-                                <small>Veuillez choisir un type d'événement</small>
+                                
                             </div><p></p>
 
                             {erreurDonnees && <span style={{ color: 'red' }}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}
