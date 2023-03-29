@@ -13,8 +13,8 @@ namespace GES_API.Models
         public DateTime? DateModification { get; set; }
         public string? Sport { get; set; }
         public string? AssociationSportive { get; set; }
-        public ICollection<Evenement> Evenements { get; set; }
-        public ICollection<Utilisateur> Joueurs { get; set; }
+        //public ICollection<Evenement> Evenements { get; set; }
+        //public ICollection<Utilisateur> Joueurs { get; set; }
 
         public EquipeModel()
         {
@@ -31,14 +31,13 @@ namespace GES_API.Models
             this.Etat = p_equipe.Etat;
             this.DateCreation = p_equipe.DateCreation;
             this.DateModification = p_equipe.DateModification;
-            this.Joueurs = p_equipe.Joueurs;
-            this.Evenements = p_equipe.Evenements;
+            //this.Joueurs = p_equipe.Joueurs;
+            //this.Evenements = p_equipe.Evenements;
         }
 
         public Equipe DeModelVersEntite()
         {
             return new Equipe(
-                this.IdEquipe,
                 this.Nom,
                 this.Region,
                 this.Sport,

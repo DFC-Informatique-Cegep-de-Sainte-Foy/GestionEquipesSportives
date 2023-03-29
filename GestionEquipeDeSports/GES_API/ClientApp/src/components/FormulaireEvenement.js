@@ -45,10 +45,8 @@ export function FormEvenement() {
         }
     }
 
-    function verifierDonnees() 
-    {
-        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) 
-        {
+    function verifierDonnees() {
+        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) {
             setErreurDonnees(false);
 
             fetch('api/evenements', optionsRequete)
@@ -59,10 +57,9 @@ export function FormEvenement() {
                 }).catch(function (error) {
                     console.log(error)
                 }
-            )
+                )
         }
-        else 
-        {
+        else {
             setErreurDonnees(true);
         }
     }
@@ -80,23 +77,23 @@ export function FormEvenement() {
                         <form>
                             <div className="form-group">
                                 <label htmlFor="description">Description</label>
-                                <input type="text" onChange={handleChange} className="form-control" id="description" name="description" placeholder="Entrer la description" required/>                                             
+                                <input type="text" onChange={handleChange} className="form-control" id="description" name="description" placeholder="Entrer la description" required />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="emplacement">Emplacement</label>
-                                <input type="text" onChange={handleChange} className="form-control" id="emplacement" name="emplacement" placeholder="Entrer l'emplacement" required/>
+                                <input type="text" onChange={handleChange} className="form-control" id="emplacement" name="emplacement" placeholder="Entrer l'emplacement" required />
                                 <small>Veuillez entrer un emplacement</small>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="dateDebut">Date début</label>
-                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateDebut" name="dateDebut" placeholder="Entrer la dateDebut" required/>
+                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateDebut" name="dateDebut" placeholder="Entrer la dateDebut" required />
                                 <small>Veuillez entrer une date de début</small>
                             </div><p></p>
 
                             <div className="form-group">
                                 <label htmlFor="dateFin">Date Fin</label>
-                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateFin" name="dateFin" placeholder="Entrer la dateFin" required/>
+                                <input type="datetime-local" onChange={handleChange} className="form-control" id="dateFin" name="dateFin" placeholder="Entrer la dateFin" required />
                                 <small>Veuillez entrer une date de fin</small>
                             </div><p></p>
 
@@ -114,10 +111,10 @@ export function FormEvenement() {
                             {erreurDonnees && <span style={{ color: 'red' }}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}
                             <p></p>
 
-                            
+
                             <button type="button" onClick={verifierDonnees} className="btn btn-primary">Ajouter</button>&nbsp;
-                            
-                            
+
+
                             <Link to="/evenements">
                                 <button type="button" className="btn btn-danger">Annuler</button>
                             </Link>
