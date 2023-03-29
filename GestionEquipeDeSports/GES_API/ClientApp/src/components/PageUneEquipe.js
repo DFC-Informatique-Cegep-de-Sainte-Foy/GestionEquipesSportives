@@ -55,7 +55,7 @@ export const PageUneEquipe = () => {
         console.log(donnees);
         setidsEvenements = donnees.map((item) => item.fkIdEvenement);
         console.log('ici ids : ');
-        console.log(idEvenements);
+        console.log(idsEvenements);
     }
 
     useEffect(() => {
