@@ -44,10 +44,9 @@ namespace GES_API.Controllers
             {
                 return BadRequest(e.Message);
             }
-            EquipeEvenementModel model = new EquipeEvenementModel(this.m_manipulationDepotEquipeEvenement.ChercherEquipeEvenementParId(id));
-            if (model != null)
+            if (listeEvenement != null)
             {
-                return Ok(model);
+                return Ok(listeEvenement);
             }
             else
             {
