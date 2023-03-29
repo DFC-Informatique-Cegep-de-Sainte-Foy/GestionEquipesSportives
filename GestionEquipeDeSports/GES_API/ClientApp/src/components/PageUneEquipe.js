@@ -9,6 +9,10 @@ export const PageUneEquipe = () => {
     const [sport, setSport] = useState('');
     const [associationSportive, setAssociationSportive] = useState('');
 
+    const [equipeEvenement, setEquipeEvenement] = useState([]);
+    const [idsEvenements, setidsEvenements] = useState([]);
+    //const [fkIdEvenement, setfkIdEvenement] = useState('');
+
     function getEquipe(id){
         fetch(`api/equipe/${id}`)
         .then(res => res.json())
@@ -22,11 +26,41 @@ export const PageUneEquipe = () => {
         });
     }
 
+    function getEvenements(id){
+        fetch(`api/equipeEvenement?id=${id}`)
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            setEquipeEvenement(result);
+            // setidConnEquipeEvenement(result.nom);
+            // setfkIdEvenement(result.region);
+            // setSport(result.sport);
+            // setAssociationSportive(result.associationSportive);
+        });
+        //getIdEvenements(equipeEvenement);
+    }
+
     const {id} = useParams();
 
     useEffect(() => {
         getEquipe(id);
     }, [equipe.id]);
+
+    useEffect(() => {
+        getEvenements(id);
+    }, [equipeEvenement.id]);
+
+    function getIdEvenements(donnees){
+        console.log('donnees : ');
+        console.log(donnees);
+        setidsEvenements = donnees.map((item) => item.fkIdEvenement);
+        console.log('ici ids : ');
+        console.log(idEvenements);
+    }
+
+    useEffect(() => {
+        getIdEvenements(equipeEvenement);
+    })
 
     return (
         <>
@@ -69,7 +103,14 @@ export const PageUneEquipe = () => {
                                     <th>Type événement</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                {equipeEvenement.map((e, index) => (
+                                    <tr key={e.idConnEquipeEvenement}>
+                                        <td>{index+1}</td>
+                                        <td>{e.fkIdEvenement}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
                         </Table>
                     </Col>
                 </Row>

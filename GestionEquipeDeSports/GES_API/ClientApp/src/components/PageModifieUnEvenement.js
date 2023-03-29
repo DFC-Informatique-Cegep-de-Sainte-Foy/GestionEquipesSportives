@@ -57,6 +57,7 @@ export const PageModifieUnEvenement = () => {
 
     function soumettreFormulaire(){
         verifierDonnees();
+        console.log(formValidation);
             if(!formValidation){
                 // PUT request fetch
                 const requestOptions = {
