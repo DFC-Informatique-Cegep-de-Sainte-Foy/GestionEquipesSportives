@@ -34,7 +34,31 @@ namespace GES_Services.Entites
             {
                 throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
             }
+            Description = description;
+            DateDebut = dateDebut;
+            DateFin = dateFin;
+            Emplacement = emplacement;
+        }
 
+        public Evenement(string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, EnumTypeEvenement typeEvenement)
+        {
+            //if (typeEvenement == "entrainement")
+            //{
+            //    TypeEvenement = EnumTypeEvenement.entrainement;
+            //}
+            //else if (typeEvenement == "partie")
+            //{
+            //    TypeEvenement = EnumTypeEvenement.partie;
+            //}
+            //else if (typeEvenement == "autre")
+            //{
+            //    TypeEvenement = EnumTypeEvenement.autre;
+            //}
+            //else
+            //{
+            //    throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
+            //}
+            TypeEvenement = typeEvenement;
             Description = description;
             DateDebut = dateDebut;
             DateFin = dateFin;
@@ -65,8 +89,8 @@ namespace GES_Services.Entites
             Emplacement = emplacement;
             DateDebut = dateDebut;
             DateFin = dateFin;
-            DateCreation = DateTime.Now;
-            DateModification = DateTime.Now;
+            //DateCreation = DateTime.Now;
+            //DateModification = DateTime.Now;
             Etat = true;
             TypeEvenement = typeEvenement;
 

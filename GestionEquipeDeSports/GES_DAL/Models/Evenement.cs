@@ -53,13 +53,7 @@ namespace GES_DAL.Models
                 }
             }
 
-            return new GES_Services.Entites.Evenement(
-                               this.IdEvenement,
-                               this.Description,
-                               this.Emplacement,
-                               this.DateDebut,
-                               this.DateFin,
-                               enumTypeEvenement);
+            return new GES_Services.Entites.Evenement(Description, Emplacement, DateDebut, DateFin, enumTypeEvenement);
         }
     }
 }

@@ -11,13 +11,14 @@ namespace GES_Services.Manipulations
     public class ManipulationDepotEquipeEvenement
     {
         private IDepotEquipeEvenement m_depotEquipeEvenement;
+        
         public ManipulationDepotEquipeEvenement(IDepotEquipeEvenement p_depotEquipeEvenement)
         {
             this.m_depotEquipeEvenement = p_depotEquipeEvenement;
         }
-        public IEnumerable<EquipeEvenement> ListerEquipeEvenement()
+        public IEnumerable<Evenement> ListerEquipeEvenements(Guid id)
         {
-            return this.m_depotEquipeEvenement.ListerEquipeEvenemnt();
+            return this.m_depotEquipeEvenement.ListerEquipeEvenements(id);
         }
         public EquipeEvenement ChercherEquipeEvenementParId(Guid p_id)
         {

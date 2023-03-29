@@ -41,11 +41,6 @@ namespace GES_DAL.Depots
             return equipeEvenementDTO.FromDTO();
         }
 
-        public IEnumerable<Entite.EquipeEvenement> ListerEquipeEvenemnt()
-        {
-            return this.m_context.EquipeEvenements.Select(ee => ee.FromDTO());
-        }
-
         void IDepotEquipeEvenement.ModifierEquipeEvenement(EquipeEvenement p_equipeEvenement)
         {
             throw new NotImplementedException();
@@ -54,6 +49,26 @@ namespace GES_DAL.Depots
         void IDepotEquipeEvenement.SupprimerEquipeEvenement(EquipeEvenement p_equipeEvenement)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Evenement> ListerEquipeEvenements(Guid p_id)
+        {
+            //Trouver equipe
+            GES_DAL.Models.Equipe? equipeDTO = m_context.Equipes.FirstOrDefault(e => e.IdEquipe == p_id);
+
+            if (equipeDTO == null)
+            {
+                throw new InvalidOperationException($"l'equipe avec le id {p_id} n'existe pas");
+            }
+
+            //Trouver les evenements de l'equipe
+            IEnumerable<Guid?> evenements = m_context.EquipeEvenements.Where(ee => ee.FkIdEquipe == p_id).Select(ee => ee.FkIdEvenement);
+
+            //Trouver les evenements
+            IEnumerable<Evenement> evenementsDTO = m_context.Evenements.Where(e => evenements.Contains(e.IdEvenement)).Select(e => e.DeDTOVersEntite());
+
+            return evenementsDTO;
+
         }
     }
 }

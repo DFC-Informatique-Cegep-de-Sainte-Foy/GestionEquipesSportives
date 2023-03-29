@@ -9,7 +9,7 @@ namespace GES_Services.Interfaces
 {
     public interface IDepotEquipeEvenement
     {
-        public IEnumerable<EquipeEvenement> ListerEquipeEvenemnt();
+        public IEnumerable<Evenement> ListerEquipeEvenements(Guid p_id);
         public EquipeEvenement ChercherEquipeEvenemntParId(Guid p_id);
         public void AjouterEquipeEvenement(EquipeEvenement p_equipeEvenement);
         public void ModifierEquipeEvenement(EquipeEvenement p_equipeEvenement);

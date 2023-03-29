@@ -24,15 +24,25 @@ namespace GES_API.Controllers
         [ProducesResponseType(200)]
         public ActionResult<IEnumerable<EquipeEvenementModel>> Get()
         {
-            return Ok(this.m_manipulationDepotEquipeEvenement.ListerEquipeEvenement());
+            throw new NotImplementedException();
+            //return Ok(this.m_manipulationDepotEquipeEvenement.ListerEquipeEvenement());
         }
 
         //GET: api/<EquipeEvenementController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<EquipeEvenementModel> Get(Guid id)
+        public ActionResult<IEnumerable<EvenementModel>> Get(Guid id)
         {
+            IEnumerable<EvenementModel> listeEvenement;
+            try
+            {
+                listeEvenement = this.m_manipulationDepotEquipeEvenement.ListerEquipeEvenements(id);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
             EquipeEvenementModel model = new EquipeEvenementModel(this.m_manipulationDepotEquipeEvenement.ChercherEquipeEvenementParId(id));
             if(model != null)
             {
