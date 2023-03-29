@@ -13,7 +13,7 @@ namespace GES_API.Controllers
         private ManipulationDepotEquipeEvenement m_manipulationDepotEquipeEvenement;
         public EquipeEvenementController(ManipulationDepotEquipeEvenement p_manipulationDepotEquipeEvenement)
         {
-            if(p_manipulationDepotEquipeEvenement == null)
+            if (p_manipulationDepotEquipeEvenement == null)
             {
                 throw new ArgumentNullException(nameof(p_manipulationDepotEquipeEvenement));
             }
@@ -38,14 +38,14 @@ namespace GES_API.Controllers
             IEnumerable<EvenementModel> listeEvenement;
             try
             {
-                listeEvenement = (IEnumerable<EvenementModel>)this.m_manipulationDepotEquipeEvenement.ListerEquipeEvenements(id);
+                listeEvenement = this.m_manipulationDepotEquipeEvenement.ListerEquipeEvenements(id).Select(e => new EvenementModel(e));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
             EquipeEvenementModel model = new EquipeEvenementModel(this.m_manipulationDepotEquipeEvenement.ChercherEquipeEvenementParId(id));
-            if(model != null)
+            if (model != null)
             {
                 return Ok(model);
             }
