@@ -2,6 +2,7 @@
 using GES_Services.Manipulations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using GES_Services.Entites;
 
 namespace GES_API.Controllers
 {
@@ -37,7 +38,7 @@ namespace GES_API.Controllers
             IEnumerable<EvenementModel> listeEvenement;
             try
             {
-                listeEvenement = this.m_manipulationDepotEquipeEvenement.ListerEquipeEvenements(id);
+                listeEvenement = (IEnumerable<EvenementModel>)this.m_manipulationDepotEquipeEvenement.ListerEquipeEvenements(id);
             }
             catch (Exception e)
             {
