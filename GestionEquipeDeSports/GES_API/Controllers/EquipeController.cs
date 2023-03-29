@@ -63,14 +63,14 @@ namespace GES_API.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public ActionResult Put(Guid p_id, [FromBody] EquipeModel p_equipeModel)
+        public ActionResult Put(Guid id, [FromBody] EquipeModel p_equipeModel)
         {
-            if (!ModelState.IsValid || p_equipeModel.IdEquipe != p_id)
+            if (!ModelState.IsValid || p_equipeModel.IdEquipe != id)
             {
                 return BadRequest();
             }
 
-            EquipeModel equipeModel = new EquipeModel(this.m_manipulationDepotEquipe.ChercherEquipeParId(p_id));
+            EquipeModel equipeModel = new EquipeModel(this.m_manipulationDepotEquipe.ChercherEquipeParId(id));
 
             if (equipeModel is null)
             {

@@ -29,9 +29,9 @@ namespace GES_API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<UtilisateurModel> Get(Guid p_id)
+        public ActionResult<UtilisateurModel> Get(Guid id)
         {
-            UtilisateurModel model = new UtilisateurModel(this.m_manipulationDepotUtilisateur.ChercherUtilisateurParId(p_id));
+            UtilisateurModel model = new UtilisateurModel(this.m_manipulationDepotUtilisateur.ChercherUtilisateurParId(id));
             if(model != null)
             {
                 return Ok(model);

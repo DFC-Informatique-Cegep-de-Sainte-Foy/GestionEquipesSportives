@@ -31,9 +31,9 @@ namespace GES_API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<EquipeEvenementModel> Get(Guid p_id)
+        public ActionResult<EquipeEvenementModel> Get(Guid id)
         {
-            EquipeEvenementModel model = new EquipeEvenementModel(this.m_manipulationDepotEquipeEvenement.ChercherEquipeEvenementParId(p_id));
+            EquipeEvenementModel model = new EquipeEvenementModel(this.m_manipulationDepotEquipeEvenement.ChercherEquipeEvenementParId(id));
             if(model != null)
             {
                 return Ok(model);
