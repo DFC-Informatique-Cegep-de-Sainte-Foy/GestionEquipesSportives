@@ -31,7 +31,7 @@ export class Utilisateurs extends Component{
             <Container>
                 <h1>Liste des utilisateurs</h1>
                 <Link to={'/formulaireEntraineur'}>
-                    <Button variant="success" >Ajouter un utilisateur</Button>
+                    <Button variant="success" >Ajouter un utilisateur</Button><p></p>
                 </Link>
                 <Table striped bordered>
                     <thead>
