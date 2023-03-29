@@ -6,20 +6,20 @@ import * as Yup from 'yup';
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
     nomEquipe: Yup.string()
-    .min(3, 'Trés court!')
-    .max(30, 'Très long!')
+    .min(3, 'Trop court!')
+    .max(30, 'Trop long!')
     .required('Ce champ est obligatoire!'),
     region: Yup.string()
-    .min(3, 'Trés court!')
-    .max(30, 'Très long!')
+    .min(3, 'Trop court!')
+    .max(30, 'Trop long!')
     .required('Ce champ est obligatoire!'),
     sport: Yup.string()
-    .min(3, 'Trés court!')
-    .max(30, 'Très long!')
+    .min(3, 'Trop court!')
+    .max(30, 'Trop long!')
     .required('Ce champ est obligatoire!'),
     associationSportive: Yup.string()
-    .min(4, 'Trés court!')
-    .max(30, 'Très long!')
+    .min(4, 'Trop court!')
+    .max(30, 'Trop long!')
     .required('Ce champ est obligatoire!'),
 });
 
@@ -29,10 +29,10 @@ export const FormEquipe = () => {
         console.log('formulaire est Valid!');            
         //POST request fetch
 
-        const requestOptions = {
+        let requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: values                
+            body:  JSON.stringify({values})                
         };
         fetch('api/equipe', requestOptions)
             .then(function (reponse) {
