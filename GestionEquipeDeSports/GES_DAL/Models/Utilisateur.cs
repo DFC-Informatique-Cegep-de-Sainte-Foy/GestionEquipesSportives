@@ -24,6 +24,8 @@ namespace GES_DAL.Models
         public bool? EstTuteur { get; set; }
         public bool? EstEntraineur { get; set; }
         public bool? EstAdmin { get; set; }
+
+        public bool? Etat { get; set; }
         public bool? FkIdEtat { get; set; }
 
         public virtual Etat? FkIdEtatNavigation { get; set; }
@@ -45,6 +47,7 @@ namespace GES_DAL.Models
             this.EstTuteur = p_utilisateur.EstTuteur;
             this.EstEntraineur = p_utilisateur.EstEntraineur;
             this.EstAdmin = p_utilisateur.EstAdmin;
+            this.Etat = p_utilisateur.Etat;
         }
         public GES_Services.Entites.Utilisateur FromDTO()
         {
@@ -56,7 +59,7 @@ namespace GES_DAL.Models
                 Email, 
                 Adresse, 
                 NumTelephone, 
-                EstJoueur, EstTuteur, EstEntraineur, EstAdmin);
+                EstJoueur, EstTuteur, EstEntraineur, EstAdmin, Etat);
         }
     }
 }

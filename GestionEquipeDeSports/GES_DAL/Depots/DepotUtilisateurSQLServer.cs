@@ -53,7 +53,10 @@ namespace GES_DAL.Depots
         }
         public IEnumerable<Entite.Utilisateur> ListerUtilisateurs()
         {
-            return this.m_context.Utilisateurs.Where(ee => ee.FkIdEtat == true).Select(ee => ee.FromDTO());
+
+            //select * from Utilisateur
+            return m_context.Utilisateurs.ToList().Select(e => e.FromDTO());
+
         }
         public void ModifierUtilisateur(Entite.Utilisateur p_utilisateur)
         {

@@ -17,6 +17,7 @@ namespace GES_API.Models
         public bool? EstTuteur { get; set; }
         public bool? EstEntraineur { get; set; }
         public bool? EstAdmin { get; set; }
+        public bool? Etat { get; set; }
         public UtilisateurModel()
         {
             ;
@@ -35,6 +36,7 @@ namespace GES_API.Models
             this.EstTuteur = p_utilisateur.EstTuteur;
             this.EstEntraineur = p_utilisateur.EstEntraineur;
             this.EstAdmin = p_utilisateur.EstAdmin;
+            this.Etat = p_utilisateur.Etat;
         }
         public Utilisateur DeModelVersEntite()
         {
