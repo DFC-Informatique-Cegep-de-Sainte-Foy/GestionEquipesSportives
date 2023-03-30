@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-export class FormEntraineur extends Component{
-    constructor(props){
+export class FormEntraineur extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             nom_entraineur: '',
@@ -19,7 +19,8 @@ export class FormEntraineur extends Component{
         this.ajouterEntraineur = this.ajouterEntraineur.bind(this);
     };
 
-    handleInputChangee(event){
+
+    handleInputChangee(event) {
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -29,7 +30,7 @@ export class FormEntraineur extends Component{
         });
     }
 
-    ajouterEntraineur(e){
+    async ajouterEntraineur(e) {
         e.preventDefault();
         console.log(this.state.nom_entraineur);
         console.log(this.state.prenom_entraineur);
@@ -43,13 +44,49 @@ export class FormEntraineur extends Component{
             age_entraineur: '',
             email: '',
             telephone: ''
-        })
+        });
+        let requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nom: this.state.nom_entraineur,
+                prenom: this.state.prenom_entraineur,
+                age_entraineur: this.state.age_entraineur,
+                email: this.state.email,
+                telephone: this.state.telephone
+            })
+        }
+
+        await fetch('api/entraineur', requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Entraineur ajouté avec succès:', data);
+                this.setState({
+                    nom_entraineur: '',
+                    prenom_entraineur: '',
+                    age_entraineur: '',
+                    email: '',
+                    telephone: '',
+                    formValide: true,
+                    estErreur: {}
+                });
+            })
+            .catch(error => {
+                console.error('Il y a eu un problème lors de la soumission du formulaire:', error);
+                this.setState({ formValide: false, estErreur: error });
+            });
     }
 
-    render(){
-        return(
+
+    render() {
+        return (
             <div>
-                <h2>Créer un entraineur</h2>                
+                <h2>Créer un entraineur</h2>
                 <Form onSubmit={this.ajouterEntraineur}>
                     <Row className="mb-3">
                         <Form.Group as={Col} sm={6}>
@@ -57,8 +94,8 @@ export class FormEntraineur extends Component{
                             <Form.Control
                                 type="text"
                                 name="nom_entraineur"
-                                value={this.state.nom_entraineur} 
-                                onChange={this.handleInputChangee} />                            
+                                value={this.state.nom_entraineur}
+                                onChange={this.handleInputChangee} />
                         </Form.Group>
                         <Form.Group as={Col} sm={6}>
                             <Form.Label>Prénom</Form.Label>

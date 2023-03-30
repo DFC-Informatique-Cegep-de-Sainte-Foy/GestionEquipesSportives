@@ -14,17 +14,24 @@ namespace GES_API.Controllers
     public class EvenementsController : ControllerBase
     {
         private ManiulationDepotEvenement m_maniulationDepotEvenement;
-        public EvenementsController(ManiulationDepotEvenement p_maniulationDepotEvenement)
-        {
-            this.m_maniulationDepotEvenement = p_maniulationDepotEvenement;
-        }
+        //public EvenementsController(ManiulationDepotEvenement p_maniulationDepotEvenement)
+        //{
+        //    this.m_maniulationDepotEvenement = p_maniulationDepotEvenement;
+        //}
 
         // GET: api/evenements
         [HttpGet]
         [ProducesResponseType(200)]
         public ActionResult<IEnumerable<EvenementModel>> Get()
         {
-            return Ok(this.m_maniulationDepotEvenement.ListerEvenements());
+            List<EvenementModel> evenements = new List<EvenementModel>();
+
+            foreach (var evenement in this.m_maniulationDepotEvenement.ListerEvenements())
+            {
+                evenements.Add(new EvenementModel(evenement));
+            }
+
+            return Ok(evenements);
         }
 
         // GET api/<EvenementController>/5
@@ -33,10 +40,11 @@ namespace GES_API.Controllers
         [ProducesResponseType(404)]
         public ActionResult<EvenementModel> Get(Guid id)
         {
-            EvenementModel model = new EvenementModel(this.m_maniulationDepotEvenement.ChercherEvenementParId(id));
-            if (model != null)
+            EvenementModel evenementModel = new EvenementModel(this.m_maniulationDepotEvenement.ChercherEvenementParId(id));
+
+            if (evenementModel != null)
             {
-                return Ok(model);
+                return Ok(evenementModel);
             }
             return NotFound();
         }
