@@ -25,10 +25,8 @@ builder.Services.AddScoped<ManiulationDepotEvenement>();
 builder.Services.AddScoped<ManipulationDepotEquipe>();
 //Manipulation du depot Evenement CSV
 builder.Services.AddScoped<ManipulationDepotImporationEvenementCSV>();
-
 //Manipulation du depot EquipeEvenement
 builder.Services.AddScoped<ManipulationDepotEquipeEvenement>();
-
 //Manipulation du depot Utilisateur
 builder.Services.AddScoped<ManipulationDepotUtilisateur>();
 
@@ -38,10 +36,8 @@ builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
 builder.Services.AddScoped<IDepotEquipe, DepotEquipeSQLServer>();
 //Dependance entre l'interface evenementCSV et le DepotImportationEvenementCSVSQLServer
 builder.Services.AddScoped<IDepotImportationEvenementCSV, DepotImportationEvenementCSVSQLServer>();
-
 //Dependance entre l'interface EquipeEvenement et le DepotEquipeEvenementSQLServer
 builder.Services.AddScoped<IDepotEquipeEvenement, DepotEquipeEvenementSQLServer>();
-
 //Dependance entre l'interface Utilisateur et le DepotUtilisateurSQLServer
 builder.Services.AddScoped<IDepotUtilisateur, DepotUtilisateurSQLServer>();
 

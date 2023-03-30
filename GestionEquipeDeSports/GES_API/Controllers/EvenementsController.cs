@@ -14,10 +14,10 @@ namespace GES_API.Controllers
     public class EvenementsController : ControllerBase
     {
         private ManiulationDepotEvenement m_maniulationDepotEvenement;
-        //public EvenementsController(ManiulationDepotEvenement p_maniulationDepotEvenement)
-        //{
-        //    this.m_maniulationDepotEvenement = p_maniulationDepotEvenement;
-        //}
+        public EvenementsController(ManiulationDepotEvenement p_maniulationDepotEvenement)
+        {
+            this.m_maniulationDepotEvenement = p_maniulationDepotEvenement;
+        }
 
         // GET: api/evenements
         [HttpGet]

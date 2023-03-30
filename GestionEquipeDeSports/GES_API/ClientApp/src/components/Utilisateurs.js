@@ -1,12 +1,12 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Button, Table, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-export class Utilisateurs extends Component{
-    constructor(props){
+export class Utilisateurs extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-          utilisateurs: []
+            utilisateurs: []
         };
     }
 
@@ -20,14 +20,14 @@ export class Utilisateurs extends Component{
             });
     }
 
-    formatTypeUtilisateur(donnees){
-        if(donnees){
+    formatTypeUtilisateur(donnees) {
+        if (donnees) {
             return 'X';
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Container>
                 <h1>Liste des utilisateurs</h1>
                 <Link to={'/formulaireEntraineur'}>
@@ -51,7 +51,7 @@ export class Utilisateurs extends Component{
                     <tbody>
                         {this.state.utilisateurs.map((u, index) => (
                             <tr key={u.idUtilisateur}>
-                                <td>{index+1}</td>
+                                <td>{index + 1}</td>
                                 <td>{u.nom}</td>
                                 <td>{u.prenom}</td>
                                 <td>{u.email}</td>

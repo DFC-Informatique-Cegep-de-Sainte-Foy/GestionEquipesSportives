@@ -14,6 +14,7 @@ namespace GES_DAL.Models
         public Guid IdUtilisateur { get; set; }
         public string? Nom { get; set; }
         public string? Prenom { get; set; }
+        public int Age { get; set; }
         public string? Email { get; set; }
         public string? Adresse { get; set; }
         public string? NumTelephone { get; set; }
@@ -34,6 +35,7 @@ namespace GES_DAL.Models
             this.IdUtilisateur = p_utilisateur.IdUtilisateur;
             this.Nom = p_utilisateur.Nom;
             this.Prenom = p_utilisateur.Prenom;
+            this.Age = p_utilisateur.Age;
             this.Email = p_utilisateur.Email;
             this.Adresse = p_utilisateur.Adresse;
             this.NumTelephone = p_utilisateur.NumTelephone;
@@ -50,6 +52,7 @@ namespace GES_DAL.Models
                 IdUtilisateur, 
                 Nom, 
                 Prenom, 
+                Age,
                 Email, 
                 Adresse, 
                 NumTelephone, 

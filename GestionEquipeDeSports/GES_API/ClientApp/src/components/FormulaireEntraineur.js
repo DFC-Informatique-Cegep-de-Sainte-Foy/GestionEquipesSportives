@@ -51,7 +51,7 @@ export class FormEntraineur extends Component {
             body: JSON.stringify({
                 nom: this.state.nom_entraineur,
                 prenom: this.state.prenom_entraineur,
-                age_entraineur: this.state.age_entraineur,
+                age: this.state.age_entraineur,
                 email: this.state.email,
                 telephone: this.state.telephone
             })

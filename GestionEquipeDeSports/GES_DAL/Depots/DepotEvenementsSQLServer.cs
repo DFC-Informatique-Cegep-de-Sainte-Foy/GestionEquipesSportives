@@ -98,5 +98,5 @@ namespace GES_DAL.Depots
             m_context.SaveChanges();
         }
 
-        }
     }
+}
