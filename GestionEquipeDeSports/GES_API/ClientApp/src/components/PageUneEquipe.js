@@ -13,6 +13,8 @@ export const PageUneEquipe = () => {
     const [idsEvenements, setidsEvenements] = useState([]);
     //const [fkIdEvenement, setfkIdEvenement] = useState('');
 
+    const {id} = useParams();
+
     function getEquipe(id){
         fetch(`api/equipe/${id}`)
         .then(res => res.json())
@@ -40,7 +42,6 @@ export const PageUneEquipe = () => {
         //getIdEvenements(equipeEvenement);
     }
 
-    const {id} = useParams();
 
     useEffect(() => {
         getEquipe(id);

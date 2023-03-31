@@ -10,6 +10,7 @@ import { PageUnEvenement } from "./components/PageUnEvenement";
 import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
 import { PageUneEquipe } from "./components/PageUneEquipe";
+import { PageJoueur } from "./pages/PageJoueur";
 
 const AppRoutes = [
   {
@@ -61,7 +62,7 @@ const AppRoutes = [
     element: <PageUneEquipe />
   },
   {
-    path: '../pages/PageJoueur/:id',
+    path: 'PageJoueur/:id',
     element: <PageJoueur />
   }
 ];
