@@ -61,10 +61,10 @@ const AppRoutes = [
     path: '/uneEquipe/:id',
     element: <PageUneEquipe />
   },
-  {
-    path: 'PageJoueur/:id',
+  /*{
+    path: '../pages/PageJoueur/:id',
     element: <PageJoueur />
-  }
+  }*/
 ];
 
 export default AppRoutes;

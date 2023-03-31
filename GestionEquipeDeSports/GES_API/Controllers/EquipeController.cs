@@ -86,9 +86,9 @@ namespace GES_API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public ActionResult Delete(Guid p_id)
+        public ActionResult Delete(Guid id)
         {
-            EquipeModel equipeModel = new EquipeModel(this.m_manipulationDepotEquipe.ChercherEquipeParId(p_id));
+            EquipeModel equipeModel = new EquipeModel(this.m_manipulationDepotEquipe.ChercherEquipeParId(id));
 
             if (equipeModel is null)
             {
