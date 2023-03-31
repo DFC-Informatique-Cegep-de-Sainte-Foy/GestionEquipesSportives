@@ -23,15 +23,14 @@ export class NavMenu extends Component {
 
   render() {
     return (
-      <header>
-        <div className="bg-gray" >
+      <header className="header-with-gray-strip">
+        <div >
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3">
             <NavbarBrand tag={Link} to="/">GestionEquipeDeSports</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
 
               <ul className="navbar-nav flex-grow">
-
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
                 </NavItem>
@@ -48,10 +47,13 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/utilisateurs">Utilisateurs</NavLink>
                 </NavItem>
 
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/connexion">Connexion</NavLink>
+                <NavItem className="d-none d-md-inline">
+                  <hr className="my-0 mx-2" style={{ height: "40px", borderLeft: "0px solid #ccc" }} />
                 </NavItem>
 
+                <NavItem className="border border-dark rounded">
+                  <NavLink tag={Link} className="text-dark" to="/connexion">Connexion</NavLink>
+                </NavItem>
               </ul>
 
             </Collapse>

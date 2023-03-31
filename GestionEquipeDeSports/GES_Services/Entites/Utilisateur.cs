@@ -92,6 +92,13 @@ public partial class Utilisateur
     public Utilisateur(Guid guid, string nom, string prenom, int age, string email, string adresse,
                         string numTelephone, bool etat)
     {
-
+        this.IdUtilisateur= guid;
+        this.Nom = nom;
+        this.Prenom = prenom;
+        this.Age = age;
+        this.Email = email;            
+        this.Adresse = adresse;
+        this.NumTelephone = numTelephone;
+        this.Etat = etat;
     }
 }

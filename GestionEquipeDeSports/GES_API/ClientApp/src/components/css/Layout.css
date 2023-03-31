@@ -1,9 +1,11 @@
-.container-max-width-2-3 {
-    max-width: calc(100vw * 3/4);
-    /* Set the maximum width to two-thirds of the viewport width */
+.container-three-quarters-width {
+    width: calc(100vw * 11/16);
+    /* Set the width to three-quarters of the viewport width */
+    max-width: 100%;
+    /* Ensure the width does not exceed the container's width */
 }
 
-.centered-container {
-    margin: 0 auto; /* Set the left and right margins to "auto" */
-  }
-  
+.nav-menu-full-width {
+    width: 100%;
+    /* Set the width to 100% of the container's width */
+}

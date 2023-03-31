@@ -8,9 +8,9 @@ export class Layout extends Component {
 
   render() {
     return (
-      <div className="centered-container container-max-width-2-3">
-        <NavMenu />
-        <Container>
+      <div className="centered-container">
+        <NavMenu className="nav-menu-full-width"/>
+        <Container className="container-three-quarters-width">
           {this.props.children}
         </Container>
       </div>
