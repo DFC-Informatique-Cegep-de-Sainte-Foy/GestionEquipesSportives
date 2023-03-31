@@ -60,10 +60,10 @@ const AppRoutes = [
     path: '/uneEquipe/:id',
     element: <PageUneEquipe />
   },
-  {
+  /*{
     path: '../pages/PageJoueur/:id',
     element: <PageJoueur />
-  }
+  }*/
 ];
 
 export default AppRoutes;

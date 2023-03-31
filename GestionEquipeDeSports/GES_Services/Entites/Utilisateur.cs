@@ -18,7 +18,7 @@ public partial class Utilisateur
     public Guid IdUtilisateur { get; private set; }
     public string? Nom { get; private set; }
     public string? Prenom { get; private set; }
-    public int Age { get; private set; }
+    //public int Age { get; private set; }
     public string? Email { get; private set; }
     public string? Adresse { get; private set; }
     public string? NumTelephone { get; private set; }
@@ -30,7 +30,7 @@ public partial class Utilisateur
     public bool? EstAdmin { get; private set; }
     public bool Etat { get; private set; }
 
-    public Utilisateur(Guid guid, string nom, string prenom, int age, string email, string adresse, string numTelephone,
+    public Utilisateur(Guid guid, string nom, string prenom, /*int age,*/ string email, string adresse, string numTelephone,
                    bool? estJoueur, bool? estTuteur, bool? estEntraineur, bool? estAdmin)
     {
         if (guid == Guid.Empty)
@@ -49,16 +49,19 @@ public partial class Utilisateur
             throw new ArgumentNullException($"Le parametre nom: {nom} est invalide", nameof(nom));
         }
         Nom = nom;
+        
         if (prenom == null)
         {
             throw new ArgumentNullException($"Le parametre prenom: {prenom} est invalide", nameof(prenom));
         }
         Prenom = prenom;
+
         if (email == null)
         {
             throw new ArgumentNullException($"Le parametre email: {email} est invalide", nameof(email));
         }
         Email = email;
+
         if (adresse == null)
         {
             throw new ArgumentNullException($"Le parametre email: {email} est invalide", nameof(email));
@@ -74,7 +77,7 @@ public partial class Utilisateur
         //DateCreation = DateTime.Now;
         //DateModification = DateTime.Now;
 
-        Age = age;
+        //Age = age;
 
         EstEntraineur = estEntraineur ?? false;
         EstJoueur = estJoueur ?? false;
@@ -89,13 +92,13 @@ public partial class Utilisateur
     }
 
 
-    public Utilisateur(Guid guid, string nom, string prenom, int age, string email, string adresse,
+    public Utilisateur(Guid guid, string nom, string prenom, /*int age,*/ string email, string adresse,
                         string numTelephone, bool etat)
     {
         this.IdUtilisateur= guid;
         this.Nom = nom;
         this.Prenom = prenom;
-        this.Age = age;
+        //this.Age = age;
         this.Email = email;            
         this.Adresse = adresse;
         this.NumTelephone = numTelephone;
