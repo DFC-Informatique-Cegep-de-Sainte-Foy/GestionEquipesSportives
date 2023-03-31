@@ -7,7 +7,7 @@ namespace GES_API.Models
         public Guid IdUtilisateur { get; set; }
         public string? Nom { get; set; }
         public string? Prenom { get; set; }
-        //public int Age { get; set; }
+        public int Age { get; set; }
         public string? Email { get; set; }
         public string? Adresse { get; set; }
         public string? NumTelephone { get; set; }
@@ -44,7 +44,7 @@ namespace GES_API.Models
                 this.IdUtilisateur,
                 this.Nom,
                 this.Prenom,
-                //this.Age,
+                this.Age,
                 this.Email,
                 this.Adresse,
                 this.NumTelephone,

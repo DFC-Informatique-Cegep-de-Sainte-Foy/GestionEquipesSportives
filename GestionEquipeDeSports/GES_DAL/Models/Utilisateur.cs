@@ -14,7 +14,7 @@ namespace GES_DAL.Models
         public Guid IdUtilisateur { get; set; }
         public string? Nom { get; set; }
         public string? Prenom { get; set; }
-        //public int Age { get; set; }
+        public int? Age { get; set; }
         public string? Email { get; set; }
         public string? Adresse { get; set; }
         public string? NumTelephone { get; set; }
@@ -24,8 +24,7 @@ namespace GES_DAL.Models
         public bool? EstTuteur { get; set; }
         public bool? EstEntraineur { get; set; }
         public bool? EstAdmin { get; set; }
-
-        public bool Etat { get; set; }
+        public bool? Etat { get; set; }
         public bool? FkIdEtat { get; set; }
 
         public virtual Etat? FkIdEtatNavigation { get; set; }
@@ -37,7 +36,7 @@ namespace GES_DAL.Models
             this.IdUtilisateur = p_utilisateur.IdUtilisateur;
             this.Nom = p_utilisateur.Nom;
             this.Prenom = p_utilisateur.Prenom;
-           // this.Age = p_utilisateur.Age;
+           this.Age = p_utilisateur.Age;
             this.Email = p_utilisateur.Email;
             this.Adresse = p_utilisateur.Adresse;
             this.NumTelephone = p_utilisateur.NumTelephone;
@@ -65,7 +64,7 @@ namespace GES_DAL.Models
                 this.IdUtilisateur,
                 this.Nom,
                 this.Prenom,
-                //this.Age,
+                this.Age,
                 this.Email,
                 this.Adresse,
                 this.NumTelephone,

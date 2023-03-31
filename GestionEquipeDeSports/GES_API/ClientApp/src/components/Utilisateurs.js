@@ -10,10 +10,11 @@ export class Utilisateurs extends Component {
         };
     }
 
-    componentDidMount() {
-        fetch("api/utilisateur")
+    async componentDidMount() {
+        await fetch("api/utilisateur")
             .then(res => res.json())
             .then((result) => {
+                console.log(result);
                 this.setState({
                     utilisateurs: result
                 });

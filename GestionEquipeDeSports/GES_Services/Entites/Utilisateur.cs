@@ -18,7 +18,7 @@ public partial class Utilisateur
     public Guid IdUtilisateur { get; private set; }
     public string? Nom { get; private set; }
     public string? Prenom { get; private set; }
-    //public int Age { get; private set; }
+    public int? Age { get; private set; }
     public string? Email { get; private set; }
     public string? Adresse { get; private set; }
     public string? NumTelephone { get; private set; }
@@ -28,9 +28,9 @@ public partial class Utilisateur
     public bool? EstTuteur { get; private set; }
     public bool? EstEntraineur { get; private set; }
     public bool? EstAdmin { get; private set; }
-    public bool Etat { get; private set; }
+    public bool? Etat { get; private set; }
 
-    public Utilisateur(Guid guid, string nom, string prenom, /*int age,*/ string email, string adresse, string numTelephone,
+    public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse, string numTelephone,
                    bool? estJoueur, bool? estTuteur, bool? estEntraineur, bool? estAdmin)
     {
         if (guid == Guid.Empty)
@@ -77,28 +77,24 @@ public partial class Utilisateur
         //DateCreation = DateTime.Now;
         //DateModification = DateTime.Now;
 
-        //Age = age;
+        Age = age;
 
         EstEntraineur = estEntraineur ?? false;
         EstJoueur = estJoueur ?? false;
         EstTuteur = estTuteur ?? false;
         EstAdmin = estAdmin ?? false;
 
-        //EstJoueur = estJoueur;
-        //EstTuteur = estTuteur;
-        //EstEntraineur = estEntraineur;
-        //EstAdmin = estAdmin;
         Etat = true;
     }
 
 
-    public Utilisateur(Guid guid, string nom, string prenom, /*int age,*/ string email, string adresse,
-                        string numTelephone, bool etat)
+    public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse,
+                        string numTelephone, bool? etat)
     {
         this.IdUtilisateur= guid;
         this.Nom = nom;
         this.Prenom = prenom;
-        //this.Age = age;
+        this.Age = age;
         this.Email = email;            
         this.Adresse = adresse;
         this.NumTelephone = numTelephone;

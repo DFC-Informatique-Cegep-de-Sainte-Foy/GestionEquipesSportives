@@ -1,6 +1,7 @@
 ﻿using GES_Services.Manipulations;
 using Microsoft.AspNetCore.Mvc;
 using GES_API.Models;
+using System.Collections.Generic;
 
 namespace GES_API.Controllers
 {
@@ -11,7 +12,7 @@ namespace GES_API.Controllers
         private ManipulationDepotUtilisateur m_manipulationDepotUtilisateur;
         public UtilisateurController(ManipulationDepotUtilisateur p_manipulationDepotUtilisateur)
         {
-            if(p_manipulationDepotUtilisateur == null)
+            if (p_manipulationDepotUtilisateur == null)
             {
                 throw new ArgumentNullException(nameof(p_manipulationDepotUtilisateur));
             }
@@ -22,7 +23,12 @@ namespace GES_API.Controllers
         [ProducesResponseType(200)]
         public ActionResult<IEnumerable<UtilisateurModel>> Get()
         {
-            return Ok(this.m_manipulationDepotUtilisateur.ListerUtilisateurs());
+            List<UtilisateurModel> utilisateurModels = null;
+            // transfer each item from this this.m_manipulationDepotUtilisateur.ListerUtilisateurs() to the list of models            
+            utilisateurModels = this.m_manipulationDepotUtilisateur.ListerUtilisateurs()
+                ?.Select(utilisateur => new UtilisateurModel(utilisateur)).ToList();
+
+            return Ok(utilisateurModels);
         }
 
         //Get: api/<EquipeController>/5
@@ -32,7 +38,7 @@ namespace GES_API.Controllers
         public ActionResult<UtilisateurModel> Get(Guid id)
         {
             UtilisateurModel model = new UtilisateurModel(this.m_manipulationDepotUtilisateur.ChercherUtilisateurParId(id));
-            if(model != null)
+            if (model != null)
             {
                 return Ok(model);
             }
