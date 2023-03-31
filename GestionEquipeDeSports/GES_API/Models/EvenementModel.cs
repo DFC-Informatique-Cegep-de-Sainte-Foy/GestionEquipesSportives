@@ -8,6 +8,7 @@ namespace GES_API.Models
     {
         public Guid Id { get; set; }
         public string Description { get; set; }
+        public int Age { get; set; }
         public string Emplacement { get; set; }
         public DateTime? DateDebut { get; set; }
         public DateTime? DateFin { get; set; }

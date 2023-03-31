@@ -54,7 +54,8 @@ namespace GES_DAL.Depots
         }
         public IEnumerable<Entite.Utilisateur> ListerUtilisateurs()
         {
-            //select * from Utilisateur
+            //select * from Utilisateur et retourne une liste d'entite.Utilisateur
+
             return m_context.Utilisateurs.ToList().Select(e => e.FromDTO());
         }
         public void ModifierUtilisateur(Entite.Utilisateur p_utilisateur)
