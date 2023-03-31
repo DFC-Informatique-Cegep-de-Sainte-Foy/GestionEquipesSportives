@@ -6,7 +6,7 @@ import './NavMenu.css';
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
@@ -15,7 +15,7 @@ export class NavMenu extends Component {
     };
   }
 
-  toggleNavbar () {
+  toggleNavbar() {
     this.setState({
       collapsed: !this.state.collapsed
     });
@@ -23,39 +23,42 @@ export class NavMenu extends Component {
 
   render() {
     return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 bg-light" container light>
-          <NavbarBrand tag={Link} to="/">GestionEquipeDeSports</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+      <header className="header-with-gray-strip">
+        <div >
+          <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 bg-light" container light>
+            <NavbarBrand tag={Link} to="/">GestionEquipeDeSports</NavbarBrand>
+            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
 
-            <ul className="navbar-nav flex-grow">
+              <ul className="navbar-nav flex-grow">
 
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
-              </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
+                </NavItem>
 
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/equipes">Équipes</NavLink>
-              </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/equipes">Équipes</NavLink>
+                </NavItem>
 
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/evenements">Événements</NavLink>
-              </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/evenements">Événements</NavLink>
+                </NavItem>
 
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/utilisateurs">Utilisateurs</NavLink>
-              </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/utilisateurs">Utilisateurs</NavLink>
+                </NavItem>
 
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/connexion">Connexion</NavLink>
-              </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/connexion">Connexion</NavLink>
+                </NavItem>
 
-            </ul>
+              </ul>
 
-          </Collapse>
-        </Navbar>
+            </Collapse>
+          </Navbar>
+        </div>
       </header>
+
     );
   }
 }

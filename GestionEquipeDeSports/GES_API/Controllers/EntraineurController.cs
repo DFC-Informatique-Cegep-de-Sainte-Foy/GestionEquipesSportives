@@ -17,7 +17,6 @@ namespace GES_API.Controllers
             this.m_maniulationDepotUtilisateur = p_maniulationDepotUtilisateur;
         }
 
-
         // GET: api/<EntraineurController>
         [HttpGet]
         [ProducesResponseType(200)]
@@ -73,7 +72,6 @@ namespace GES_API.Controllers
             this.m_maniulationDepotUtilisateur.AjouterUtilisateur(utilisateurEnt);
 
             return CreatedAtAction(nameof(Get), new { id = p_utilisateurModel.IdUtilisateur }, p_utilisateurModel);
-
         }
 
         // PUT api/<EntraineurController>/5

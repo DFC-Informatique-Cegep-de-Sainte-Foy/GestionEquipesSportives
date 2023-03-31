@@ -34,6 +34,7 @@ namespace GES_DAL.Depots
             }
 
             m_context.Utilisateurs.Add(new GES_DAL.Models.Utilisateur(p_utilisateur));
+
             m_context.SaveChanges();
         }
         public Entite.Utilisateur ChercherUtilisateurParId(Guid p_id)
@@ -65,6 +66,13 @@ namespace GES_DAL.Depots
 
         public void SupprimerUtilisateur(Entite.Utilisateur p_utilisateur)
         {
+            throw new NotImplementedException();
+        }
+
+        public DateTime RecuperationDateModification(Guid id)
+        {
+            //m_context.Utilisateurs.
+
             throw new NotImplementedException();
         }
     }

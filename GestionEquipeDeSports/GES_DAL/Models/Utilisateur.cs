@@ -25,7 +25,7 @@ namespace GES_DAL.Models
         public bool? EstEntraineur { get; set; }
         public bool? EstAdmin { get; set; }
 
-        public bool? Etat { get; set; }
+        public bool Etat { get; set; }
         public bool? FkIdEtat { get; set; }
 
         public virtual Etat? FkIdEtatNavigation { get; set; }
@@ -41,8 +41,17 @@ namespace GES_DAL.Models
             this.Email = p_utilisateur.Email;
             this.Adresse = p_utilisateur.Adresse;
             this.NumTelephone = p_utilisateur.NumTelephone;
-            this.DateCreation = p_utilisateur.DateCreation;
-            this.DateModification = p_utilisateur.DateModification;
+            if (p_utilisateur.DateCreation == null)
+            {
+                this.DateCreation = DateTime.Now;
+            }
+            else
+            {
+                this.DateCreation = p_utilisateur.DateCreation;
+            }
+
+
+            this.DateModification = DateTime.Now;
             this.EstJoueur = p_utilisateur.EstJoueur;
             this.EstTuteur = p_utilisateur.EstTuteur;
             this.EstEntraineur = p_utilisateur.EstEntraineur;
@@ -52,14 +61,23 @@ namespace GES_DAL.Models
         public GES_Services.Entites.Utilisateur FromDTO()
         {
             return new GES_Services.Entites.Utilisateur(
-                IdUtilisateur, 
-                Nom, 
-                Prenom, 
-                Age,
-                Email, 
-                Adresse, 
-                NumTelephone, 
-                EstJoueur, EstTuteur, EstEntraineur, EstAdmin, Etat);
+                this.IdUtilisateur,
+                this.Nom,
+                this.Prenom,
+                this.Age,
+                this.Email,
+                this.Adresse,
+                this.NumTelephone,
+                this.Etat);
+        }
+
+        private void validationDateModification()
+        {
+            if (this.DateModification == null)
+            {
+                this.DateModification = DateTime.Now;              
+            }
+         
         }
     }
 }
