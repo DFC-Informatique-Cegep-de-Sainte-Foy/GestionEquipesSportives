@@ -17,9 +17,6 @@ html {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-.header-with-gray-strip {
-  background-color: #eee;
-  padding-top: 10px; /* Adjust this value as needed */
-  padding-bottom: 10px; /* Adjust this value as needed */
+.bg-gray {
+  background-color: rgb(187, 187, 187);
 }
-

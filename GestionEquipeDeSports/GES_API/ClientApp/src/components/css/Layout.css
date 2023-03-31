@@ -1,0 +1,9 @@
+.container-max-width-2-3 {
+    max-width: calc(100vw * 3/4);
+    /* Set the maximum width to two-thirds of the viewport width */
+}
+
+.centered-container {
+    margin: 0 auto; /* Set the left and right margins to "auto" */
+  }
+  
