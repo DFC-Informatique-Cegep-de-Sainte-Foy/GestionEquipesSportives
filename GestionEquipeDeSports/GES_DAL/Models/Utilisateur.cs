@@ -18,14 +18,16 @@ namespace GES_DAL.Models
         public string? Email { get; set; }
         public string? Adresse { get; set; }
         public string? NumTelephone { get; set; }
+        public int? IdRole { get; set; }
+        public bool? FK_Id_Etat { get; set; }
+
         public DateTime? DateCreation { get; set; }
         public DateTime? DateModification { get; set; }
-        public bool? EstJoueur { get; set; }
+        /*public bool? EstJoueur { get; set; }
         public bool? EstTuteur { get; set; }
         public bool? EstEntraineur { get; set; }
-        public bool? EstAdmin { get; set; }
+        public bool? EstAdmin { get; set; }*/
         //public bool? Etat { get; set; }
-        public bool? FK_Id_Etat { get; set; }
 
         public virtual Etat? FkIdEtatNavigation { get; set; }
         public virtual ICollection<EquipeJoueur> EquipeJoueurs { get; set; }
@@ -40,6 +42,7 @@ namespace GES_DAL.Models
             this.Email = p_utilisateur.Email;
             this.Adresse = p_utilisateur.Adresse;
             this.NumTelephone = p_utilisateur.NumTelephone;
+
             if (p_utilisateur.DateCreation == null)
             {
                 this.DateCreation = DateTime.Now;
@@ -49,12 +52,15 @@ namespace GES_DAL.Models
                 this.DateCreation = p_utilisateur.DateCreation;
             }
             this.DateModification = DateTime.Now;
-            this.EstJoueur = p_utilisateur.EstJoueur;
+
+            /*this.EstJoueur = p_utilisateur.EstJoueur;
             this.EstTuteur = p_utilisateur.EstTuteur;
             this.EstEntraineur = p_utilisateur.EstEntraineur;
-            this.EstAdmin = p_utilisateur.EstAdmin;
+            this.EstAdmin = p_utilisateur.EstAdmin;*/
+
+            this.IdRole = p_utilisateur.IdRole;
             this.FK_Id_Etat = p_utilisateur.FK_Id_Etat;
-            //this.FkIdEtat = p_utilisateur.Etat;
+           
         }
         public GES_Services.Entites.Utilisateur FromDTO()
         {
@@ -66,6 +72,7 @@ namespace GES_DAL.Models
                 this.Email,
                 this.Adresse,
                 this.NumTelephone,
+                this.IdRole,
                 this.FK_Id_Etat);
         }
 

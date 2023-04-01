@@ -65,7 +65,7 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
-            p_utilisateurModel.EstEntraineur = true;
+            //p_utilisateurModel.EstEntraineur = true;
 
             GES_Services.Entites.Utilisateur utilisateurEnt = p_utilisateurModel.DeModelVersEntite();
 

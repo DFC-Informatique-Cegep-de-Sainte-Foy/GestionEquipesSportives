@@ -91,7 +91,7 @@ export const FormEquipe = () => {
                                             <option value="">Choisir un sport</option>
                                             <option value="Soccer">Soccer</option>
                                             <option value="Hockey">Hockey</option>
-                                            <option value="Footbol">Footbol</option>
+                                            <option value="Footbol">Football</option>
                                             <option value="Natation">Natation</option>
                                         </Field>
                                         {touched.sport && errors.sport && <div style={{ color: "red" }}>{errors.sport}</div>}
