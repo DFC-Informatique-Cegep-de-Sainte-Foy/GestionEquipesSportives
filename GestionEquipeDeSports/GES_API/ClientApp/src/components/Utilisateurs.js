@@ -40,6 +40,7 @@ export class Utilisateurs extends Component {
                             <th>#</th>
                             <th>Nom</th>
                             <th>Prenom</th>
+                            <th>Age</th>
                             <th>Email</th>
                             <th>Adresse</th>
                             <th>Numéro de téléphone</th>
@@ -55,6 +56,7 @@ export class Utilisateurs extends Component {
                                 <td>{index + 1}</td>
                                 <td>{u.nom}</td>
                                 <td>{u.prenom}</td>
+                                <td>{u.age}</td>
                                 <td>{u.email}</td>
                                 <td>{u.adresse}</td>
                                 <td>{u.numTelephone}</td>

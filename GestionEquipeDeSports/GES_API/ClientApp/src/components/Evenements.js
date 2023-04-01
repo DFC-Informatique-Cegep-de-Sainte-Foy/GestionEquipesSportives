@@ -30,17 +30,17 @@ export class Evenements extends React.Component {
         return dateTimeSortie;
     }
 
-    affichageTypeEvenement(data){
-        if(data === 1){
-            return "Entrainement";
-        } else if(data === 2){
-            return "Partie";
-        } else if (data === 3){
-            return "Autre";
-        }else{
-            return data;
-        }
-    }
+    // affichageTypeEvenement(data){
+    //     if(data === 1){
+    //         return "Entrainement";
+    //     } else if(data === 2){
+    //         return "Partie";
+    //     } else if (data === 3){
+    //         return "Autre";
+    //     }else{
+    //         return data;
+    //     }
+    // }
 
     /*affichageEtat(data){
         if(data === 1){
@@ -72,18 +72,18 @@ export class Evenements extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.evenements.map((ev, index) => (
-                            <tr key={ev.idEvenement}>
+                            <tr key={ev.id}>
                                 <td>{index+1}</td>
-                                <td><Link to={{ pathname: `/unEvenement/${ev.idEvenement}`}}>{ev.description}</Link></td>
+                                <td><Link to={{ pathname: `/unEvenement/${ev.id}`}}>{ev.description}</Link></td>
                                 <td>{ev.emplacement}</td>
                                 <td>{this.formatDateTime(ev.dateDebut)}</td>
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
-                                <td>{this.affichageTypeEvenement(ev.typeEvenement)}</td>
+                                <td>{ev.typeEvenement}</td>
                                 <td>
-                                    <Link to={{ pathname: `/modifieEvenement/${ev.idEvenement}`}}>
+                                    <Link to={{ pathname: `/modifieEvenement/${ev.id}`}}>
                                         <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>
                                     </Link>
-                                    <Link to={{ pathname: `/supprimerEvenement/${ev.idEvenement}`}}>
+                                    <Link to={{ pathname: `/supprimerEvenement/${ev.id}`}}>
                                         <Button variant='danger' size="sm" title="Supprimer"> <BiTrash /> </Button>
                                     </Link>
                                 </td>

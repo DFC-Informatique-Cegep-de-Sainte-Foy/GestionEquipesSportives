@@ -28,7 +28,7 @@ public partial class Utilisateur
     public bool? EstTuteur { get; private set; }
     public bool? EstEntraineur { get; private set; }
     public bool? EstAdmin { get; private set; }
-    public bool? Etat { get; private set; }
+    public bool? FK_Id_Etat { get; private set; }
 
     public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse, string numTelephone,
                    bool? estJoueur, bool? estTuteur, bool? estEntraineur, bool? estAdmin)
@@ -84,7 +84,7 @@ public partial class Utilisateur
         EstTuteur = estTuteur ?? false;
         EstAdmin = estAdmin ?? false;
 
-        Etat = true;
+        FK_Id_Etat = true;
     }
 
 
@@ -98,6 +98,6 @@ public partial class Utilisateur
         this.Email = email;            
         this.Adresse = adresse;
         this.NumTelephone = numTelephone;
-        this.Etat = etat;
+        this.FK_Id_Etat = etat;
     }
 }

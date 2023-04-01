@@ -7,7 +7,7 @@ namespace GES_API.Models
         public Guid IdUtilisateur { get; set; }
         public string? Nom { get; set; }
         public string? Prenom { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public string? Email { get; set; }
         public string? Adresse { get; set; }
         public string? NumTelephone { get; set; }
@@ -17,7 +17,7 @@ namespace GES_API.Models
         public bool? EstTuteur { get; set; }
         public bool? EstEntraineur { get; set; }
         public bool? EstAdmin { get; set; }
-        public bool? Etat { get; set; }
+        public bool? FK_Id_Etat { get; set; }
         public UtilisateurModel()
         {
             ;
@@ -27,6 +27,7 @@ namespace GES_API.Models
             this.IdUtilisateur = p_utilisateur.IdUtilisateur;
             this.Nom = p_utilisateur.Nom;
             this.Prenom = p_utilisateur.Prenom;
+            this.Age = p_utilisateur.Age;
             this.Email = p_utilisateur.Email;
             this.Adresse = p_utilisateur.Adresse;
             this.NumTelephone = p_utilisateur.NumTelephone;
@@ -36,7 +37,7 @@ namespace GES_API.Models
             this.EstTuteur = p_utilisateur.EstTuteur;
             this.EstEntraineur = p_utilisateur.EstEntraineur;
             this.EstAdmin = p_utilisateur.EstAdmin;
-            this.Etat = p_utilisateur.Etat;
+            this.FK_Id_Etat = p_utilisateur.FK_Id_Etat;
         }
         public Utilisateur DeModelVersEntite()
         {

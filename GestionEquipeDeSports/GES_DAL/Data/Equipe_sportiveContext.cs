@@ -225,7 +225,7 @@ namespace GES_DAL.Data
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FkIdEtat).HasColumnName("FK_Id_Etat");
+                entity.Property(e => e.FK_Id_Etat).HasColumnName("FK_Id_Etat");
 
                 entity.Property(e => e.Nom)
                     .HasMaxLength(50)
@@ -244,7 +244,7 @@ namespace GES_DAL.Data
 
                 entity.HasOne(d => d.FkIdEtatNavigation)
                     .WithMany(p => p.Utilisateurs)
-                    .HasForeignKey(d => d.FkIdEtat)
+                    .HasForeignKey(d => d.FK_Id_Etat)
                     .HasConstraintName("FK__Utilisate__FK_Id__3E52440B");
             });
 

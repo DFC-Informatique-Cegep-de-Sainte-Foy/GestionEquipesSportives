@@ -21,6 +21,7 @@ CREATE TABLE Utilisateur(
 IdUtilisateur INT IDENTITY PRIMARY KEY,
 Nom VARCHAR(30),
 Prenom VARCHAR(30),
+Age INT,
 Email VARCHAR(100),
 Adresse VARCHAR(120),
 NumTelephone VARCHAR(20),
