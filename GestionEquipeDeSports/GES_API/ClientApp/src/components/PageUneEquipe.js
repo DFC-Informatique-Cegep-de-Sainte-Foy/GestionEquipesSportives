@@ -10,10 +10,18 @@ export const PageUneEquipe = () => {
     const [associationSportive, setAssociationSportive] = useState('');
 
     const [equipeEvenement, setEquipeEvenement] = useState([]);
-    const [idsEvenements, setidsEvenements] = useState([]);
+    // const [idsEvenements, setidsEvenements] = useState([]);
     //const [fkIdEvenement, setfkIdEvenement] = useState('');
 
     const {id} = useParams();
+
+    useEffect(() => {
+        getEquipe(id);
+    }, [equipe.id]);
+
+    useEffect(() => {
+        getEvenements(id);
+    }, [equipeEvenement.id]);
 
     function getEquipe(id){
         fetch(`api/equipe/${id}`)
@@ -29,7 +37,7 @@ export const PageUneEquipe = () => {
     }
 
     function getEvenements(id){
-        fetch(`api/equipeEvenement?id=${id}`)
+        fetch(`api/equipeEvenement/${id}`)
         .then(res => res.json())
         .then((result) => {
             console.log(result);
@@ -43,25 +51,18 @@ export const PageUneEquipe = () => {
     }
 
 
-    useEffect(() => {
-        getEquipe(id);
-    }, [equipe.id]);
+    
+    // function getIdEvenements(donnees){
+    //     console.log('donnees : ');
+    //     console.log(donnees);
+    //     setidsEvenements = donnees.map((item) => item.fkIdEvenement);
+    //     console.log('ici ids : ');
+    //     console.log(idsEvenements);
+    // }
 
-    useEffect(() => {
-        getEvenements(id);
-    }, [equipeEvenement.id]);
-
-    function getIdEvenements(donnees){
-        console.log('donnees : ');
-        console.log(donnees);
-        setidsEvenements = donnees.map((item) => item.fkIdEvenement);
-        console.log('ici ids : ');
-        console.log(idsEvenements);
-    }
-
-    useEffect(() => {
-        getIdEvenements(equipeEvenement);
-    })
+    // useEffect(() => {
+    //     getIdEvenements(equipeEvenement);
+    // })
 
     return (
         <>
