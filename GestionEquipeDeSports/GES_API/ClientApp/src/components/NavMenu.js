@@ -1,9 +1,20 @@
-import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import React from 'react';
+import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
-export class NavMenu extends Component {
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
+    const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+    
+    return (
+      <Component {...props} loginWithRedirect={loginWithRedirect} logout={logout} isAuthenticated={isAuthenticated}/>
+    );
+  }
+}
+
+class NavMenu extends React.Component {
   static displayName = NavMenu.name;
 
   constructor(props) {
@@ -22,6 +33,46 @@ export class NavMenu extends Component {
   }
 
   render() {
+    const loginWithRedirect = this.props.loginWithRedirect;
+    const logout = this.props.logout;
+    const isAuthenticated = this.props.isAuthenticated;
+
+    function MenuAAfficher()
+    {
+      if(isAuthenticated === true)
+      {
+        return (
+          <Nav>
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" to="/equipes">Équipes</NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" to="/evenements">Événements</NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" to="/utilisateurs">Utilisateurs</NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" onClick={() => logout()}>Déconnexion</NavLink>
+            </NavItem>  
+          </Nav>
+        );
+      } 
+      else 
+      {
+        return (
+          <Nav>
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" onClick={() => loginWithRedirect()}>Connexion</NavLink>
+            </NavItem>  
+          </Nav>
+        );
+      }
+    }
+
     return (
       <header className="header-with-gray-strip">
         <div >
@@ -29,31 +80,13 @@ export class NavMenu extends Component {
             <NavbarBrand tag={Link} to="/">GestionEquipeDeSports</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-              <ul className="navbar-nav flex-grow">
+              <Nav className="navbar-nav flex-grow">
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
                 </NavItem>
-{/**
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/pagejoueur">Page Joueur</NavLink>
-                </NavItem>  */}
 
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/equipes">Équipes</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/evenements">Événements</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/utilisateurs">Utilisateurs</NavLink>
-                </NavItem>
-                <NavItem className="d-none d-md-inline">
-                  <hr className="my-0 mx-2" style={{ height: "40px", borderLeft: "0px solid #ccc" }} />
-                </NavItem>
-                <NavItem className="border border-dark rounded">
-                  <NavLink tag={Link} className="text-dark" to="/connexion">Connexion</NavLink>
-                </NavItem>
-              </ul>
+                <MenuAAfficher />
+              </Nav>
 
             </Collapse>
           </Navbar>
@@ -63,3 +96,4 @@ export class NavMenu extends Component {
     );
   }
 }
+export default withMyHook(NavMenu);
