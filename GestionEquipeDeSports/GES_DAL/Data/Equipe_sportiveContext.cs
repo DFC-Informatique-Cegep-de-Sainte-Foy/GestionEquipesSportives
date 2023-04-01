@@ -234,6 +234,9 @@ namespace GES_DAL.Data
                 entity.Property(e => e.NumTelephone)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+                entity.Property(e => e.Age)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Prenom)
                     .HasMaxLength(50)

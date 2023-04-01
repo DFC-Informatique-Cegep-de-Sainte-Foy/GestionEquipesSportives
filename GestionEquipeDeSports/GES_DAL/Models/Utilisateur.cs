@@ -36,7 +36,7 @@ namespace GES_DAL.Models
             this.IdUtilisateur = p_utilisateur.IdUtilisateur;
             this.Nom = p_utilisateur.Nom;
             this.Prenom = p_utilisateur.Prenom;
-           this.Age = p_utilisateur.Age;
+            this.Age = p_utilisateur.Age;
             this.Email = p_utilisateur.Email;
             this.Adresse = p_utilisateur.Adresse;
             this.NumTelephone = p_utilisateur.NumTelephone;
@@ -48,8 +48,6 @@ namespace GES_DAL.Models
             {
                 this.DateCreation = p_utilisateur.DateCreation;
             }
-
-
             this.DateModification = DateTime.Now;
             this.EstJoueur = p_utilisateur.EstJoueur;
             this.EstTuteur = p_utilisateur.EstTuteur;
@@ -75,9 +73,9 @@ namespace GES_DAL.Models
         {
             if (this.DateModification == null)
             {
-                this.DateModification = DateTime.Now;              
+                this.DateModification = DateTime.Now;
             }
-         
+
         }
     }
 }
