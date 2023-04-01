@@ -29,6 +29,7 @@ namespace GES_API.Models
             this.Prenom = p_utilisateur.Prenom;
             this.Age = p_utilisateur.Age;
             this.Email = p_utilisateur.Email;
+            this.Age = p_utilisateur.Age;
             this.Adresse = p_utilisateur.Adresse;
             this.NumTelephone = p_utilisateur.NumTelephone;
             this.DateCreation = p_utilisateur.DateCreation;
