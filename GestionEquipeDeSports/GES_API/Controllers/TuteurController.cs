@@ -60,7 +60,7 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
-            p_utilisateurModel.EstTuteur = true;
+            p_utilisateurModel.Roles = EnumTypeRole.Tuteur;
 
             this.m_maniulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());
 
