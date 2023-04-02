@@ -11,10 +11,10 @@ namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JoueurController : ControllerBase
+    public class AthleteController : ControllerBase
     {
         private ManipulationDepotUtilisateur m_maniulationDepotUtilisateur;
-        public JoueurController(ManipulationDepotUtilisateur p_maniulationDepotUtilisateur)
+        public AthleteController(ManipulationDepotUtilisateur p_maniulationDepotUtilisateur)
         {
             this.m_maniulationDepotUtilisateur = p_maniulationDepotUtilisateur;
         }
@@ -60,7 +60,7 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
-            p_utilisateurModel.EstJoueur = true;
+            p_utilisateurModel.Roles = EnumTypeRole.Athlete;
 
             this.m_maniulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());
 
