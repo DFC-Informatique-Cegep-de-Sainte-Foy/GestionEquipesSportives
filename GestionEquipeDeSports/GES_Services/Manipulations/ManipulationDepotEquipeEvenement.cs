@@ -22,7 +22,7 @@ namespace GES_Services.Manipulations
         }
         public EquipeEvenement ChercherEquipeEvenementParId(Guid p_id)
         {
-            return this.m_depotEquipeEvenement.ChercherEquipeEvenemntParId(p_id);
+            return this.m_depotEquipeEvenement.ChercherEquipeEvenementParId(p_id);
         }
         public void AjouterEquipeEvenement(EquipeEvenement p_equipeEvenement)
         {

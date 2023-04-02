@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GES_DAL.Models
+namespace GES_API.BackendProject
 {
     public partial class TypeEvenement
     {
@@ -11,7 +11,7 @@ namespace GES_DAL.Models
         }
 
         public int IdTypeEvenement { get; set; }
-        public string? Description { get; set; }
+        public string Description { get; set; } = null!;
 
         public virtual ICollection<Evenement> Evenements { get; set; }
     }

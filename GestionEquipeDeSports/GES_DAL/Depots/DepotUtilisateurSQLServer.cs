@@ -1,7 +1,7 @@
-﻿using GES_DAL.Data;
+﻿using GES_DAL.DbContexts;
 using GES_Services.Interfaces;
 using Entite = GES_Services.Entites;
-using GES_DAL.Models;
+using GES_DAL.BackendProject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'evenement avec le id {p_utilisateur.IdUtilisateur} existe déjà");
             }
 
-            m_context.Utilisateurs.Add(new GES_DAL.Models.Utilisateur(p_utilisateur));
+            m_context.Utilisateurs.Add(new GES_DAL.BackendProject.Utilisateur(p_utilisateur));
 
             m_context.SaveChanges();
         }
@@ -43,14 +43,14 @@ namespace GES_DAL.Depots
             {
                 throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
             }
-            GES_DAL.Models.Utilisateur? utilisateurDTO = m_context.Utilisateurs.FirstOrDefault(e => e.IdUtilisateur == p_id);
+            GES_DAL.BackendProject.Utilisateur? utilisateurDTO = m_context.Utilisateurs.FirstOrDefault(e => e.IdUtilisateur == p_id);
 
             if (utilisateurDTO is null)
             {
                 throw new InvalidOperationException($"l'evenement avec le id {p_id} n'existe pas");
             }
 
-            return utilisateurDTO.FromDTO();
+            return utilisateurDTO.DeDTOVersEntite();
         }
         public IEnumerable<Entite.Utilisateur> ListerUtilisateurs()
         {
@@ -62,7 +62,7 @@ namespace GES_DAL.Depots
                 utilisateurs.Add(utilisateur);
             }
 
-            return utilisateurs.Select(e => e.FromDTO());
+            return utilisateurs.Select(e => e.DeDTOVersEntite());
         }
         public void ModifierUtilisateur(Entite.Utilisateur p_utilisateur)
         {

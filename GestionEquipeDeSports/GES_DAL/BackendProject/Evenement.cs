@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GES_DAL.Models
+namespace GES_DAL.BackendProject
 {
     public partial class Evenement
     {
@@ -19,14 +19,12 @@ namespace GES_DAL.Models
         public DateTime? DateFin { get; set; }
         public DateTime? DateCreation { get; set; }
         public DateTime? DateModification { get; set; }
-        public int? IdTypeEvenement { get; set; }
         public bool? Etat { get; set; }
+        public int FkIdTypeEvenement { get; set; }
 
-        public virtual Etat? EtatNavigation { get; set; }
-        public virtual TypeEvenement? IdTypeEvenementNavigation { get; set; }
+        public virtual TypeEvenement FkIdTypeEvenementNavigation { get; set; } = null!;
         public virtual ICollection<EquipeEvenement> EquipeEvenements { get; set; }
         public virtual ICollection<EvenementJoueur> EvenementJoueurs { get; set; }
-
 
         public Evenement(GES_Services.Entites.Evenement evenement)
         {
@@ -35,9 +33,9 @@ namespace GES_DAL.Models
             Emplacement = evenement.Emplacement;
             DateDebut = evenement.DateDebut;
             DateFin = evenement.DateFin;
-            DateCreation= evenement.DateCreation;
+            DateCreation = evenement.DateCreation;
             DateModification = evenement.DateModification;
-            IdTypeEvenement = (int)evenement.TypeEvenement;
+            FkIdTypeEvenement = (int)evenement.TypeEvenement;
             Etat = evenement.Etat;
         }
 
@@ -47,7 +45,7 @@ namespace GES_DAL.Models
             EnumTypeEvenement enumTypeEvenement = EnumTypeEvenement.autre;
             foreach (EnumTypeEvenement type in Enum.GetValues(typeof(EnumTypeEvenement)))
             {
-                if (IdTypeEvenement == (int)type)
+                if (FkIdTypeEvenement == (int)type)
                 {
                     enumTypeEvenement = type;
                 }

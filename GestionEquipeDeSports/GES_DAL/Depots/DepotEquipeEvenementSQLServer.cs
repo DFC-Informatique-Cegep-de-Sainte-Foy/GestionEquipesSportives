@@ -1,4 +1,4 @@
-﻿using GES_DAL.Data;
+﻿using GES_DAL.DbContexts;
 using GES_Services.Entites;
 using GES_Services.Interfaces;
 using Entite = GES_Services.Entites;
@@ -27,18 +27,18 @@ namespace GES_DAL.Depots
             throw new NotImplementedException();
         }
 
-        EquipeEvenement IDepotEquipeEvenement.ChercherEquipeEvenemntParId(Guid p_id)
+        EquipeEvenement IDepotEquipeEvenement.ChercherEquipeEvenementParId(Guid p_id)
         {
             if(p_id == Guid.Empty)
             {
                 throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
             }
-            GES_DAL.Models.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.FirstOrDefault(ee => ee.FkIdEquipe == p_id);
+            GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.FirstOrDefault(ee => ee.FkIdEquipe == p_id);
             if(equipeEvenementDTO == null)
             {
                 throw new InvalidOperationException($"l'equipe avec le id {p_id} n'existe pas");
             }
-            return equipeEvenementDTO.FromDTO();
+            return equipeEvenementDTO.DeDTOVersEntite();
         }
 
         void IDepotEquipeEvenement.ModifierEquipeEvenement(EquipeEvenement p_equipeEvenement)
@@ -54,7 +54,7 @@ namespace GES_DAL.Depots
         public IEnumerable<Evenement> ListerEquipeEvenements(Guid p_id)
         {
             //Trouver equipe
-            GES_DAL.Models.Equipe? equipeDTO = m_context.Equipes.FirstOrDefault(e => e.IdEquipe == p_id);
+            GES_DAL.BackendProject.Equipe? equipeDTO = m_context.Equipes.FirstOrDefault(e => e.IdEquipe == p_id);
 
             if (equipeDTO == null)
             {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GES_DAL.Models
+namespace GES_DAL.BackendProject
 {
     public partial class Utilisateur
     {
@@ -12,24 +12,19 @@ namespace GES_DAL.Models
         }
 
         public Guid IdUtilisateur { get; set; }
-        public string? Nom { get; set; }
-        public string? Prenom { get; set; }
+        public string Nom { get; set; } = null!;
+        public string Prenom { get; set; } = null!;
         public int? Age { get; set; }
-        public string? Email { get; set; }
+        public string Email { get; set; } = null!;
         public string? Adresse { get; set; }
         public string? NumTelephone { get; set; }
-        public int? IdRole { get; set; }
-        public bool? FK_Id_Etat { get; set; }
-
         public DateTime? DateCreation { get; set; }
         public DateTime? DateModification { get; set; }
-        /*public bool? EstJoueur { get; set; }
-        public bool? EstTuteur { get; set; }
-        public bool? EstEntraineur { get; set; }
-        public bool? EstAdmin { get; set; }*/
-        //public bool? Etat { get; set; }
-
+        public bool? Etat { get; set; }
+        public bool? FkIdEtat { get; set; }
+        public int? FkIdRoles { get; set; }
         public virtual Etat? FkIdEtatNavigation { get; set; }
+        public virtual Role? FkIdRolesNavigation { get; set; }
         public virtual ICollection<EquipeJoueur> EquipeJoueurs { get; set; }
         public virtual ICollection<EvenementJoueur> EvenementJoueurs { get; set; }
 
@@ -42,7 +37,6 @@ namespace GES_DAL.Models
             this.Email = p_utilisateur.Email;
             this.Adresse = p_utilisateur.Adresse;
             this.NumTelephone = p_utilisateur.NumTelephone;
-
             if (p_utilisateur.DateCreation == null)
             {
                 this.DateCreation = DateTime.Now;
@@ -52,17 +46,10 @@ namespace GES_DAL.Models
                 this.DateCreation = p_utilisateur.DateCreation;
             }
             this.DateModification = DateTime.Now;
-
-            /*this.EstJoueur = p_utilisateur.EstJoueur;
-            this.EstTuteur = p_utilisateur.EstTuteur;
-            this.EstEntraineur = p_utilisateur.EstEntraineur;
-            this.EstAdmin = p_utilisateur.EstAdmin;*/
-
-            this.IdRole = p_utilisateur.IdRole;
-            this.FK_Id_Etat = p_utilisateur.FK_Id_Etat;
-           
+            this.Etat = p_utilisateur.Etat;
         }
-        public GES_Services.Entites.Utilisateur FromDTO()
+
+        public GES_Services.Entites.Utilisateur DeDTOVersEntite()
         {
             return new GES_Services.Entites.Utilisateur(
                 this.IdUtilisateur,
@@ -72,8 +59,7 @@ namespace GES_DAL.Models
                 this.Email,
                 this.Adresse,
                 this.NumTelephone,
-                this.IdRole,
-                this.FK_Id_Etat);
+                this.Etat);
         }
 
         private void validationDateModification()
@@ -82,7 +68,6 @@ namespace GES_DAL.Models
             {
                 this.DateModification = DateTime.Now;
             }
-
         }
     }
 }

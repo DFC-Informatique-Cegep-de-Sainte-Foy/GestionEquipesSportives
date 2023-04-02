@@ -1,4 +1,4 @@
-﻿using GES_DAL.Data;
+﻿using GES_DAL.DbContexts;
 using GES_Services.Entites;
 using GES_Services.Interfaces;
 using System;
@@ -37,7 +37,7 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'evenement avec le id {evenement.IdEvenement} existe déjà");
             }
 
-            m_context.Evenements.Add(new GES_DAL.Models.Evenement(evenement));
+            m_context.Evenements.Add(new GES_DAL.BackendProject.Evenement(evenement));
             m_context.SaveChanges();
         }
 
@@ -48,7 +48,7 @@ namespace GES_DAL.Depots
                 throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(id));
             }
 
-            GES_DAL.Models.Evenement? evenementDTO = m_context.Evenements.FirstOrDefault(e => e.IdEvenement == id);
+            GES_DAL.BackendProject.Evenement? evenementDTO = m_context.Evenements.FirstOrDefault(e => e.IdEvenement == id);
 
             if (evenementDTO is null)
             {
@@ -75,7 +75,7 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'evenement avec le id {evenement.IdEvenement} n'existe pas");
             }
 
-            m_context.Evenements.Update(new GES_DAL.Models.Evenement(evenement));
+            m_context.Evenements.Update(new GES_DAL.BackendProject.Evenement(evenement));
             m_context.SaveChanges();
         }
 
@@ -86,7 +86,7 @@ namespace GES_DAL.Depots
                 throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(evenement));
             }
 
-            GES_DAL.Models.Evenement? evenementDTO = m_context.Evenements.Where(e => e.IdEvenement == evenement.IdEvenement).SingleOrDefault();
+            GES_DAL.BackendProject.Evenement? evenementDTO = m_context.Evenements.Where(e => e.IdEvenement == evenement.IdEvenement).SingleOrDefault();
 
             if (evenementDTO is null)
             {

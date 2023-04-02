@@ -18,6 +18,7 @@ namespace GES_API.Controllers
             }
             this.m_manipulationDepotUtilisateur = p_manipulationDepotUtilisateur;
         }
+
         //Get: api/<UtilisateurController>
         [HttpGet]
         [ProducesResponseType(200)]
@@ -48,10 +49,43 @@ namespace GES_API.Controllers
             }
         }
 
-        // POST api/<EquipeController>
+        // PUT api/<EntraineurController>/5
+        [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public ActionResult Put(Guid id, [FromBody] UtilisateurModel p_utilisateurModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            //if (p)
+            UtilisateurModel utilisateurModel = new UtilisateurModel(m_manipulationDepotUtilisateur.ChercherUtilisateurParId(id));
+            if (utilisateurModel is null)
+            {
+                return NotFound();
+            }
+            m_manipulationDepotUtilisateur.ModifierUtilisateur(p_utilisateurModel.DeModelVersEntite());
 
-        // PUT api/<EquipeController>/5
+            return NoContent();
+        }
 
-        // DELETE api/<EquipeController>/5
+        // DELETE api/<EntraineurController>/5
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public ActionResult Delete(Guid id)
+        {
+            UtilisateurModel utilisateurModel = new UtilisateurModel(m_manipulationDepotUtilisateur.ChercherUtilisateurParId(id));
+            if (utilisateurModel is null)
+            {
+                return NotFound();
+            }
+
+            m_manipulationDepotUtilisateur.SupprimerUtilisateur(utilisateurModel.DeModelVersEntite());
+
+            return NoContent();
+        }
     }
 }

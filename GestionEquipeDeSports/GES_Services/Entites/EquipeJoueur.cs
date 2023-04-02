@@ -5,9 +5,17 @@ namespace GES_Services.Entites
 {
     public partial class EquipeJoueur
     {
-        public Guid IdConnJoueurEquipe { get; set; }
-        public Guid? Id { get; set; }
+
+
+        public Guid? IdJoueurEquipe { get; set; }
+        public Guid? FkIdUtilisateur { get; set; }
         public Guid? FkIdEquipe { get; set; }
-        public int? FkIdRoles { get; set; }
+
+        public EquipeJoueur(Guid? idJoueurEquipe, Guid? fkIdUtilisateur, Guid? fkIdEquipe)
+        {
+            IdJoueurEquipe = idJoueurEquipe;
+            FkIdUtilisateur = fkIdUtilisateur;
+            FkIdEquipe = fkIdEquipe;
+        }
     }
 }

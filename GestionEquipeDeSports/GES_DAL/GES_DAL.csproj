@@ -26,8 +26,4 @@
     <ProjectReference Include="..\GES_Services\GES_Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>

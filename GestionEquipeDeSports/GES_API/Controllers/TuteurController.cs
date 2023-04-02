@@ -5,47 +5,42 @@ using GES_Services.Manipulations;
 using GES_API.Models;
 
 
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EntraineurController : ControllerBase
+    public class TuteurController : ControllerBase
     {
-        private ManipulationDepotUtilisateur  m_maniulationDepotUtilisateur;
-        public EntraineurController(ManipulationDepotUtilisateur p_maniulationDepotUtilisateur)
+        private ManipulationDepotUtilisateur m_maniulationDepotUtilisateur;
+        public TuteurController(ManipulationDepotUtilisateur p_maniulationDepotUtilisateur)
         {
             this.m_maniulationDepotUtilisateur = p_maniulationDepotUtilisateur;
         }
 
-        // GET: api/<EntraineurController>
+        // GET: api/<TuteurController>
         //[HttpGet]
-        //[ProducesResponseType(200)]
-        //public ActionResult<IEnumerable<UtilisateurModel>> Get()
+        //public IEnumerable<string> Get()
         //{
-        //    List<UtilisateurModel> utilisateurs = new List<UtilisateurModel>();
-
-        //    foreach (var utilisateur in this.m_maniulationDepotUtilisateur.ListerUtilisateurs())
-        //    {
-        //        utilisateurs.Add(new UtilisateurModel(utilisateur));
-        //    }
-
-        //    return Ok(utilisateurs);
+        //    return new string[] { "value1", "value2" };
         //}
 
+        // GET api/<TuteurController>/5
         // GET api/<EntraineurController>/5
-        [HttpGet("{id}")]        
+        [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public ActionResult<UtilisateurModel> Get(Guid id)
         {
             UtilisateurModel utilisateurModel = new UtilisateurModel(this.m_maniulationDepotUtilisateur.ChercherUtilisateurParId(id));
 
-            if(utilisateurModel != null)
+            if (utilisateurModel != null)
             {
                 return utilisateurModel;
             }
 
-            return NotFound();            
+            return NotFound();
         }
 
         // POST api/<EntraineurController>
@@ -65,7 +60,7 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
-            p_utilisateurModel.Roles = EnumTypeRole.Entraineur;
+            p_utilisateurModel.EstTuteur = true;
 
             this.m_maniulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());
 
@@ -83,14 +78,14 @@ namespace GES_API.Controllers
             {
                 return BadRequest();
             }
-            //if (p)
+
             UtilisateurModel utilisateurModel = new UtilisateurModel(m_maniulationDepotUtilisateur.ChercherUtilisateurParId(id));
             if (utilisateurModel is null)
             {
                 return NotFound();
             }
             m_maniulationDepotUtilisateur.ModifierUtilisateur(p_utilisateurModel.DeModelVersEntite());
-            
+
             return NoContent();
         }
 

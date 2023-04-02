@@ -100,9 +100,9 @@ export function FormEvenement() {
                                 <label htmlFor="typeEvenement">Type Événement</label>
                                 <select id="typeEvenement" name="typeEvenement" onChange={handleChange} className="form-control" required>
                                     <option value="">Choisir un événement</option>
-                                    <option value="1">Entrainement</option>
-                                    <option value="2">Partie</option>
-                                    <option value="3">Autre</option>
+                                    <option value="0">Entrainement</option>
+                                    <option value="1">Partie</option>
+                                    <option value="2">Autre</option>
                                 </select>
                                 
                             </div><p></p>

@@ -1,5 +1,5 @@
-﻿using GES_DAL.Data;
-using GES_DAL.Models;
+﻿using GES_DAL.DbContexts;
+using GES_DAL.BackendProject;
 using GES_Services.Entites;
 using Entite = GES_Services.Entites;
 using GES_Services.Interfaces;
@@ -37,7 +37,7 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'evenement avec le id {p_equipe.IdEquipe} existe déjà");
             }
 
-            m_context.Equipes.Add(new GES_DAL.Models.Equipe(p_equipe));
+            m_context.Equipes.Add(new GES_DAL.BackendProject.Equipe(p_equipe));
             m_context.SaveChanges();
         }
 
@@ -47,19 +47,19 @@ namespace GES_DAL.Depots
             {
                 throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
             }
-            GES_DAL.Models.Equipe? equipeDTO = m_context.Equipes.FirstOrDefault(e => e.IdEquipe == p_id);
+            GES_DAL.BackendProject.Equipe? equipeDTO = m_context.Equipes.FirstOrDefault(e => e.IdEquipe == p_id);
 
             if (equipeDTO is null)
             {
                 throw new InvalidOperationException($"l'evenement avec le id {p_id} n'existe pas");
             }
 
-            return equipeDTO.FromDTO();
+            return equipeDTO.DeDTOVersEntite();
         }
 
         public IEnumerable<Entite.Equipe> ListerEquipes()
         {
-            return this.m_context.Equipes.Where(e => e.Etat == true).Select(e => e.FromDTO());
+            return this.m_context.Equipes.Where(e => e.Etat == true).Select(e => e.DeDTOVersEntite());
         }
 
         public void ModifierEquipe(Entite.Equipe p_equipe)

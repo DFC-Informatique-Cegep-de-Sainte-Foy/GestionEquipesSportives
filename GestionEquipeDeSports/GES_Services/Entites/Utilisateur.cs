@@ -22,45 +22,42 @@ public partial class Utilisateur
     public string? Email { get; private set; }
     public string? Adresse { get; private set; }
     public string? NumTelephone { get; private set; }
-    public int? IdRole { get; private set; }
-    /*public bool? EstJoueur { get; private set; }
-    public bool? EstTuteur { get; private set; }
-    public bool? EstEntraineur { get; private set; }
-    public bool? EstAdmin { get; private set; }*/
     public DateTime? DateCreation { get; private set; }
     public DateTime? DateModification { get; private set; }
-    public bool? FK_Id_Etat { get; private set; }
+    public bool? Etat { get; private set; }
+    public int TypeRole { get; private set; }
 
-    /*public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse, string numTelephone,
-                   bool? estJoueur, bool? estTuteur, bool? estEntraineur, bool? estAdmin)*/
-    public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse, string numTelephone, int? idRole)
+    public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse, string numTelephone,
+                  int role)
     {
         if (guid == Guid.Empty)
         {
             IdUtilisateur = Guid.NewGuid();
         }
+
         else
         {
             IdUtilisateur = guid;
+
         }
 
         if (nom == null)
         {
             throw new ArgumentNullException($"Le parametre nom: {nom} est invalide", nameof(nom));
         }
-       
+        Nom = nom;
         
         if (prenom == null)
         {
             throw new ArgumentNullException($"Le parametre prenom: {prenom} est invalide", nameof(prenom));
         }
-        
+        Prenom = prenom;
 
         if (email == null)
         {
             throw new ArgumentNullException($"Le parametre email: {email} est invalide", nameof(email));
         }
-       
+        Email = email;
 
         if (adresse == null)
         {
@@ -71,25 +68,19 @@ public partial class Utilisateur
             throw new ArgumentNullException($"Le parametre numero telephone: {numTelephone} est invalide", nameof(numTelephone));
         }
 
-        //DateCreation = DateTime.Now;
-        //DateModification = DateTime.Now;
-        /*EstEntraineur = estEntraineur ?? false;
-        EstJoueur = estJoueur ?? false;
-        EstTuteur = estTuteur ?? false;
-        EstAdmin = estAdmin ?? false;*/
-
-        Nom = nom;
-        Prenom = prenom;
-        Age = age;
-        Email = email;
         NumTelephone = numTelephone;
         Adresse = adresse;
-        IdRole = idRole;        
-        FK_Id_Etat = true;
+
+        //DateCreation = DateTime.Now;
+        //DateModification = DateTime.Now;
+
+        Age = age;
+        Etat = true;
     }
 
 
-    public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse,string numTelephone, int? idRole, bool? etat)
+    public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse,
+                        string numTelephone, bool? etat)
     {
         this.IdUtilisateur= guid;
         this.Nom = nom;
@@ -98,7 +89,6 @@ public partial class Utilisateur
         this.Email = email;            
         this.Adresse = adresse;
         this.NumTelephone = numTelephone;
-        this.IdRole = idRole;
-        this.FK_Id_Etat = etat;
+        this.Etat = etat;
     }
 }

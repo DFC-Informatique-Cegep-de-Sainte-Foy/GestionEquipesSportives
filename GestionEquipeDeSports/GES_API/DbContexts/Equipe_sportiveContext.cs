@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using GES_DAL.Models;
+using GES_API.BackendProject;
 
-namespace GES_DAL.Data
+namespace GES_API.DbContexts
 {
     public partial class Equipe_sportiveContext : DbContext
     {
@@ -41,7 +41,7 @@ namespace GES_DAL.Data
             modelBuilder.Entity<Equipe>(entity =>
             {
                 entity.HasKey(e => e.IdEquipe)
-                    .HasName("PK__Equipe__D8052412FD08D329");
+                    .HasName("PK__Equipe__D8052412FCEECA63");
 
                 entity.ToTable("Equipe");
 
@@ -50,6 +50,8 @@ namespace GES_DAL.Data
                 entity.Property(e => e.AssociationSportive)
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.Property(e => e.FkIdEtat).HasColumnName("Fk_Id_Etat");
 
                 entity.Property(e => e.Nom)
                     .HasMaxLength(50)
@@ -63,16 +65,16 @@ namespace GES_DAL.Data
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.EtatNavigation)
+                entity.HasOne(d => d.FkIdEtatNavigation)
                     .WithMany(p => p.Equipes)
-                    .HasForeignKey(d => d.Etat)
-                    .HasConstraintName("FK__Equipe__Etat__4222D4EF");
+                    .HasForeignKey(d => d.FkIdEtat)
+                    .HasConstraintName("FK__Equipe__Fk_Id_Et__4316F928");
             });
 
             modelBuilder.Entity<EquipeEvenement>(entity =>
             {
                 entity.HasKey(e => e.IdEquipeEvenement)
-                    .HasName("PK__EquipeEv__4E61511C4EA917AD");
+                    .HasName("PK__EquipeEv__4E61511CD6093B63");
 
                 entity.ToTable("EquipeEvenement");
 
@@ -85,18 +87,20 @@ namespace GES_DAL.Data
                 entity.HasOne(d => d.FkIdEquipeNavigation)
                     .WithMany(p => p.EquipeEvenements)
                     .HasForeignKey(d => d.FkIdEquipe)
-                    .HasConstraintName("FK__EquipeEve__FK_Id__5070F446");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__EquipeEve__FK_Id__4F7CD00D");
 
                 entity.HasOne(d => d.FkIdEvenementNavigation)
                     .WithMany(p => p.EquipeEvenements)
                     .HasForeignKey(d => d.FkIdEvenement)
-                    .HasConstraintName("FK__EquipeEve__FK_Id__5165187F");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__EquipeEve__FK_Id__5070F446");
             });
 
             modelBuilder.Entity<EquipeJoueur>(entity =>
             {
                 entity.HasKey(e => e.IdJoueurEquipe)
-                    .HasName("PK__EquipeJo__EA8300EBB81067C8");
+                    .HasName("PK__EquipeJo__EA8300EB6F6CDADE");
 
                 entity.ToTable("EquipeJoueur");
 
@@ -104,28 +108,25 @@ namespace GES_DAL.Data
 
                 entity.Property(e => e.FkIdEquipe).HasColumnName("FK_Id_Equipe");
 
-                entity.Property(e => e.FkIdRoles).HasColumnName("FK_Id_Roles");
+                entity.Property(e => e.FkIdUtilisateur).HasColumnName("Fk_Id_Utilisateur");
 
                 entity.HasOne(d => d.FkIdEquipeNavigation)
                     .WithMany(p => p.EquipeJoueurs)
                     .HasForeignKey(d => d.FkIdEquipe)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__EquipeJou__FK_Id__4BAC3F29");
 
-                entity.HasOne(d => d.FkIdRolesNavigation)
+                entity.HasOne(d => d.FkIdUtilisateurNavigation)
                     .WithMany(p => p.EquipeJoueurs)
-                    .HasForeignKey(d => d.FkIdRoles)
-                    .HasConstraintName("FK__EquipeJou__FK_Id__4CA06362");
-
-                entity.HasOne(d => d.IdNavigation)
-                    .WithMany(p => p.EquipeJoueurs)
-                    .HasForeignKey(d => d.Id)
-                    .HasConstraintName("FK__EquipeJoueur__Id__4AB81AF0");
+                    .HasForeignKey(d => d.FkIdUtilisateur)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__EquipeJou__Fk_Id__4AB81AF0");
             });
 
             modelBuilder.Entity<Etat>(entity =>
             {
                 entity.HasKey(e => e.IdEtat)
-                    .HasName("PK__Etats__0FBDEBDD41D7DAAE");
+                    .HasName("PK__Etats__0FBDEBDDB67224DD");
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(50)
@@ -135,7 +136,7 @@ namespace GES_DAL.Data
             modelBuilder.Entity<Evenement>(entity =>
             {
                 entity.HasKey(e => e.IdEvenement)
-                    .HasName("PK__Evenemen__300AD07E26F9A29B");
+                    .HasName("PK__Evenemen__300AD07EFBA5F81D");
 
                 entity.ToTable("Evenement");
 
@@ -149,25 +150,25 @@ namespace GES_DAL.Data
                     .HasMaxLength(200)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.EtatNavigation)
-                    .WithMany(p => p.Evenements)
-                    .HasForeignKey(d => d.Etat)
-                    .HasConstraintName("FK__Evenement__Etat__46E78A0C");
+                entity.Property(e => e.FkIdTypeEvenement).HasColumnName("Fk_Id_TypeEvenement");
 
-                entity.HasOne(d => d.IdTypeEvenementNavigation)
+                entity.HasOne(d => d.FkIdTypeEvenementNavigation)
                     .WithMany(p => p.Evenements)
-                    .HasForeignKey(d => d.IdTypeEvenement)
-                    .HasConstraintName("FK__Evenement__IdTyp__45F365D3");
+                    .HasForeignKey(d => d.FkIdTypeEvenement)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Evenement__Fk_Id__46E78A0C");
             });
 
             modelBuilder.Entity<EvenementJoueur>(entity =>
             {
                 entity.HasKey(e => e.IdEvenementJoueur)
-                    .HasName("PK__Evenemen__3CD1DF5CD75733C5");
+                    .HasName("PK__Evenemen__3CD1DF5C4520D692");
 
                 entity.ToTable("EvenementJoueur");
 
                 entity.Property(e => e.IdEvenementJoueur).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.EstPresentAevenement).HasColumnName("EstPresentAEvenement");
 
                 entity.Property(e => e.FkIdEvenement).HasColumnName("FK_Id_Evenement");
 
@@ -176,18 +177,20 @@ namespace GES_DAL.Data
                 entity.HasOne(d => d.FkIdEvenementNavigation)
                     .WithMany(p => p.EvenementJoueurs)
                     .HasForeignKey(d => d.FkIdEvenement)
-                    .HasConstraintName("FK__Evenement__FK_Id__5535A963");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Evenement__FK_Id__5441852A");
 
                 entity.HasOne(d => d.FkIdUtilisateurNavigation)
                     .WithMany(p => p.EvenementJoueurs)
                     .HasForeignKey(d => d.FkIdUtilisateur)
-                    .HasConstraintName("FK__Evenement__FK_Id__5629CD9C");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Evenement__FK_Id__5535A963");
             });
 
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.HasKey(e => e.IdRole)
-                    .HasName("PK__Roles__B4369054DC01C136");
+                    .HasName("PK__Roles__B43690549C4F2B66");
 
                 entity.Property(e => e.IdRole).ValueGeneratedNever();
 
@@ -199,7 +202,7 @@ namespace GES_DAL.Data
             modelBuilder.Entity<TypeEvenement>(entity =>
             {
                 entity.HasKey(e => e.IdTypeEvenement)
-                    .HasName("PK__TypeEven__518A5915F707976D");
+                    .HasName("PK__TypeEven__518A5915DD2365FD");
 
                 entity.Property(e => e.IdTypeEvenement).ValueGeneratedNever();
 
@@ -211,7 +214,7 @@ namespace GES_DAL.Data
             modelBuilder.Entity<Utilisateur>(entity =>
             {
                 entity.HasKey(e => e.IdUtilisateur)
-                    .HasName("PK__Utilisat__45A4C1573270B3AE");
+                    .HasName("PK__Utilisat__45A4C1572637389C");
 
                 entity.ToTable("Utilisateur");
 
@@ -225,16 +228,15 @@ namespace GES_DAL.Data
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.FK_Id_Etat).HasColumnName("FK_Id_Etat");
+                entity.Property(e => e.FkIdEtat).HasColumnName("Fk_Id_Etat");
+
+                entity.Property(e => e.FkIdRoles).HasColumnName("Fk_Id_Roles");
 
                 entity.Property(e => e.Nom)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.NumTelephone)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-                entity.Property(e => e.Age)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
@@ -244,8 +246,13 @@ namespace GES_DAL.Data
 
                 entity.HasOne(d => d.FkIdEtatNavigation)
                     .WithMany(p => p.Utilisateurs)
-                    .HasForeignKey(d => d.FK_Id_Etat)
-                    .HasConstraintName("FK__Utilisate__FK_Id__3E52440B");
+                    .HasForeignKey(d => d.FkIdEtat)
+                    .HasConstraintName("FK__Utilisate__Fk_Id__3E52440B");
+
+                entity.HasOne(d => d.FkIdRolesNavigation)
+                    .WithMany(p => p.Utilisateurs)
+                    .HasForeignKey(d => d.FkIdRoles)
+                    .HasConstraintName("FK__Utilisate__Fk_Id__3F466844");
             });
 
             OnModelCreatingPartial(modelBuilder);
