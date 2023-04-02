@@ -1,0 +1,14 @@
+Kevin 
+	US1
+	Burndown
+Jo
+	Intro
+	US2
+Oleksi
+	DOD iteration 1
+	gestion demonstration
+	US4
+Amadou
+	US3
+	DOD iteration 2
+	
