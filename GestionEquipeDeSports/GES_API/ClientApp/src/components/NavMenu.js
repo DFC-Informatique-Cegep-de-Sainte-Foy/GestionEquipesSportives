@@ -19,7 +19,6 @@ class NavMenu extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
       collapsed: true
@@ -55,7 +54,7 @@ class NavMenu extends React.Component {
               <NavLink tag={Link} className="text-dark" to="/utilisateurs">Utilisateurs</NavLink>
             </NavItem>
 
-            <NavItem>
+            <NavItem className="border border-dark rounded">
               <NavLink tag={Link} className="text-dark" onClick={() => logout()}>Déconnexion</NavLink>
             </NavItem>  
           </Nav>
@@ -65,7 +64,7 @@ class NavMenu extends React.Component {
       {
         return (
           <Nav>
-            <NavItem>
+            <NavItem className="border border-dark rounded">
               <NavLink tag={Link} className="text-dark" onClick={() => loginWithRedirect()}>Connexion</NavLink>
             </NavItem>  
           </Nav>
@@ -75,7 +74,7 @@ class NavMenu extends React.Component {
 
     return (
       <header className="header-with-gray-strip">
-        <div >
+        <div>
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3">
             <NavbarBrand tag={Link} to="/">GestionEquipeDeSports</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
@@ -84,10 +83,9 @@ class NavMenu extends React.Component {
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
                 </NavItem>
-
+                
                 <MenuAAfficher />
               </Nav>
-
             </Collapse>
           </Navbar>
         </div>

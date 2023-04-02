@@ -11,6 +11,7 @@ import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
 import { PageUneEquipe } from "./components/PageUneEquipe";
 import { PageJoueur } from "./pages/PageJoueur";
+import  Erreur404  from "./components/Erreur404";
 
 const AppRoutes = [
   {
@@ -64,6 +65,10 @@ const AppRoutes = [
   {
     path: 'pagejoueur/:id',
     element: <PageJoueur />
+  },
+  {
+    path: '*',
+    element: <Erreur404 />
   }
 ];
 
