@@ -62,7 +62,7 @@ namespace GES_DAL.Depots
                 utilisateurs.Add(utilisateur);
             }
 
-            return utilisateurs.Select(e => e.DeDTOVersEntite());
+            return utilisateurs.Where(u => u.Etat == true).Select(e => e.DeDTOVersEntite());
         }
         public void ModifierUtilisateur(Entite.Utilisateur p_utilisateur)
         {

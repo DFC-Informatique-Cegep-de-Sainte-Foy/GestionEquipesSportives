@@ -30,7 +30,7 @@ export const PageSupprimerEvenement = () => {
     return(
         <>
             <Container>
-                <h2 style={{ color: 'red' }}>Suppression d'un événement</h2>
+                <h2 style={{ color: 'red' }}>Voulez-vous vraiment supprimer cet événement?</h2>
                 <Row>
                     <Col sm={2}><b>Description: </b></Col>
                     <Col>{evenement.description}</Col>
@@ -52,9 +52,9 @@ export const PageSupprimerEvenement = () => {
                     <Col>{evenement.typeEvenement}</Col>
                 </Row>
 
-                <Button  className="me-4" variant='primary' onClick={() => fetch(`/api/evenements/${id}`, {method: "DELETE"})}>Supprimer les données</Button>
+                <Button  className="me-4" variant='primary' onClick={() => fetch(`/api/evenements/${id}`, {method: "DELETE"})}>Oui, supprimer l'événement</Button>
                 <Link to={'/evenements'}>
-                    <Button  className="me-2" variant='danger'>Annuler</Button>
+                    <Button  className="me-2" variant='danger'>Non, laisser l'événement</Button>
                 </Link>
             </Container>
         </>
