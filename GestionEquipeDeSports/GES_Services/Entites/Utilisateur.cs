@@ -15,6 +15,7 @@ public partial class Utilisateur
     //{
     //    Console.WriteLine("Email invalide");
     //}
+
     public Guid IdUtilisateur { get; private set; }
     public string? Nom { get; private set; }
     public string? Prenom { get; private set; }
@@ -25,21 +26,12 @@ public partial class Utilisateur
     public DateTime? DateCreation { get; private set; }
     public DateTime? DateModification { get; private set; }
     public bool? Etat { get; private set; }
-    public int TypeRole { get; private set; }
-
-    public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse, string numTelephone,
-                  int role)
+    public EnumTypeRole Role { get; private set; }
+    public Utilisateur(Guid guid, string nom, string prenom, int? age, 
+                       string email, string adresse, string numTelephone,
+                       EnumTypeRole role)
     {
-        if (guid == Guid.Empty)
-        {
-            IdUtilisateur = Guid.NewGuid();
-        }
-
-        else
-        {
-            IdUtilisateur = guid;
-
-        }
+        IdUtilisateur = guid == Guid.Empty ? Guid.NewGuid() : guid;
 
         if (nom == null)
         {
@@ -68,12 +60,13 @@ public partial class Utilisateur
             throw new ArgumentNullException($"Le parametre numero telephone: {numTelephone} est invalide", nameof(numTelephone));
         }
 
+        if (role == null)
+        {
+            Role = role;
+        }
+
         NumTelephone = numTelephone;
         Adresse = adresse;
-
-        //DateCreation = DateTime.Now;
-        //DateModification = DateTime.Now;
-
         Age = age;
         Etat = true;
     }

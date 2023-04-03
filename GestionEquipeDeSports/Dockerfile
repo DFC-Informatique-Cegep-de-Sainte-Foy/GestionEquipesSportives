@@ -10,9 +10,9 @@ COPY . ./
 # Install NodeJs
 RUN apt-get update
 RUN apt-get install -y wget && \
-apt-get install -y gnupg2 && \
-wget -qO- https://deb.nodesource.com/setup_12.x | bash - && \
-apt-get install -y build-essential nodejs
+    apt-get install -y gnupg2 && \
+    wget -qO- https://deb.nodesource.com/setup_12.x | bash - && \
+    apt-get install -y build-essential nodejs
 # End Install
 
 # Restore as distinct layers

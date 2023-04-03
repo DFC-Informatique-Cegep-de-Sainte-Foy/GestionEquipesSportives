@@ -8,9 +8,9 @@ namespace GES_Services.Entites
 {
     public enum EnumTypeRole
     {
-        Athlete,
-        Tuteur,
-        Entraineur,
-        Administrateur
+        Administrateur = 0,
+        Tuteur = 1,
+        Entraineur = 2,
+        Athlete = 3
     }
 }

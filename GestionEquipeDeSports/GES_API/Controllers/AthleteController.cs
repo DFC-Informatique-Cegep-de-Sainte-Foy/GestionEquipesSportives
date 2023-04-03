@@ -60,6 +60,8 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
+            p_utilisateurModel.Etat = true;
+
             p_utilisateurModel.Roles = EnumTypeRole.Athlete;
 
             this.m_maniulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());

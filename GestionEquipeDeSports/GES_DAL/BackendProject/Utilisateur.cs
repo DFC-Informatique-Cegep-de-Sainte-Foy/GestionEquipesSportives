@@ -47,6 +47,24 @@ namespace GES_DAL.BackendProject
             }
             this.DateModification = DateTime.Now;
             this.Etat = p_utilisateur.Etat;
+
+            if (p_utilisateur.Role == GES_Services.Entites.EnumTypeRole.Administrateur)
+            {
+                this.FkIdRoles = 0;
+            }
+            else if (p_utilisateur.Role == GES_Services.Entites.EnumTypeRole.Tuteur)
+            {
+                this.FkIdRoles = 1;
+            }
+            else if (p_utilisateur.Role == GES_Services.Entites.EnumTypeRole.Entraineur)
+            {
+                this.FkIdRoles = 2;
+            }
+            else if (p_utilisateur.Role == GES_Services.Entites.EnumTypeRole.Athlete)
+            {
+                this.FkIdRoles = 3;
+            }
+            Etat = p_utilisateur.Etat;
         }
 
         public GES_Services.Entites.Utilisateur DeDTOVersEntite()
