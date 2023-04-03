@@ -52,6 +52,7 @@ export function FormEvenement() {
             fetch('api/evenements', optionsRequete)
                 .then(function (reponse) {
                     console.log(reponse);
+                    console.log(typeEvenement);
                     setConfirmationAjout("Ajout de l'évenement réussi!");
 
                 }).catch(function (error) {

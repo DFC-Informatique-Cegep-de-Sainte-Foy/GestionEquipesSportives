@@ -14,7 +14,7 @@ namespace GES_API.Models
         public DateTime? DateFin { get; set; }
         public DateTime? DateCreation { get; set; }
         public DateTime? DateModification { get; set; }
-        public string TypeEvenement { get; set; }
+        public int TypeEvenement { get; set; }
         public int Etat { get; set; }
 
         public EvenementModel()
@@ -22,54 +22,28 @@ namespace GES_API.Models
             ;
         }
 
-        public EvenementModel(Evenement p_evenementModel)
+        public EvenementModel(Evenement p_evenement)
         {
-            this.Id = p_evenementModel.IdEvenement;
-            this.Description = p_evenementModel.Description;
-            this.Emplacement = p_evenementModel.Emplacement;
-            this.DateDebut = p_evenementModel.DateDebut;
-            this.DateFin = p_evenementModel.DateFin;
-            this.DateCreation = p_evenementModel.DateCreation;
-            this.DateModification = p_evenementModel.DateModification;
-
-            if (p_evenementModel.TypeEvenement.IdTypeEvenement == (int)EnumTypeEvenement.Partie)
-            {
-                this.TypeEvenement = "Partie";
-            }      
-            else if (p_evenementModel.TypeEvenement.IdTypeEvenement == (int)EnumTypeEvenement.Entrainement)
-            {
-                this.TypeEvenement = "Entrainement";
-            }
-            else
-            {
-                this.TypeEvenement = "autre";
-            }   
+            this.Id = p_evenement.IdEvenement;
+            this.Description = p_evenement.Description;
+            this.Emplacement = p_evenement.Emplacement;
+            this.DateDebut = p_evenement.DateDebut;
+            this.DateFin = p_evenement.DateFin;
+            this.DateCreation = p_evenement.DateCreation;
+            this.DateModification = p_evenement.DateModification;
+            this.TypeEvenement = p_evenement.TypeEvenement.IdTypeEvenement;
         }
 
         public Evenement VersEntite()
         {
-            int enumTypeEvenement;
-
-            if (this.TypeEvenement == "Partie")
-            {
-                enumTypeEvenement = (int)EnumTypeEvenement.Partie;
-            }
-            else if (this.TypeEvenement == "Entrainement")
-            {
-                enumTypeEvenement = (int)EnumTypeEvenement.Entrainement;
-            }
-            else
-            {
-                enumTypeEvenement = (int)EnumTypeEvenement.Autre;
-            }
-
+          
             return new Evenement(
                     this.Id,
                     this.Description,
                     this.Emplacement,
                     this.DateDebut,
                     this.DateFin,
-                    enumTypeEvenement
+                    this.TypeEvenement
                 );
         }
     }

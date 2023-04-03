@@ -51,8 +51,15 @@ namespace GES_Services.Entites
         //}
 
         public Evenement(Guid guid, string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, int typeEvenement)
-        {            
-            IdEvenement = guid;
+        {         
+            if(guid == Guid.Empty)
+            {
+                IdEvenement = Guid.NewGuid();
+            }
+            else
+            {
+                IdEvenement = guid;
+            }
 
             if (description is null)
             {
@@ -68,6 +75,8 @@ namespace GES_Services.Entites
             {
                 throw new ArgumentException($"parametre {dateFin} est invalide, doit etre superieur a date de debut", nameof(dateFin));
             }
+
+            TypeEvenement = new TypeEvenement();
 
             Description = description;
             Emplacement = emplacement;
