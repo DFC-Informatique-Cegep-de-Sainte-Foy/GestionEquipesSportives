@@ -13,22 +13,22 @@ namespace GES_Services.Entites
         public DateTime? DateFin { get; private set; }
         public DateTime? DateCreation { get; private set; }
         public DateTime? DateModification { get; private set; }
-        public EnumTypeEvenement TypeEvenement { get; private set; }
+        public TypeEvenement TypeEvenement { get; private set; }
         public bool? Etat { get; private set; }
 
         public Evenement(string description, DateTime dateDebut, DateTime dateFin, string emplacement, string typeEvenement)
         {
             if (typeEvenement == "entrainement")
             {
-                TypeEvenement = EnumTypeEvenement.entrainement;
+                TypeEvenement.IdTypeEvenement = 0;
             }
             else if (typeEvenement == "partie")
             {
-                TypeEvenement = EnumTypeEvenement.partie;
+                TypeEvenement.IdTypeEvenement = 1;
             }
             else if (typeEvenement == "autre")
             {
-                TypeEvenement = EnumTypeEvenement.autre;
+                TypeEvenement.IdTypeEvenement = 2;
             }
             else
             {
@@ -40,33 +40,17 @@ namespace GES_Services.Entites
             Emplacement = emplacement;
         }
 
-        public Evenement(string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, EnumTypeEvenement typeEvenement)
-        {
-            //if (typeEvenement == "entrainement")
-            //{
-            //    TypeEvenement = EnumTypeEvenement.entrainement;
-            //}
-            //else if (typeEvenement == "partie")
-            //{
-            //    TypeEvenement = EnumTypeEvenement.partie;
-            //}
-            //else if (typeEvenement == "autre")
-            //{
-            //    TypeEvenement = EnumTypeEvenement.autre;
-            //}
-            //else
-            //{
-            //    throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
-            //}
-            TypeEvenement = typeEvenement;
-            Description = description;
-            DateDebut = dateDebut;
-            DateFin = dateFin;
-            Emplacement = emplacement;
+        //public Evenement(string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, EnumTypeEvenement typeEvenement)
+        //{
+        //   TypeEvenement.IdTypeEvenement = (int)typeEvenement;
+        //    Description = description;
+        //    DateDebut = dateDebut;
+        //    DateFin = dateFin;
+        //    Emplacement = emplacement;
 
-        }
+        //}
 
-        public Evenement(Guid guid, string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, EnumTypeEvenement typeEvenement)
+        public Evenement(Guid guid, string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, int typeEvenement)
         {            
             IdEvenement = guid;
 
@@ -89,23 +73,8 @@ namespace GES_Services.Entites
             Emplacement = emplacement;
             DateDebut = dateDebut;
             DateFin = dateFin;
-            //DateCreation = DateTime.Now;
-            //DateModification = DateTime.Now;
             Etat = true;
-            TypeEvenement = typeEvenement;
-
-            //if(typeEvenement < 0)
-            //{
-            //    throw new ArgumentOutOfRangeException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
-            //}
-
-            //foreach (EnumTypeEvenement type in Enum.GetValues(typeof(EnumTypeEvenement)))
-            //{
-            //    if (typeEvenement == (int)type)
-            //    {
-            //        TypeEvenement = type;
-            //    }
-            //}
+            TypeEvenement.IdTypeEvenement = typeEvenement;
         }
     }
 }

@@ -35,23 +35,13 @@ namespace GES_DAL.BackendProject
             DateFin = evenement.DateFin;
             DateCreation = evenement.DateCreation;
             DateModification = evenement.DateModification;
-            FkIdTypeEvenement = (int)evenement.TypeEvenement;
+            FkIdTypeEvenement = (int)evenement.TypeEvenement.IdTypeEvenement;
             Etat = evenement.Etat;
         }
 
         public GES_Services.Entites.Evenement DeDTOVersEntite()
         {
-            //conversion de cette property IdTypeEvenement vers ce type EnumTypeEvenement
-            EnumTypeEvenement enumTypeEvenement = EnumTypeEvenement.autre;
-            foreach (EnumTypeEvenement type in Enum.GetValues(typeof(EnumTypeEvenement)))
-            {
-                if (FkIdTypeEvenement == (int)type)
-                {
-                    enumTypeEvenement = type;
-                }
-            }
-
-            return new GES_Services.Entites.Evenement(IdEvenement, Description, Emplacement, DateDebut, DateFin, enumTypeEvenement);
+            return new GES_Services.Entites.Evenement(IdEvenement, Description, Emplacement, DateDebut, DateFin, FkIdTypeEvenement);
         }
     }
 }

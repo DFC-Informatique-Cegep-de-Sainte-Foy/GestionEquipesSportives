@@ -32,13 +32,13 @@ namespace GES_API.Models
             this.DateCreation = p_evenementModel.DateCreation;
             this.DateModification = p_evenementModel.DateModification;
 
-            if (p_evenementModel.TypeEvenement == EnumTypeEvenement.partie)
+            if (p_evenementModel.TypeEvenement.IdTypeEvenement == (int)EnumTypeEvenement.Partie)
             {
-                this.TypeEvenement = "partie";
+                this.TypeEvenement = "Partie";
             }      
-            else if (p_evenementModel.TypeEvenement == EnumTypeEvenement.entrainement)
+            else if (p_evenementModel.TypeEvenement.IdTypeEvenement == (int)EnumTypeEvenement.Entrainement)
             {
-                this.TypeEvenement = "entrainement";
+                this.TypeEvenement = "Entrainement";
             }
             else
             {
@@ -48,19 +48,19 @@ namespace GES_API.Models
 
         public Evenement VersEntite()
         {
-            EnumTypeEvenement enumTypeEvenement;
+            int enumTypeEvenement;
 
-            if (this.TypeEvenement == "partie")
+            if (this.TypeEvenement == "Partie")
             {
-                enumTypeEvenement = EnumTypeEvenement.partie;
+                enumTypeEvenement = (int)EnumTypeEvenement.Partie;
             }
-            else if (this.TypeEvenement == "entrainement")
+            else if (this.TypeEvenement == "Entrainement")
             {
-                enumTypeEvenement = EnumTypeEvenement.entrainement;
+                enumTypeEvenement = (int)EnumTypeEvenement.Entrainement;
             }
             else
             {
-                enumTypeEvenement = EnumTypeEvenement.autre;
+                enumTypeEvenement = (int)EnumTypeEvenement.Autre;
             }
 
             return new Evenement(
