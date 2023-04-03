@@ -13,7 +13,8 @@ export const PageUneEquipe = () => {
 
     const [equipeEvenement, setEquipeEvenement] = useState([]);
     const [listeEvenements, setListeEvenements] = useState([]);
-    //const [fkIdEvenement, setfkIdEvenement] = useState('');
+    const [equipeJoueurs, setEquipeJoueurs] = useState([]);
+    const [listeJouers, setListeJoueurs] = useState([]);
 
     const {id} = useParams();
 
@@ -27,6 +28,10 @@ export const PageUneEquipe = () => {
 
     useEffect(() => {
         dropdownListeEvenements();
+    }, []);
+
+    useEffect(() => {
+        getJoueurs(id);
     }, []);
 
     async function getEquipe(id){
@@ -61,6 +66,16 @@ export const PageUneEquipe = () => {
         });
     }
 
+    async function getJoueurs(id){
+        console.log('On va recevoir une liste des joueurs!');
+        await fetch(`api/equipeJoueur/${id}`)
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            setEquipeJoueurs(result);
+        });
+    }
+
     async function onSelectEvenement(idEvenement){
         console.log('Vous avez choisi : ');
         console.log(idEvenement);
@@ -89,6 +104,10 @@ export const PageUneEquipe = () => {
     const listeDropdownEvenements = listeEvenements.map((liste) => {
         return <option key={liste.id} value={liste.id}>{liste.description}</option>
     });
+
+    // const listeDropdownJoueur = listeJoueurs.map((liste) => {
+    //     return <option key={list.id} value={liste.id}>{liste.nom}</option>
+    // });
 
     async function supprimerEvenementFromEquipe(idEvenementDansList){
         //e.preventDefault();
@@ -135,7 +154,13 @@ export const PageUneEquipe = () => {
                                         <th>Téléphone</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    {equipeJoueurs.map((j, index) => {
+                                        <tr key={j.id}>
+                                            <td>{index + 1}</td>
+                                        </tr>
+                                    })}
+                                </tbody>
                             </Table>
                         </Row>
                     </Col>
