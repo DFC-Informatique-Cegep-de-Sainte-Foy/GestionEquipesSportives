@@ -80,19 +80,19 @@ namespace GES_DAL.DbContexts
 
                 entity.Property(e => e.IdEquipeEvenement).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.FkIdEquipe).HasColumnName("FK_Id_Equipe");
+                entity.Property(e => e.Fk_Id_Equipe).HasColumnName("FK_Id_Equipe");
 
-                entity.Property(e => e.FkIdEvenement).HasColumnName("FK_Id_Evenement");
+                entity.Property(e => e.Fk_Id_Evenement).HasColumnName("FK_Id_Evenement");
 
                 entity.HasOne(d => d.FkIdEquipeNavigation)
                     .WithMany(p => p.EquipeEvenements)
-                    .HasForeignKey(d => d.FkIdEquipe)
+                    .HasForeignKey(d => d.Fk_Id_Equipe)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__EquipeEve__FK_Id__4F7CD00D");
 
                 entity.HasOne(d => d.FkIdEvenementNavigation)
                     .WithMany(p => p.EquipeEvenements)
-                    .HasForeignKey(d => d.FkIdEvenement)
+                    .HasForeignKey(d => d.Fk_Id_Evenement)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__EquipeEve__FK_Id__5070F446");
             });

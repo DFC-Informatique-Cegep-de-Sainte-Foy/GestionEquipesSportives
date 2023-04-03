@@ -14,5 +14,6 @@ namespace GES_Services.Interfaces
         public void AjouterEquipeEvenement(EquipeEvenement p_equipeEvenement);
         public void ModifierEquipeEvenement(EquipeEvenement p_equipeEvenement);
         public void SupprimerEquipeEvenement(EquipeEvenement p_equipeEvenement);
+        public EquipeEvenement ChercherEvenementDansEquipeEvenement(Guid p_id);
     }
 }
