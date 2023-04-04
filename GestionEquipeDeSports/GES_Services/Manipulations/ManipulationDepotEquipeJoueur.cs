@@ -47,5 +47,9 @@ namespace GES_Services.Manipulations
             }
             this.m_depotEquipeJoueur.SupprimerEquipeJoueur(p_equipeJoueur);
         }
+        public EquipeJoueur ChercherIdEquipeJoueurDansEquipeJoueur(EquipeJoueur p_equipeJoueur)
+        {
+            return this.m_depotEquipeJoueur.ChercherIdEquipeJoueurDansEquipeJoueur(p_equipeJoueur);
+        }
     }
 }

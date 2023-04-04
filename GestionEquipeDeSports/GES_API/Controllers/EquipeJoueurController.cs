@@ -47,6 +47,25 @@ namespace GES_API.Controllers
             }
         }
 
-        //POST: api/<EquipeEvenementController>
+        //POST: api/<EquipeJoueurController>
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public ActionResult Post([FromBody] EquipeJoueurModel p_equipeJoueurModel)
+        {
+            if(p_equipeJoueurModel == null)
+            {
+                throw new ArgumentNullException(nameof(p_equipeJoueurModel));
+            }
+            //verification si deja existe
+            EquipeJoueurModel model = new EquipeJoueurModel(m_manipulationDepotEquipeJoueur.ChercherIdEquipeJoueurDansEquipeJoueur(p_equipeJoueurModel.DeModelVersEntite()));
+            if(model != null)
+            {
+                return BadRequest();
+            }
+            GES_Services.Entites.EquipeJoueur equipeJoueur = p_equipeJoueurModel.DeModelVersEntite();
+            this.m_manipulationDepotEquipeJoueur.AjouterEquipeJoueur(equipeJoueur);
+            return CreatedAtAction(nameof(Get), new { id = p_equipeJoueurModel.IdJoueurEquipe }, p_equipeJoueurModel);
+        }
     }
 }

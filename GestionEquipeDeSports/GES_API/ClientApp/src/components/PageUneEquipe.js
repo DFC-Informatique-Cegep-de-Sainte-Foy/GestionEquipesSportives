@@ -2,7 +2,6 @@ import { React, useState, useEffect } from 'react';
 import { Button, Container, Row, Col, Table } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
 import { BiTrash } from "react-icons/bi";
-import { func } from 'prop-types';
 
 export const PageUneEquipe = () => {
     const [equipe, setEquipe] = useState({});
@@ -74,6 +73,16 @@ export const PageUneEquipe = () => {
             console.log(result);
             setEquipeJoueurs(result);
             console.log(equipeJoueurs);
+        });
+    }
+
+    async function dropdownListeJoueurs(){
+        console.log('liste des joueurs');
+        await fetch("api/utilisateur")
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            setListeJoueurs(result);
         });
     }
 
@@ -164,8 +173,9 @@ export const PageUneEquipe = () => {
                             </Col>
                             <Col>
                                 <p style={{display: 'inline-block'}} >Ajouter :</p>
-                                <select className='float-end'>
+                                <select onChange={event => onSelectJoueur(event.target.value)} className='float-end'>
                                     <option selected disabled>Choisir joueur</option>
+                                    {listeDropdownJoueur}
                                 </select>
                             </Col>
                         </Row>

@@ -41,6 +41,29 @@ namespace GES_DAL.Depots
             throw new NotImplementedException();
         }
 
+        public EquipeJoueur ChercherIdEquipeJoueurDansEquipeJoueur(EquipeJoueur p_equipeJoueur)
+        {
+            if(p_equipeJoueur == null)
+            {
+                throw new ArgumentNullException(nameof(p_equipeJoueur));
+            }
+            //Trouver equipe
+            GES_DAL.BackendProject.Equipe? equipeDTO = m_context.Equipes.FirstOrDefault(e => e.IdEquipe == p_equipeJoueur.Fk_Id_Equipe);
+
+            if (equipeDTO == null)
+            {
+                throw new InvalidOperationException($"l'equipe avec le id {p_equipeJoueur.Fk_Id_Equipe} n'existe pas");
+            }
+            //Trouver les joueurs de l'equipe
+            IEnumerable<Guid?> joueurs = m_context.EquipeJoueurs.Where(ee => ee.Fk_Id_Equipe == p_equipeJoueur.Fk_Id_Equipe && ee.Fk_Id_Utilisateur == p_equipeJoueur.Fk_Id_Utilisateur).Select(ee => ee.IdJoueurEquipe);
+            if(joueurs.Count() > 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(p_equipeJoueur));
+            }
+            EquipeJoueur eJoueur = m_context.EquipeJoueurs.Where(e => joueurs.Contains(e.IdJoueurEquipe)).Select(e => e.FromDTO()).SingleOrDefault();
+            return eJoueur;
+        }
+
         public IEnumerable<Utilisateur> ListerEquipeJouers(Guid p_id)
         {
             // 1. Trouver equipe

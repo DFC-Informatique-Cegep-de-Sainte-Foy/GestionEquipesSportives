@@ -14,5 +14,6 @@ namespace GES_Services.Interfaces
         public void AjouterEquipeJoueur(EquipeJoueur p_equipeJoueur);
         public void SupprimerEquipeJoueur(EquipeJoueur p_equipeJoueur);
         public void ModifierEquipeJoueur(EquipeJoueur p_equipeJoueur);
+        public EquipeJoueur ChercherIdEquipeJoueurDansEquipeJoueur(EquipeJoueur p_equipeJoueur);
     }
 }
