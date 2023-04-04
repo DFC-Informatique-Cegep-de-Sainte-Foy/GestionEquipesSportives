@@ -37,7 +37,7 @@ namespace GES_API.Controllers
             {
                 return BadRequest(e.Message);
             }
-            if(listeJoueurs == null)
+            if(listeJoueurs != null)
             {
                 return Ok(listeJoueurs);
             }

@@ -14,7 +14,7 @@ export const PageUneEquipe = () => {
     const [equipeEvenement, setEquipeEvenement] = useState([]);
     const [listeEvenements, setListeEvenements] = useState([]);
     const [equipeJoueurs, setEquipeJoueurs] = useState([]);
-    const [listeJouers, setListeJoueurs] = useState([]);
+    const [listeJoueurs, setListeJoueurs] = useState([]);
 
     const {id} = useParams();
 
@@ -73,6 +73,7 @@ export const PageUneEquipe = () => {
         .then((result) => {
             console.log(result);
             setEquipeJoueurs(result);
+            console.log(equipeJoueurs);
         });
     }
 
@@ -101,13 +102,38 @@ export const PageUneEquipe = () => {
         getEvenements(id);
     }
 
+    async function onSelectJoueur(idJoueur){
+        console.log('Vous avez choisi : ');
+        console.log(idJoueur);
+        console.log('Id dequipe :');
+        console.log(id);
+
+        let requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: idJoueur,
+                FK_Id_Equipe: id
+            })
+        };
+        await fetch('api/equipeJoueur', requestOptions)
+            .then(function (reponse) {
+                console.log(reponse);
+
+            }).catch(function (error) {
+                console.log(error)
+            })
+
+        getEquipe(id);
+    }
+
     const listeDropdownEvenements = listeEvenements.map((liste) => {
         return <option key={liste.id} value={liste.id}>{liste.description}</option>
     });
 
-    // const listeDropdownJoueur = listeJoueurs.map((liste) => {
-    //     return <option key={list.id} value={liste.id}>{liste.nom}</option>
-    // });
+    const listeDropdownJoueur = listeJoueurs.map((liste) => {
+        return <option key={liste.id} value={liste.id}>{liste.nom}</option>
+    });
 
     async function supprimerEvenementFromEquipe(idEvenementDansList){
         //e.preventDefault();
@@ -155,11 +181,18 @@ export const PageUneEquipe = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {equipeJoueurs.map((j, index) => {
-                                        <tr key={j.id}>
+                                    {equipeJoueurs.map((j, index) => (
+                                        <tr key={j.idUtilisateur}>
                                             <td>{index + 1}</td>
+                                            <td>{j.nom}</td>
+                                            <td>{j.prenom}</td>
+                                            <td>{j.email}</td>
+                                            <td>{j.numTelephone}</td>
+                                            <td>
+                                                <Button variant='danger' size="sm" title="Supprimer" ><BiTrash /></Button>
+                                            </td>
                                         </tr>
-                                    })}
+                                    ))}
                                 </tbody>
                             </Table>
                         </Row>

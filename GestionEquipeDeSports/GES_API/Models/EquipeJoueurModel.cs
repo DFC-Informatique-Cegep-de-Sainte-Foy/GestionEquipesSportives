@@ -4,8 +4,8 @@ namespace GES_API.Models
     public class EquipeJoueurModel
     {
         public Guid? IdJoueurEquipe { get; set; }
-        public Guid? FkIdUtilisateur { get; set; }
-        public Guid? FkIdEquipe { get; set; }
+        public Guid? Fk_Id_Utilisateur { get; set; }
+        public Guid? Fk_Id_Equipe { get; set; }
         public EquipeJoueurModel()
         {
             ;
@@ -13,12 +13,12 @@ namespace GES_API.Models
         public EquipeJoueurModel(EquipeJoueur p_equipeJoueur)
         {
             this.IdJoueurEquipe = p_equipeJoueur.IdJoueurEquipe;
-            this.FkIdEquipe = p_equipeJoueur.FkIdEquipe;
-            this.FkIdUtilisateur = p_equipeJoueur.FkIdUtilisateur;
+            this.Fk_Id_Equipe = p_equipeJoueur.Fk_Id_Equipe;
+            this.Fk_Id_Utilisateur = p_equipeJoueur.Fk_Id_Utilisateur;
         }
         public EquipeJoueur DeModelVersEntite()
         {
-            return new EquipeJoueur(this.IdJoueurEquipe, this.FkIdEquipe, this.FkIdUtilisateur);
+            return new EquipeJoueur(this.IdJoueurEquipe, this.Fk_Id_Equipe, this.Fk_Id_Utilisateur);
         }
     }
 }

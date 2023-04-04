@@ -8,14 +8,14 @@ namespace GES_Services.Entites
 
 
         public Guid? IdJoueurEquipe { get; set; }
-        public Guid? FkIdUtilisateur { get; set; }
-        public Guid? FkIdEquipe { get; set; }
+        public Guid? Fk_Id_Utilisateur { get; set; }
+        public Guid? Fk_Id_Equipe { get; set; }
 
         public EquipeJoueur(Guid? idJoueurEquipe, Guid? fkIdUtilisateur, Guid? fkIdEquipe)
         {
             IdJoueurEquipe = idJoueurEquipe;
-            FkIdUtilisateur = fkIdUtilisateur;
-            FkIdEquipe = fkIdEquipe;
+            Fk_Id_Utilisateur = fkIdUtilisateur;
+            Fk_Id_Equipe = fkIdEquipe;
         }
     }
 }

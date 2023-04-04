@@ -50,7 +50,7 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'equipe avec l'id (p_id) n'existe pas");
             }
             // 2. Trouver les joueurs dans l'equipe
-            IEnumerable<Guid> joueurs = (IEnumerable<Guid>)this.m_context.EquipeJoueurs.Where(ej => ej.FkIdEquipe == p_id).Select(ej => ej.FkIdUtilisateur);
+            IEnumerable<Guid?> joueurs = this.m_context.EquipeJoueurs.Where(ej => ej.Fk_Id_Equipe == p_id).Select(ej => ej.Fk_Id_Utilisateur);
 
             // 3. Trouver les joueurs
             IEnumerable<Utilisateur> utilisateurDTO = this.m_context.Utilisateurs.Where(u => joueurs.Contains(u.IdUtilisateur)).Select(u => u.DeDTOVersEntite());
