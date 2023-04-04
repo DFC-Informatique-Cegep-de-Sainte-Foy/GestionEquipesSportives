@@ -3,6 +3,9 @@ import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Nav } f
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { useAuth0 } from '@auth0/auth0-react';
+import  './Profile.js'
+import Profile from './Profile.js';
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -42,20 +45,10 @@ class NavMenu extends React.Component {
       {
         return (
           <Nav>
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/equipes">Équipes</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/evenements">Événements</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/utilisateurs">Utilisateurs</NavLink>
-            </NavItem>
+            <Profile />
 
             <NavItem className="border border-dark rounded">
-              <NavLink tag={Link} className="text-dark" onClick={() => logout()}>Déconnexion</NavLink>
+              <NavLink tag={Link} className="text-dark" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
             </NavItem>  
           </Nav>
         );
@@ -64,9 +57,21 @@ class NavMenu extends React.Component {
       {
         return (
           <Nav>
-            <NavItem className="border border-dark rounded">
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
+            </NavItem>
+
+            <NavItem>
               <NavLink tag={Link} className="text-dark" onClick={() => loginWithRedirect()}>Connexion</NavLink>
             </NavItem>  
+
+            <NavItem>
+              <NavLink tag={Link} className="text-dark" to="/rejoindreUneEquipe">Rejoindre une équipe</NavLink>
+            </NavItem>  
+
+            <NavItem className="border border-dark rounded">
+              <NavLink tag={Link} className="text-dark" onClick={() => loginWithRedirect()}>Inscrire mon équipe</NavLink>
+            </NavItem> 
           </Nav>
         );
       }
@@ -74,18 +79,16 @@ class NavMenu extends React.Component {
 
     return (
       <header className="header-with-gray-strip">
-        <div>
+        <div className='entete'>
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3">
             <NavbarBrand tag={Link} to="/">GestionEquipeDeSports</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+
               <Nav className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
-                </NavItem>
-                
                 <MenuAAfficher />
               </Nav>
+              
             </Collapse>
           </Navbar>
         </div>
