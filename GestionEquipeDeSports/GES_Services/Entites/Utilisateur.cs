@@ -27,7 +27,7 @@ public partial class Utilisateur
     public DateTime? DateModification { get; private set; }
     public bool? Etat { get; private set; }
     public EnumTypeRole Role { get; private set; }
-    public Utilisateur(Guid guid, string nom, string prenom, int? age, 
+    public Utilisateur(Guid guid, string nom, string prenom, int? age,
                        string email, string adresse, string numTelephone,
                        EnumTypeRole role)
     {
@@ -38,7 +38,7 @@ public partial class Utilisateur
             throw new ArgumentNullException($"Le parametre nom: {nom} est invalide", nameof(nom));
         }
         Nom = nom;
-        
+
         if (prenom == null)
         {
             throw new ArgumentNullException($"Le parametre prenom: {prenom} est invalide", nameof(prenom));
@@ -60,10 +60,7 @@ public partial class Utilisateur
             throw new ArgumentNullException($"Le parametre numero telephone: {numTelephone} est invalide", nameof(numTelephone));
         }
 
-        if (role == null)
-        {
-            Role = role;
-        }
+        Role = role;
 
         NumTelephone = numTelephone;
         Adresse = adresse;
@@ -75,11 +72,11 @@ public partial class Utilisateur
     public Utilisateur(Guid guid, string nom, string prenom, int? age, string email, string adresse,
                         string numTelephone, bool? etat)
     {
-        this.IdUtilisateur= guid;
+        this.IdUtilisateur = guid;
         this.Nom = nom;
         this.Prenom = prenom;
         this.Age = age;
-        this.Email = email;            
+        this.Email = email;
         this.Adresse = adresse;
         this.NumTelephone = numTelephone;
         this.Etat = etat;

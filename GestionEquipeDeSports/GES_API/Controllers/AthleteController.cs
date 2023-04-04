@@ -19,13 +19,6 @@ namespace GES_API.Controllers
             this.m_maniulationDepotUtilisateur = p_maniulationDepotUtilisateur;
         }
 
-        // GET: api/<JoueurController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
         // GET api/<JoueurController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
@@ -41,7 +34,6 @@ namespace GES_API.Controllers
 
             return NotFound();
         }
-
 
         // POST api/<JoueurController>
         [HttpPost]

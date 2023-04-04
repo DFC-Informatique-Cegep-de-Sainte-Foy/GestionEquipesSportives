@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GES_Services.Entites;
+using System;
 using System.Collections.Generic;
 
 namespace GES_DAL.BackendProject
@@ -69,6 +70,26 @@ namespace GES_DAL.BackendProject
 
         public GES_Services.Entites.Utilisateur DeDTOVersEntite()
         {
+
+            EnumTypeRole enumTypeRole = EnumTypeRole.Administrateur;
+
+            if (this.FkIdRoles == 0)
+            {
+                enumTypeRole = EnumTypeRole.Administrateur;
+            }
+            else if (this.FkIdRoles == 1)
+            {
+                enumTypeRole = EnumTypeRole.Tuteur;
+            }
+            else if (this.FkIdRoles == 2)
+            {
+                enumTypeRole = EnumTypeRole.Entraineur;
+            }
+            else if (this.FkIdRoles == 3)
+            {
+                enumTypeRole = EnumTypeRole.Athlete;
+            }
+            
             return new GES_Services.Entites.Utilisateur(
                 this.IdUtilisateur,
                 this.Nom,
@@ -77,7 +98,7 @@ namespace GES_DAL.BackendProject
                 this.Email,
                 this.Adresse,
                 this.NumTelephone,
-                this.Etat);
+                enumTypeRole);
         }
 
         private void validationDateModification()

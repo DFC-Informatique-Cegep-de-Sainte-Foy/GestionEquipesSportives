@@ -13,10 +13,10 @@ namespace GES_API.Models
         public string? NumTelephone { get; set; }
         public DateTime? DateCreation { get; set; }
         public DateTime? DateModification { get; set; }
-        public EnumTypeRole? Roles { get; set; }
+        public EnumTypeRole Roles { get; set; }
         public bool? FK_Id_Etat { get; set; }
         public bool? Etat { get; set; }
-        
+
         public UtilisateurModel()
         {
             ;
@@ -35,6 +35,7 @@ namespace GES_API.Models
             this.DateCreation = p_utilisateur.DateCreation;
             this.DateModification = p_utilisateur.DateModification;
             this.Etat = p_utilisateur.Etat;
+            this.Roles = p_utilisateur.Role;
         }
 
         public Utilisateur DeModelVersEntite()
@@ -47,7 +48,8 @@ namespace GES_API.Models
                 this.Email,
                 this.Adresse,
                 this.NumTelephone,
-                this.Etat);
+                this.Roles
+               );
         }
     }
 }
