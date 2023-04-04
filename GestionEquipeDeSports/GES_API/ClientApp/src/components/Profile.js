@@ -13,8 +13,8 @@ function Profile(){
 
   return (
     isAuthenticated && (
-      <NavItem>
-        <h5>{user.name}</h5>
+      <NavItem> 
+        <h5 className="text-white">{user.name}</h5>
       </NavItem>
     )
   );

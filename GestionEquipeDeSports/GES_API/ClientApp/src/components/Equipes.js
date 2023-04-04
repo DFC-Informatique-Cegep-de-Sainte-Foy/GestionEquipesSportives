@@ -1,4 +1,77 @@
-import React, { Component } from 'react';
+import React from "react";
+
+export function Equipes(){
+  return(
+    <React.Fragment>
+      <section className="introduction">
+        <div className="container">
+          <div className="grid">
+
+            <div className="row">
+              <div className="col">
+                <h1>Vous n'avez encore aucune équipe.</h1> {/*Ici on va vérifier dans la bd si l'utilisateur a une équipe dans la bd */}
+                <br></br>
+                <p className="fst-italic">Pour utiliser GestionEquipeDeSports, vous devez être membre d'une équipe.</p>
+                <br></br>
+                <p className="fst-italic">Pour cela vous pouvez :</p>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-sm-6">
+                <h1>Hi</h1>
+              </div>
+
+              <div className="col-sm-6">
+                <h1>Hello</h1>
+              </div>
+            </div>
+            
+
+
+          </div>
+        </div>
+      </section>
+    </React.Fragment>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import React, { Component } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
@@ -53,4 +126,5 @@ export class Equipes extends Component {
       </div>
     );
   }
-}
+}*/
+
