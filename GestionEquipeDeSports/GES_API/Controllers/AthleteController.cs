@@ -49,7 +49,7 @@ namespace GES_API.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("model non valide");
             }
 
             p_utilisateurModel.Etat = true;
@@ -70,7 +70,7 @@ namespace GES_API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest("model non valide");
             }
             UtilisateurModel utilisateurModel = new UtilisateurModel(m_maniulationDepotUtilisateur.ChercherUtilisateurParId(id));
             if (utilisateurModel is null)
