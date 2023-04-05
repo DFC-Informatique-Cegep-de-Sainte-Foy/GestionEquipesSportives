@@ -79,14 +79,14 @@ class NavMenu extends React.Component {
             <NavItem>
               <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
             </NavItem>  
-
+{/* 
             <NavItem>
               <NavLink tag={Link} className="text-white" to="/rejoindreUneEquipe">Rejoindre une équipe</NavLink>
             </NavItem>  
 
             <NavItem className="border border-dark rounded">
               <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Inscrire mon équipe</NavLink>
-            </NavItem> 
+            </NavItem> */}
           </Nav>
         );
       }
