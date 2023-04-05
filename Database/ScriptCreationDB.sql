@@ -91,7 +91,7 @@ Go
 INSERT INTO Roles(IdRole, Description) VALUES(0, 'Administrateur')
 INSERT INTO Roles(IdRole, Description) VALUES(1, 'Entraineur')
 INSERT INTO Roles(IdRole, Description) VALUES(2, 'Tuteur')
-INSERT INTO Roles(IdRole, Description) VALUES(3, 'Joueur')
+INSERT INTO Roles(IdRole, Description) VALUES(3, 'Athlete')
 
 --GO
 --INSERT INTO Evenement(Description, Emplacement, DateDebut, DateFin,DateCreation, DateModification, IdTypeEvenement, Etat)
