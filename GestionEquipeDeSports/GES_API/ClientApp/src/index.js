@@ -19,7 +19,11 @@ root.render(
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={window.location.origin}
+      //redirectUri={window.location.origin}
+      authorizationParams={{
+        //redirect_uri: window.location.origin
+        redirect_uri: "https://localhost:44474/equipes"
+      }}
     >
       <App />
     </Auth0Provider>
