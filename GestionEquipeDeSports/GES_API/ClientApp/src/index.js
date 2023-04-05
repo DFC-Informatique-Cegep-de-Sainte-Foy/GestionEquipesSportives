@@ -21,8 +21,8 @@ root.render(
       clientId={clientId}
       //redirectUri={window.location.origin}
       authorizationParams={{
-        //redirect_uri: window.location.origin
-        redirect_uri: "https://localhost:44474/equipes"
+        redirect_uri: window.location.origin
+        //redirect_uri: "https://localhost:44474/equipes"
       }}
     >
       <App />

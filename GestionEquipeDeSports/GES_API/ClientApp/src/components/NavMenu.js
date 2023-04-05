@@ -49,6 +49,20 @@ class NavMenu extends React.Component {
             <Profile />
 
             <NavItem>
+              <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={Link} className="text-white" to="/equipes">Équipes</NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={Link} className="text-white" to="/utilisateurs">Utilisateurs</NavLink>
+            </NavItem>
+
+            
+
+            <NavItem>
               <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
             </NavItem>  
           </Nav>
