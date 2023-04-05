@@ -152,7 +152,7 @@ export const PageModifieUnEvenement = () => {
                                     {erreurTypeEvenement && <p style={{color: "red"}}>{erreurTypeEvenement}</p>}
                             </Form.Group>
 
-                            <Button  className="me-4" variant='primary' onClick={soumettreFormulaire}>Changer les données</Button>
+                            <Button  className="me-4" variant='primary' onClick={soumettreFormulaire}>Enregistrer</Button>
                             <Link to={'/evenements'}>
                                 <Button  className="me-2" variant='danger'>Annuler</Button>
                             </Link>
