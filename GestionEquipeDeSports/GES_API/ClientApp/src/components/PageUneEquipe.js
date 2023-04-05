@@ -33,6 +33,10 @@ export const PageUneEquipe = () => {
         getJoueurs(id);
     }, []);
 
+    useEffect(() => {
+        dropdownListeJoueurs();
+    }, []);
+
     async function getEquipe(id){
         await fetch(`api/equipe/${id}`)
         .then(res => res.json())
@@ -141,7 +145,7 @@ export const PageUneEquipe = () => {
     });
 
     const listeDropdownJoueur = listeJoueurs.map((liste) => {
-        return <option key={liste.id} value={liste.id}>{liste.nom}</option>
+        return <option key={liste.idUtilisateur} value={liste.idUtilisateur}>{liste.nom}</option>
     });
 
     async function supprimerEvenementFromEquipe(idEvenementDansList){

@@ -58,10 +58,10 @@ namespace GES_API.Controllers
                 throw new ArgumentNullException(nameof(p_equipeJoueurModel));
             }
             //verification si deja existe
-            EquipeJoueurModel model = new EquipeJoueurModel(m_manipulationDepotEquipeJoueur.ChercherIdEquipeJoueurDansEquipeJoueur(p_equipeJoueurModel.DeModelVersEntite()));
-            if(model != null)
+            EquipeJoueurModel model = new EquipeJoueurModel(m_manipulationDepotEquipeJoueur.ChercherIdJoueurDansEquipeJoueur((Guid)p_equipeJoueurModel.Fk_Id_Utilisateur));
+            if(model.Fk_Id_Utilisateur == p_equipeJoueurModel.Fk_Id_Utilisateur && model.Fk_Id_Equipe == p_equipeJoueurModel.Fk_Id_Equipe)
             {
-                return BadRequest();
+                return NoContent();
             }
             GES_Services.Entites.EquipeJoueur equipeJoueur = p_equipeJoueurModel.DeModelVersEntite();
             this.m_manipulationDepotEquipeJoueur.AjouterEquipeJoueur(equipeJoueur);

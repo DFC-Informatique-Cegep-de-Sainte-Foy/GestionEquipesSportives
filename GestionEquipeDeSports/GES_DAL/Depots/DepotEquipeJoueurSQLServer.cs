@@ -64,6 +64,20 @@ namespace GES_DAL.Depots
             return eJoueur;
         }
 
+        public EquipeJoueur ChercherIdJoueurtDansEquipeJoueur(Guid p_id)
+        {
+            if (p_id == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
+            }
+            GES_DAL.BackendProject.EquipeJoueur? equipeJoueurDTO = m_context.EquipeJoueurs.FirstOrDefault(ej => ej.Fk_Id_Utilisateur == p_id);
+            if(equipeJoueurDTO == null)
+            {
+                throw new InvalidOperationException($"le joueur avec le id {p_id} n'existe pas");
+            }
+            return equipeJoueurDTO.FromDTO();
+        }
+
         public IEnumerable<Utilisateur> ListerEquipeJouers(Guid p_id)
         {
             // 1. Trouver equipe

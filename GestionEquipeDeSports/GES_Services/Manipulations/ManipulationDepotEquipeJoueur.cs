@@ -51,5 +51,9 @@ namespace GES_Services.Manipulations
         {
             return this.m_depotEquipeJoueur.ChercherIdEquipeJoueurDansEquipeJoueur(p_equipeJoueur);
         }
+        public EquipeJoueur ChercherIdJoueurDansEquipeJoueur(Guid p_id)
+        {
+            return this.m_depotEquipeJoueur.ChercherIdJoueurtDansEquipeJoueur(p_id);
+        }
     }
 }
