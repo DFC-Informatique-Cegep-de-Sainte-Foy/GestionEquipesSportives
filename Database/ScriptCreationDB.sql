@@ -1,6 +1,6 @@
-﻿Use master;
-GO
-CREATE DATABASE Equipe_sportive;
+﻿-- Use master;
+-- GO
+-- CREATE DATABASE Equipe_sportive;
 
 GO
 USE Equipe_sportive;
