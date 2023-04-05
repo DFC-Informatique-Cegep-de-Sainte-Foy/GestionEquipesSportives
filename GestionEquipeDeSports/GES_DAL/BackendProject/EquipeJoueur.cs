@@ -24,6 +24,7 @@ namespace GES_DAL.BackendProject
             this.Fk_Id_Equipe = p_equipeJoueur.Fk_Id_Equipe;
             this.Fk_Id_Utilisateur = p_equipeJoueur.Fk_Id_Utilisateur;
         }
+
         public GES_Services.Entites.EquipeJoueur FromDTO()
         {
             return new GES_Services.Entites.EquipeJoueur(IdJoueurEquipe, Fk_Id_Utilisateur, Fk_Id_Equipe);
