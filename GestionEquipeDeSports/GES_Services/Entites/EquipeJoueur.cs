@@ -11,6 +11,11 @@ namespace GES_Services.Entites
         public Guid? Fk_Id_Utilisateur { get; set; }
         public Guid? Fk_Id_Equipe { get; set; }
 
+        public EquipeJoueur()
+        {
+            ;
+        }
+
         public EquipeJoueur(Guid? idJoueurEquipe, Guid? fkIdEquipe, Guid? fkIdUtilisateur)
         {
             IdJoueurEquipe = idJoueurEquipe;

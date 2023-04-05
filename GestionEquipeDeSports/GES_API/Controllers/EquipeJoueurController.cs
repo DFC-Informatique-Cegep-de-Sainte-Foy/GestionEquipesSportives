@@ -1,6 +1,7 @@
 ﻿using GES_API.Models;
 using GES_Services.Manipulations;
 using Microsoft.AspNetCore.Mvc;
+using GES_Services.Entites;
 
 namespace GES_API.Controllers
 {
@@ -9,6 +10,7 @@ namespace GES_API.Controllers
     public class EquipeJoueurController : ControllerBase
     {
         private ManipulationDepotEquipeJoueur m_manipulationDepotEquipeJoueur;
+
         public EquipeJoueurController(ManipulationDepotEquipeJoueur p_manipulationEquipeJoueur)
         {
             this.m_manipulationDepotEquipeJoueur = p_manipulationEquipeJoueur;
@@ -57,14 +59,19 @@ namespace GES_API.Controllers
             {
                 throw new ArgumentNullException(nameof(p_equipeJoueurModel));
             }
-            //verification si deja existe
-            EquipeJoueurModel model = new EquipeJoueurModel(m_manipulationDepotEquipeJoueur.ChercherIdJoueurDansEquipeJoueur((Guid)p_equipeJoueurModel.Fk_Id_Utilisateur));
-            if(model.Fk_Id_Utilisateur == p_equipeJoueurModel.Fk_Id_Utilisateur && model.Fk_Id_Equipe == p_equipeJoueurModel.Fk_Id_Equipe)
+
+            EquipeJoueur equipeJoueur = p_equipeJoueurModel.DeModelVersEntite();
+
+            try
             {
-                return NoContent();
+                this.m_manipulationDepotEquipeJoueur.AjouterEquipeJoueur(equipeJoueur);
             }
-            GES_Services.Entites.EquipeJoueur equipeJoueur = p_equipeJoueurModel.DeModelVersEntite();
-            this.m_manipulationDepotEquipeJoueur.AjouterEquipeJoueur(equipeJoueur);
+
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
             return CreatedAtAction(nameof(Get), new { id = p_equipeJoueurModel.IdJoueurEquipe }, p_equipeJoueurModel);
         }
     }

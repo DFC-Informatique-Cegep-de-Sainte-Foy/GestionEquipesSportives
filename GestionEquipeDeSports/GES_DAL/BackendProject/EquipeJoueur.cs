@@ -20,7 +20,14 @@ namespace GES_DAL.BackendProject
 
         public EquipeJoueur(GES_Services.Entites.EquipeJoueur p_equipeJoueur)
         {
-            this.IdJoueurEquipe = p_equipeJoueur.IdJoueurEquipe;
+            if (p_equipeJoueur.IdJoueurEquipe is null || p_equipeJoueur.IdJoueurEquipe == Guid.Empty)
+            {
+                IdJoueurEquipe = Guid.NewGuid();
+            }
+            else
+            {
+                this.IdJoueurEquipe = p_equipeJoueur.IdJoueurEquipe;
+            }
             this.Fk_Id_Equipe = p_equipeJoueur.Fk_Id_Equipe;
             this.Fk_Id_Utilisateur = p_equipeJoueur.Fk_Id_Utilisateur;
         }

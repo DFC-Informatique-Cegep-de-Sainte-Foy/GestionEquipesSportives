@@ -79,7 +79,7 @@ namespace GES_DAL.Depots
                 throw new ArgumentOutOfRangeException(nameof(p_equipeJoueur));
             }
 
-            EquipeJoueur equipeJoueur = null;
+            EquipeJoueur equipeJoueur = new EquipeJoueur();
             equipeJoueur.Fk_Id_Utilisateur = p_equipeJoueur.Fk_Id_Utilisateur;
             equipeJoueur.Fk_Id_Equipe = p_equipeJoueur.Fk_Id_Equipe;
 
