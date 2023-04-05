@@ -48,5 +48,9 @@ namespace GES_Services.Manipulations
             }
             this.m_depotEquipeEvenement.SupprimerEquipeEvenement(p_equipeEvenement);
         }
+        public EquipeEvenement ChercherEvenementDansEquipeEvenement(Guid p_id)
+        {
+            return this.m_depotEquipeEvenement.ChercherEvenementDansEquipeEvenement(p_id);
+        }
     }    
 }

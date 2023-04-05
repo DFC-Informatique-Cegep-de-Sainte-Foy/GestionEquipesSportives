@@ -24,7 +24,16 @@ namespace GES_DAL.Depots
 
         void IDepotEquipeEvenement.AjouterEquipeEvenement(EquipeEvenement p_equipeEvenement)
         {
-            throw new NotImplementedException();
+            if(p_equipeEvenement is null)
+            {
+                throw new ArgumentNullException(nameof(p_equipeEvenement));
+            }
+            if(this.m_context.EquipeEvenements.Any(ee => ee.IdEquipeEvenement == p_equipeEvenement.IdEquipeEvenement))
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {p_equipeEvenement.IdEquipeEvenement} existe déjà");
+            }
+            this.m_context.EquipeEvenements.Add(new GES_DAL.BackendProject.EquipeEvenement(p_equipeEvenement));
+            this.m_context.SaveChanges();
         }
 
         EquipeEvenement IDepotEquipeEvenement.ChercherEquipeEvenementParId(Guid p_id)
@@ -33,7 +42,7 @@ namespace GES_DAL.Depots
             {
                 throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
             }
-            GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.FirstOrDefault(ee => ee.FkIdEquipe == p_id);
+            GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.FirstOrDefault(ee => ee.Fk_Id_Equipe == p_id);
             if(equipeEvenementDTO == null)
             {
                 throw new InvalidOperationException($"l'equipe avec le id {p_id} n'existe pas");
@@ -48,7 +57,17 @@ namespace GES_DAL.Depots
 
         void IDepotEquipeEvenement.SupprimerEquipeEvenement(EquipeEvenement p_equipeEvenement)
         {
-            throw new NotImplementedException();
+            if (p_equipeEvenement is null)
+            {
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(p_equipeEvenement));
+            }
+            GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.Where(e => e.Fk_Id_Evenement == p_equipeEvenement.Fk_Id_Evenement).SingleOrDefault();
+            if (equipeEvenementDTO is null)
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {p_equipeEvenement.Fk_Id_Evenement} n'existe pas");
+            }
+            this.m_context.EquipeEvenements.Remove(equipeEvenementDTO);
+            this.m_context.SaveChanges();
         }
 
         public IEnumerable<Evenement> ListerEquipeEvenements(Guid p_id)
@@ -62,13 +81,27 @@ namespace GES_DAL.Depots
             }
 
             //Trouver les evenements de l'equipe
-            IEnumerable<Guid?> evenements = m_context.EquipeEvenements.Where(ee => ee.FkIdEquipe == p_id).Select(ee => ee.FkIdEvenement);
+            IEnumerable<Guid?> evenements = m_context.EquipeEvenements.Where(ee => ee.Fk_Id_Equipe == p_id).Select(ee => ee.Fk_Id_Evenement);
 
             //Trouver les evenements
             IEnumerable<Evenement> evenementsDTO = m_context.Evenements.Where(e => evenements.Contains(e.IdEvenement)).Select(e => e.DeDTOVersEntite());
 
             return evenementsDTO;
 
+        }
+
+        public EquipeEvenement ChercherEvenementDansEquipeEvenement(Guid p_id)
+        {
+            if (p_id == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
+            }
+            GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.FirstOrDefault(ee => ee.Fk_Id_Evenement == p_id);
+            if (equipeEvenementDTO == null)
+            {
+                throw new InvalidOperationException($"l'equipe avec le id {p_id} n'existe pas");
+            }
+            return equipeEvenementDTO.DeDTOVersEntite();
         }
     }
 }

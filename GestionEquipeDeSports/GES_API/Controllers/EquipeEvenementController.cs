@@ -58,9 +58,36 @@ namespace GES_API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public IActionResult Post([FromBody] EquipeEvenementModel p_equipeEvenementModel)
+        public ActionResult Post([FromBody] EquipeEvenementModel p_equipeEvenementModel)
         {
-            return BadRequest();
+            if(p_equipeEvenementModel == null)
+            {
+                throw new ArgumentNullException(nameof(p_equipeEvenementModel));
+            }
+            EquipeEvenementModel model = new EquipeEvenementModel(m_manipulationDepotEquipeEvenement.ChercherEvenementDansEquipeEvenement((Guid)p_equipeEvenementModel.Fk_Id_Evenement));
+            if (model.Fk_Id_Evenement == p_equipeEvenementModel.Fk_Id_Evenement && model.Fk_Id_Equipe == p_equipeEvenementModel.Fk_Id_Equipe)
+            {
+                return NoContent();                
+            }
+            GES_Services.Entites.EquipeEvenement equipeEvenement = p_equipeEvenementModel.DeModelVersEntite();
+            this.m_manipulationDepotEquipeEvenement.AjouterEquipeEvenement(equipeEvenement);
+            return CreatedAtAction(nameof(Get), new { id = p_equipeEvenementModel.IdEquipeEvenement }, p_equipeEvenementModel);
+        }
+
+        //DELETE: api/<EquipeEvenementController
+        [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public ActionResult Delete(Guid id)
+        {
+            EquipeEvenementModel model = new EquipeEvenementModel(m_manipulationDepotEquipeEvenement.ChercherEvenementDansEquipeEvenement(id));
+            if (model is null)
+            {
+                return NotFound();
+            }
+
+            this.m_manipulationDepotEquipeEvenement.SupprimerEquipeEvenement(model.DeModelVersEntite());
+            return NoContent();
         }
     }
 }
