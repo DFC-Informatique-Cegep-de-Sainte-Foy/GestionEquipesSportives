@@ -2,6 +2,7 @@ using GES_DAL.DbContexts;
 using GES_DAL.Depots;
 using GES_Services.Interfaces;
 using GES_Services.Manipulations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,21 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddHealthChecks().AddSqlServer(connectionString, tags: new[] { "db" });
 
 
+//Enregistrez l'authentification comme l'un des services de notre application API
+    builder.Services.AddMvc();
+
+    // 1. Add Authentication Services
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(options =>
+    {
+        options.Authority = "https://dev-o048xw576ua8whcd.us.auth0.com/";
+        options.Audience = "https://localhost:7225/api";
+    });
+
+
 //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 //builder.Services.AddCors(options =>
@@ -69,6 +85,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -92,30 +109,34 @@ catch (Exception ex)
     throw;
 }
 
+
+//Ajouter un middleware d'authentification et d'autorisation au pipeline de demandes
+// 2. Enable authentication middleware
+
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
+
+
+
+
 
 ////////////////app.UseCors(MyAllowSpecificOrigins);
 
-//app.UseAuthorization();
-
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//        name: "default",
-//        pattern: "{controller}/{action=Index}/{id?}");
-//    endpoints.MapRazorPages();
-//});
-
-app.MapControllerRoute(
+/*app.MapControllerRoute(
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
-app.MapRazorPages();
-
-
-//app.UseOpenApi();
-//app.UseSwaggerUi3();// /swagger
+app.MapRazorPages();*/
 
 app.MapFallbackToFile("index.html");;
 

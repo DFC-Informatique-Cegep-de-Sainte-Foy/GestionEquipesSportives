@@ -13,13 +13,14 @@ const root = createRoot(rootElement);
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+const audience = process.env.ASPNET_API_AUTH0_AUDIENCE;
 
 root.render(
   <BrowserRouter basename={baseUrl}>
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      //redirectUri={window.location.origin}
+      audience={audience}
       authorizationParams={{
         redirect_uri: window.location.origin
         //redirect_uri: "https://localhost:44474/equipes"

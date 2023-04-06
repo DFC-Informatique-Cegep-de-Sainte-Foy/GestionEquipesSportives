@@ -2,6 +2,7 @@
 using GES_API.Models;
 using GES_Services.Manipulations;
 using GES_Services.Entites;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -9,8 +10,9 @@ using GES_Services.Entites;
 
 namespace GES_API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
+    [Route("api/[controller]")]
     public class AthleteController : ControllerBase
     {
         private ManipulationDepotUtilisateur m_maniulationDepotUtilisateur;
