@@ -2,31 +2,46 @@ import React from "react";
 import { Button, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { BiTrash, BiEdit } from "react-icons/bi";
+import { useAuth0 } from '@auth0/auth0-react';
 
-export class Evenements extends React.Component {
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
+      const { getAccessTokenSilently } = useAuth0();
+      return (
+        <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
+      );
+    }
+}
+
+class Evenements extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             evenements: []
         };
-
     }
 
-    componentDidMount() {
-        fetch("api/evenements")
-            .then(res => res.json())
-            .then((result) => {
-                this.setState({
-                    evenements: result
-                });
+    async componentDidMount() {
+        const token =  await this.props.getAccessTokenSilently();
+        console.log("TOKEN OBTAINED:" + token);
+        
+        fetch("api/evenements", {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            this.setState({
+                evenements: result
             });
+        });
     }
 
-    formatDateTime(donnees) {
+    formatDateTime(donnees){
         var dateTimeEntree = donnees;
         var date = dateTimeEntree.split('T')[0];
         var time = dateTimeEntree.split('T')[1].split(':');
         var dateTimeSortie = date + ' ' + time[0] + ':' + time[1];
+
         return dateTimeSortie;
     }
 
@@ -96,3 +111,5 @@ export class Evenements extends React.Component {
         );
     }
 }
+
+export default withMyHook(Evenements);
