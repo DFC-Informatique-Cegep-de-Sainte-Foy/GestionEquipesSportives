@@ -36,7 +36,7 @@ export const PageUneEquipe = () => {
     useEffect(() => {
         dropdownListeJoueurs();
     }, []);
-
+    //recherche information pour equipe avec id
     async function getEquipe(id){
         await fetch(`api/equipe/${id}`)
         .then(res => res.json())
@@ -49,7 +49,7 @@ export const PageUneEquipe = () => {
             setAssociationSportive(result.associationSportive);
         });
     }
-
+    //recherche evenements pour id equipe dans table equipeEvenements
     async function getEvenements(id){
         await fetch(`api/equipeEvenement/${id}`)
         .then(res => res.json())
@@ -58,9 +58,8 @@ export const PageUneEquipe = () => {
             setEquipeEvenement(result);
         });
     }
-
+    //recherhe tous evenements dans table evenements
     async function dropdownListeEvenements(){
-        console.log('c\'est une liste de touts les evenements');
         await fetch("api/evenements")
         .then(res => res.json())
         .then((result) => {
@@ -68,20 +67,17 @@ export const PageUneEquipe = () => {
             setListeEvenements(result);
         });
     }
-
+    //recherche joueurs pour id equipe dans table equipeJoueurs
     async function getJoueurs(id){
-        console.log('On va recevoir une liste des joueurs!');
         await fetch(`api/equipeJoueur/${id}`)
         .then(res => res.json())
         .then((result) => {
             console.log(result);
             setEquipeJoueurs(result);
-            console.log(equipeJoueurs);
         });
     }
-
+    //recherche tous joueurs dans table utilisateurs pour dropdownliste
     async function dropdownListeJoueurs(){
-        console.log('liste des joueurs');
         await fetch("api/utilisateur")
         .then(res => res.json())
         .then((result) => {
@@ -89,13 +85,8 @@ export const PageUneEquipe = () => {
             setListeJoueurs(result);
         });
     }
-
+    //ajout selected evenemement dans cette equipe dans table equipeEvenement
     async function onSelectEvenement(idEvenement){
-        console.log('Vous avez choisi : ');
-        console.log(idEvenement);
-        console.log('Id dequipe :');
-        console.log(id);
-
         let requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -107,20 +98,14 @@ export const PageUneEquipe = () => {
         await fetch('api/equipeEvenement', requestOptions)
             .then(function (reponse) {
                 console.log(reponse);
-
             }).catch(function (error) {
                 console.log(error)
             })
 
         getEvenements(id);
     }
-
+    //ajout selected joueur dans cette equipe dans table equipeJoueur
     async function onSelectJoueur(idJoueur){
-        console.log('Vous avez choisi : ');
-        console.log(idJoueur);
-        console.log('Id dequipe :');
-        console.log(id);
-
         let requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -132,12 +117,11 @@ export const PageUneEquipe = () => {
         await fetch('api/equipeJoueur', requestOptions)
             .then(function (reponse) {
                 console.log(reponse);
-
             }).catch(function (error) {
                 console.log(error)
             })
 
-        getEquipe(id);
+            getJoueurs(id);
     }
 
     const listeDropdownEvenements = listeEvenements.map((liste) => {
@@ -147,14 +131,37 @@ export const PageUneEquipe = () => {
     const listeDropdownJoueur = listeJoueurs.map((liste) => {
         return <option key={liste.idUtilisateur} value={liste.idUtilisateur}>{liste.nom}</option>
     });
-
+    //supprimer cet evenement dans cette equipe dans table equipeEvenement
     async function supprimerEvenementFromEquipe(idEvenementDansList){
-        //e.preventDefault();
-        console.log(idEvenementDansList)
-        await fetch(`/api/equipeEvenement/${idEvenementDansList}`, 
-            {method: "DELETE"});
+        console.log(idEvenementDansList);
+
+        let requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                FK_Id_Evenement: idEvenementDansList,
+                FK_Id_Equipe: id
+            })
+        };
+        await fetch(`/api/equipeEvenement`, requestOptions);
 
         getEvenements(id);
+    }
+    //supprimer joueur dans cette equipe dans table equipeJoueur
+    async function supprimerJoueurFromEquipe(idJoueurDansListe){
+        console.log(idJoueurDansListe);
+
+        let requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: idJoueurDansListe,
+                FK_Id_Equipe: id
+            })
+        };
+        await fetch("api/equipeJoueur", requestOptions);
+
+        getJoueurs(id);
     }
 
     return (
@@ -192,6 +199,7 @@ export const PageUneEquipe = () => {
                                         <th>Prenom</th>
                                         <th>Email</th>
                                         <th>Téléphone</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -203,7 +211,7 @@ export const PageUneEquipe = () => {
                                             <td>{j.email}</td>
                                             <td>{j.numTelephone}</td>
                                             <td>
-                                                <Button variant='danger' size="sm" title="Supprimer" ><BiTrash /></Button>
+                                                <Button variant='danger' onClick={() => supprimerJoueurFromEquipe(j.idUtilisateur)} size="sm" title="Supprimer" ><BiTrash /></Button>
                                             </td>
                                         </tr>
                                     ))}
@@ -247,7 +255,7 @@ export const PageUneEquipe = () => {
                                             <td>{e.dateFin}</td>
                                             <td>{e.typeEvenement}</td>
                                             <td>
-                                                <Button variant='danger' size="sm" title="Supprimer" ><BiTrash /></Button>
+                                                <Button variant='danger' onClick={() => supprimerEvenementFromEquipe(e.id)} size="sm" title="Supprimer" ><BiTrash /></Button>
                                             </td>
                                         </tr>
                                     ))}

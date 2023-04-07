@@ -69,7 +69,18 @@ namespace GES_DAL.Depots
 
         public void SupprimerEquipe(Entite.Equipe p_equipe)
         {
-            throw new NotImplementedException();
+            if(p_equipe == null)
+            {
+                throw new ArgumentNullException(nameof(p_equipe));
+            }
+            GES_DAL.BackendProject.Equipe? equipeDTO = this.m_context.Equipes.Where(e => e.IdEquipe == p_equipe.IdEquipe).SingleOrDefault();
+            if(equipeDTO is null)
+            {
+                throw new InvalidOperationException($"l'equipe avec l'id {p_equipe.IdEquipe} n'existe pas");
+            }
+            equipeDTO.Etat = false;
+            this.m_context.Equipes.Update(equipeDTO);
+            this.m_context.SaveChanges();
         }
 
         //public IEnumerable<Entite.Equipe> ListerEquipes()

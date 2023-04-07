@@ -61,18 +61,35 @@ namespace GES_API.Controllers
             }
 
             EquipeJoueur equipeJoueur = p_equipeJoueurModel.DeModelVersEntite();
-
-            try
+            //EquipeJoueurModel model = new EquipeJoueurModel(this.m_manipulationDepotEquipeJoueur.ChercherIdEquipeJoueurDansEquipeJoueur(equipeJoueur));
+            //verification si existe dans BD
+            EquipeJoueur joueurDansEquipe = this.m_manipulationDepotEquipeJoueur.ChercherIdEquipeJoueurDansEquipeJoueur(equipeJoueur);
+            if (joueurDansEquipe == null)
             {
+                //si n'existe pas - ajouter à BD
                 this.m_manipulationDepotEquipeJoueur.AjouterEquipeJoueur(equipeJoueur);
+                return CreatedAtAction(nameof(Get), new { id = p_equipeJoueurModel.IdJoueurEquipe }, p_equipeJoueurModel);
             }
-
-            catch(Exception e)
+            else
             {
-                return BadRequest(e.Message);
+                return BadRequest();
             }
+        }
 
-            return CreatedAtAction(nameof(Get), new { id = p_equipeJoueurModel.IdJoueurEquipe }, p_equipeJoueurModel);
+        //DELETE: api/<EquipeJoueurController
+        [HttpDelete]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public ActionResult Delete([FromBody] EquipeJoueurModel p_equipeJoueurModel)
+        {
+            if (p_equipeJoueurModel == null)
+            {
+                throw new ArgumentNullException(nameof(p_equipeJoueurModel));
+            }
+            EquipeJoueur equipeJoueur = p_equipeJoueurModel.DeModelVersEntite();
+            EquipeJoueurModel model = new EquipeJoueurModel(this.m_manipulationDepotEquipeJoueur.ChercherIdEquipeJoueurDansEquipeJoueur(equipeJoueur));
+            this.m_manipulationDepotEquipeJoueur.SupprimerEquipeJoueur(model.DeModelVersEntite());
+            return NoContent();
         }
     }
 }

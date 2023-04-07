@@ -38,10 +38,11 @@ namespace GES_API.Models
         public Equipe DeModelVersEntite()
         {
             return new Equipe(
+                this.IdEquipe,
                 this.Nom,
                 this.Region,
                 this.Sport,
-                this.AssociationSportive                           
+                this.AssociationSportive
                 );
         }
     }

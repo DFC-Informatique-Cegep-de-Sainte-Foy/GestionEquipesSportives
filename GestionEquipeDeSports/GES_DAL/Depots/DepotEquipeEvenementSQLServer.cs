@@ -90,18 +90,37 @@ namespace GES_DAL.Depots
 
         }
 
-        public EquipeEvenement ChercherEvenementDansEquipeEvenement(Guid p_id)
+        public EquipeEvenement ChercherEvenementDansEquipeEvenement(EquipeEvenement p_equipeEvenement)
         {
-            if (p_id == Guid.Empty)
+            if (p_equipeEvenement is null)
             {
-                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(p_equipeEvenement));
             }
-            GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.FirstOrDefault(ee => ee.Fk_Id_Evenement == p_id);
-            if (equipeEvenementDTO == null)
+            // Trover equipe
+            GES_DAL.BackendProject.Equipe? equipeDTO = m_context.Equipes.FirstOrDefault(e => e.IdEquipe == p_equipeEvenement.Fk_Id_Equipe);
+            if(equipeDTO is null)
             {
-                throw new InvalidOperationException($"l'equipe avec le id {p_id} n'existe pas");
+                throw new InvalidOperationException($"l'equipe avec le id {p_equipeEvenement.Fk_Id_Equipe} n'existe pas");
             }
-            return equipeEvenementDTO.DeDTOVersEntite();
+            GES_DAL.BackendProject.EquipeEvenement evenementDansEquipe = this.m_context.EquipeEvenements.SingleOrDefault(ee => ee.Fk_Id_Equipe == p_equipeEvenement.Fk_Id_Equipe
+                                                                                                                        && ee.Fk_Id_Evenement == p_equipeEvenement.Fk_Id_Evenement);
+            EquipeEvenement equipeEvenement;
+            if(evenementDansEquipe != null)
+            {
+                equipeEvenement = evenementDansEquipe.DeDTOVersEntite();
+                return equipeEvenement;
+            }
+            else
+            {
+                return equipeEvenement = null;
+            }
+
+            //GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.FirstOrDefault(ee => ee.Fk_Id_Evenement == p_id);
+            //if (equipeEvenementDTO == null)
+            //{
+            //    throw new InvalidOperationException($"l'equipe avec le id {p_id} n'existe pas");
+            //}
+            //return equipeEvenementDTO.DeDTOVersEntite();
         }
     }
 }

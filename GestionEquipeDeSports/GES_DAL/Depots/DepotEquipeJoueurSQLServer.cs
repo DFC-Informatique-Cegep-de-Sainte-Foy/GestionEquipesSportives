@@ -33,9 +33,9 @@ namespace GES_DAL.Depots
             //    throw new InvalidOperationException($"l'utilisateur avec le id {p_equipeJoueur.IdJoueurEquipe} existe déjà");
             //}
 
-            EquipeJoueur ej = ChercherIdEquipeJoueurDansEquipeJoueur(p_equipeJoueur);
+            //EquipeJoueur ej = ChercherIdEquipeJoueurDansEquipeJoueur(p_equipeJoueur);
 
-            if (ej is null)
+            if (p_equipeJoueur is null)
             {
                 throw new Exception();
             }
@@ -72,19 +72,26 @@ namespace GES_DAL.Depots
             //GES_DAL.BackendProject.Utilisateur? utilisateurDTO = m_context.Utilisateurs.FirstOrDefault(u => u.IdUtilisateur == p_equipeJoueur.Fk_Id_Utilisateur);
 
             //Trouver les joueurs de l'equipe
-            IEnumerable<Guid?> joueurs = m_context.EquipeJoueurs.Where(ee => ee.Fk_Id_Equipe == p_equipeJoueur.Fk_Id_Equipe && ee.Fk_Id_Utilisateur == p_equipeJoueur.Fk_Id_Utilisateur)
-                                                                .Select(ee => ee.IdJoueurEquipe);
-            if (joueurs.Count() > 1)
+            GES_DAL.BackendProject.EquipeJoueur joueurDansEquipe = this.m_context.EquipeJoueurs.SingleOrDefault(ej => ej.Fk_Id_Equipe == p_equipeJoueur.Fk_Id_Equipe && ej.Fk_Id_Utilisateur == p_equipeJoueur.Fk_Id_Utilisateur);
+            //IEnumerable<Guid?> joueurs = m_context.EquipeJoueurs.Where(ee => ee.Fk_Id_Equipe == p_equipeJoueur.Fk_Id_Equipe && ee.Fk_Id_Utilisateur == p_equipeJoueur.Fk_Id_Utilisateur)
+            //                                                    .Select(ee => ee.IdJoueurEquipe);
+            /*if (joueurs.Count() > 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(p_equipeJoueur));
+            }*/
+            EquipeJoueur equipeJoueur;
+            if(joueurDansEquipe != null)
+            { 
+                equipeJoueur = joueurDansEquipe.FromDTO();
+                //equipeJoueur.Fk_Id_Utilisateur = p_equipeJoueur.Fk_Id_Utilisateur;
+                //equipeJoueur.Fk_Id_Equipe = p_equipeJoueur.Fk_Id_Equipe;
+
+                return equipeJoueur;
             }
-
-            EquipeJoueur equipeJoueur = new EquipeJoueur();
-            equipeJoueur.Fk_Id_Utilisateur = p_equipeJoueur.Fk_Id_Utilisateur;
-            equipeJoueur.Fk_Id_Equipe = p_equipeJoueur.Fk_Id_Equipe;
-
-            return equipeJoueur;
-
+            else
+            {
+                return equipeJoueur = null;
+            }
         }
 
         public EquipeJoueur ChercherIdJoueurtDansEquipeJoueur(Guid p_id)
@@ -124,7 +131,21 @@ namespace GES_DAL.Depots
 
         public void SupprimerEquipeJoueur(EquipeJoueur p_equipeJoueur)
         {
-            throw new NotImplementedException();
+            if (p_equipeJoueur is null)
+            {
+                throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(p_equipeJoueur));
+            }
+            if(p_equipeJoueur.IdJoueurEquipe == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException(nameof(p_equipeJoueur));
+            }
+            GES_DAL.BackendProject.EquipeJoueur? equipeJoueurDTO = m_context.EquipeJoueurs.Where(e => e.IdJoueurEquipe == p_equipeJoueur.IdJoueurEquipe).SingleOrDefault();
+            if (equipeJoueurDTO is null)
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {p_equipeJoueur.IdJoueurEquipe} n'existe pas");
+            }
+            this.m_context.EquipeJoueurs.Remove(equipeJoueurDTO);
+            this.m_context.SaveChanges();
         }
     }
 }

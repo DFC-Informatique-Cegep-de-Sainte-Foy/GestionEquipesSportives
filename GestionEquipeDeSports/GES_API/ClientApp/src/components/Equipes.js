@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import { BiTrash } from "react-icons/bi";
 
 export class Equipes extends Component {
   constructor(props){
@@ -36,6 +37,7 @@ export class Equipes extends Component {
               <th>Region</th>
               <th>Sport</th>
               <th>Association sportive</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +48,11 @@ export class Equipes extends Component {
                 <td>{eq.region}</td>
                 <td>{eq.sport}</td>
                 <td>{eq.associationSportive}</td>
+                <td>
+                  <Link to={{ pathname: `/supprimerEquipe/${eq.idEquipe}`}}>
+                    <Button variant='danger' size="sm" title="Supprimer"> <BiTrash /> </Button>
+                  </Link>
+                </td>
               </tr>
             ))
             }

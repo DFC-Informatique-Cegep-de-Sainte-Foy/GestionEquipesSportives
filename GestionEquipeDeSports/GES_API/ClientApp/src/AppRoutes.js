@@ -10,6 +10,7 @@ import { PageUnEvenement } from "./components/PageUnEvenement";
 import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
 import { PageUneEquipe } from "./components/PageUneEquipe";
+import { PageSupprimerEquipe } from "./components/PageSupprimerEquipe";
 import { PageJoueur } from "./pages/PageJoueur";
 import  Erreur404  from "./components/Erreur404";
 import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
@@ -62,6 +63,10 @@ const AppRoutes = [
   {
     path: '/uneEquipe/:id',
     element: <PageUneEquipe />
+  },
+  {
+    path: '/supprimerEquipe/:id',
+    element: <PageSupprimerEquipe />
   },
   {
     path: 'pagejoueur/:id',
