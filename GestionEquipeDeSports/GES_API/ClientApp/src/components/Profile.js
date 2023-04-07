@@ -14,7 +14,11 @@ function Profile(){
   return (
     isAuthenticated && (
       <NavItem> 
-        <h5 className="text-white">{user.name}</h5>
+      {/* <h5 className="text-white">{user.name}</h5>
+        <h5 className="text-white">{user.email}</h5>*/}
+        <div>
+          <img src={user.picture} alt="Profile" className="profile__avatar"/>
+        </div>
       </NavItem>
     )
   );

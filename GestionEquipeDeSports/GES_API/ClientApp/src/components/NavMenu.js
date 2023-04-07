@@ -46,8 +46,6 @@ class NavMenu extends React.Component {
       {
         return (
           <Nav> 
-            <Profile />
-
             <NavItem>
               <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
             </NavItem>
@@ -63,6 +61,8 @@ class NavMenu extends React.Component {
             <NavItem>
               <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
             </NavItem>  
+
+            <Profile />
           </Nav>
         );
       } 
