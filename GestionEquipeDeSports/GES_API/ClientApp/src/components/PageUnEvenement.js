@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, Row, Col } from 'react-bootstrap';
 import { useParams, Link } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const PageUnEvenement = () => {    
     const [evenement, setEvenement] = useState({});
@@ -11,6 +12,8 @@ export const PageUnEvenement = () => {
     const [typeEvenement, setTypeEvenement] = useState('');
 
     const [equipeEvenement, setEquipeEvenement] = useState([]);
+    const { getAccessTokenSilently } = useAuth0();
+    const [loading, setLoading] = useState(true);
     
     const {id} = useParams();
 
@@ -23,7 +26,11 @@ export const PageUnEvenement = () => {
     }, []);
 
     async function getEvenement(id){
-        await fetch(`api/evenements/${id}`)
+        const token =  await getAccessTokenSilently();
+
+        await fetch(`api/evenements/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
             .then(res => res.json())
             .then((result) => {
                 console.log(result);
@@ -33,6 +40,7 @@ export const PageUnEvenement = () => {
                 setDateDebut(result.dateDebut);
                 setDateFin(result.dateFin);
                 setTypeEvenement(result.typeEvenement);
+                setLoading(false);
         }); 
     }
 

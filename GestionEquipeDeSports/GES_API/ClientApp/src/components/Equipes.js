@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
-export class Equipes extends Component {
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
+    const { getAccessTokenSilently } = useAuth0();
+    return (
+      <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
+    );
+  }
+}
+
+class Equipes extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -10,14 +20,18 @@ export class Equipes extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch("api/Equipe")
-        .then(res => res.json())
-        .then((result) => {
-            this.setState({
-                equipes: result
-            });
-        });
+  async componentDidMount() {
+    const token =  await this.props.getAccessTokenSilently();
+
+    await fetch("api/Equipe",{
+      headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+    })
+    .then(res => res.json())
+    .then((result) => {
+      this.setState({
+        equipes: result
+      });
+    });
   }
 
   render() {
@@ -55,3 +69,4 @@ export class Equipes extends Component {
   }
 }
 
+export default withMyHook(Equipes);

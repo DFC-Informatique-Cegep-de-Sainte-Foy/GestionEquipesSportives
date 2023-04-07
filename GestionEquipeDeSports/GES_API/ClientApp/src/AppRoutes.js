@@ -1,10 +1,9 @@
-import { Equipes } from "./components/Equipes";
+import Equipes from "./components/Equipes";
 import { Accueil } from "./components/Accueil";
 import Evenements  from "./components/Evenements";
-import { Connexion } from "./components/Connexion";
 import { FormEvenement } from "./components/FormulaireEvenement";
 import { FormEquipe } from "./components/FormulaireEquipe";
-import { Utilisateurs } from "./components/Utilisateurs";
+import  Utilisateurs  from "./components/Utilisateurs";
 import { FormEntraineur } from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./components/PageUnEvenement";
 import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
@@ -13,6 +12,8 @@ import { PageUneEquipe } from "./components/PageUneEquipe";
 import { PageJoueur } from "./pages/PageJoueur";
 import  Erreur404  from "./components/Erreur404";
 import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
+import Profile from "./components/Profile";
+import { Connexion } from "./components/Connexion";
 
 const AppRoutes = [
   {
@@ -25,7 +26,7 @@ const AppRoutes = [
   },
   {
     path: '/evenements',
-    element: <Evenements   />
+    element: <Evenements />
   },
   {
     path: '/formulaireEvenement',
@@ -71,10 +72,10 @@ const AppRoutes = [
     path: '/rejoindreUneEquipe',
     element: <PageRejoindreUneEquipe />
   },
-  /*{
-    path: '/incrireUneEquipe',
-    element: <PageIncrireUneEquipe />
-  },*/
+  {
+    path: '/profile',
+    element: <Profile />
+  },
   {
     path: '*',
     element: <Erreur404 />

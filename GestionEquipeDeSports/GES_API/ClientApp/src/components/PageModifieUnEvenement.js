@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useParams, Link } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const PageModifieUnEvenement = () => {
     const [evenement, setEvenement] = useState({});
@@ -12,9 +13,15 @@ export const PageModifieUnEvenement = () => {
     const [formValidation, setFormValidation] = useState(true);
     const [erreurDescription, setErreurDescription] = useState('');
     const [erreurTypeEvenement, setErreurTypeEvenement] = useState('');
+    const { getAccessTokenSilently } = useAuth0();
+    const [loading, setLoading] = useState(true);
 
-    function getEvenement(id){
-        fetch(`api/evenements/${id}`)
+    async function getEvenement(id){
+        const token =  await getAccessTokenSilently();
+
+        await fetch(`api/evenements/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
             .then(res => res.json())
             .then((result) => {
                 console.log(result);
@@ -24,6 +31,7 @@ export const PageModifieUnEvenement = () => {
                 setDateDebut(result.dateDebut);
                 setDateFin(result.dateFin);
                 setTypeEvenement(result.typeEvenement);
+                setLoading(false);
         }); 
     }
 
