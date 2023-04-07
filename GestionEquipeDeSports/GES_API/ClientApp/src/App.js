@@ -2,7 +2,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
-//import PrivateRoute from './components/common/PrivateRoute';
 import { Layout } from './components/Layout';
 import './custom.css';
 import { PageLoader } from "./components/page-loader";

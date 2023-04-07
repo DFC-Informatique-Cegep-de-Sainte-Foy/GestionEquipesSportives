@@ -14,6 +14,7 @@ import  Erreur404  from "./components/Erreur404";
 import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
 import Profile from "./components/Profile";
 import { Connexion } from "./components/Connexion";
+import { AuthenticationGuard } from "./components/AuthenticationGuard";
 
 const AppRoutes = [
   {
@@ -22,27 +23,32 @@ const AppRoutes = [
   },
   {
     path: '/equipes',
-    element: <Equipes />
+    element: <AuthenticationGuard component={Equipes} />
   },
   {
     path: '/evenements',
-    element: <Evenements />
+    //element: <Evenements />
+    element: <AuthenticationGuard component={Evenements} />
   },
   {
     path: '/formulaireEvenement',
-    element: <FormEvenement />
+    //element: <FormEvenement />
+    element: <AuthenticationGuard component={FormEvenement} />
   },
   {
     path: '/formulaireEquipe',
-    element: <FormEquipe />
+    //element: <FormEquipe />
+    element: <AuthenticationGuard component={FormEquipe} />
   },
   {
     path: '/utilisateurs',
-    element: <Utilisateurs />
+    //element: <Utilisateurs />
+    element: <AuthenticationGuard component={Utilisateurs} />
   },
   {
     path: '/formulaireEntraineur',
-    element: <FormEntraineur />
+    //element: <FormEntraineur />
+    element: <AuthenticationGuard component={FormEntraineur} />
   },
   {
     path: '/connexion',
@@ -50,31 +56,38 @@ const AppRoutes = [
   },
   {
     path: '/unEvenement/:id',
-    element: <PageUnEvenement />
+    //element: <PageUnEvenement />
+    element: <AuthenticationGuard component={PageUnEvenement} />
   },
   {
     path: '/modifieEvenement/:id',
-    element: <PageModifieUnEvenement />
+    //element: <PageModifieUnEvenement />
+    element: <AuthenticationGuard component={PageModifieUnEvenement} />
   },
   {
     path: '/supprimerEvenement/:id',
-    element: <PageSupprimerEvenement />
+    //element: <PageSupprimerEvenement />
+    element: <AuthenticationGuard component={PageSupprimerEvenement} />
   },
   {
     path: '/uneEquipe/:id',
-    element: <PageUneEquipe />
+    //element: <PageUneEquipe />
+    element: <AuthenticationGuard component={PageUneEquipe} />
   },
   {
     path: 'pagejoueur/:id',
-    element: <PageJoueur />
+    //element: <PageJoueur />
+    element: <AuthenticationGuard component={PageJoueur} />
   },
   {
     path: '/rejoindreUneEquipe',
-    element: <PageRejoindreUneEquipe />
+    //element: <PageRejoindreUneEquipe />
+    element: <AuthenticationGuard component={PageRejoindreUneEquipe} />
   },
   {
     path: '/profile',
-    element: <Profile />
+    //element: <Profile />
+    element: <AuthenticationGuard component={Profile} />
   },
   {
     path: '*',
