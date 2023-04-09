@@ -45,7 +45,11 @@ export const PageUnEvenement = () => {
     }
 
     async function getEquipesDansEvenement(id){
-        await fetch(`api/equipeEvenement/${id}`)
+        //const token =  await getAccessTokenSilently();
+
+        await fetch(`api/equipeEvenement/${id}`, {
+            //headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
         .then(res => res.json())
         .then((result) => {
             console.log(result);

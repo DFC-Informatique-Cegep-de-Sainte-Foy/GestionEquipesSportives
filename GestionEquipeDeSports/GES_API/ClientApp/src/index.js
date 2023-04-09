@@ -24,7 +24,6 @@ root.render(
       authorizationParams={{
         audience: audience,
         redirect_uri: window.location.origin
-        //redirect_uri: "https://localhost:44474/equipes"
       }}
     >
       <App />

@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { Button, Container, Row, Col, Table } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
 import { BiTrash } from "react-icons/bi";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const PageUneEquipe = () => {
     const [equipe, setEquipe] = useState({});
@@ -14,6 +15,8 @@ export const PageUneEquipe = () => {
     const [listeEvenements, setListeEvenements] = useState([]);
     const [equipeJoueurs, setEquipeJoueurs] = useState([]);
     const [listeJoueurs, setListeJoueurs] = useState([]);
+    const { getAccessTokenSilently } = useAuth0();
+    const [loading, setLoading] = useState(true);
 
     const {id} = useParams();
 
@@ -38,7 +41,11 @@ export const PageUneEquipe = () => {
     }, []);
 
     async function getEquipe(id){
-        await fetch(`api/equipe/${id}`)
+        const token =  await getAccessTokenSilently();
+
+        await fetch(`api/equipe/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
         .then(res => res.json())
         .then((result) => {
             console.log(result);
@@ -47,11 +54,16 @@ export const PageUneEquipe = () => {
             setRegion(result.region);
             setSport(result.sport);
             setAssociationSportive(result.associationSportive);
+            setLoading(false);
         });
     }
 
     async function getEvenements(id){
-        await fetch(`api/equipeEvenement/${id}`)
+        const token =  await getAccessTokenSilently();
+
+        await fetch(`api/equipeEvenement/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
         .then(res => res.json())
         .then((result) => {
             console.log(result);
@@ -60,8 +72,12 @@ export const PageUneEquipe = () => {
     }
 
     async function dropdownListeEvenements(){
-        console.log('c\'est une liste de touts les evenements');
-        await fetch("api/evenements")
+        const token =  await getAccessTokenSilently();
+
+        console.log('c\'est une liste de tous les evenements');
+        await fetch("api/evenements", {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
         .then(res => res.json())
         .then((result) => {
             console.log(result);
@@ -70,8 +86,12 @@ export const PageUneEquipe = () => {
     }
 
     async function getJoueurs(id){
+        const token =  await getAccessTokenSilently();
+
         console.log('On va recevoir une liste des joueurs!');
-        await fetch(`api/equipeJoueur/${id}`)
+        await fetch(`api/equipeJoueur/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
         .then(res => res.json())
         .then((result) => {
             console.log(result);
@@ -81,8 +101,12 @@ export const PageUneEquipe = () => {
     }
 
     async function dropdownListeJoueurs(){
+        const token =  await getAccessTokenSilently();
+
         console.log('liste des joueurs');
-        await fetch("api/utilisateur")
+        await fetch("api/utilisateur", {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
         .then(res => res.json())
         .then((result) => {
             console.log(result);
@@ -150,9 +174,13 @@ export const PageUneEquipe = () => {
 
     async function supprimerEvenementFromEquipe(idEvenementDansList){
         //e.preventDefault();
+        const token =  await getAccessTokenSilently();
+
         console.log(idEvenementDansList)
         await fetch(`/api/equipeEvenement/${idEvenementDansList}`, 
-            {method: "DELETE"});
+            {method: "DELETE"},{
+                 headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+            });
 
         getEvenements(id);
     }

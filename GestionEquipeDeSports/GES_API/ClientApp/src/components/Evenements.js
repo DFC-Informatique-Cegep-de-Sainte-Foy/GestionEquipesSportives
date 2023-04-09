@@ -23,8 +23,7 @@ class Evenements extends React.Component {
 
     async componentDidMount() {
         const token =  await this.props.getAccessTokenSilently();
-        //console.log("TOKEN OBTAINED:" + token);
-        
+      
         await fetch("api/evenements", {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })

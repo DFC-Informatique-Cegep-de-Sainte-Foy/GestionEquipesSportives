@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export class FormEntraineur extends Component {
     constructor(props) {
@@ -56,8 +57,14 @@ export class FormEntraineur extends Component {
                 telephone: this.state.telephone
             })
         }
-
-        await fetch('api/entraineur', requestOptions)
+        
+        
+        // token =  await getAccessTokenSilently();
+        
+        await fetch('api/entraineur', requestOptions,{
+            //eaders: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -140,7 +147,7 @@ export class FormEntraineur extends Component {
 
                     <Button variant="success" className="mb-3" type="submit">Ajouter</Button>
                     <Link to={'/utilisateurs'}>
-                        <Button variant="secondary" className="float-end">Retour à la page des utilisateurs</Button>
+                        <Button variant="secondary" className="float-end">Retour</Button>
                     </Link>
                 </Form>
             </div>
