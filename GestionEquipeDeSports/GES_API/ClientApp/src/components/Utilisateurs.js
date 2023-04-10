@@ -22,8 +22,17 @@ export class Utilisateurs extends Component {
     }
 
     formatTypeUtilisateur(donnees) {
-        if (donnees) {
-            return 'X';
+        if (donnees == 0) {
+            return 'Admin';
+        }
+        else if(donnees == 1){
+            return 'Entraineur';
+        }
+        else if(donnees == 2){
+            return 'Tuteur';
+        }
+        else {
+            return 'Joueur';
         }
     }
 
@@ -44,26 +53,20 @@ export class Utilisateurs extends Component {
                             <th>Email</th>
                             <th>Adresse</th>
                             <th>Numéro de téléphone</th>
-                            <th>Joueur</th>
-                            <th>Tuteur</th>
-                            <th>Entraineur</th>
-                            <th>Admin</th>
+                            <th>Role</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.utilisateurs.map((u, index) => (
                             <tr key={u.idUtilisateur}>
                                 <td>{index + 1}</td>
-                                <td>{u.nom}</td>
+                                <td><Link to={{ pathname: `/pagejoueur/${u.idUtilisateur}`}}>{u.nom}</Link></td>
                                 <td>{u.prenom}</td>
                                 <td>{u.age}</td>
                                 <td>{u.email}</td>
                                 <td>{u.adresse}</td>
                                 <td>{u.numTelephone}</td>
-                                <td>{this.formatTypeUtilisateur(u.estJoueur)}</td>
-                                <td>{this.formatTypeUtilisateur(u.estTuteur)}</td>
-                                <td>{this.formatTypeUtilisateur(u.estEntraineur)}</td>
-                                <td>{this.formatTypeUtilisateur(u.estAdmin)}</td>
+                                <td>{this.formatTypeUtilisateur(u.roles)}</td>
                             </tr>
                         ))
                         }

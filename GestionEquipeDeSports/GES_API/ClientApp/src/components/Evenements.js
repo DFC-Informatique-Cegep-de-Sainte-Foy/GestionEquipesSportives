@@ -30,27 +30,17 @@ export class Evenements extends React.Component {
         return dateTimeSortie;
     }
 
-    // affichageTypeEvenement(data){
-    //     if(data === 1){
-    //         return "Entrainement";
-    //     } else if(data === 2){
-    //         return "Partie";
-    //     } else if (data === 3){
-    //         return "Autre";
-    //     }else{
-    //         return data;
-    //     }
-    // }
-
-    /*affichageEtat(data){
-        if(data === 1){
-            return "Actif";
-        } else if(data === 2){
-            return 'Inactif';
+    affichageTypeEvenement(data){
+        if(data === 0){
+            return "Entrainement";
+        } else if(data === 1){
+            return "Partie";
+        } else if (data === 2){
+            return "Autre";
         }else{
             return data;
         }
-    }*/
+    }
 
     render() {
         return (
@@ -67,7 +57,8 @@ export class Evenements extends React.Component {
                             <th>Emplacement</th>
                             <th>Date début</th>
                             <th>Date fin</th>
-                            <th>Type événement</th>                         
+                            <th>Type événement</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,7 +69,7 @@ export class Evenements extends React.Component {
                                 <td>{ev.emplacement}</td>
                                 <td>{this.formatDateTime(ev.dateDebut)}</td>
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
-                                <td>{ev.typeEvenement}</td>
+                                <td>{this.affichageTypeEvenement(ev.typeEvenement)}</td>
                                 <td>
                                     <Link to={{ pathname: `/modifieEvenement/${ev.id}`}}>
                                         <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>

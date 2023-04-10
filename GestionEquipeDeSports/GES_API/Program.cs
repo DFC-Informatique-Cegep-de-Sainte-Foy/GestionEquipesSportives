@@ -31,6 +31,8 @@ builder.Services.AddScoped<ManipulationDepotEquipeEvenement>();
 builder.Services.AddScoped<ManipulationDepotUtilisateur>();
 //Manipulation du depot EquipeJoueur
 builder.Services.AddScoped<ManipulationDepotEquipeJoueur>();
+//Manipulation du depot EvenementEquipe pour chercher equipes
+builder.Services.AddScoped<ManipulationDepotEvenementEquipe>();
 
 //Dependance entre l'interface Evenement et le DepotEvenementSQLServer
 builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
@@ -44,6 +46,8 @@ builder.Services.AddScoped<IDepotEquipeEvenement, DepotEquipeEvenementSQLServer>
 builder.Services.AddScoped<IDepotUtilisateur, DepotUtilisateurSQLServer>();
 //Dependance entre l'interface EquipeJoueur et le DepotEquipeJoueurSQLServer
 builder.Services.AddScoped<IDepotEquipeJoueur, DepotEquipeJoueurSQLServer>();
+//Dependence entre l'interface EvenementEquipe et le DepotEvenementEquipeSQLServer
+builder.Services.AddScoped<IDepotEvenementEquipe, DepotEvenementEquipeSQLServer>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<Equipe_sportiveContext>();

@@ -61,7 +61,8 @@ namespace GES_DAL.Depots
             {
                 throw new ArgumentNullException("le parametre \"evenement\" ne peut pas etre null", nameof(p_equipeEvenement));
             }
-            GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.Where(e => e.Fk_Id_Evenement == p_equipeEvenement.Fk_Id_Evenement).SingleOrDefault();
+            GES_DAL.BackendProject.EquipeEvenement? equipeEvenementDTO = m_context.EquipeEvenements.SingleOrDefault(e => e.Fk_Id_Equipe == p_equipeEvenement.Fk_Id_Equipe
+                                                                                                                    && e.Fk_Id_Evenement == p_equipeEvenement.Fk_Id_Evenement);
             if (equipeEvenementDTO is null)
             {
                 throw new InvalidOperationException($"l'evenement avec le id {p_equipeEvenement.Fk_Id_Evenement} n'existe pas");
