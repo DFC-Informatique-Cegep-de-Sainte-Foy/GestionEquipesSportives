@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Table, Row, Col } from 'react-bootstrap';
 import { useParams, Link } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
+import { BiTrash, BiEdit } from "react-icons/bi";
 
 export const PageUnEvenement = () => {    
     const [evenement, setEvenement] = useState({});
@@ -12,6 +13,8 @@ export const PageUnEvenement = () => {
     const [typeEvenement, setTypeEvenement] = useState('');
 
     const [equipeEvenement, setEquipeEvenement] = useState([]);
+    const [equipeJoueur, setEquipeJoueur] = useState([]);
+    const [joueurEvenement, setJoueurEvenement] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const [loading, setLoading] = useState(true);
     
@@ -24,6 +27,10 @@ export const PageUnEvenement = () => {
     useEffect(() => {
         getEquipesDansEvenement(id);
     }, []);
+
+    useEffect(() => {
+        trouverJouersPourEquipes();
+    }, [equipeEvenement]);
 
     async function getEvenement(id){
         const token =  await getAccessTokenSilently();
@@ -57,6 +64,29 @@ export const PageUnEvenement = () => {
         });
     }
 
+    //recherche joueurs pour id equipe dans table equipeJoueurs
+    async function getJoueurs(id){
+        const token =  await getAccessTokenSilently();
+        
+        await fetch(`api/equipeJoueur/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            console.log('getJoueur :');
+            console.log(result);
+            result.forEach(element => {
+                joueurEvenement.push(element);
+            });            
+            
+            setEquipeJoueur(result);
+        });
+    }
+
+    async function trouverJouersPourEquipes(){
+        await equipeEvenement.map((equipe) => getJoueurs(equipe.idEquipe));
+    }
+
     function formatDateTime(donnees) {
         var dateTimeEntree = donnees;
         var date = dateTimeEntree.split('T').join(' ');
@@ -73,6 +103,11 @@ export const PageUnEvenement = () => {
         }else{
             return data;
         }
+    }
+
+    function afficherEtatPresence(idUtilisateur){
+        
+        return "inconnu";
     }
 
     return (
@@ -129,9 +164,23 @@ export const PageUnEvenement = () => {
                                 <th>Prenom</th>
                                 <th>Numero</th>
                                 <th>Email</th>
+                                <th>Presence</th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            {joueurEvenement.map((e, index) => (
+                                <tr key={e.idUtilisateur}>
+                                    <td>{index+1}</td>
+                                    <td>{e.nom}</td>
+                                    <td>{e.prenom}</td>
+                                    <td>{e.numTelephone}</td>
+                                    <td>{e.email}</td>
+                                    <td>{afficherEtatPresence(e.idUtilisateur)}</td>
+                                    <td><Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /></Button></td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </Table>
                 </Row>
             </div>
