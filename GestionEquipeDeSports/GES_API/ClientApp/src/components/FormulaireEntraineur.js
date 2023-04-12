@@ -3,7 +3,17 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
-export class FormEntraineur extends Component {
+
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
+      const { getAccessTokenSilently } = useAuth0();
+      return (
+        <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
+      );
+    }
+}
+
+class FormEntraineur extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,9 +56,17 @@ export class FormEntraineur extends Component {
             email: '',
             telephone: ''
         });
+
+        const token =  await this.props.getAccessTokenSilently();
+        console.log("ACCESS TOKEN: " + token);
+
         let requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({
                 nom: this.state.nom_entraineur,
                 prenom: this.state.prenom_entraineur,
@@ -59,12 +77,7 @@ export class FormEntraineur extends Component {
         }
         
         
-        // token =  await getAccessTokenSilently();
-        
-        await fetch('api/entraineur', requestOptions,{
-            //eaders: { Accept: "application/json", Authorization: `Bearer ${token}` },
-        })
-        
+        await fetch('api/entraineur', requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -154,3 +167,5 @@ export class FormEntraineur extends Component {
         );
     }
 }
+
+export default withMyHook(FormEntraineur);
