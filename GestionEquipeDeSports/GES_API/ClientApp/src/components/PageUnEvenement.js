@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Table, Row, Col } from 'react-bootstrap';
 import { useParams, Link } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
+import { BiTrash, BiEdit } from "react-icons/bi";
 
 export const PageUnEvenement = () => {    
     const [evenement, setEvenement] = useState({});
@@ -104,6 +105,11 @@ export const PageUnEvenement = () => {
         }
     }
 
+    function afficherEtatPresence(idUtilisateur){
+        
+        return "inconnu";
+    }
+
     return (
         <>
             <div>
@@ -170,6 +176,8 @@ export const PageUnEvenement = () => {
                                     <td>{e.prenom}</td>
                                     <td>{e.numTelephone}</td>
                                     <td>{e.email}</td>
+                                    <td>{afficherEtatPresence(e.idUtilisateur)}</td>
+                                    <td><Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /></Button></td>
                                 </tr>
                             ))}
                         </tbody>
