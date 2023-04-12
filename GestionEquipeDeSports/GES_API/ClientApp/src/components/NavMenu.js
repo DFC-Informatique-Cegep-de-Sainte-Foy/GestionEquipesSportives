@@ -63,6 +63,7 @@ class NavMenu extends React.Component {
             </NavItem>  
 
             <Profile />
+           
           </Nav>
         );
       } 
@@ -78,7 +79,7 @@ class NavMenu extends React.Component {
               <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({appState: {returnTo: "/profile",},})}>Connexion</NavLink>
             </NavItem>  
 
-            <NavItem className="border border-white rounded">
+            <NavItem className="border border-success rounded">
               <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
                 appState: {
                   returnTo: "/profile",
@@ -87,7 +88,7 @@ class NavMenu extends React.Component {
                   screen_hint: "signup",
                 },
               })}>
-                Inscription
+                <span className='text-success'>Inscription</span>
               </NavLink>
             </NavItem>
           </Nav>
