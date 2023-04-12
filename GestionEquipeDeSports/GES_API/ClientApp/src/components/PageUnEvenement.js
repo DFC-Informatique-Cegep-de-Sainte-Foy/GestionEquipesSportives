@@ -45,10 +45,10 @@ export const PageUnEvenement = () => {
     }
 
     async function getEquipesDansEvenement(id){
-        //const token =  await getAccessTokenSilently();
+        const token =  await getAccessTokenSilently();
 
-        await fetch(`api/equipeEvenement/${id}`, {
-            //headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        await fetch(`api/evenementEquipe/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
         .then(res => res.json())
         .then((result) => {
@@ -63,11 +63,23 @@ export const PageUnEvenement = () => {
         return date.substring(0, 16);
     }
 
+    function affichageTypeEvenement(data){
+        if(data === 0){
+            return "Entrainement";
+        } else if(data === 1){
+            return "Partie";
+        } else if (data === 2){
+            return "Autre";
+        }else{
+            return data;
+        }
+    }
+
     return (
         <>
             <div>
                 <Row>
-                    <h2>Votre événement - {typeEvenement} </h2>
+                    <h2>Votre événement - {affichageTypeEvenement(typeEvenement)} </h2>
                     <Link to={'/evenements'}>
                         <Button variant="success">Retour à la page des événements</Button>
                     </Link>
@@ -94,13 +106,32 @@ export const PageUnEvenement = () => {
                         </thead>
                         <tbody>
                             {equipeEvenement.map((e, index) => (
-                                <tr key={e.id}>
+                                <tr key={e.idEquipe}>
                                     <td>{index+1}</td>
                                     <td>{e.nom}</td>
-                                    <td>{e.region}</td>
+                                    <td>{e.region}</td>                                    
+                                    <td>{e.sport}</td>
+                                    <td>{e.associationSportive}</td>
                                 </tr>
                             ))}
                         </tbody>
+                    </Table>
+                </Row>
+                <Row>
+                    <h5>Liste des participants</h5>
+                </Row>
+                <Row>
+                    <Table striped bordered>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Numero</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
                     </Table>
                 </Row>
             </div>
