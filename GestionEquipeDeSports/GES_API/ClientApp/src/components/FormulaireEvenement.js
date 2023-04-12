@@ -12,32 +12,6 @@ export function FormEvenement() {
     const [confirmationAjout, setConfirmationAjout] = useState("");
     const { getAccessTokenSilently } = useAuth0();
 
-    async function obtenirLeToken(){
-        const token =  await getAccessTokenSilently();
-        console.log("ACCESS TOKEN: " + token);
-        return token;
-    }
-
-    /*const token = getAccessTokenSilently();
-    console.log("ACCESS TOKEN: " + token);*/
-
-    const optionsRequete = {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${obtenirLeToken()}`
-        },
-        body: JSON.stringify({
-            Description: descriptionEvenement,
-            Emplacement: emplacementEvenement,
-            DateDebut: dateDebutEvenement,
-            DateFin: dateFinEvenement,
-            TypeEvenement: typeEvenement
-        })
-    };
-
-
     function handleChange(e) {
         if (e.target.id === "description") {
             console.log(e.target.value);
@@ -61,10 +35,31 @@ export function FormEvenement() {
         }
     }
 
-    async function verifierDonnees() {
+    async function verifierDonnees() 
+    {
+        const token =  await getAccessTokenSilently();
+        console.log("ACCESS TOKEN: " + token);
+
+        const optionsRequete = {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                Description: descriptionEvenement,
+                Emplacement: emplacementEvenement,
+                DateDebut: dateDebutEvenement,
+                DateFin: dateFinEvenement,
+                TypeEvenement: typeEvenement
+            })
+        };
+
         if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) 
         {
             setErreurDonnees(false);
+
             await fetch('api/evenements', optionsRequete)
                 .then(function (reponse) {
                     console.log(reponse);
@@ -76,7 +71,8 @@ export function FormEvenement() {
                 }
             )
         }
-        else {
+        else 
+        {
             setErreurDonnees(true);
         }
     }
