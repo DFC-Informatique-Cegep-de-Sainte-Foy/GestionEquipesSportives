@@ -170,19 +170,19 @@ namespace GES_DAL.DbContexts
 
                 entity.Property(e => e.EstPresentAevenement).HasColumnName("EstPresentAEvenement");
 
-                entity.Property(e => e.FkIdEvenement).HasColumnName("FK_Id_Evenement");
+                entity.Property(e => e.Fk_Id_Evenement).HasColumnName("FK_Id_Evenement");
 
-                entity.Property(e => e.FkIdUtilisateur).HasColumnName("FK_Id_Utilisateur");
+                entity.Property(e => e.Fk_Id_Utilisateur).HasColumnName("FK_Id_Utilisateur");
 
                 entity.HasOne(d => d.FkIdEvenementNavigation)
                     .WithMany(p => p.EvenementJoueurs)
-                    .HasForeignKey(d => d.FkIdEvenement)
+                    .HasForeignKey(d => d.Fk_Id_Evenement)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Evenement__FK_Id__5441852A");
 
                 entity.HasOne(d => d.FkIdUtilisateurNavigation)
                     .WithMany(p => p.EvenementJoueurs)
-                    .HasForeignKey(d => d.FkIdUtilisateur)
+                    .HasForeignKey(d => d.Fk_Id_Utilisateur)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Evenement__FK_Id__5535A963");
             });

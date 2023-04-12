@@ -107,7 +107,7 @@ try
     {
         using (var context = scope.ServiceProvider.GetService<Equipe_sportiveContext>())
         {
-            context.Database.Migrate();
+            context?.Database.Migrate();
         }
     }
 }
@@ -134,10 +134,6 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller}/{action=Index}/{id?}");
     endpoints.MapRazorPages();
 });
-
-
-
-
 
 ////////////////app.UseCors(MyAllowSpecificOrigins);
 

@@ -21,30 +21,24 @@ namespace GES_API.Controllers
         }
 
         //GET: api/<EvenementJoueurController>/5
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<IEnumerable<UtilisateurModel>> Get(Guid id)
+        public ActionResult<EvenementJoueurModel> Get([FromBody] EvenementJoueurModel p_evenementJoueurModel ) 
         {
-            //IEnumerable<UtilisateurModel> listeJoueurs;
-            //try
-            //{
-            //    listeJoueurs = this.m_manipulationDepotEquipeJoueur.ListerEquipeJoueurs(id).Select(e => new UtilisateurModel(e));
-            //}
-            //catch (Exception e)
-            //{
-            //    return BadRequest(e.Message);
-            //}
-            //if (listeJoueurs != null)
-            //{
-            //    return Ok(listeJoueurs);
-            //}
-            //else
-            //{
-            //    return NotFound();
-            //}
+            if (p_evenementJoueurModel == null)
+            {
+                return BadRequest();
+            }
 
-            return NotFound();
+            EvenementJoueurModel evemementModel = new EvenementJoueurModel(this.m_manipulationDepotEvenementJoueur.ChercherJoueurParIdEvenementIdJoueur(p_evenementJoueurModel.DeModelVersEntite()));
+
+            if (evemementModel == null)
+            {
+                return NotFound();
+            }
+
+            return evemementModel;
         }
 
 
