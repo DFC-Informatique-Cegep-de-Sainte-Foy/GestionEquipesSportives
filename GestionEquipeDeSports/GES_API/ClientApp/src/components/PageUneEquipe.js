@@ -161,7 +161,7 @@ export const PageUneEquipe = () => {
                 console.log(error)
             })
 
-        getEquipe(id);
+            getJoueurs(id);
     }
 
     const listeDropdownEvenements = listeEvenements.map((liste) => {
@@ -175,14 +175,41 @@ export const PageUneEquipe = () => {
     async function supprimerEvenementFromEquipe(idEvenementDansList){
         //e.preventDefault();
         const token =  await getAccessTokenSilently();
-
         console.log(idEvenementDansList)
-        await fetch(`/api/equipeEvenement/${idEvenementDansList}`, 
-            {method: "DELETE"},{
-                 headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-            });
+        let requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                FK_Id_Evenement: idEvenementDansList,
+                FK_Id_Equipe: id
+            })
+        };
+        await fetch(`/api/equipeEvenement`, requestOptions);
+
+        // console.log(idEvenementDansList)
+        // await fetch(`/api/equipeEvenement/${idEvenementDansList}`, 
+        //     {method: "DELETE"},{
+        //          headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        //     });
 
         getEvenements(id);
+    }
+
+    //supprimer joueur dans cette equipe dans table equipeJoueur
+    async function supprimerJoueurFromEquipe(idJoueurDansListe){
+        console.log(idJoueurDansListe);
+        const token =  await getAccessTokenSilently();
+        let requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: idJoueurDansListe,
+                FK_Id_Equipe: id
+            })
+        };
+        await fetch("api/equipeJoueur", requestOptions);
+
+        getJoueurs(id);
     }
 
     return (
@@ -231,7 +258,7 @@ export const PageUneEquipe = () => {
                                             <td>{j.email}</td>
                                             <td>{j.numTelephone}</td>
                                             <td>
-                                                <Button variant='danger' size="sm" title="Supprimer" ><BiTrash /></Button>
+                                            <Button variant='danger' onClick={() => supprimerJoueurFromEquipe(j.idUtilisateur)} size="sm" title="Supprimer" ><BiTrash /></Button>
                                             </td>
                                         </tr>
                                     ))}
@@ -275,7 +302,7 @@ export const PageUneEquipe = () => {
                                             <td>{e.dateFin}</td>
                                             <td>{e.typeEvenement}</td>
                                             <td>
-                                                <Button variant='danger' size="sm" title="Supprimer" ><BiTrash /></Button>
+                                                <Button variant='danger' onClick={() => supprimerEvenementFromEquipe(e.id)} size="sm" title="Supprimer" ><BiTrash /></Button>
                                             </td>
                                         </tr>
                                     ))}
