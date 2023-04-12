@@ -25,14 +25,19 @@ namespace GES_Services.Manipulations
             {
                 throw new ArgumentNullException(nameof(p_evenementJoueur));
             }
+            return this.m_depotEvenementJoueur.ChercherJoueurParIdEvenementIdJoueur(p_evenementJoueur);
         }
         public IEnumerable<EvenementJoueur> ChercherJoueurParIdEvenement(Guid p_id)
         {
-            ;
+            throw new NotImplementedException();
         }
         public void AjouterPresencePourJoueur(EvenementJoueur p_evenementJoueur)
         {
-            ;
+            if (p_evenementJoueur is null)
+            {
+                throw new ArgumentNullException(nameof(p_evenementJoueur));
+            }
+            this.m_depotEvenementJoueur.AjouterPresencePourJoueur(p_evenementJoueur);
         }
     }
 }
