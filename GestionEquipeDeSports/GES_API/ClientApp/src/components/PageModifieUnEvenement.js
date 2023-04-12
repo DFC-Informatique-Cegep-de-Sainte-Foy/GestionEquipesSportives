@@ -63,7 +63,9 @@ export const PageModifieUnEvenement = () => {
         }
     }
 
-    function soumettreFormulaire(){
+    async function soumettreFormulaire(){
+        const token =  await getAccessTokenSilently();
+
         verifierDonnees();
         console.log(formValidation);
             if(!formValidation){
@@ -71,7 +73,9 @@ export const PageModifieUnEvenement = () => {
                 const requestOptions = {
                     method: 'PUT',
                     headers: { 
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify({ 
                         id: id,
@@ -82,7 +86,7 @@ export const PageModifieUnEvenement = () => {
                         typeEvenement: typeEvenement
                     })
                 };
-                fetch(`api/evenements/${id}`, requestOptions)
+                await fetch(`api/evenements/${id}`, requestOptions)
                     .then(response => response.json())
                     .catch(function (error) {
                         console.log(error)
