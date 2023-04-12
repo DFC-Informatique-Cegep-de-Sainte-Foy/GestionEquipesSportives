@@ -2,7 +2,6 @@ import React from 'react';
 import Alert from 'react-bootstrap/Alert'
 import { Link } from 'react-router-dom';
 
-
 function Erreur404(){
     return(
         <>

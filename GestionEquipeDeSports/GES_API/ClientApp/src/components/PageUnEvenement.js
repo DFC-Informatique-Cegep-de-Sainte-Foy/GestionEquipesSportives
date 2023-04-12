@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, Row, Col } from 'react-bootstrap';
 import { useParams, Link } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const PageUnEvenement = () => {    
     const [evenement, setEvenement] = useState({});
@@ -11,6 +12,8 @@ export const PageUnEvenement = () => {
     const [typeEvenement, setTypeEvenement] = useState('');
 
     const [equipeEvenement, setEquipeEvenement] = useState([]);
+    const { getAccessTokenSilently } = useAuth0();
+    const [loading, setLoading] = useState(true);
     
     const {id} = useParams();
 
@@ -23,7 +26,11 @@ export const PageUnEvenement = () => {
     }, []);
 
     async function getEvenement(id){
-        await fetch(`api/evenements/${id}`)
+        const token =  await getAccessTokenSilently();
+
+        await fetch(`api/evenements/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
             .then(res => res.json())
             .then((result) => {
                 console.log(result);
@@ -33,11 +40,16 @@ export const PageUnEvenement = () => {
                 setDateDebut(result.dateDebut);
                 setDateFin(result.dateFin);
                 setTypeEvenement(result.typeEvenement);
+                setLoading(false);
         }); 
     }
 
     async function getEquipesDansEvenement(id){
-        await fetch(`api/evenementEquipe/${id}`)
+        //const token =  await getAccessTokenSilently();
+
+        await fetch(`api/equipeEvenement/${id}`, {
+            //headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
         .then(res => res.json())
         .then((result) => {
             console.log(result);
@@ -51,23 +63,11 @@ export const PageUnEvenement = () => {
         return date.substring(0, 16);
     }
 
-    function affichageTypeEvenement(data){
-        if(data === 0){
-            return "Entrainement";
-        } else if(data === 1){
-            return "Partie";
-        } else if (data === 2){
-            return "Autre";
-        }else{
-            return data;
-        }
-    }
-
     return (
         <>
             <div>
                 <Row>
-                    <h2>Votre événement - {affichageTypeEvenement(typeEvenement)} </h2>
+                    <h2>Votre événement - {typeEvenement} </h2>
                     <Link to={'/evenements'}>
                         <Button variant="success">Retour à la page des événements</Button>
                     </Link>
@@ -94,32 +94,13 @@ export const PageUnEvenement = () => {
                         </thead>
                         <tbody>
                             {equipeEvenement.map((e, index) => (
-                                <tr key={e.idEquipe}>
+                                <tr key={e.id}>
                                     <td>{index+1}</td>
                                     <td>{e.nom}</td>
                                     <td>{e.region}</td>
-                                    <td>{e.sport}</td>
-                                    <td>{e.associationSportive}</td>
                                 </tr>
                             ))}
                         </tbody>
-                    </Table>
-                </Row>
-                <Row>
-                    <h5>Liste des participants</h5>
-                </Row>
-                <Row>
-                    <Table striped bordered>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th>Numero</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
                     </Table>
                 </Row>
             </div>

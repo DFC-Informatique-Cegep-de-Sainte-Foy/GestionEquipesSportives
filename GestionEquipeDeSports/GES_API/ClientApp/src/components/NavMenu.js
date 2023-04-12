@@ -45,9 +45,7 @@ class NavMenu extends React.Component {
       if(isAuthenticated === true)
       {
         return (
-          <Nav>
-            <Profile />
-
+          <Nav> 
             <NavItem>
               <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
             </NavItem>
@@ -60,11 +58,12 @@ class NavMenu extends React.Component {
               <NavLink tag={Link} className="text-white" to="/utilisateurs">Utilisateurs</NavLink>
             </NavItem>
 
-            
-
             <NavItem>
               <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
             </NavItem>  
+
+            <Profile />
+           
           </Nav>
         );
       } 
@@ -77,16 +76,21 @@ class NavMenu extends React.Component {
             </NavItem>
 
             <NavItem>
-              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
-            </NavItem>  
-{/* 
-            <NavItem>
-              <NavLink tag={Link} className="text-white" to="/rejoindreUneEquipe">Rejoindre une équipe</NavLink>
+              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({appState: {returnTo: "/profile",},})}>Connexion</NavLink>
             </NavItem>  
 
-            <NavItem className="border border-dark rounded">
-              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Inscrire mon équipe</NavLink>
-            </NavItem> */}
+            <NavItem className="border border-success rounded">
+              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
+                appState: {
+                  returnTo: "/profile",
+                },
+                authorizationParams: {
+                  screen_hint: "signup",
+                },
+              })}>
+                <span className='text-success'>Inscription</span>
+              </NavLink>
+            </NavItem>
           </Nav>
         );
       }

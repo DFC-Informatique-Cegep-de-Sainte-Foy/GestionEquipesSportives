@@ -7,8 +7,9 @@ using GES_API.Models;
 
 namespace GES_API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
     public class EntraineurController : ControllerBase
     {
         private ManipulationDepotUtilisateur  m_maniulationDepotUtilisateur;

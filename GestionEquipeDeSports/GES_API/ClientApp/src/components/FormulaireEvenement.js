@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export function FormEvenement() {
     const [descriptionEvenement, setDescriptionEvenement] = useState("");
@@ -9,10 +10,24 @@ export function FormEvenement() {
     const [typeEvenement, setTypeEvenement] = useState("");
     const [erreurDonnees, setErreurDonnees] = useState(false);
     const [confirmationAjout, setConfirmationAjout] = useState("");
+    const { getAccessTokenSilently } = useAuth0();
+
+    async function obtenirLeToken(){
+        const token =  await getAccessTokenSilently();
+        console.log("ACCESS TOKEN: " + token);
+        return token;
+    }
+
+    /*const token = getAccessTokenSilently();
+    console.log("ACCESS TOKEN: " + token);*/
 
     const optionsRequete = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${obtenirLeToken()}`
+        },
         body: JSON.stringify({
             Description: descriptionEvenement,
             Emplacement: emplacementEvenement,
@@ -21,6 +36,7 @@ export function FormEvenement() {
             TypeEvenement: typeEvenement
         })
     };
+
 
     function handleChange(e) {
         if (e.target.id === "description") {
@@ -45,11 +61,11 @@ export function FormEvenement() {
         }
     }
 
-    function verifierDonnees() {
-        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) {
+    async function verifierDonnees() {
+        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) 
+        {
             setErreurDonnees(false);
-
-            fetch('api/evenements', optionsRequete)
+            await fetch('api/evenements', optionsRequete)
                 .then(function (reponse) {
                     console.log(reponse);
                     console.log(typeEvenement);
@@ -58,7 +74,7 @@ export function FormEvenement() {
                 }).catch(function (error) {
                     console.log(error)
                 }
-                )
+            )
         }
         else {
             setErreurDonnees(true);

@@ -1,16 +1,24 @@
 import { React, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button, Container, Row, Col } from 'react-bootstrap';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const PageSupprimerEvenement = () => {
     const [evenement, setEvenement] = useState({});
+    const { getAccessTokenSilently } = useAuth0();
+    const [loading, setLoading] = useState(true);
 
-    function getEvenement(id){
-        fetch(`api/evenements/${id}`)
+    async function getEvenement(id){
+        const token =  await getAccessTokenSilently();
+
+        await fetch(`api/evenements/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
             .then(res => res.json())
             .then((result) => {
                 console.log(result);
                 setEvenement(result);
+                setLoading(false);
                 // setDescription(result.description);
                 // setEmplacement(result.emplacement);
                 // setDateDebut(result.dateDebut);

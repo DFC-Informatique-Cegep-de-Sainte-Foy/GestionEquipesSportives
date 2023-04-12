@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { Button, Table, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
-export class Utilisateurs extends Component {
+
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
+      const { getAccessTokenSilently } = useAuth0();
+      return (
+        <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
+      );
+    }
+}
+
+class Utilisateurs extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,14 +22,18 @@ export class Utilisateurs extends Component {
     }
 
     async componentDidMount() {
-        await fetch("api/utilisateur")
-            .then(res => res.json())
-            .then((result) => {
-                console.log(result);
-                this.setState({
-                    utilisateurs: result
-                });
+        const token =  await this.props.getAccessTokenSilently();
+
+        await fetch("api/utilisateur", {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            this.setState({
+                utilisateurs: result
             });
+        });
     }
 
     formatTypeUtilisateur(donnees) {
@@ -76,3 +91,4 @@ export class Utilisateurs extends Component {
         );
     }
 }
+export default withMyHook(Utilisateurs);

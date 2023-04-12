@@ -109,7 +109,7 @@ export const FormEquipe = () => {
                                         </div>
                                         <div className="col-6 p-3">
                                             <Link to={'/equipes'}>
-                                                <Button variant="secondary" className="float-end">Retour à la page des équipes</Button>
+                                                <Button variant="secondary" className="float-end">Retour</Button>
                                             </Link>
                                         </div>
                                     </div>

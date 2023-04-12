@@ -11,6 +11,7 @@ namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EvenementsController : ControllerBase
     {
         private ManiulationDepotEvenement m_maniulationDepotEvenement;

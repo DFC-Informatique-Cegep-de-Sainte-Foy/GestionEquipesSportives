@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using GES_API.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UtilisateurController : ControllerBase
     {
         private ManipulationDepotUtilisateur m_manipulationDepotUtilisateur;

@@ -2,11 +2,13 @@
 using GES_Services.Manipulations;
 using Microsoft.AspNetCore.Mvc;
 using GES_Services.Entites;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class EquipeJoueurController : ControllerBase
     {
         private ManipulationDepotEquipeJoueur m_manipulationDepotEquipeJoueur;

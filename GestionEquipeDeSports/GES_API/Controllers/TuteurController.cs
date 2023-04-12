@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using GES_Services.Entites;
 using GES_Services.Manipulations;
 using GES_API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +12,7 @@ namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class TuteurController : ControllerBase
     {
         private ManipulationDepotUtilisateur m_maniulationDepotUtilisateur;

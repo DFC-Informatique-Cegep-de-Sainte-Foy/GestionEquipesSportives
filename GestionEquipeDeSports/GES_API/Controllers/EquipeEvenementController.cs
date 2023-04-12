@@ -3,11 +3,13 @@ using GES_Services.Manipulations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GES_Services.Entites;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class EquipeEvenementController : ControllerBase
     {
         private ManipulationDepotEquipeEvenement m_manipulationDepotEquipeEvenement;
