@@ -19,21 +19,38 @@ export const PageSupprimerEvenement = () => {
                 console.log(result);
                 setEvenement(result);
                 setLoading(false);
-                // setDescription(result.description);
-                // setEmplacement(result.emplacement);
-                // setDateDebut(result.dateDebut);
-                // setDateFin(result.dateFin);
-                // setTypeEvenement(result.typeEvenement);
         }); 
     }
 
     const {id} = useParams();
-    
     console.log(id);
 
     useEffect(() => {
         getEvenement(id);
     }, [evenement.id]);
+
+    async function supprimerEvenement()
+    {
+        const token =  await getAccessTokenSilently();
+        console.log("ACCESS TOKEN: " + token);
+
+        const optionsRequete = {
+            method: 'DELETE',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        await fetch(`/api/evenements/${id}`, optionsRequete)
+            .then(function (reponse) {
+                console.log(reponse);
+            }).catch(function (error) {
+                console.log(error)
+            }
+        )
+    }
 
     return(
         <>
@@ -60,7 +77,7 @@ export const PageSupprimerEvenement = () => {
                     <Col>{evenement.typeEvenement}</Col>
                 </Row>
 
-                <Button  className="me-4" variant='primary' onClick={() => fetch(`/api/evenements/${id}`, {method: "DELETE"})}>Oui, supprimer l'événement</Button>
+                <Button  className="me-4" variant='primary' onClick={supprimerEvenement}>Oui, supprimer l'événement</Button>
                 <Link to={'/evenements'}>
                     <Button  className="me-2" variant='danger'>Non, laisser l'événement</Button>
                 </Link>
