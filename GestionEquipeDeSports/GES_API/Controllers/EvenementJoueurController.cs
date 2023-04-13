@@ -21,6 +21,31 @@ namespace GES_API.Controllers
         }
 
         //GET: api/<EvenementJoueurController>/5
+        [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public ActionResult<IEnumerable<EvenementJoueurModel>> Get(Guid id)
+        {
+            IEnumerable<EvenementJoueurModel> listeJoueursPourEvenement;
+            try
+            {
+                listeJoueursPourEvenement = this.m_manipulationDepotEvenementJoueur.ChercherJoueurParIdEvenement(id).Select(e => new EvenementJoueurModel(e));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            if (listeJoueursPourEvenement == null)
+            {
+                return Ok();
+            }
+            else
+            {
+                return Ok(listeJoueursPourEvenement);                
+            }            
+        }
+
+        //GET: api/<EvenementJoueurController>/5
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -43,10 +68,10 @@ namespace GES_API.Controllers
 
 
         //Put api/<EvenementJoueurController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult Put(Guid id, [FromBody] EvenementJoueurModel p_evenementJoueurModel)
+        public ActionResult Put([FromBody] EvenementJoueurModel p_evenementJoueurModel)
         {
             if (p_evenementJoueurModel == null)
             {

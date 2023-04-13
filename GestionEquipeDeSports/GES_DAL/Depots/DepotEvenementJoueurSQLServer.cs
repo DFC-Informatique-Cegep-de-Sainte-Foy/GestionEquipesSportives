@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GES_Services.Interfaces;
-using GES_DAL.BackendProject;
+using GES_Services.Entites;
 
 namespace GES_DAL.Depots
 {
@@ -23,8 +23,12 @@ namespace GES_DAL.Depots
             this.m_context = p_context;
         }
 
-        public void AjouterPresencePourJoueur(GES_Services.Entites.EvenementJoueur p_evenementJoueur)
+        public void AjouterPresencePourJoueur(EvenementJoueur p_evenementJoueur)
         {
+            if(p_evenementJoueur == null)
+            {
+                throw new ArgumentNullException(nameof(p_evenementJoueur));
+            }
             //trouver le bon evenement avec l'id evenement dans le parametre
             //Evenement? evenement = this.m_context.Evenements.Find(p_evenementJoueur.Fk_Id_Evenement);
 
@@ -32,10 +36,10 @@ namespace GES_DAL.Depots
             //Utilisateur? utilisateur = this.m_context.Utilisateurs.Find(p_evenementJoueur.Fk_Id_Utilisateur);
 
             //Valider que l'evenement et le joueur existent dans la table d'intersection
-            EvenementJoueur? evenement =  this.m_context.EvenementJoueurs.SingleOrDefault(e => e.Fk_Id_Evenement == p_evenementJoueur.Fk_Id_Evenement && e.Fk_Id_Utilisateur == p_evenementJoueur.Fk_Id_Utilisateur);
+            GES_DAL.BackendProject.EvenementJoueur? evenement =  this.m_context.EvenementJoueurs.SingleOrDefault(e => e.Fk_Id_Evenement == p_evenementJoueur.Fk_Id_Evenement && e.Fk_Id_Utilisateur == p_evenementJoueur.Fk_Id_Utilisateur);
             if (evenement == null)
             {
-                this.m_context.EvenementJoueurs.Add(new EvenementJoueur()
+                this.m_context.EvenementJoueurs.Add(new GES_DAL.BackendProject.EvenementJoueur()
                 {
                     Fk_Id_Evenement = p_evenementJoueur.Fk_Id_Evenement,
                     Fk_Id_Utilisateur = p_evenementJoueur.Fk_Id_Utilisateur,
@@ -51,16 +55,16 @@ namespace GES_DAL.Depots
             this.m_context.SaveChanges();
         }
 
-        public GES_Services.Entites.EvenementJoueur ChercherJoueurParIdEvenementIdJoueur(GES_Services.Entites.EvenementJoueur p_evenementJoueur)
+        public EvenementJoueur ChercherJoueurParIdEvenementIdJoueur(EvenementJoueur p_evenementJoueur)
         {
-            EvenementJoueur? evenement = this.m_context.EvenementJoueurs.SingleOrDefault(e => e.Fk_Id_Evenement == p_evenementJoueur.Fk_Id_Evenement && e.Fk_Id_Utilisateur == p_evenementJoueur.Fk_Id_Utilisateur);
+            GES_DAL.BackendProject.EvenementJoueur? evenement = this.m_context.EvenementJoueurs.SingleOrDefault(e => e.Fk_Id_Evenement == p_evenementJoueur.Fk_Id_Evenement && e.Fk_Id_Utilisateur == p_evenementJoueur.Fk_Id_Utilisateur);
 
             if (evenement == null)
             {
                 return null;
             }          
             
-            return new GES_Services.Entites.EvenementJoueur()
+            return new EvenementJoueur()
             {
                 Fk_Id_Evenement = evenement.Fk_Id_Evenement,
                 Fk_Id_Utilisateur = evenement.Fk_Id_Utilisateur,
@@ -69,9 +73,26 @@ namespace GES_DAL.Depots
         }
 
 
-        IEnumerable<GES_Services.Entites.EvenementJoueur> IDepotEvenementJoueur.ChercherJoueurParIdEvenement(Guid p_id)
+        public IEnumerable<EvenementJoueur> ChercherJoueurParIdEvenement(Guid p_id)
         {
-            throw new NotImplementedException();
+            if(p_id == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
+            }
+            //trouver evenement s'il existe
+            GES_DAL.BackendProject.Evenement? evenementDTO = this.m_context.Evenements.FirstOrDefault(e => e.IdEvenement == p_id);
+            if(evenementDTO == null)
+            {
+                throw new InvalidOperationException($"l'evenement avec l'id (p_id) n'existe pas");
+            }
+
+            //trouver les idEvenementJoueurs pour l'evenement dans table intersection
+            IEnumerable<Guid> idEvenementJoueurs = this.m_context.EvenementJoueurs.Where(e => e.Fk_Id_Evenement == p_id).Select(e => e.IdEvenementJoueur);
+
+            //trouver les donnees dans table
+            IEnumerable<EvenementJoueur> evenementJoueurDTO = this.m_context.EvenementJoueurs.Where(e => idEvenementJoueurs.Contains(e.IdEvenementJoueur)).Select(e => e.DeDTOVersEntite());
+            
+            return evenementJoueurDTO;
         }
     }
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, Row, Col } from 'react-bootstrap';
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useFetcher } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
-import { BiTrash, BiEdit } from "react-icons/bi";
+import { BiCheck, BiX } from "react-icons/bi";
 
 export const PageUnEvenement = () => {    
     const [evenement, setEvenement] = useState({});
@@ -15,6 +15,7 @@ export const PageUnEvenement = () => {
     const [equipeEvenement, setEquipeEvenement] = useState([]);
     const [equipeJoueur, setEquipeJoueur] = useState([]);
     const [joueurEvenement, setJoueurEvenement] = useState([]);
+    const [joueurPresenceEvenement, setJoueurPresenceEvenement] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const [loading, setLoading] = useState(true);
     
@@ -31,6 +32,10 @@ export const PageUnEvenement = () => {
     useEffect(() => {
         trouverJouersPourEquipes();
     }, [equipeEvenement]);
+
+    useEffect(() => {
+        listePresenceJoueursPourEvenement();
+    }, []);
 
     async function getEvenement(id){
         const token =  await getAccessTokenSilently();
@@ -87,6 +92,25 @@ export const PageUnEvenement = () => {
         await equipeEvenement.map((equipe) => getJoueurs(equipe.idEquipe));
     }
 
+    async function listePresenceJoueursPourEvenement(){
+        const token =  await getAccessTokenSilently();
+        
+        await fetch(`api/evenementJoueur/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            console.log('Liste presence equipeJoueurs');
+            console.log(result);
+            if(result.status === 404){
+                console.log(' status 404, rien trouvee ');
+            }else
+            {
+                setJoueurPresenceEvenement(result);
+            }
+        });
+    }
+
     function formatDateTime(donnees) {
         var dateTimeEntree = donnees;
         var date = dateTimeEntree.split('T').join(' ');
@@ -106,8 +130,55 @@ export const PageUnEvenement = () => {
     }
 
     function afficherEtatPresence(idUtilisateur){
-        
-        return "inconnu";
+
+        if(joueurPresenceEvenement.length !== 0)
+        {
+            joueurPresenceEvenement.forEach(element => {
+                if(element.fk_Id_Utilisateur === idUtilisateur){
+                    console.log('afficherEtatPresence : ');
+                    console.log(element.estPresentAevenement);
+                    if(element.estPresentAevenement === true)
+                    {
+                        console.log('Est present');
+                        return <td>PRESENT</td>
+                    }
+                    else
+                    {
+                        console.log('est absent !!!');
+                        return <td>absent</td>
+                    }
+                }else{                
+                    return <td>inconnu</td>
+                }
+            });
+        }else{
+            return <td>inconnu</td>
+        }
+
+    }
+
+    async function changerEtatPresence(idUtilisateur, etat){
+        console.log(idUtilisateur);
+        console.log(etat);
+        //const token =  await getAccessTokenSilently();
+
+        let requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: idUtilisateur,
+                FK_Id_Evenement: id,
+                EstPresentAEvenement: etat
+            }) 
+        };
+
+        await fetch(`api/evenementJoueur`, requestOptions)
+        .then(function (reponse) {
+            console.log(reponse);
+
+        }).catch(function (error) {
+            console.log(error)
+        })
     }
 
     return (
@@ -176,8 +247,10 @@ export const PageUnEvenement = () => {
                                     <td>{e.prenom}</td>
                                     <td>{e.numTelephone}</td>
                                     <td>{e.email}</td>
-                                    <td>{afficherEtatPresence(e.idUtilisateur)}</td>
-                                    <td><Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /></Button></td>
+                                    {afficherEtatPresence(e.idUtilisateur)}
+                                    <td><Button variant='success' onClick={() => changerEtatPresence(e.idUtilisateur, true)} size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
+                                    <Button variant='warning' onClick={() => changerEtatPresence(e.idUtilisateur, false)} size="sm" className="me-2" title="Est absent"> <BiX /></Button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
