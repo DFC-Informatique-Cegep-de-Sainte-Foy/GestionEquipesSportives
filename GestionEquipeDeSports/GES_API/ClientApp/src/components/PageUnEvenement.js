@@ -35,7 +35,7 @@ export const PageUnEvenement = () => {
 
     useEffect(() => {
         listePresenceJoueursPourEvenement();
-    }, []);
+    }, [joueurPresenceEvenement]);
 
     async function getEvenement(id){
         const token =  await getAccessTokenSilently();
@@ -183,6 +183,8 @@ export const PageUnEvenement = () => {
         }).catch(function (error) {
             console.log(error)
         })
+        //afficherEtatPresence(idUtilisateur);
+        //trouverJouersPourEquipes();
     }
 
     return (

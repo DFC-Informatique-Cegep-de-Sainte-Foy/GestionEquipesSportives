@@ -12,7 +12,7 @@ namespace GES_DAL.Depots
     public class DepotEvenementJoueurSQLServer : IDepotEvenementJoueur
     {
         public Equipe_sportiveContext m_context;
-        
+
         public DepotEvenementJoueurSQLServer(Equipe_sportiveContext p_context)
         {
             if (p_context is null)
@@ -25,7 +25,7 @@ namespace GES_DAL.Depots
 
         public void AjouterPresencePourJoueur(EvenementJoueur p_evenementJoueur)
         {
-            if(p_evenementJoueur == null)
+            if (p_evenementJoueur == null)
             {
                 throw new ArgumentNullException(nameof(p_evenementJoueur));
             }
@@ -36,7 +36,8 @@ namespace GES_DAL.Depots
             //Utilisateur? utilisateur = this.m_context.Utilisateurs.Find(p_evenementJoueur.Fk_Id_Utilisateur);
 
             //Valider que l'evenement et le joueur existent dans la table d'intersection
-            GES_DAL.BackendProject.EvenementJoueur? evenement =  this.m_context.EvenementJoueurs.SingleOrDefault(e => e.Fk_Id_Evenement == p_evenementJoueur.Fk_Id_Evenement && e.Fk_Id_Utilisateur == p_evenementJoueur.Fk_Id_Utilisateur);
+            GES_DAL.BackendProject.EvenementJoueur? evenement = this.m_context.EvenementJoueurs.SingleOrDefault(e => e.Fk_Id_Evenement == p_evenementJoueur.Fk_Id_Evenement && e.Fk_Id_Utilisateur == p_evenementJoueur.Fk_Id_Utilisateur);
+
             if (evenement == null)
             {
                 this.m_context.EvenementJoueurs.Add(new GES_DAL.BackendProject.EvenementJoueur()
@@ -50,6 +51,7 @@ namespace GES_DAL.Depots
             {
                 {
                     evenement.EstPresentAevenement = p_evenementJoueur.EstPresentAevenement;
+                    this.m_context.Update(evenement);
                 }
             }
             this.m_context.SaveChanges();
@@ -62,8 +64,8 @@ namespace GES_DAL.Depots
             if (evenement == null)
             {
                 return null;
-            }          
-            
+            }
+
             return new EvenementJoueur()
             {
                 Fk_Id_Evenement = evenement.Fk_Id_Evenement,
@@ -75,13 +77,13 @@ namespace GES_DAL.Depots
 
         public IEnumerable<EvenementJoueur> ChercherJoueurParIdEvenement(Guid p_id)
         {
-            if(p_id == Guid.Empty)
+            if (p_id == Guid.Empty)
             {
                 throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
             }
             //trouver evenement s'il existe
             GES_DAL.BackendProject.Evenement? evenementDTO = this.m_context.Evenements.FirstOrDefault(e => e.IdEvenement == p_id);
-            if(evenementDTO == null)
+            if (evenementDTO == null)
             {
                 throw new InvalidOperationException($"l'evenement avec l'id (p_id) n'existe pas");
             }
@@ -91,7 +93,7 @@ namespace GES_DAL.Depots
 
             //trouver les donnees dans table
             IEnumerable<EvenementJoueur> evenementJoueurDTO = this.m_context.EvenementJoueurs.Where(e => idEvenementJoueurs.Contains(e.IdEvenementJoueur)).Select(e => e.DeDTOVersEntite());
-            
+
             return evenementJoueurDTO;
         }
     }

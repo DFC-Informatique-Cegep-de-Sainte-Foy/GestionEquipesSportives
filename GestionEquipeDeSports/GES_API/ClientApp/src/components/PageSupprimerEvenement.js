@@ -8,8 +8,8 @@ export const PageSupprimerEvenement = () => {
     const { getAccessTokenSilently } = useAuth0();
     const [loading, setLoading] = useState(true);
 
-    async function getEvenement(id){
-        const token =  await getAccessTokenSilently();
+    async function getEvenement(id) {
+        const token = await getAccessTokenSilently();
 
         await fetch(`api/evenements/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
@@ -19,24 +19,23 @@ export const PageSupprimerEvenement = () => {
                 console.log(result);
                 setEvenement(result);
                 setLoading(false);
-        }); 
+            });
     }
 
-    const {id} = useParams();
+    const { id } = useParams();
     console.log(id);
 
     useEffect(() => {
         getEvenement(id);
     }, [evenement.id]);
 
-    async function supprimerEvenement()
-    {
-        const token =  await getAccessTokenSilently();
+    async function supprimerEvenement() {
+        const token = await getAccessTokenSilently();
         console.log("ACCESS TOKEN: " + token);
 
         const optionsRequete = {
             method: 'DELETE',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -45,14 +44,18 @@ export const PageSupprimerEvenement = () => {
 
         await fetch(`/api/evenements/${id}`, optionsRequete)
             .then(function (reponse) {
+                if(reponse.ok) {
+                    //redirect to evenements
+                    window.location.href = "/evenements";
+                }
                 console.log(reponse);
             }).catch(function (error) {
                 console.log(error)
             }
-        )
+            )
     }
 
-    return(
+    return (
         <>
             <Container>
                 <h2 style={{ color: 'red' }}>Voulez-vous vraiment supprimer cet événement?</h2>
@@ -77,9 +80,9 @@ export const PageSupprimerEvenement = () => {
                     <Col>{evenement.typeEvenement}</Col>
                 </Row>
 
-                <Button  className="me-4" variant='primary' onClick={supprimerEvenement}>Oui, supprimer l'événement</Button>
+                <Button className="me-4" variant='primary' onClick={supprimerEvenement}>Oui, supprimer l'événement</Button>
                 <Link to={'/evenements'}>
-                    <Button  className="me-2" variant='danger'>Non, laisser l'événement</Button>
+                    <Button className="me-2" variant='danger'>Non, laisser l'événement</Button>
                 </Link>
             </Container>
         </>
