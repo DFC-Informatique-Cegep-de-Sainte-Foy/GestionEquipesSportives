@@ -1,3 +1,5 @@
+use Equipe_sportive
+
 insert into Equipe (Nom, Region, DateCreation, DateModification, Sport, AssociationSportive, Etat, Fk_Id_Etat) values ('Steuber-Osinski', 'Rulong', '2022-05-15', '2022-07-03', 'Soccer', 'Business Development', 1, 1);
 insert into Equipe (Nom, Region, DateCreation, DateModification, Sport, AssociationSportive, Etat, Fk_Id_Etat) values ('Graham, Reinger and Bergnaum', 'Kitamilo', '2022-12-24', '2022-11-10', 'Soccer', 'Training', 1, 1);
 insert into Equipe (Nom, Region, DateCreation, DateModification, Sport, AssociationSportive, Etat, Fk_Id_Etat) values ('Goyette Inc', 'Peroguarda', '2022-06-18', '2022-08-05', 'Soccer', 'Engineering', 1, 1);

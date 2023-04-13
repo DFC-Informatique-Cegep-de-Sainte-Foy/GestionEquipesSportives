@@ -1,3 +1,4 @@
+use Equipe_sportive
 insert into Utilisateur (Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles) values ('De''Vere - Hunt', 'Maureene', 47, 'mdeverehunt0@latimes.com', 'PO Box 51373', '(629) 6086917', '2022-10-25', '2022-07-21', 1, 1, 3);
 insert into Utilisateur (Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles) values ('Rimer', 'Sadella', 27, 'srimer1@theglobeandmail.com', '13th Floor', '(955) 5891978', '2022-06-01', '2023-03-28', 1, 1, 3);
 insert into Utilisateur (Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles) values ('Sanger', 'Nina', 37, 'nsanger2@t.co', 'PO Box 44298', '(563) 6271489', '2022-09-18', '2022-04-15', 1, 1, 2);
