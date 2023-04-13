@@ -1,19 +1,12 @@
-﻿-- Use master;
--- GO
--- CREATE DATABASE Equipe_sportive;
-
+﻿Use master;
 GO
-USE Equipe_sportive;
 
-
-IF OBJECT_ID(N'dbo.EquipeEvenement', N'U') IS NULL 
-	BEGIN 
-		CREATE TABLE EquipeEvenement(
-		IdEquipeEvenement UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
-		FK_Id_Equipe UNIQUEIDENTIFIER FOREIGN KEY REFERENCES dbo.Equipe (IdEquipe) NOT NULL,
-		FK_Id_Evenement UNIQUEIDENTIFIER FOREIGN KEY REFERENCES dbo.Evenement (IdEvenement) NOT NULL
-		);
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'Equipe_sportive')
+BEGIN
+  CREATE DATABASE Equipe_sportive;
 END;
+
+USE Equipe_sportive;
 
 IF OBJECT_ID(N'dbo.Roles', N'U') IS NULL 
 	BEGIN 
@@ -80,6 +73,7 @@ IF OBJECT_ID(N'dbo.Evenement', N'U') IS NULL
 		Emplacement VARCHAR(200) NOT NULL,
 		DateDebut DATETIME2 NOT NULL,
 		DateFin DATETIME2 NOT NULL,
+		Duree INT,
 		DateCreation DATETIME2,
 		DateModification DATETIME2,
 		Etat BIT NOT NULL,
