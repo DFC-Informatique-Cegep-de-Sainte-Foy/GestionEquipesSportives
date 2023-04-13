@@ -130,31 +130,35 @@ export const PageUnEvenement = () => {
     }
 
     function afficherEtatPresence(idUtilisateur){
-
+        let etatAReturn;
         if(joueurPresenceEvenement.length !== 0)
         {
-            joueurPresenceEvenement.forEach(element => {
-                if(element.fk_Id_Utilisateur === idUtilisateur){
-                    console.log('afficherEtatPresence : ');
-                    console.log(element.estPresentAevenement);
-                    if(element.estPresentAevenement === true)
+            for(let i = 0; i < joueurPresenceEvenement.length; i++){
+                const joueur = joueurPresenceEvenement[i];
+                if(joueur.fk_Id_Utilisateur === idUtilisateur){
+                    if(joueur.estPresentAevenement === true)
                     {
                         console.log('Est present');
-                        return <td>PRESENT</td>
+                        etatAReturn = <td style={{color: "green"}}>PRESENT</td>
+                        break;
                     }
                     else
                     {
                         console.log('est absent !!!');
-                        return <td>absent</td>
+                        etatAReturn = <td style={{color: "red"}}>absent</td>
+                        break;
                     }
-                }else{                
-                    return <td>inconnu</td>
                 }
-            });
+                else{
+                    console.log('1 if');
+                    etatAReturn = <td style={{color: "grey"}}>inconnu</td>
+                }
+            }
         }else{
-            return <td>inconnu</td>
+            console.log('2 if');
+            etatAReturn = <td style={{color: "grey"}}>inconnu</td>
         }
-
+        return etatAReturn;
     }
 
     async function changerEtatPresence(idUtilisateur, etat){
