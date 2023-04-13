@@ -15,7 +15,7 @@
 --);
 --GO
 
-INSERT INTO [Evenement] (Description,Emplacement,dateDebut,dateFin,TypeEvenement)
+INSERT INTO [Evenement] (Description,Emplacement,dateDebut,dateFin,Fk_Id_TypeEvenement)
 VALUES
   ('sem, consequat nec,','Nunc commodo','Apr 20, 2022 11:44','Apr 21, 2022 11:44',1),
   ('Aliquam fringilla cursus','accumsan interdum','Apr 20, 2022 11:44','Apr 21, 2022 11:44',1),
