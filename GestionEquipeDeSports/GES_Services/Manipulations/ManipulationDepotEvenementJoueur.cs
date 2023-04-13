@@ -32,7 +32,7 @@ namespace GES_Services.Manipulations
         
         public IEnumerable<EvenementJoueur> ChercherJoueurParIdEvenement(Guid p_id)
         {
-            throw new NotImplementedException();
+            return this.m_depotEvenementJoueur.ChercherJoueurParIdEvenement(p_id);
         }
         
         public void AjouterPresencePourJoueur(EvenementJoueur p_evenementJoueur)
