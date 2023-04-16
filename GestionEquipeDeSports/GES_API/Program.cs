@@ -54,8 +54,7 @@ builder.Services.AddScoped<IDepotEvenementEquipe, DepotEvenementEquipeSQLServer>
 //Dependence entre l'interface EvenementJoueur et le DepotEvenementJoueurSQLServer
 builder.Services.AddScoped<IDepotEvenementJoueur, DepotEvenementJoueurSQLServer>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<Equipe_sportiveContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Equipe_sportiveContext>();
 
 builder.Services.AddHealthChecks().AddSqlServer(connectionString, tags: new[] { "db" });
 
