@@ -6,10 +6,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function withMyHook(Component) {
     return function WrappedComponent(props) {
-      const { getAccessTokenSilently } = useAuth0();
-      return (
-        <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
-      );
+        const { getAccessTokenSilently } = useAuth0();
+        return (
+            <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
+        );
     }
 }
 
@@ -57,12 +57,12 @@ class FormEntraineur extends Component {
             telephone: ''
         });
 
-        const token =  await this.props.getAccessTokenSilently();
+        const token = await this.props.getAccessTokenSilently();
         console.log("ACCESS TOKEN: " + token);
 
         let requestOptions = {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -75,8 +75,8 @@ class FormEntraineur extends Component {
                 telephone: this.state.telephone
             })
         }
-        
-        
+
+
         await fetch('api/entraineur', requestOptions)
             .then(response => {
                 if (!response.ok) {

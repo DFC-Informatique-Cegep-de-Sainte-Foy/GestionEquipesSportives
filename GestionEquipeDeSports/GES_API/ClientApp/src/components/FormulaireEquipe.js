@@ -27,19 +27,18 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 export const FormEquipe = () => {
     const { getAccessTokenSilently } = useAuth0();
 
-    async function soumettreFormulaire(values) 
-    {
+    async function soumettreFormulaire(values) {
         console.log('formulaire est Valid!');
 
-        const token =  await getAccessTokenSilently();
+        const token = await getAccessTokenSilently();
         console.log("ACCESS TOKEN: " + token);
 
         //POST request fetch
 
         let requestOptions = {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' ,
+            headers: {
+                'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
             },

@@ -2,8 +2,8 @@ import React from 'react';
 import Alert from 'react-bootstrap/Alert'
 import { Link } from 'react-router-dom';
 
-function Erreur404(){
-    return(
+function Erreur404() {
+    return (
         <>
             <Alert variant="danger">
                 <h1>Erreur 404</h1>
@@ -15,7 +15,7 @@ function Erreur404(){
             <br></br>
             <p>Vous pouvez rechercher plus de résultats ou vous rendre sur notre <Link to="/">page d'accueil.</Link></p>
         </>
-        
+
     );
 }
 

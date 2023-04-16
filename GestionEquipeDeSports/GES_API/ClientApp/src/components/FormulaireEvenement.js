@@ -35,14 +35,13 @@ export function FormEvenement() {
         }
     }
 
-    async function verifierDonnees() 
-    {
-        const token =  await getAccessTokenSilently();
+    async function verifierDonnees() {
+        const token = await getAccessTokenSilently();
         console.log("ACCESS TOKEN: " + token);
 
         const optionsRequete = {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -56,8 +55,7 @@ export function FormEvenement() {
             })
         };
 
-        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) 
-        {
+        if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) {
             setErreurDonnees(false);
 
             await fetch('api/evenements', optionsRequete)
@@ -69,10 +67,9 @@ export function FormEvenement() {
                 }).catch(function (error) {
                     console.log(error)
                 }
-            )
+                )
         }
-        else 
-        {
+        else {
             setErreurDonnees(true);
         }
     }
@@ -117,7 +114,7 @@ export function FormEvenement() {
                                     <option value="1">Partie</option>
                                     <option value="2">Autre</option>
                                 </select>
-                                
+
                             </div><p></p>
 
                             {erreurDonnees && <span style={{ color: 'red' }}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}

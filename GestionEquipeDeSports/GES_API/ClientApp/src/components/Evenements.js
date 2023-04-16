@@ -6,10 +6,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function withMyHook(Component) {
     return function WrappedComponent(props) {
-      const { getAccessTokenSilently } = useAuth0();
-      return (
-        <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
-      );
+        const { getAccessTokenSilently } = useAuth0();
+        return (
+            <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
+        );
     }
 }
 
@@ -22,20 +22,20 @@ class Evenements extends React.Component {
     }
 
     async componentDidMount() {
-        const token =  await this.props.getAccessTokenSilently();
-      
+        const token = await this.props.getAccessTokenSilently();
+
         await fetch("api/evenements", {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
-        .then(res => res.json())
-        .then((result) => {
-            this.setState({
-                evenements: result
+            .then(res => res.json())
+            .then((result) => {
+                this.setState({
+                    evenements: result
+                });
             });
-        });
     }
 
-    formatDateTime(donnees){
+    formatDateTime(donnees) {
         var dateTimeEntree = donnees;
         var date = dateTimeEntree.split('T')[0];
         var time = dateTimeEntree.split('T')[1].split(':');
@@ -44,14 +44,14 @@ class Evenements extends React.Component {
         return dateTimeSortie;
     }
 
-    affichageTypeEvenement(data){
-        if(data === 0){
+    affichageTypeEvenement(data) {
+        if (data === 0) {
             return "Entrainement";
-        } else if(data === 1){
+        } else if (data === 1) {
             return "Partie";
-        } else if (data === 2){
+        } else if (data === 2) {
             return "Autre";
-        }else{
+        } else {
             return data;
         }
     }
@@ -78,17 +78,17 @@ class Evenements extends React.Component {
                     <tbody>
                         {this.state.evenements.map((ev, index) => (
                             <tr key={ev.id}>
-                                <td>{index+1}</td>
-                                <td><Link to={{ pathname: `/unEvenement/${ev.id}`}}>{ev.description}</Link></td>
+                                <td>{index + 1}</td>
+                                <td><Link to={{ pathname: `/unEvenement/${ev.id}` }}>{ev.description}</Link></td>
                                 <td>{ev.emplacement}</td>
                                 <td>{this.formatDateTime(ev.dateDebut)}</td>
                                 <td>{this.formatDateTime(ev.dateFin)}</td>
                                 <td>{this.affichageTypeEvenement(ev.typeEvenement)}</td>
                                 <td>
-                                    <Link to={{ pathname: `/modifieEvenement/${ev.id}`}}>
+                                    <Link to={{ pathname: `/modifieEvenement/${ev.id}` }}>
                                         <Button variant='warning' size="sm" className="me-2" title="Modifier"> <BiEdit /> </Button>
                                     </Link>
-                                    <Link to={{ pathname: `/supprimerEvenement/${ev.id}`}}>
+                                    <Link to={{ pathname: `/supprimerEvenement/${ev.id}` }}>
                                         <Button variant='danger' size="sm" title="Supprimer"> <BiTrash /> </Button>
                                     </Link>
                                 </td>
