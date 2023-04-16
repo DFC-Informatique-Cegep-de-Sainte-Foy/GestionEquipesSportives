@@ -3,7 +3,7 @@ import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Nav } f
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { useAuth0 } from '@auth0/auth0-react';
-import  './Profile.js'
+import './Profile.js'
 import Profile from './Profile.js';
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -11,9 +11,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
-    
+
     return (
-      <Component {...props} loginWithRedirect={loginWithRedirect} logout={logout} isAuthenticated={isAuthenticated}/>
+      <Component {...props} loginWithRedirect={loginWithRedirect} logout={logout} isAuthenticated={isAuthenticated} />
     );
   }
 }
@@ -40,12 +40,14 @@ class NavMenu extends React.Component {
     const logout = this.props.logout;
     const isAuthenticated = this.props.isAuthenticated;
 
-    function MenuAAfficher()
-    {
-      if(isAuthenticated === true)
-      {
+    function MenuAAfficher() {
+      if (isAuthenticated === true) {
         return (
-          <Nav> 
+          <Nav>
+            <NavItem>
+              <NavLink tag={Link} className="text-white" to="/ma-page-accueil">Ma page d'Accueil</NavLink>
+            </NavItem>
+            
             <NavItem>
               <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
             </NavItem>
@@ -60,15 +62,14 @@ class NavMenu extends React.Component {
 
             <NavItem>
               <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
-            </NavItem>  
+            </NavItem>
 
             <Profile />
-           
+
           </Nav>
         );
-      } 
-      else 
-      {
+      }
+      else {
         return (
           <Nav>
             <NavItem>
@@ -76,8 +77,8 @@ class NavMenu extends React.Component {
             </NavItem>
 
             <NavItem>
-              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({appState: {returnTo: "/profile",},})}>Connexion</NavLink>
-            </NavItem>  
+              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({ appState: { returnTo: "/profile", }, })}>Connexion</NavLink>
+            </NavItem>
 
             <NavItem className="border border-success rounded">
               <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
@@ -108,7 +109,7 @@ class NavMenu extends React.Component {
               <Nav className="navbar-nav flex-grow">
                 <MenuAAfficher />
               </Nav>
-              
+
             </Collapse>
           </Navbar>
         </div>

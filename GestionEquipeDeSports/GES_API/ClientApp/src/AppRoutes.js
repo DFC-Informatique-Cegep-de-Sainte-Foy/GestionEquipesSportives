@@ -1,17 +1,17 @@
 import Equipes from "./components/Equipes";
 import { Accueil } from "./components/Accueil";
-import Evenements  from "./components/Evenements";
+import Evenements from "./components/Evenements";
 import { FormEvenement } from "./components/FormulaireEvenement";
 import { FormEquipe } from "./components/FormulaireEquipe";
-import  Utilisateurs  from "./components/Utilisateurs";
-import FormEntraineur  from "./components/FormulaireEntraineur";
+import Utilisateurs from "./components/Utilisateurs";
+import FormEntraineur from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./components/PageUnEvenement";
 import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
 import { PageUneEquipe } from "./components/PageUneEquipe";
 import { PageSupprimerEquipe } from "./components/PageSupprimerEquipe";
-import { PageJoueur } from "./pages/PageJoueur";
-import  Erreur404  from "./components/Erreur404";
+import { PageAccueilAthlete } from "./pages/PageJoueur";
+import Erreur404 from "./components/Erreur404";
 import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
 import Profile from "./components/Profile";
 import { Connexion } from "./components/Connexion";
@@ -80,9 +80,10 @@ const AppRoutes = [
     element: <PageSupprimerEquipe />
   },
   {
-    path: 'pagejoueur/:id',
+    // path: '/ma-page-accueil/:id',
+    path: 'ma-page-accueil/',
     //element: <PageJoueur />
-    element: <AuthenticationGuard component={PageJoueur} />
+    element: <AuthenticationGuard component={PageAccueilAthlete} />
   },
   {
     path: '/rejoindreUneEquipe',
