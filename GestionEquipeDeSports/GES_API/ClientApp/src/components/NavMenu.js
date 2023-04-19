@@ -46,7 +46,7 @@ class NavMenu extends React.Component {
           <Nav>
 
             <NavItem>
-              <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entarineur</NavLink>
+              <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entraineur</NavLink>
             </NavItem>
 
             <NavItem>
