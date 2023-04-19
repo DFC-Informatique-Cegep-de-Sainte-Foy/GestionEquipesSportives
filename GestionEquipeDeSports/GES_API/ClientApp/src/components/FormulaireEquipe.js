@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Container, Row, Col } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -26,6 +26,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 export const FormEquipe = () => {
     const { getAccessTokenSilently } = useAuth0();
+    const navigate = useNavigate();
 
     async function soumettreFormulaire(values) {
         console.log('formulaire est Valid!');
@@ -118,9 +119,7 @@ export const FormEquipe = () => {
                                             <Button variant='primary' type="submit" >Ajouter</Button>
                                         </div>
                                         <div className="col-6 p-3">
-                                            <Link to={'/equipes'}>
-                                                <Button variant="secondary" className="float-end">Retour</Button>
-                                            </Link>
+                                                <Button variant="secondary" onClick={() => navigate(-1)} className="float-end">Retour</Button>
                                         </div>
                                     </div>
 

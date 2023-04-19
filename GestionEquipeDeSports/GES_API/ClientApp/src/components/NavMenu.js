@@ -44,6 +44,11 @@ class NavMenu extends React.Component {
       if (isAuthenticated === true) {
         return (
           <Nav>
+
+            <NavItem>
+              <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entarineur</NavLink>
+            </NavItem>
+
             <NavItem>
               <NavLink tag={Link} className="text-white" to="/ma-page-accueil">Ma page d'Accueil</NavLink>
             </NavItem>

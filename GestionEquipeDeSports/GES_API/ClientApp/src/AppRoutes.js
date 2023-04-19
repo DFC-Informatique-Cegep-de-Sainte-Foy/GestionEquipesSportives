@@ -11,6 +11,7 @@ import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
 import { PageUneEquipe } from "./components/PageUneEquipe";
 import { PageSupprimerEquipe } from "./components/PageSupprimerEquipe";
 import { PageAccueilAthlete } from "./pages/PageJoueur";
+import { PageAcceuilEntraineur } from "./pages/PageAccueilEntraineur";
 import Erreur404 from "./components/Erreur404";
 import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
 import Profile from "./components/Profile";
@@ -84,6 +85,11 @@ const AppRoutes = [
     path: 'ma-page-accueil/',
     //element: <PageJoueur />
     element: <AuthenticationGuard component={PageAccueilAthlete} />
+  },
+  {
+    path: '/accueilEntraineur',
+    //element: <PageAcceuilEntraineur />
+    element: <AuthenticationGuard component={PageAcceuilEntraineur} />
   },
   {
     path: '/rejoindreUneEquipe',
