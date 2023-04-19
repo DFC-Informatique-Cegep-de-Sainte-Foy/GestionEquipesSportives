@@ -1,4 +1,4 @@
-﻿Use master;
+Use master;
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'Equipe_sportive')
@@ -108,6 +108,19 @@ IF OBJECT_ID(N'dbo.EvenementJoueur', N'U') IS NULL
 		);
 END;
 
+IF OBJECT_ID(N'dbo.UtilisateurEquipeRole', N'U') IS NULL 
+	BEGIN 
+		CREATE TABLE UtilisateurEquipeRole(
+		IdUtilisateurEquipeRole UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
+		FK_Id_Utilisateur UNIQUEIDENTIFIER FOREIGN KEY REFERENCES dbo.Utilisateur (IdUtilisateur) NOT NULL,
+		FK_Id_Equipe UNIQUEIDENTIFIER FOREIGN KEY REFERENCES dbo.Equipe (IdEquipe) NOT NULL,
+		FK_Id_Role INT FOREIGN KEY REFERENCES dbo.Roles (IdRole) NOT NULL
+		);
+END;
+
+
+
+
 BEGIN 
 	IF NOT EXISTS (SELECT Description FROM TypeEvenements
 				   WHERE IdTypeEvenement <= 2)
@@ -148,6 +161,6 @@ END
 
 --GO
 --INSERT INTO Evenement(IdEvenement, Description, Emplacement, DateDebut, DateFin, DateCreation, DateModification, IdTypeEvenement, Etat)
---    VALUES ('EEED1C48-5DCE-4273-906E-57290EE21414','Match de basketball', 'Yaound�', '2023-03-20','2023-03-23','2023-03-15','2023-03-15', 1, 0);
+--    VALUES ('EEED1C48-5DCE-4273-906E-57290EE21414','Match de basketball', 'Yaound ', '2023-03-20','2023-03-23','2023-03-15','2023-03-15', 1, 0);
 
 --Select * from Evenement;
