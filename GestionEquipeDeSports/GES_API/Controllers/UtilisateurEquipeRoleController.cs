@@ -22,10 +22,11 @@ namespace GES_API.Controllers
         }
 
 
-        //GET: api/<UtilisateurEquipeRoleControlle>/5
-        [HttpGet("{id}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
+        ////GET: api/<UtilisateurEquipeRoleControlle>/5
+        //[HttpGet("{id}")]
+        //[ProducesResponseType(200)]
+        //[ProducesResponseType(400)]
+
 
 
     }
