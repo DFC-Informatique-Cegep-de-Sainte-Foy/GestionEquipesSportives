@@ -7,7 +7,6 @@ import './Profile.js'
 import Profile from './Profile.js';
 import "bootstrap/dist/css/bootstrap.min.css"
 
-
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
@@ -44,7 +43,6 @@ class NavMenu extends React.Component {
       if (isAuthenticated === true) {
         return (
           <Nav>
-
             <NavItem>
               <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entraineur</NavLink>
             </NavItem>
