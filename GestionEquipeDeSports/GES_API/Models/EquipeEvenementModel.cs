@@ -7,6 +7,7 @@ namespace GES_API.Models
         public Guid IdEquipeEvenement { get; set; }
         public Guid? Fk_Id_Equipe { get; set; }
         public Guid? Fk_Id_Evenement { get; set; }
+
         public EquipeEvenementModel()
         {
             ;

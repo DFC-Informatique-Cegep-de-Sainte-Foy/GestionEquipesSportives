@@ -26,6 +26,7 @@ namespace GES_DAL.DbContexts
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<TypeEvenement> TypeEvenements { get; set; } = null!;
         public virtual DbSet<Utilisateur> Utilisateurs { get; set; } = null!;
+        public virtual DbSet<UtilisateurEquipeRole> UtilisateurEquipeRole { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -121,6 +122,22 @@ namespace GES_DAL.DbContexts
                     .HasForeignKey(d => d.Fk_Id_Utilisateur)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__EquipeJou__Fk_Id__4AB81AF0");
+            });
+
+            modelBuilder.Entity<UtilisateurEquipeRole>(entity =>
+            {
+                entity.HasKey(e => e.IdUtilisateurEquipeRole)
+                    .HasName("PK__Utilisat__576C20F087998004");
+
+                entity.ToTable("UtilisateurEquipeRole");
+
+                entity.Property(e => e.IdUtilisateurEquipeRole).HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.FkIdEquipe).HasColumnName("FK_Id_Equipe");
+
+                entity.Property(e => e.FkIdRole).HasColumnName("FK_Id_Role");
+
+                entity.Property(e => e.FkIdUtilisateur).HasColumnName("FK_Id_Utilisateur");
             });
 
             modelBuilder.Entity<Etat>(entity =>
