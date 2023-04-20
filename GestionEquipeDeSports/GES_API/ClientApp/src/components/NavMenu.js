@@ -80,14 +80,14 @@ class NavMenu extends React.Component {
             </NavItem>
 
             <NavItem>
-              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({ appState: { returnTo: "/profile", }, })}>Connexion</NavLink>
+              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
             </NavItem>
 
             <NavItem className="border border-success rounded">
               <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
-                appState: {
+                /*appState: {
                   returnTo: "/profile",
-                },
+                },*/
                 authorizationParams: {
                   screen_hint: "signup",
                 },
