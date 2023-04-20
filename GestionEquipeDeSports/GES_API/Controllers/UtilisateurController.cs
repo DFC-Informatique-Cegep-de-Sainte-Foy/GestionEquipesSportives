@@ -35,12 +35,30 @@ namespace GES_API.Controllers
         }
 
         //Get: api/<EquipeController>/5
-        [HttpGet("{id}")]
+        /*[HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public ActionResult<UtilisateurModel> Get(Guid id)
         {
             UtilisateurModel model = new UtilisateurModel(this.m_manipulationDepotUtilisateur.ChercherUtilisateurParId(id));
+            if (model != null)
+            {
+                return Ok(model);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        */
+
+        //Get: api/<EquipeController>/5
+        [HttpGet("{email}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public ActionResult<UtilisateurModel> Get(String email)
+        {
+            UtilisateurModel model = new UtilisateurModel(this.m_manipulationDepotUtilisateur.ChercherUtilisateurParEmail(email));
             if (model != null)
             {
                 return Ok(model);

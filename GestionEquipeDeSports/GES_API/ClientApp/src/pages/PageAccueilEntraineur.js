@@ -4,19 +4,42 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 
 export const PageAcceuilEntraineur = () => {
-    //const [entraineur, setEntraineur] = useState({});
-    //const [nom, setNom] = useState('');
+    const [utilisateur, setUtilisateur] = useState({});
+    const [idUtilisateur, setIdUtilisateur] = useState('');
+    const [roleUtilisateur, setRoleUtilisateur] = useState('');
 
     const [equipes, setEquipes] = useState([]);
     //const [evenements, setEvenements] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
 
+    const { user } = useAuth0();
+
     useEffect(() => {
-        getEquipes();
+        getUtilisateur(user.email);
     }, []);
 
-    async function getEquipes(){
+    // useEffect(() => {
+    //     getEquipes();
+    // }, []);
+
+    //trouver utilisateur dans BD par son email
+    async function getUtilisateur(email){
+        const token = await getAccessTokenSilently();
+
+        await fetch(`api/utilisateur/${email}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            setUtilisateur(result);
+            setRoleUtilisateur(result.prenom);
+            setIdUtilisateur(result.idUtilisateur);
+        });
+    }
+
+    async function getEquipesDeJoueur(){
         const token = await getAccessTokenSilently();
 
         await fetch("api/Equipe", {
@@ -27,7 +50,7 @@ export const PageAcceuilEntraineur = () => {
                 setEquipes(result);
             });
     }
-
+console.log(user.email);
     return (
         <>
         <Container>
@@ -35,6 +58,7 @@ export const PageAcceuilEntraineur = () => {
                 <Col>
                     <h5>Liste des équipes</h5>
                 </Col>
+                <Col>Bonjour {utilisateur.prenom}!</Col>
                 <Col>
                     <Button variant="success" className="float-end" onClick={() => navigate("/formulaireEquipe")}>Créer une équipe</Button>
                 </Col>
