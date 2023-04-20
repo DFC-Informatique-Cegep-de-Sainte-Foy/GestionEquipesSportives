@@ -19,9 +19,9 @@ export const PageAcceuilEntraineur = () => {
         getUtilisateur(user.email);
     }, []);
 
-    // useEffect(() => {
-    //     getEquipes();
-    // }, []);
+    useEffect(() => {
+        getEquipesDeJoueur(idUtilisateur);
+    }, [utilisateur]);
 
     //trouver utilisateur dans BD par son email
     async function getUtilisateur(email){
@@ -39,14 +39,17 @@ export const PageAcceuilEntraineur = () => {
         });
     }
 
-    async function getEquipesDeJoueur(){
+    async function getEquipesDeJoueur(id){
         const token = await getAccessTokenSilently();
-
-        await fetch("api/Equipe", {
+console.log('Id Utilisateur');
+console.log(id);
+        await fetch(`api/UtilisateurEquipe/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
           })
             .then(res => res.json())
             .then((result) => {
+                console.log('Equipes :');
+                console.log(result);
                 setEquipes(result);
             });
     }
