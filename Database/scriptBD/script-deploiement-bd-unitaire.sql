@@ -93,7 +93,7 @@ IF OBJECT_ID(N'dbo.EvenementJoueur', N'U') IS NULL
 	BEGIN 
 		CREATE TABLE EvenementJoueur(
 		IdEvenementJoueur UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
-		EstPresentAEvenement BIT NOT NULL,
+		EstPresentAEvenement BIT,
 		FK_Id_Evenement UNIQUEIDENTIFIER FOREIGN KEY REFERENCES dbo.Evenement (IdEvenement) NOT NULL,
 		FK_Id_Utilisateur UNIQUEIDENTIFIER FOREIGN KEY REFERENCES dbo.Utilisateur (IdUtilisateur) NOT NULL
 		);
