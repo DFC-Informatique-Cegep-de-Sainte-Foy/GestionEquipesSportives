@@ -7,8 +7,9 @@ using GES_API.Models;
 
 namespace GES_API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
     public class EntraineurController : ControllerBase
     {
         private ManipulationDepotUtilisateur  m_maniulationDepotUtilisateur;
@@ -18,19 +19,19 @@ namespace GES_API.Controllers
         }
 
         // GET: api/<EntraineurController>
-        [HttpGet]
-        [ProducesResponseType(200)]
-        public ActionResult<IEnumerable<UtilisateurModel>> Get()
-        {
-            List<UtilisateurModel> utilisateurs = new List<UtilisateurModel>();
+        //[HttpGet]
+        //[ProducesResponseType(200)]
+        //public ActionResult<IEnumerable<UtilisateurModel>> Get()
+        //{
+        //    List<UtilisateurModel> utilisateurs = new List<UtilisateurModel>();
 
-            foreach (var utilisateur in this.m_maniulationDepotUtilisateur.ListerUtilisateurs())
-            {
-                utilisateurs.Add(new UtilisateurModel(utilisateur));
-            }
+        //    foreach (var utilisateur in this.m_maniulationDepotUtilisateur.ListerUtilisateurs())
+        //    {
+        //        utilisateurs.Add(new UtilisateurModel(utilisateur));
+        //    }
 
-            return Ok(utilisateurs);
-        }
+        //    return Ok(utilisateurs);
+        //}
 
         // GET api/<EntraineurController>/5
         [HttpGet("{id}")]        
@@ -65,13 +66,11 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
-            //p_utilisateurModel.EstEntraineur = true;
+            p_utilisateurModel.Roles = EnumTypeRole.Entraineur;
 
-            GES_Services.Entites.Utilisateur utilisateurEnt = p_utilisateurModel.DeModelVersEntite();
+            this.m_maniulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());
 
-            this.m_maniulationDepotUtilisateur.AjouterUtilisateur(utilisateurEnt);
-
-            return CreatedAtAction(nameof(Get), new { id = p_utilisateurModel.IdUtilisateur }, p_utilisateurModel);
+            return CreatedAtAction(nameof(Get), new { id = p_utilisateurModel.IdUtilisateur }, p_utilisateurModel.DeModelVersEntite());
         }
 
         // PUT api/<EntraineurController>/5

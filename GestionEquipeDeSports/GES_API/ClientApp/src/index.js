@@ -6,6 +6,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react'
+import "./styles/styles.css"
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
@@ -13,13 +14,17 @@ const root = createRoot(rootElement);
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+const audience = process.env.REACT_APP_AUTH0_API_SERVER_AUDIENCE;
 
 root.render(
   <BrowserRouter basename={baseUrl}>
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={window.location.origin}
+      authorizationParams={{
+        audience: audience,
+        redirect_uri: window.location.origin
+      }}
     >
       <App />
     </Auth0Provider>

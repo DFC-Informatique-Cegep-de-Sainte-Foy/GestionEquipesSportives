@@ -1,17 +1,22 @@
-import { Equipes } from "./components/Equipes";
+import Equipes from "./components/Equipes";
 import { Accueil } from "./components/Accueil";
-import { Evenements } from "./components/Evenements";
-import { Connexion } from "./components/Connexion";
+import Evenements from "./components/Evenements";
 import { FormEvenement } from "./components/FormulaireEvenement";
 import { FormEquipe } from "./components/FormulaireEquipe";
-import { Utilisateurs } from "./components/Utilisateurs";
-import { FormEntraineur } from "./components/FormulaireEntraineur";
+import Utilisateurs from "./components/Utilisateurs";
+import FormEntraineur from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./components/PageUnEvenement";
 import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
 import { PageUneEquipe } from "./components/PageUneEquipe";
-import { PageJoueur } from "./pages/PageJoueur";
-import  Erreur404  from "./components/Erreur404";
+import { PageSupprimerEquipe } from "./components/PageSupprimerEquipe";
+import { PageAccueilAthlete } from "./pages/PageJoueur";
+import { PageAcceuilEntraineur } from "./pages/PageAccueilEntraineur";
+import Erreur404 from "./components/Erreur404";
+import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
+import Profile from "./components/Profile";
+import { Connexion } from "./components/Connexion";
+import { AuthenticationGuard } from "./components/AuthenticationGuard";
 
 const AppRoutes = [
   {
@@ -20,27 +25,32 @@ const AppRoutes = [
   },
   {
     path: '/equipes',
-    element: <Equipes />
+    element: <AuthenticationGuard component={Equipes} />
   },
   {
     path: '/evenements',
-    element: <Evenements   />
+    //element: <Evenements />
+    element: <AuthenticationGuard component={Evenements} />
   },
   {
     path: '/formulaireEvenement',
-    element: <FormEvenement />
+    //element: <FormEvenement />
+    element: <AuthenticationGuard component={FormEvenement} />
   },
   {
     path: '/formulaireEquipe',
-    element: <FormEquipe />
+    //element: <FormEquipe />
+    element: <AuthenticationGuard component={FormEquipe} />
   },
   {
     path: '/utilisateurs',
-    element: <Utilisateurs />
+    //element: <Utilisateurs />
+    element: <AuthenticationGuard component={Utilisateurs} />
   },
   {
     path: '/formulaireEntraineur',
-    element: <FormEntraineur />
+    //element: <FormEntraineur />
+    element: <AuthenticationGuard component={FormEntraineur} />
   },
   {
     path: '/connexion',
@@ -48,23 +58,48 @@ const AppRoutes = [
   },
   {
     path: '/unEvenement/:id',
-    element: <PageUnEvenement />
+    //element: <PageUnEvenement />
+    element: <AuthenticationGuard component={PageUnEvenement} />
   },
   {
     path: '/modifieEvenement/:id',
-    element: <PageModifieUnEvenement />
+    //element: <PageModifieUnEvenement />
+    element: <AuthenticationGuard component={PageModifieUnEvenement} />
   },
   {
     path: '/supprimerEvenement/:id',
-    element: <PageSupprimerEvenement />
+    //element: <PageSupprimerEvenement />
+    element: <AuthenticationGuard component={PageSupprimerEvenement} />
   },
   {
     path: '/uneEquipe/:id',
-    element: <PageUneEquipe />
+    //element: <PageUneEquipe />
+    element: <AuthenticationGuard component={PageUneEquipe} />
   },
   {
-    path: 'pagejoueur/:id',
-    element: <PageJoueur />
+    path: '/supprimerEquipe/:id',
+    element: <PageSupprimerEquipe />
+  },
+  {
+    // path: '/ma-page-accueil/:id',
+    path: 'ma-page-accueil/',
+    //element: <PageJoueur />
+    element: <AuthenticationGuard component={PageAccueilAthlete} />
+  },
+  {
+    path: '/accueilEntraineur',
+    //element: <PageAcceuilEntraineur />
+    element: <AuthenticationGuard component={PageAcceuilEntraineur} />
+  },
+  {
+    path: '/rejoindreUneEquipe',
+    //element: <PageRejoindreUneEquipe />
+    element: <AuthenticationGuard component={PageRejoindreUneEquipe} />
+  },
+  {
+    path: '/profile',
+    //element: <Profile />
+    element: <AuthenticationGuard component={Profile} />
   },
   {
     path: '*',

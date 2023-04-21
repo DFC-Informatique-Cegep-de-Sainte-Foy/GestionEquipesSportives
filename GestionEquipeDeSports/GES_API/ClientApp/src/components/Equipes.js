@@ -1,23 +1,37 @@
 import React, { Component } from 'react';
 import { Button, Table } from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
-export class Equipes extends Component {
-  constructor(props){
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
+    const { getAccessTokenSilently } = useAuth0();
+    return (
+      <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
+    );
+  }
+}
+
+class Equipes extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       equipes: []
     };
   }
 
-  componentDidMount() {
-    fetch("api/Equipe")
-        .then(res => res.json())
-        .then((result) => {
-            this.setState({
-                equipes: result
-            });
+  async componentDidMount() {
+    const token = await this.props.getAccessTokenSilently();
+
+    await fetch("api/Equipe", {
+      headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+    })
+      .then(res => res.json())
+      .then((result) => {
+        this.setState({
+          equipes: result
         });
+      });
   }
 
   render() {
@@ -40,8 +54,8 @@ export class Equipes extends Component {
           <tbody>
             {this.state.equipes.map((eq, index) => (
               <tr key={eq.idEquipe}>
-                <td>{index+1}</td>
-                <td><Link to={{ pathname: `/uneEquipe/${eq.idEquipe}`}}>{eq.nom}</Link></td>
+                <td>{index + 1}</td>
+                <td><Link to={{ pathname: `/uneEquipe/${eq.idEquipe}` }}>{eq.nom}</Link></td>
                 <td>{eq.region}</td>
                 <td>{eq.sport}</td>
                 <td>{eq.associationSportive}</td>
@@ -54,3 +68,5 @@ export class Equipes extends Component {
     );
   }
 }
+
+export default withMyHook(Equipes);

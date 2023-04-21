@@ -8,8 +8,8 @@ namespace GES_Services.Entites
 {
     public enum EnumTypeEvenement
     {
-        entrainement,
-        partie,
-        autre
+        Entrainement = 0,
+        Partie = 1,
+        Autre = 2
     }
 }

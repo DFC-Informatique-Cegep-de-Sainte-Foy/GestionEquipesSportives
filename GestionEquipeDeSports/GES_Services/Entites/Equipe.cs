@@ -8,8 +8,8 @@ namespace GES_Services.Entites
     {
         public Equipe(Guid guid, string nom, string region, string sport, string associationSportive)
         {
-            bool etat = true;
-            //DateCreation = DateTime.Now;
+            Etat = true;
+            DateCreation = DateTime.Now;
             //DateModification = DateTime.Now;
             IdEquipe = guid;
             Nom = nom;
@@ -26,7 +26,7 @@ namespace GES_Services.Entites
             Etat = true;
             DateCreation = DateTime.Now;
             DateModification = DateTime.Now;
-            IdEquipe = Guid.NewGuid();
+            //IdEquipe = Guid.NewGuid();
             Nom = nom;
             Region = region;
             Sport = sport;

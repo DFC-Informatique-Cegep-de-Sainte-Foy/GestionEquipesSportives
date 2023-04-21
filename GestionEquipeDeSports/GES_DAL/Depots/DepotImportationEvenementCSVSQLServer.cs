@@ -1,4 +1,4 @@
-﻿using GES_DAL.Data;
+﻿using GES_DAL.DbContexts;
 using GES_Services.Entites;
 using GES_Services.Interfaces;
 using System;
@@ -35,7 +35,7 @@ namespace GES_DAL.Depots
                     throw new InvalidOperationException($"l'evenement avec le id {item.IdEvenement} existe deja");
                 }
 
-                m_context.Evenements.Add(new GES_DAL.Models.Evenement(item));
+                m_context.Evenements.Add(new GES_DAL.BackendProject.Evenement(item));
                 m_context.SaveChanges();
             }
             File.Delete(m_nomFichierAImporter);

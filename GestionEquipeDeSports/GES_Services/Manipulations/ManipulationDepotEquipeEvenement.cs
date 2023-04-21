@@ -22,7 +22,7 @@ namespace GES_Services.Manipulations
         }
         public EquipeEvenement ChercherEquipeEvenementParId(Guid p_id)
         {
-            return this.m_depotEquipeEvenement.ChercherEquipeEvenemntParId(p_id);
+            return this.m_depotEquipeEvenement.ChercherEquipeEvenementParId(p_id);
         }
         public void AjouterEquipeEvenement(EquipeEvenement p_equipeEvenement)
         {
@@ -47,6 +47,10 @@ namespace GES_Services.Manipulations
                 throw new ArgumentNullException("Le paramètre p_equipeEvenement ne peut pas être null", nameof(p_equipeEvenement));
             }
             this.m_depotEquipeEvenement.SupprimerEquipeEvenement(p_equipeEvenement);
+        }
+        public EquipeEvenement ChercherEvenementDansEquipeEvenement(EquipeEvenement p_equipeEvenement)
+        {
+            return this.m_depotEquipeEvenement.ChercherEvenementDansEquipeEvenement(p_equipeEvenement);
         }
     }    
 }

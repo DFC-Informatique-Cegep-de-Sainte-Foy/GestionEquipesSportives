@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { Button, Table, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
-export class Utilisateurs extends Component {
+
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
+      const { getAccessTokenSilently } = useAuth0();
+      return (
+        <Component {...props} getAccessTokenSilently={getAccessTokenSilently} />
+      );
+    }
+}
+
+class Utilisateurs extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,19 +22,32 @@ export class Utilisateurs extends Component {
     }
 
     async componentDidMount() {
-        await fetch("api/utilisateur")
-            .then(res => res.json())
-            .then((result) => {
-                console.log(result);
-                this.setState({
-                    utilisateurs: result
-                });
+        const token =  await this.props.getAccessTokenSilently();
+
+        await fetch("api/utilisateur", {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            this.setState({
+                utilisateurs: result
             });
+        });
     }
 
     formatTypeUtilisateur(donnees) {
-        if (donnees) {
-            return 'X';
+        if (donnees == 0) {
+            return 'Admin';
+        }
+        else if(donnees == 1){
+            return 'Entraineur';
+        }
+        else if(donnees == 2){
+            return 'Tuteur';
+        }
+        else {
+            return 'Joueur';
         }
     }
 
@@ -44,26 +68,20 @@ export class Utilisateurs extends Component {
                             <th>Email</th>
                             <th>Adresse</th>
                             <th>Numéro de téléphone</th>
-                            <th>Joueur</th>
-                            <th>Tuteur</th>
-                            <th>Entraineur</th>
-                            <th>Admin</th>
+                            <th>Role</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.utilisateurs.map((u, index) => (
                             <tr key={u.idUtilisateur}>
                                 <td>{index + 1}</td>
-                                <td>{u.nom}</td>
+                                <td><Link to={{ pathname: `/pagejoueur/${u.idUtilisateur}`}}>{u.nom}</Link></td>
                                 <td>{u.prenom}</td>
                                 <td>{u.age}</td>
                                 <td>{u.email}</td>
                                 <td>{u.adresse}</td>
                                 <td>{u.numTelephone}</td>
-                                <td>{this.formatTypeUtilisateur(u.estJoueur)}</td>
-                                <td>{this.formatTypeUtilisateur(u.estTuteur)}</td>
-                                <td>{this.formatTypeUtilisateur(u.estEntraineur)}</td>
-                                <td>{this.formatTypeUtilisateur(u.estAdmin)}</td>
+                                <td>{this.formatTypeUtilisateur(u.roles)}</td>
                             </tr>
                         ))
                         }
@@ -73,3 +91,4 @@ export class Utilisateurs extends Component {
         );
     }
 }
+export default withMyHook(Utilisateurs);

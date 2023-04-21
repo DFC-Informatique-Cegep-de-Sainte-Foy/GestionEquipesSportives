@@ -3,13 +3,16 @@ import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Nav } f
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { useAuth0 } from '@auth0/auth0-react';
+import './Profile.js'
+import Profile from './Profile.js';
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
-    
+
     return (
-      <Component {...props} loginWithRedirect={loginWithRedirect} logout={logout} isAuthenticated={isAuthenticated}/>
+      <Component {...props} loginWithRedirect={loginWithRedirect} logout={logout} isAuthenticated={isAuthenticated} />
     );
   }
 }
@@ -36,37 +39,62 @@ class NavMenu extends React.Component {
     const logout = this.props.logout;
     const isAuthenticated = this.props.isAuthenticated;
 
-    function MenuAAfficher()
-    {
-      if(isAuthenticated === true)
-      {
+    function MenuAAfficher() {
+      if (isAuthenticated === true) {
         return (
           <Nav>
             <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/equipes">Équipes</NavLink>
+              <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entraineur</NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/evenements">Événements</NavLink>
+              <NavLink tag={Link} className="text-white" to="/ma-page-accueil">Ma page d'Accueil</NavLink>
+            </NavItem>
+            
+            <NavItem>
+              <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/utilisateurs">Utilisateurs</NavLink>
+              <NavLink tag={Link} className="text-white" to="/equipes">Équipes</NavLink>
             </NavItem>
 
-            <NavItem className="border border-dark rounded">
-              <NavLink tag={Link} className="text-dark" onClick={() => logout()}>Déconnexion</NavLink>
-            </NavItem>  
+            <NavItem>
+              <NavLink tag={Link} className="text-white" to="/utilisateurs">Utilisateurs</NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
+            </NavItem>
+
+            <Profile />
+
           </Nav>
         );
-      } 
-      else 
-      {
+      }
+      else {
         return (
           <Nav>
-            <NavItem className="border border-dark rounded">
-              <NavLink tag={Link} className="text-dark" onClick={() => loginWithRedirect()}>Connexion</NavLink>
-            </NavItem>  
+            <NavItem>
+              <NavLink tag={Link} className="text-white" to="/">Accueil</NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
+            </NavItem>
+
+            <NavItem className="border border-success rounded">
+              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
+                /*appState: {
+                  returnTo: "/profile",
+                },*/
+                authorizationParams: {
+                  screen_hint: "signup",
+                },
+              })}>
+                <span className='text-success'>Inscription</span>
+              </NavLink>
+            </NavItem>
           </Nav>
         );
       }
@@ -75,17 +103,16 @@ class NavMenu extends React.Component {
     return (
       <header className="header-with-gray-strip">
         <div>
-          <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3">
-            <NavbarBrand tag={Link} to="/">GestionEquipeDeSports</NavbarBrand>
+          <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <NavbarBrand tag={Link} to="/">
+              <span className='text-success'>Gestion</span><span className='text-primary'>EquipeDe</span><span className='text-warning'>Sports</span></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+
               <Nav className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Accueil</NavLink>
-                </NavItem>
-                
                 <MenuAAfficher />
               </Nav>
+
             </Collapse>
           </Navbar>
         </div>

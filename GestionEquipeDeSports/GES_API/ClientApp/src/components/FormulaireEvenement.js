@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export function FormEvenement() {
     const [descriptionEvenement, setDescriptionEvenement] = useState("");
@@ -9,18 +10,7 @@ export function FormEvenement() {
     const [typeEvenement, setTypeEvenement] = useState("");
     const [erreurDonnees, setErreurDonnees] = useState(false);
     const [confirmationAjout, setConfirmationAjout] = useState("");
-
-    const optionsRequete = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            Description: descriptionEvenement,
-            Emplacement: emplacementEvenement,
-            DateDebut: dateDebutEvenement,
-            DateFin: dateFinEvenement,
-            TypeEvenement: typeEvenement
-        })
-    };
+    const { getAccessTokenSilently } = useAuth0();
 
     function handleChange(e) {
         if (e.target.id === "description") {
@@ -45,13 +35,33 @@ export function FormEvenement() {
         }
     }
 
-    function verifierDonnees() {
+    async function verifierDonnees() {
+        const token = await getAccessTokenSilently();
+        console.log("ACCESS TOKEN: " + token);
+
+        const optionsRequete = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                Description: descriptionEvenement,
+                Emplacement: emplacementEvenement,
+                DateDebut: dateDebutEvenement,
+                DateFin: dateFinEvenement,
+                TypeEvenement: typeEvenement
+            })
+        };
+
         if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) {
             setErreurDonnees(false);
 
-            fetch('api/evenements', optionsRequete)
+            await fetch('api/evenements', optionsRequete)
                 .then(function (reponse) {
                     console.log(reponse);
+                    console.log(typeEvenement);
                     setConfirmationAjout("Ajout de l'évenement réussi!");
 
                 }).catch(function (error) {
@@ -100,11 +110,11 @@ export function FormEvenement() {
                                 <label htmlFor="typeEvenement">Type Événement</label>
                                 <select id="typeEvenement" name="typeEvenement" onChange={handleChange} className="form-control" required>
                                     <option value="">Choisir un événement</option>
-                                    <option value="1">Entrainement</option>
-                                    <option value="2">Partie</option>
-                                    <option value="3">Autre</option>
+                                    <option value="0">Entrainement</option>
+                                    <option value="1">Partie</option>
+                                    <option value="2">Autre</option>
                                 </select>
-                                
+
                             </div><p></p>
 
                             {erreurDonnees && <span style={{ color: 'red' }}>*Les données saisies sont incorrectes, veuillez vérifier.</span>}
