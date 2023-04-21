@@ -28,14 +28,15 @@ export const PageUnEvenement = () => {
     useEffect(() => {
         getEquipesDansEvenement(id);
     }, []);
+    
+    //controler a été changeé pour chercher événements par id joueur (ici c'est contraire), donc ces useEffect ne fonctionne pas!
+    // useEffect(() => {
+    //     trouverJouersPourEquipes();
+    // }, [equipeEvenement]);
 
-    useEffect(() => {
-        trouverJouersPourEquipes();
-    }, [equipeEvenement]);
-
-    useEffect(() => {
-        listePresenceJoueursPourEvenement();
-    }, [joueurPresenceEvenement]);
+    // useEffect(() => {
+    //     listePresenceJoueursPourEvenement();
+    // }, [joueurPresenceEvenement]);
 
     async function getEvenement(id){
         const token =  await getAccessTokenSilently();

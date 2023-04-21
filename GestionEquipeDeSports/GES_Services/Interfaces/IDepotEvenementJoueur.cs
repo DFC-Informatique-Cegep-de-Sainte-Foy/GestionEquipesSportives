@@ -10,7 +10,7 @@ namespace GES_Services.Interfaces
     public interface IDepotEvenementJoueur
     {
         public EvenementJoueur ChercherJoueurParIdEvenementIdJoueur(EvenementJoueur p_evenementJoueur);
-        public IEnumerable<EvenementJoueur> ChercherJoueurParIdEvenement(Guid p_id);
+        public IEnumerable<EvenementJoueur> ChercherEvenementParIdUtilisateur(Guid p_id);
         public void AjouterPresencePourJoueur(EvenementJoueur p_evenementJoueur);
     }
 }

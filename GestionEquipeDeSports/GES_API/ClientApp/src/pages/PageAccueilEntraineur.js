@@ -9,7 +9,7 @@ export const PageAcceuilEntraineur = () => {
     const [roleUtilisateur, setRoleUtilisateur] = useState('');
 
     const [equipes, setEquipes] = useState([]);
-    //const [evenements, setEvenements] = useState([]);
+    const [evenements, setEvenements] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
 
@@ -21,7 +21,11 @@ export const PageAcceuilEntraineur = () => {
 
     useEffect(() => {
         getEquipesDeJoueur(idUtilisateur);
-    }, [utilisateur]);
+    }, [idUtilisateur]);
+
+    useEffect(() => {
+        getEvenementsDeJoueur(idUtilisateur);
+    }, [idUtilisateur]);
 
     //trouver utilisateur dans BD par son email
     async function getUtilisateur(email){
@@ -34,7 +38,7 @@ export const PageAcceuilEntraineur = () => {
         .then((result) => {
             console.log(result);
             setUtilisateur(result);
-            setRoleUtilisateur(result.prenom);
+            setRoleUtilisateur(result.roles);
             setIdUtilisateur(result.idUtilisateur);
         });
     }
@@ -53,7 +57,29 @@ console.log(id);
                 setEquipes(result);
             });
     }
-console.log(user.email);
+
+    async function getEvenementsDeJoueur(id){
+        const token = await getAccessTokenSilently();
+
+        await fetch(`api/evenementJoueur/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+          })
+            .then(res => res.json())
+            .then((result) => {
+                console.log('Evenements :');
+                console.log(result);
+                setEvenements(result);
+            });
+    }
+
+    function convertirPresence(donnees){
+        if(donnees === "true"){
+            return "Present";
+        }else{
+            return "absent";
+        }
+    }
+
     return (
         <>
         <Container>
@@ -103,9 +129,18 @@ console.log(user.email);
                             <th>Nom événement</th>
                             <th>Date début</th>
                             <th>Durée</th>
+                            <th>Presence</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        {evenements.map((e, index) => (
+                            <tr key={e.idEvenementJoueur}>
+                                <td>{index + 1}</td>
+                                <td>{e.fk_Id_Evenement}</td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </Table>
             </Row>
         </Container>

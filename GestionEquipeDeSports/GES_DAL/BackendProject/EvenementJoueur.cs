@@ -27,7 +27,7 @@ namespace GES_DAL.BackendProject
 
         public GES_Services.Entites.EvenementJoueur DeDTOVersEntite()
         {
-            return new GES_Services.Entites.EvenementJoueur(EstPresentAevenement, Fk_Id_Evenement, Fk_Id_Utilisateur);
+            return new GES_Services.Entites.EvenementJoueur(IdEvenementJoueur, EstPresentAevenement, Fk_Id_Evenement, Fk_Id_Utilisateur);
         }
     }
 }
