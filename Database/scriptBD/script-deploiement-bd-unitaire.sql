@@ -1,23 +1,3 @@
-/*
-
-
-À EXECUTER SUR LA BASE DE DONNÉES MASTER SI LA BD N'EXISTE PAS ENCORE (1ère fois)
-
-
-
-*/
-
-
-*/
-Use master;
-GO
-
-IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'Equipe_sportive')
-BEGIN
-  CREATE DATABASE Equipe_sportive;
-END;
-
-USE Equipe_sportive;
 
 IF OBJECT_ID(N'dbo.Roles', N'U') IS NULL 
 	BEGIN 
@@ -161,17 +141,3 @@ BEGIN
 		INSERT INTO Roles(IdRole, Description) VALUES(3, 'Athlete')
 	END
 END
-
---GO
---INSERT INTO Evenement(Description, Emplacement, DateDebut, DateFin,DateCreation, DateModification, IdTypeEvenement, Etat)
---   VALUES ('Match de foot', 'Sainte-foy', '2023-03-15','2023-03-17','2023-03-13','2023-03-14', 1, 1);
-
---GO
---INSERT INTO Evenement(Description, Emplacement, DateDebut, DateFin, DateCreation, DateModification, IdTypeEvenement, Etat)
---    VALUES ('Partie de soccer', 'Sagenay', '2023-03-15','2023-03-17','2023-03-12','2023-03-15',2,0);
-
---GO
---INSERT INTO Evenement(IdEvenement, Description, Emplacement, DateDebut, DateFin, DateCreation, DateModification, IdTypeEvenement, Etat)
---    VALUES ('EEED1C48-5DCE-4273-906E-57290EE21414','Match de basketball', 'Yaound ', '2023-03-20','2023-03-23','2023-03-15','2023-03-15', 1, 0);
-
---Select * from Evenement;

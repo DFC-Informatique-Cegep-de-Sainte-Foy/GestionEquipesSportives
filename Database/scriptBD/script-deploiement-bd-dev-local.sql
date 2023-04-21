@@ -1,10 +1,18 @@
--- Use master;
--- GO
--- IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'Equipe_sportive')
--- BEGIN
---   CREATE DATABASE Equipe_sportive;
--- END;
--- USE Equipe_sportive;
+/*
+
+À EXECUTER SUR LA BASE DE DONNÉES MASTER SI LA BD N'EXISTE PAS ENCORE (1ère fois)
+
+*/
+
+Use master;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'Equipe_sportive')
+BEGIN
+  CREATE DATABASE Equipe_sportive;
+END;
+
+USE Equipe_sportive;
 
 IF OBJECT_ID(N'dbo.Roles', N'U') IS NULL 
 	BEGIN 
