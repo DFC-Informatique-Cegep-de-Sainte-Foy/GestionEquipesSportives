@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table, Row, Col, Container } from 'react-bootstrap';
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
+import { BiCheck, BiX } from "react-icons/bi";
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -10,9 +11,10 @@ export const PageAcceuilEntraineur = () => {
 
     const [equipes, setEquipes] = useState([]);
     const [evenements, setEvenements] = useState([]);
+    // const [utilisateurEvenement, setUtilisateurEvenement] = useState({});
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
-
+    var arrayEvenements = [4];
     const { user } = useAuth0();
 
     useEffect(() => {
@@ -26,6 +28,10 @@ export const PageAcceuilEntraineur = () => {
     useEffect(() => {
         getEvenementsDeJoueur(idUtilisateur);
     }, [idUtilisateur]);
+
+    useEffect(() => {
+        trouverEvenementsPourUtilisateur();
+    }, [evenements]);
 
     //trouver utilisateur dans BD par son email
     async function getUtilisateur(email){
@@ -55,6 +61,8 @@ console.log(id);
                 console.log('Equipes :');
                 console.log(result);
                 setEquipes(result);
+            }).catch(function (error) {
+                console.log(error);
             });
     }
 
@@ -69,17 +77,41 @@ console.log(id);
                 console.log('Evenements :');
                 console.log(result);
                 setEvenements(result);
+            }).catch(function (error) {
+                console.log(error);
             });
     }
 
-    function convertirPresence(donnees){
-        if(donnees === "true"){
-            return "Present";
-        }else{
-            return "absent";
-        }
+    function trouverEvenementsPourUtilisateur(){
+        const ev = Array.isArray(evenements) ? evenements.flatMap((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement)) : [];
     }
 
+    function convertirPresence(donnees){
+        let etatAReturn;
+        if(donnees === true){
+            etatAReturn = <td style={{color: "green"}}>PRESENT</td>
+        }else{
+            etatAReturn = <td style={{color: "red"}}>absent</td>
+        }
+        return etatAReturn;
+    }
+
+    async function obtenirEvenementAPartirSonId(idEvenement){
+        const token = await getAccessTokenSilently();
+        await fetch(`api/evenements/${idEvenement}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+            .then(res => res.json())
+            .then((result) => {
+                console.log(result);
+                // setUtilisateurEvenement(result);
+                arrayEvenements.push(result);
+                
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+console.log(arrayEvenements);
     return (
         <>
         <Container>
@@ -92,7 +124,7 @@ console.log(id);
                     <Button variant="success" className="float-end" onClick={() => navigate("/formulaireEquipe")}>Créer une équipe</Button>
                 </Col>
             </Row>
-            <Row style={{height: "200px", overflow: "auto"}}>
+            <Row style={{maxHeight: "200px", overflow: "auto"}}>
                 <Table striped bordered >
                     <thead>
                         <tr>
@@ -105,7 +137,7 @@ console.log(id);
                     </thead>
                     <tbody>
                         {equipes.map((e, index) => (
-                            <tr key={e.idEquipe}>
+                            <tr key={e.idEquipe} onClick={() => navigate(`/uneEquipe/${e.idEquipe}`)} style={{cursor: "pointer"}}>
                                 <td>{index + 1}</td>
                                 <td>{e.nom}</td>
                                 <td>{e.region}</td>
@@ -134,10 +166,16 @@ console.log(id);
                         </tr>
                     </thead>
                     <tbody>
-                        {evenements.map((e, index) => (
-                            <tr key={e.idEvenementJoueur}>
+                        {arrayEvenements.map((e, index) => (
+                            <tr key={e.id}>
                                 <td>{index + 1}</td>
-                                <td>{e.fk_Id_Evenement}</td>
+                                <td>{e.description}</td>
+                                <td>{e.dateDebut}</td>
+                                <td></td>
+                                {/*convertirPresence(e.estPresentAevenement)*/}
+                                <td><Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
+                                    <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
