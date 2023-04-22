@@ -22,5 +22,12 @@ namespace GES_Services.Entites
             Fk_Id_Evenement = fk_Id_Evenement;
             Fk_Id_Utilisateur = fk_Id_Utilisateur;
         }
+        public EvenementJoueur(Guid? p_idEvenementJoueur,bool estPresentAevenement, Guid? fk_Id_Evenement, Guid? fk_Id_Utilisateur)
+        {
+            IdEvenementJoueur = p_idEvenementJoueur;
+            EstPresentAevenement = estPresentAevenement;
+            Fk_Id_Evenement = fk_Id_Evenement;
+            Fk_Id_Utilisateur = fk_Id_Utilisateur;
+        }
     }
 }

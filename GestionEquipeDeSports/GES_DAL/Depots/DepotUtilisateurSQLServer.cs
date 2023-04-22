@@ -64,6 +64,19 @@ namespace GES_DAL.Depots
 
             return utilisateurs.Where(u => u.Etat == true).Select(e => e.DeDTOVersEntite());
         }
+        public Entite.Utilisateur ChercherUtilisateurParEmail(String p_email)
+        {
+            if(p_email == null)
+            {
+                throw new ArgumentNullException(nameof(p_email));
+            }
+            GES_DAL.BackendProject.Utilisateur? utilisateurDTO = this.m_context.Utilisateurs.FirstOrDefault(e => e.Email == p_email);
+            if(utilisateurDTO == null)
+            {
+                throw new InvalidOperationException($"l'utilisateur avec l'email {p_email} n'existe pas");
+            }
+            return utilisateurDTO.DeDTOVersEntite();
+        }
         public void ModifierUtilisateur(Entite.Utilisateur p_utilisateur)
         {
             throw new NotImplementedException();

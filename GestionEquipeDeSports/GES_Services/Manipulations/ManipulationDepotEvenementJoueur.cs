@@ -30,9 +30,9 @@ namespace GES_Services.Manipulations
             return this.m_depotEvenementJoueur.ChercherJoueurParIdEvenementIdJoueur(p_evenementJoueur);
         }
         
-        public IEnumerable<EvenementJoueur> ChercherJoueurParIdEvenement(Guid p_id)
+        public IEnumerable<EvenementJoueur> ChercherEvenementParIdUtilisateur(Guid p_id)
         {
-            return this.m_depotEvenementJoueur.ChercherJoueurParIdEvenement(p_id);
+            return this.m_depotEvenementJoueur.ChercherEvenementParIdUtilisateur(p_id);
         }
         
         public void AjouterPresencePourJoueur(EvenementJoueur p_evenementJoueur)
