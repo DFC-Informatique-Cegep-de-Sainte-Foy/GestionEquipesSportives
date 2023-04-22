@@ -105,7 +105,7 @@ class NavMenu extends React.Component {
         <div>
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white navbar-dark bg-dark border-bottom box-shadow mb-3">
             <NavbarBrand tag={Link} to="/">
-              <span className='text-success'>Gestion</span><span className='text-primary'>EquipeDe</span><span className='text-warning'>Sports</span></NavbarBrand>
+              <span className='text-success'>Gestion</span><span className='text-primary'>Equipe</span><span className='text-warning'>Sportive</span></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
 
