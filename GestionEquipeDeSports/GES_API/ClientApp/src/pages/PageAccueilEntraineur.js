@@ -124,6 +124,7 @@ console.log(arrayEvenements);
                     <Button variant="success" className="float-end" onClick={() => navigate("/formulaireEquipe")}>Créer une équipe</Button>
                 </Col>
             </Row>
+            <p></p>
             <Row style={{maxHeight: "200px", overflow: "auto"}}>
                 <Table striped bordered >
                     <thead>
@@ -150,7 +151,7 @@ console.log(arrayEvenements);
             </Row>
             <Row style={{marginTop: "1.5em"}}>
                 <Col>
-                    <h5>Votre événements à venir</h5>
+                    <h5>Vos événements à venir</h5>
                 </Col>
             </Row>
             <Row>
