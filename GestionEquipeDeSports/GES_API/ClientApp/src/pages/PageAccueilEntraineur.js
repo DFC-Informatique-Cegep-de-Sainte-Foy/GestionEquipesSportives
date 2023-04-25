@@ -36,8 +36,62 @@ const FormatDateTime = (props) =>{
         <td>
             {dateFormatee}
         </td>
-    )    
+    )
 }
+
+const ListeEvenementsPourUtilisateur = (props) =>{
+    console.log(props.ev[0]);
+    var evenementsPourUtilisateur = props.ev;
+    console.log('Function ListeEvenementsPourUtilisateur :');
+    console.log(evenementsPourUtilisateur);
+    return (
+        <tbody>
+            {evenementsPourUtilisateur.map((e, index) => {
+                return <Evenement 
+                        key={e.id}
+                        num={index+1}
+                        description={e.description}
+                        emplacement={e.emplacement}
+                        dateDebut={e.dateDebut}
+                        dateFin={e.dateFin}
+                    />
+            })}
+        </tbody>
+        
+    )
+}
+
+const Evenement = (props) =>{
+    console.log('Evenement :');
+    console.log(props);
+    return(
+        <tr>            
+            <td>{props.num}</td>
+            <td>{props.description}</td>
+            <td>{props.emplacement}</td>
+            <FormatDateTime doneesDateTime={props.dateDebut} />
+            <CalculerDuree dateACalculer={[props.dateDebut, props.dateFin]} />
+            <td>Présence sera ici</td>
+            <td>
+                <Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
+                <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
+            </td>
+            <td>{props.id}</td>
+        </tr>
+    )
+}
+
+{/* <tr key={e.id}>
+                        {<td>{index + 1}</td>
+                        <td>{e.description}</td>
+                        <FormatDateTime doneesDateTime={e.dateDebut} />
+                        <CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} />
+                        <td>Présence sera ici</td>
+                        {/*convertirPresence(e.estPresentAevenement)}
+                        <td><Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
+                            <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
+                        </td>}
+                    </tr> */}
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -49,7 +103,7 @@ export const PageAcceuilEntraineur = () => {
     const [utilisateurEvenement, setUtilisateurEvenement] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
-    // var arrayEvenements = [4];
+    var arrayEvenements = [];
     const { user } = useAuth0();
 
     useEffect(() => {
@@ -117,8 +171,10 @@ console.log(id);
             });
     }
 
-    function trouverEvenementsPourUtilisateur(){
-        const ev = Array.isArray(evenements) ? evenements.flatMap((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement)) : [];
+    async function trouverEvenementsPourUtilisateur(){
+        await evenements.flatMap((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
+        // console.log('ev :');
+        // console.log(ev);
     }
 
     function convertirPresence(donnees){
@@ -133,7 +189,7 @@ console.log(id);
 
     async function obtenirEvenementAPartirSonId(idEvenement){
         // let arrayEvenements = [];
-        // arrayEvenements = utilisateurEvenement;
+        arrayEvenements = utilisateurEvenement;
         const token = await getAccessTokenSilently();
         await fetch(`api/evenements/${idEvenement}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
@@ -142,11 +198,20 @@ console.log(id);
             .then((result) => {
                 console.log(result); 
                 // setUtilisateurEvenement(result);
-                // arrayEvenements.push(result);
-                setUtilisateurEvenement([...utilisateurEvenement, result]);
+                arrayEvenements.push(result);
+                // setUtilisateurEvenement([...utilisateurEvenement, result]);
+                // setUtilisateurEvenement(arrayEvenements);
         }).catch(function (error) {
             console.log(error);
         });
+        setUtilisateurEvenement(arrayEvenements);
+    }
+
+    function MouseOver(event) {
+        event.target.style.background = 'grey';
+    }
+    function MouseOut(event){
+        event.target.style.background="";
     }
 console.log(utilisateurEvenement);
     return (
@@ -175,7 +240,7 @@ console.log(utilisateurEvenement);
                     </thead>
                     <tbody>
                         {equipes.map((e, index) => (
-                            <tr key={e.idEquipe} onClick={() => navigate(`/uneEquipe/${e.idEquipe}`)} style={{cursor: "pointer"}}>
+                            <tr key={e.idEquipe} onClick={() => navigate(`/uneEquipe/${e.idEquipe}`)} style={{cursor: "pointer"}} onMouseOver={MouseOver} onMouseOut={MouseOut}>
                                 <td>{index + 1}</td>
                                 <td>{e.nom}</td>
                                 <td>{e.region}</td>
@@ -197,27 +262,29 @@ console.log(utilisateurEvenement);
                         <tr>
                             <th>#</th>
                             <th>Nom événement</th>
+                            <th>Emplacement</th>
                             <th>Date début</th>
                             <th>Durée</th>
                             <th>Presence</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {Array.isArray(utilisateurEvenement) ? utilisateurEvenement.map((e, index) => (
+                    
+                        <ListeEvenementsPourUtilisateur ev={utilisateurEvenement} />
+                        {/*Array.isArray(utilisateurEvenement) ? utilisateurEvenement.map((e, index) => (
                             <tr key={e.id}>
                                 <td>{index + 1}</td>
                                 <td>{e.description}</td>
                                 <FormatDateTime doneesDateTime={e.dateDebut} />
                                 <CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} />
                                 <td>Présence sera ici</td>
-                                {/*convertirPresence(e.estPresentAevenement)*/}
+                                {/*convertirPresence(e.estPresentAevenement)}
                                 <td><Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
                                     <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
                                 </td>
                             </tr>
-                        )) : []}
-                    </tbody>
+                        )) : [] */}
+                    
                 </Table>
             </Row>
         </Container>
