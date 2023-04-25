@@ -4,6 +4,41 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { BiCheck, BiX } from "react-icons/bi";
 
+const CalculerDuree = (props) =>{
+    let dateDebut = props.dateACalculer[0];
+    let dateFin = props.dateACalculer[1];
+    let dateDebutParsed = Date.parse(dateDebut);
+    let dateFinParsed = Date.parse(dateFin);
+    let result = (dateFinParsed - dateDebutParsed) / 60000;
+    if(result > 60){
+        let dureeH = result / 60;
+        let dureeM = result % 60;
+        return (
+            <td>
+                {dureeH}H {dureeM}min
+            </td>
+        )
+    }
+    else{
+        return (
+            <td>
+                {result}min
+            </td>
+        )
+    }
+}
+
+const FormatDateTime = (props) =>{    
+    var dateTimeEntree = props.doneesDateTime;
+    var date = dateTimeEntree.split('T').join(' ');
+    var dateFormatee = date.substring(0, 16);
+    return (
+        <td>
+            {dateFormatee}
+        </td>
+    )    
+}
+
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
     const [idUtilisateur, setIdUtilisateur] = useState('');
@@ -11,10 +46,10 @@ export const PageAcceuilEntraineur = () => {
 
     const [equipes, setEquipes] = useState([]);
     const [evenements, setEvenements] = useState([]);
-    // const [utilisateurEvenement, setUtilisateurEvenement] = useState({});
+    const [utilisateurEvenement, setUtilisateurEvenement] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
-    var arrayEvenements = [4];
+    // var arrayEvenements = [4];
     const { user } = useAuth0();
 
     useEffect(() => {
@@ -97,21 +132,23 @@ console.log(id);
     }
 
     async function obtenirEvenementAPartirSonId(idEvenement){
+        // let arrayEvenements = [];
+        // arrayEvenements = utilisateurEvenement;
         const token = await getAccessTokenSilently();
         await fetch(`api/evenements/${idEvenement}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
             .then(res => res.json())
             .then((result) => {
-                console.log(result);
+                console.log(result); 
                 // setUtilisateurEvenement(result);
-                arrayEvenements.push(result);
-                
+                // arrayEvenements.push(result);
+                setUtilisateurEvenement([...utilisateurEvenement, result]);
         }).catch(function (error) {
             console.log(error);
         });
     }
-console.log(arrayEvenements);
+console.log(utilisateurEvenement);
     return (
         <>
         <Container>
@@ -167,18 +204,19 @@ console.log(arrayEvenements);
                         </tr>
                     </thead>
                     <tbody>
-                        {arrayEvenements.map((e, index) => (
+                        {Array.isArray(utilisateurEvenement) ? utilisateurEvenement.map((e, index) => (
                             <tr key={e.id}>
                                 <td>{index + 1}</td>
                                 <td>{e.description}</td>
-                                <td>{e.dateDebut}</td>
-                                <td></td>
+                                <FormatDateTime doneesDateTime={e.dateDebut} />
+                                <CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} />
+                                <td>Présence sera ici</td>
                                 {/*convertirPresence(e.estPresentAevenement)*/}
                                 <td><Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
                                     <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
                                 </td>
                             </tr>
-                        ))}
+                        )) : []}
                     </tbody>
                 </Table>
             </Row>
