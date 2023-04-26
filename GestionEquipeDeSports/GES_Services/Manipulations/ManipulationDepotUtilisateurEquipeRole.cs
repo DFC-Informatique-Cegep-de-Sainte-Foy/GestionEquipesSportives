@@ -22,7 +22,7 @@ namespace GES_Services.Manipulations
             return this._depotUtilisateurEquipeRole.ListerUtilisateurEquipeRoles(p_id);
         }
 
-        public UtilisateurEquipeRole ChercherUtilisateurEquipeRoleParId(Guid p_id)
+        public IEnumerable<UtilisateurEquipeRole> ChercherUtilisateurEquipeRoleParId(Guid p_id)
         {
             return this._depotUtilisateurEquipeRole.ChercherUtilisateurEquipeRoleParId(p_id);
         }

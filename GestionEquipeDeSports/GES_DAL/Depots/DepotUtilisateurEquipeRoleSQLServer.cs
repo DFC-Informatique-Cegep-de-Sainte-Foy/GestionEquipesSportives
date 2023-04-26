@@ -43,22 +43,16 @@ namespace GES_DAL.Depots
             }
         }
 
-        public UtilisateurEquipeRole ChercherUtilisateurEquipeRoleParId(Guid p_id)
-        {
+        public IEnumerable<UtilisateurEquipeRole> ChercherUtilisateurEquipeRoleParId(Guid p_id)
+        {           
             if (p_id == Guid.Empty)
             {
                 throw new ArgumentNullException($"le parametre {p_id} ne peut pas etre null", nameof(p_id));
             }
-            
-            if(m_context.UtilisateurEquipeRole.Any(user => user.FkIdUtilisateur == p_id))
-            {
-                GES_DAL.BackendProject.UtilisateurEquipeRole? ues = m_context.UtilisateurEquipeRole.Where(user => user.FkIdUtilisateur == p_id).FirstOrDefault();
-                return ues.DeDTOVersEntite();
-            }
-            else
-            {
-                return null;
-            }
+
+            List<UtilisateurEquipeRole> listeUER = m_context.UtilisateurEquipeRole.Where(user => user.FkIdUtilisateur == p_id).Select(u => u.DeDTOVersEntite()).ToList();
+
+            return listeUER;
 
         }
 

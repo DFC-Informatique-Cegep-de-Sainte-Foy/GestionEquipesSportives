@@ -6,6 +6,7 @@ namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class UtilisateurEquipeRoleController : ControllerBase
     {
         private ManipulationDepotUtilisateurEquipeRole m_manipulationUtilisateurEquipeRole;
@@ -20,21 +21,26 @@ namespace GES_API.Controllers
             m_manipulationUtilisateurEquipeRole = manipulationUtilisateurEquipeRole;
         }
 
-
         //GET: api/<UtilisateurEquipeRoleControlle>/5
         [HttpGet("{email}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<UtilisateurEquipeRoleModel> Get(string email)
+        public ActionResult<List<UtilisateurEquipeRoleModel>> Get(string email)
         {
+            List<UtilisateurEquipeRoleModel> utilisateurEquipeRoleModels = new List<UtilisateurEquipeRoleModel>();
+
             Guid guid_user = this.m_manipulationUtilisateurEquipeRole.ChercherUtilisateurParEmail(email);
 
-            UtilisateurEquipeRoleModel model =  new UtilisateurEquipeRoleModel(this.m_manipulationUtilisateurEquipeRole.ChercherUtilisateurEquipeRoleParId(guid_user));
-
-            if (model != null)
+            foreach (var item in this.m_manipulationUtilisateurEquipeRole.ChercherUtilisateurEquipeRoleParId(guid_user))
             {
-                return Ok(model);
+                utilisateurEquipeRoleModels.Add(new UtilisateurEquipeRoleModel(item));
             }
+
+            if (utilisateurEquipeRoleModels != null)
+            {
+                return Ok(utilisateurEquipeRoleModels);
+            }
+
             else
             {
                 return NotFound();
