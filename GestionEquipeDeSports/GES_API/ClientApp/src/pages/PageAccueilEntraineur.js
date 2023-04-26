@@ -2,92 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Table, Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
-import { BiCheck, BiX } from "react-icons/bi";
-
-const CalculerDuree = (props) =>{
-    let dateDebut = props.dateACalculer[0];
-    let dateFin = props.dateACalculer[1];
-    let dateDebutParsed = Date.parse(dateDebut);
-    let dateFinParsed = Date.parse(dateFin);
-    let result = (dateFinParsed - dateDebutParsed) / 60000;
-    if(result > 60){
-        let dureeH = result / 60;
-        let dureeM = result % 60;
-        return (
-            <td>
-                {dureeH}H {dureeM}min
-            </td>
-        )
-    }
-    else{
-        return (
-            <td>
-                {result}min
-            </td>
-        )
-    }
-}
-
-const FormatDateTime = (props) =>{    
-    var dateTimeEntree = props.doneesDateTime;
-    var date = dateTimeEntree.split('T').join(' ');
-    var dateFormatee = date.substring(0, 16);
-    return (
-        <td>
-            {dateFormatee}
-        </td>
-    )
-}
-
-const ListeEvenementsPourUtilisateur = (props) =>{
-    console.log(props.ev);
-    var evenementsPourUtilisateur = props.ev;
-    console.log('Function ListeEvenementsPourUtilisateur :');
-    console.log(evenementsPourUtilisateur);
-    return (
-        <tbody>
-            {Array.isArray(evenementsPourUtilisateur) ? evenementsPourUtilisateur.map((e, index) => {
-                return <Evenement 
-                        key={e.id}
-                        id={e.id}
-                        num={index+1}
-                        description={e.description}
-                        emplacement={e.emplacement}
-                        dateDebut={e.dateDebut}
-                        dateFin={e.dateFin}
-                    />
-            }) : <Evenement 
-                    key={evenementsPourUtilisateur.id}
-                    id={evenementsPourUtilisateur.id}
-                    num={1}
-                    description={evenementsPourUtilisateur.description}
-                    emplacement={evenementsPourUtilisateur.emplacement}
-                    dateDebut={evenementsPourUtilisateur.dateDebut}
-                    dateFin={evenementsPourUtilisateur.dateFin}
-                />}
-        </tbody>
-        
-    )
-}
-
-const Evenement = (props) =>{
-    console.log('Evenement :');
-    console.log(props);
-    return(
-        <tr>            
-            <td>{props.num}</td>
-            <td>{props.description}</td>
-            <td>{props.emplacement}</td>
-            <FormatDateTime doneesDateTime={props.dateDebut} />
-            <CalculerDuree dateACalculer={[props.dateDebut, props.dateFin]} />
-            <td>Présence sera ici</td>
-            <td>
-                <Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
-                <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
-            </td>
-        </tr>
-    )
-}
+import { TableEvenementsUtilisateur } from "../components/TableEvenementsUtilisateur";
+import { ListeEquipesPourUtilisateur } from "../components/ListeEquipesPourUtilisateur";
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -118,8 +34,6 @@ export const PageAcceuilEntraineur = () => {
     useEffect(() => {
         async function trouverEvenementsPourUtilisateur(){
             await evenements.map((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
-            // console.log('mapEvenements :');
-            // console.log(mapEvenements);
         }
         trouverEvenementsPourUtilisateur()
             .catch(console.error);
@@ -211,12 +125,6 @@ console.log(id);
         setEvenementRender(arrayEvenements);
     }
 
-    function MouseOver(event) {
-        event.target.style.background = 'grey';
-    }
-    function MouseOut(event){
-        event.target.style.background="";
-    }
 console.log(utilisateurEvenement);
     return (
         <>
@@ -242,17 +150,7 @@ console.log(utilisateurEvenement);
                             <th>Association sportive</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {equipes.map((e, index) => (
-                            <tr key={e.idEquipe} onClick={() => navigate(`/uneEquipe/${e.idEquipe}`)} style={{cursor: "pointer"}} onMouseOver={MouseOver} onMouseOut={MouseOut}>
-                                <td>{index + 1}</td>
-                                <td>{e.nom}</td>
-                                <td>{e.region}</td>
-                                <td>{e.sport}</td>
-                                <td>{e.associationSportive}</td>
-                            </tr>
-                        ))}
-                    </tbody>
+                    <ListeEquipesPourUtilisateur eq={equipes} />
                 </Table>
             </Row>
             <Row style={{marginTop: "1.5em"}}>
@@ -261,20 +159,7 @@ console.log(utilisateurEvenement);
                 </Col>
             </Row>
             <Row>
-                <Table striped bordered>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nom événement</th>
-                            <th>Emplacement</th>
-                            <th>Date début</th>
-                            <th>Durée</th>
-                            <th>Presence</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <ListeEvenementsPourUtilisateur ev={utilisateurEvenement} />
-                </Table>
+                <TableEvenementsUtilisateur ev={utilisateurEvenement} />
             </Row>
         </Container>
         </>
