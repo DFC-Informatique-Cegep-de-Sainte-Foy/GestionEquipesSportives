@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GES_Services.Manipulations
 {
-    public class ManipulationUtilisateurEquipeRole
+    public class ManipulationDepotUtilisateurEquipeRole
     {
         private IDepotUtilisateurEquipeRole _depotUtilisateurEquipeRole;
 
-        public ManipulationUtilisateurEquipeRole(IDepotUtilisateurEquipeRole p_depotUtilisateurEquipeRole)
+        public ManipulationDepotUtilisateurEquipeRole(IDepotUtilisateurEquipeRole p_depotUtilisateurEquipeRole)
         {
             this._depotUtilisateurEquipeRole = p_depotUtilisateurEquipeRole;
         }

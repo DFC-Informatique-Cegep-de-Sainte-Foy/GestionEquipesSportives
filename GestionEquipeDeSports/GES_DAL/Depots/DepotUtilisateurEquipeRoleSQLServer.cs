@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GES_DAL.Depots
 {
-    public class DepotUtilisateurEquipeRole : GES_Services.Interfaces.IDepotUtilisateurEquipeRole
+    public class DepotUtilisateurEquipeRoleSQLServer : GES_Services.Interfaces.IDepotUtilisateurEquipeRole
     {
         public Equipe_sportiveContext m_context;
 
-        public DepotUtilisateurEquipeRole(Equipe_sportiveContext p_context)
+        public DepotUtilisateurEquipeRoleSQLServer(Equipe_sportiveContext p_context)
         {
             this.m_context = p_context;
         }

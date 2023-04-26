@@ -2,16 +2,15 @@
 using GES_Services.Manipulations;
 using GES_API.Models;
 
-
 namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UtilisateurEquipeRoleController : ControllerBase
     {
-        private ManipulationUtilisateurEquipeRole m_manipulationUtilisateurEquipeRole;
+        private ManipulationDepotUtilisateurEquipeRole m_manipulationUtilisateurEquipeRole;
 
-        public UtilisateurEquipeRoleController(ManipulationUtilisateurEquipeRole manipulationUtilisateurEquipeRole)
+        public UtilisateurEquipeRoleController(ManipulationDepotUtilisateurEquipeRole manipulationUtilisateurEquipeRole)
         {
             if (manipulationUtilisateurEquipeRole is null)
             {
@@ -22,12 +21,14 @@ namespace GES_API.Controllers
         }
 
 
-        ////GET: api/<UtilisateurEquipeRoleControlle>/5
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(200)]
-        //[ProducesResponseType(400)]
+        //GET: api/<UtilisateurEquipeRoleControlle>/5
+        [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public ActionResult<UtilisateurEquipeRoleModel> Get(Guid id)
+        {
 
-
+        }
 
     }
 }
