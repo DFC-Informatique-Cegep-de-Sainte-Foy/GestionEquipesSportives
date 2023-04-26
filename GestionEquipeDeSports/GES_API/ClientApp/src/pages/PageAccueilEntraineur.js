@@ -3,7 +3,7 @@ import { Button, Table, Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { TableEvenementsUtilisateur } from "../components/TableEvenementsUtilisateur";
-import { ListeEquipesPourUtilisateur } from "../components/ListeEquipesPourUtilisateur";
+import { TableEquipesUtilisateur } from "../components/TableEquipesUtilisateur";
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -57,8 +57,7 @@ export const PageAcceuilEntraineur = () => {
 
     async function getEquipesDeJoueur(id){
         const token = await getAccessTokenSilently();
-console.log('Id Utilisateur');
-console.log(id);
+        
         await fetch(`api/UtilisateurEquipe/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
           })
@@ -87,12 +86,6 @@ console.log(id);
                 console.log(error);
             });
     }
-
-    // async function trouverEvenementsPourUtilisateur(){
-    //     await evenements.map((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
-    //     // console.log('mapEvenements :');
-    //     // console.log(mapEvenements);
-    // }
 
     function convertirPresence(donnees){
         let etatAReturn;
@@ -140,18 +133,7 @@ console.log(utilisateurEvenement);
             </Row>
             <p></p>
             <Row style={{maxHeight: "200px", overflow: "auto"}}>
-                <Table striped bordered >
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nom</th>
-                            <th>Region</th>
-                            <th>Sport</th>
-                            <th>Association sportive</th>
-                        </tr>
-                    </thead>
-                    <ListeEquipesPourUtilisateur eq={equipes} />
-                </Table>
+                <TableEquipesUtilisateur eq={equipes} />
             </Row>
             <Row style={{marginTop: "1.5em"}}>
                 <Col>
