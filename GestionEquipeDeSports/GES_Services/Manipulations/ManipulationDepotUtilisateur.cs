@@ -55,7 +55,7 @@ namespace GES_Services.Manipulations
             return this._depotUtilisateur.ListerUtilisateurs();
         }
 
-        public Utilisateur ChercherUtilisateurParEmail(String p_email)
+        public Utilisateur ChercherUtilisateurParEmail(string p_email)
         {
             if(p_email == null)
             {

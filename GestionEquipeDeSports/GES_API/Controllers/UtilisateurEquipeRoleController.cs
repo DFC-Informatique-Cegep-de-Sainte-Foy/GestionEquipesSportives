@@ -22,13 +22,23 @@ namespace GES_API.Controllers
 
 
         //GET: api/<UtilisateurEquipeRoleControlle>/5
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(200)]
-        //[ProducesResponseType(400)]
-        //public ActionResult<UtilisateurEquipeRoleModel> Get(Guid id)
-        //{
+        [HttpGet("{email}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public ActionResult<UtilisateurEquipeRoleModel> Get(string email)
+        {
+            Guid guid_user = this.m_manipulationUtilisateurEquipeRole.ChercherUtilisateurParEmail(email);
 
-        //}
+            UtilisateurEquipeRoleModel model =  new UtilisateurEquipeRoleModel(this.m_manipulationUtilisateurEquipeRole.ChercherUtilisateurEquipeRoleParId(guid_user));
 
+            if (model != null)
+            {
+                return Ok(model);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

@@ -56,7 +56,7 @@ namespace GES_API.Controllers
         [HttpGet("{email}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<UtilisateurModel> Get(String email)
+        public ActionResult<UtilisateurModel> Get(string email)
         {
             UtilisateurModel model = new UtilisateurModel(this.m_manipulationDepotUtilisateur.ChercherUtilisateurParEmail(email));
             if (model != null)

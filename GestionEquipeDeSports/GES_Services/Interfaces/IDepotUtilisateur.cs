@@ -15,6 +15,6 @@ namespace GES_Services.Interfaces
         public void SupprimerUtilisateur(Utilisateur utilisateur);
         public Utilisateur ChercherUtilisateurParId(Guid id);
         public IEnumerable<Utilisateur> ListerUtilisateurs();
-        public Utilisateur ChercherUtilisateurParEmail(String email);
+        public Utilisateur ChercherUtilisateurParEmail(string email);
     }
 }

@@ -16,10 +16,10 @@ namespace GES_DAL.Depots
         {
             this.m_context = p_context;
         }
-        
+
         public void AjouterUtilisateurEquipeRole(UtilisateurEquipeRole p_utilisateurEquipeRole)
         {
-            if(p_utilisateurEquipeRole is null)
+            if (p_utilisateurEquipeRole is null)
             {
                 throw new ArgumentNullException($"le parametre {p_utilisateurEquipeRole} ne peut pas etre null", nameof(p_utilisateurEquipeRole));
             }
@@ -31,9 +31,35 @@ namespace GES_DAL.Depots
 
         }
 
+        public Guid ChercherUtilisateurParEmail(string p_email)
+        {
+            if (m_context.Utilisateurs.Any(e => e.Email == p_email))
+            {
+                return m_context.Utilisateurs.Where(e => e.Email == p_email).FirstOrDefault().IdUtilisateur;
+            }
+            else
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {p_email} n'existe pas");
+            }
+        }
+
         public UtilisateurEquipeRole ChercherUtilisateurEquipeRoleParId(Guid p_id)
         {
-            throw new NotImplementedException();
+            if (p_id == Guid.Empty)
+            {
+                throw new ArgumentNullException($"le parametre {p_id} ne peut pas etre null", nameof(p_id));
+            }
+            
+            if(m_context.UtilisateurEquipeRole.Any(user => user.FkIdUtilisateur == p_id))
+            {
+                GES_DAL.BackendProject.UtilisateurEquipeRole? ues = m_context.UtilisateurEquipeRole.Where(user => user.FkIdUtilisateur == p_id).FirstOrDefault();
+                return ues.DeDTOVersEntite();
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         public IEnumerable<UtilisateurEquipeRole> ListerUtilisateurEquipeRoles(Guid p_id)

@@ -14,5 +14,6 @@ namespace GES_Services.Interfaces
         public void AjouterUtilisateurEquipeRole(UtilisateurEquipeRole p_utilisateurEquipeRole);
         public void ModifierUtilisateurEquipeRole(UtilisateurEquipeRole p_utilisateurEquipeRole);
         public void SupprimerUtilisateurEquipeRole(UtilisateurEquipeRole p_utilisateurEquipeRole);
+        public Guid ChercherUtilisateurParEmail(string p_email);
     }
 }

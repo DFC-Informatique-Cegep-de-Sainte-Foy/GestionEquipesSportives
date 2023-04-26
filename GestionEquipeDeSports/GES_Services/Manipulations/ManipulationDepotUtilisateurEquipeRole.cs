@@ -41,5 +41,15 @@ namespace GES_Services.Manipulations
         {
             this._depotUtilisateurEquipeRole.SupprimerUtilisateurEquipeRole(p_utilisateurEquipeRole);
         }
+
+        public Guid ChercherUtilisateurParEmail(string p_email)
+        {
+            if (p_email == null)
+            {
+                throw new ArgumentNullException(nameof(p_email));
+            }
+
+            return this._depotUtilisateurEquipeRole.ChercherUtilisateurParEmail(p_email);
+        }
     }
 }
