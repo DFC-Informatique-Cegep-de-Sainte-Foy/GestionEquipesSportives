@@ -16,7 +16,7 @@ namespace GES_DAL.Depots
         {
             this.m_context = p_context;
         }
-
+        
         public void AjouterUtilisateurEquipeRole(UtilisateurEquipeRole p_utilisateurEquipeRole)
         {
             if(p_utilisateurEquipeRole is null)
