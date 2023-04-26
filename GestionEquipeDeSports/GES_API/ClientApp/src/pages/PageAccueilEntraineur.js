@@ -40,22 +40,31 @@ const FormatDateTime = (props) =>{
 }
 
 const ListeEvenementsPourUtilisateur = (props) =>{
-    console.log(props.ev[0]);
+    console.log(props.ev);
     var evenementsPourUtilisateur = props.ev;
     console.log('Function ListeEvenementsPourUtilisateur :');
     console.log(evenementsPourUtilisateur);
     return (
         <tbody>
-            {evenementsPourUtilisateur.map((e, index) => {
+            {Array.isArray(evenementsPourUtilisateur) ? evenementsPourUtilisateur.map((e, index) => {
                 return <Evenement 
                         key={e.id}
+                        id={e.id}
                         num={index+1}
                         description={e.description}
                         emplacement={e.emplacement}
                         dateDebut={e.dateDebut}
                         dateFin={e.dateFin}
                     />
-            })}
+            }) : <Evenement 
+                    key={evenementsPourUtilisateur.id}
+                    id={evenementsPourUtilisateur.id}
+                    num={1}
+                    description={evenementsPourUtilisateur.description}
+                    emplacement={evenementsPourUtilisateur.emplacement}
+                    dateDebut={evenementsPourUtilisateur.dateDebut}
+                    dateFin={evenementsPourUtilisateur.dateFin}
+                />}
         </tbody>
         
     )
@@ -76,22 +85,9 @@ const Evenement = (props) =>{
                 <Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
                 <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
             </td>
-            <td>{props.id}</td>
         </tr>
     )
 }
-
-{/* <tr key={e.id}>
-                        {<td>{index + 1}</td>
-                        <td>{e.description}</td>
-                        <FormatDateTime doneesDateTime={e.dateDebut} />
-                        <CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} />
-                        <td>Présence sera ici</td>
-                        {/*convertirPresence(e.estPresentAevenement)}
-                        <td><Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
-                            <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
-                        </td>}
-                    </tr> */}
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -101,6 +97,7 @@ export const PageAcceuilEntraineur = () => {
     const [equipes, setEquipes] = useState([]);
     const [evenements, setEvenements] = useState([]);
     const [utilisateurEvenement, setUtilisateurEvenement] = useState([]);
+    const [evenementRender, setEvenementRender] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
     var arrayEvenements = [];
@@ -119,7 +116,13 @@ export const PageAcceuilEntraineur = () => {
     }, [idUtilisateur]);
 
     useEffect(() => {
-        trouverEvenementsPourUtilisateur();
+        async function trouverEvenementsPourUtilisateur(){
+            await evenements.map((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
+            // console.log('mapEvenements :');
+            // console.log(mapEvenements);
+        }
+        trouverEvenementsPourUtilisateur()
+            .catch(console.error);
     }, [evenements]);
 
     //trouver utilisateur dans BD par son email
@@ -132,9 +135,9 @@ export const PageAcceuilEntraineur = () => {
         .then(res => res.json())
         .then((result) => {
             console.log(result);
-            setUtilisateur(result);
-            setRoleUtilisateur(result.roles);
             setIdUtilisateur(result.idUtilisateur);
+            setUtilisateur(result);
+            setRoleUtilisateur(result.roles);            
         });
     }
 
@@ -171,11 +174,11 @@ console.log(id);
             });
     }
 
-    async function trouverEvenementsPourUtilisateur(){
-        await evenements.flatMap((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
-        // console.log('ev :');
-        // console.log(ev);
-    }
+    // async function trouverEvenementsPourUtilisateur(){
+    //     await evenements.map((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
+    //     // console.log('mapEvenements :');
+    //     // console.log(mapEvenements);
+    // }
 
     function convertirPresence(donnees){
         let etatAReturn;
@@ -200,11 +203,12 @@ console.log(id);
                 // setUtilisateurEvenement(result);
                 arrayEvenements.push(result);
                 // setUtilisateurEvenement([...utilisateurEvenement, result]);
-                // setUtilisateurEvenement(arrayEvenements);
+                setUtilisateurEvenement(arrayEvenements);
         }).catch(function (error) {
             console.log(error);
         });
-        setUtilisateurEvenement(arrayEvenements);
+        // setUtilisateurEvenement(arrayEvenements);
+        setEvenementRender(arrayEvenements);
     }
 
     function MouseOver(event) {
@@ -269,22 +273,7 @@ console.log(utilisateurEvenement);
                             <th></th>
                         </tr>
                     </thead>
-                    
-                        <ListeEvenementsPourUtilisateur ev={utilisateurEvenement} />
-                        {/*Array.isArray(utilisateurEvenement) ? utilisateurEvenement.map((e, index) => (
-                            <tr key={e.id}>
-                                <td>{index + 1}</td>
-                                <td>{e.description}</td>
-                                <FormatDateTime doneesDateTime={e.dateDebut} />
-                                <CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} />
-                                <td>Présence sera ici</td>
-                                {/*convertirPresence(e.estPresentAevenement)}
-                                <td><Button variant='success' size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
-                                    <Button variant='warning' size="sm" className="me-2" title="Est absent"> <BiX /></Button>
-                                </td>
-                            </tr>
-                        )) : [] */}
-                    
+                    <ListeEvenementsPourUtilisateur ev={utilisateurEvenement} />
                 </Table>
             </Row>
         </Container>
