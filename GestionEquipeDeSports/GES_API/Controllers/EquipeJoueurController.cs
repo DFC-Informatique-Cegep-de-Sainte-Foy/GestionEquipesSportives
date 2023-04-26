@@ -8,7 +8,7 @@ namespace GES_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class EquipeJoueurController : ControllerBase
     {
         private ManipulationDepotEquipeJoueur m_manipulationDepotEquipeJoueur;
