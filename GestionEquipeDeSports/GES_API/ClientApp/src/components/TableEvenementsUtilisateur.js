@@ -13,7 +13,7 @@ export const TableEvenementsUtilisateur = (props) => {
                     <th>Emplacement</th>
                     <th>Date début</th>
                     <th>Durée</th>
-                    <th>Presence</th>
+                    <th>Présence</th>
                     <th></th>
                 </tr>
             </thead>
