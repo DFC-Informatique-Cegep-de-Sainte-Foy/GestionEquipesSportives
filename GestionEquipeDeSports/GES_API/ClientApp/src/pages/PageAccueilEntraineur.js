@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table, Row, Col, Container } from 'react-bootstrap';
+import { Button, Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { TableEvenementsUtilisateur } from "../components/TableEvenementsUtilisateur";
 import { TableEquipesUtilisateur } from "../components/TableEquipesUtilisateur";
+import { IdUtilisateurContext } from "../components/Context";
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
     const [idUtilisateur, setIdUtilisateur] = useState('');
-    const [roleUtilisateur, setRoleUtilisateur] = useState('');
 
     const [equipes, setEquipes] = useState([]);
     const [evenements, setEvenements] = useState([]);
     const [utilisateurEvenement, setUtilisateurEvenement] = useState([]);
-    const [evenementRender, setEvenementRender] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
-    var arrayEvenements = [];
     const { user } = useAuth0();
 
     useEffect(() => {
         getUtilisateur(user.email);
     }, []);
 
-    useEffect(() => {
-        getEquipesDeJoueur(idUtilisateur);
-    }, [idUtilisateur]);
+    // useEffect(() => {
+    //     getEquipesDeJoueur(idUtilisateur);
+    // }, []);
 
-    useEffect(() => {
-        getEvenementsDeJoueur(idUtilisateur);
-    }, [idUtilisateur]);
+    // useEffect(() => {
+    //     getEvenementsDeJoueur(idUtilisateur);
+    // }, [idUtilisateur]);
 
     useEffect(() => {
         async function trouverEvenementsPourUtilisateur(){
@@ -41,23 +39,21 @@ export const PageAcceuilEntraineur = () => {
 
     //trouver utilisateur dans BD par son email
     async function getUtilisateur(email){
+        var id;
         const token = await getAccessTokenSilently();
-
+        console.log(email);
         await fetch(`api/utilisateur/${email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
         .then(res => res.json())
         .then((result) => {
             console.log(result);
+            id = result.idUtilisateur;
             setIdUtilisateur(result.idUtilisateur);
             setUtilisateur(result);
-            setRoleUtilisateur(result.roles);            
+            // setRoleUtilisateur(result.roles);            
         });
-    }
 
-    async function getEquipesDeJoueur(id){
-        const token = await getAccessTokenSilently();
-        
         await fetch(`api/UtilisateurEquipe/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
           })
@@ -69,23 +65,51 @@ export const PageAcceuilEntraineur = () => {
             }).catch(function (error) {
                 console.log(error);
             });
-    }
-
-    async function getEvenementsDeJoueur(id){
-        const token = await getAccessTokenSilently();
 
         await fetch(`api/evenementJoueur/${id}`, {
-            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-          })
-            .then(res => res.json())
-            .then((result) => {
-                console.log('Evenements :');
-                console.log(result);
-                setEvenements(result);
-            }).catch(function (error) {
-                console.log(error);
-            });
+                headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+              })
+                .then(res => res.json())
+                .then((result) => {
+                    console.log('Evenements :');
+                    console.log(result);
+                    setEvenements(result);
+                }).catch(function (error) {
+                    console.log(error);
+                });
     }
+
+    // async function getEquipesDeJoueur(id){
+    //     const token = await getAccessTokenSilently();
+    //     console.log(id);
+    //     await fetch(`api/UtilisateurEquipe/${id}`, {
+    //         headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+    //       })
+    //         .then(res => res.json())
+    //         .then((result) => {
+    //             console.log('Equipes :');
+    //             console.log(result);
+    //             setEquipes(result);
+    //         }).catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
+
+    // async function getEvenementsDeJoueur(id){
+    //     const token = await getAccessTokenSilently();
+
+    //     await fetch(`api/evenementJoueur/${id}`, {
+    //         headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+    //       })
+    //         .then(res => res.json())
+    //         .then((result) => {
+    //             console.log('Evenements :');
+    //             console.log(result);
+    //             setEvenements(result);
+    //         }).catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
 
     function convertirPresence(donnees){
         let etatAReturn;
@@ -98,7 +122,7 @@ export const PageAcceuilEntraineur = () => {
     }
 
     async function obtenirEvenementAPartirSonId(idEvenement){
-        // let arrayEvenements = [];
+        let arrayEvenements = [];
         arrayEvenements = utilisateurEvenement;
         const token = await getAccessTokenSilently();
         await fetch(`api/evenements/${idEvenement}`, {
@@ -107,15 +131,11 @@ export const PageAcceuilEntraineur = () => {
             .then(res => res.json())
             .then((result) => {
                 console.log(result); 
-                // setUtilisateurEvenement(result);
                 arrayEvenements.push(result);
-                // setUtilisateurEvenement([...utilisateurEvenement, result]);
-                setUtilisateurEvenement(arrayEvenements);
+                setUtilisateurEvenement([...arrayEvenements]);
         }).catch(function (error) {
             console.log(error);
         });
-        // setUtilisateurEvenement(arrayEvenements);
-        setEvenementRender(arrayEvenements);
     }
 
 console.log(utilisateurEvenement);
@@ -141,7 +161,9 @@ console.log(utilisateurEvenement);
                 </Col>
             </Row>
             <Row>
-                <TableEvenementsUtilisateur ev={utilisateurEvenement} />
+                <IdUtilisateurContext.Provider value={idUtilisateur} >
+                    <TableEvenementsUtilisateur ev={utilisateurEvenement} />
+                </IdUtilisateurContext.Provider>                
             </Row>
         </Container>
         </>
