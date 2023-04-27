@@ -111,11 +111,11 @@ class NavMenu extends React.Component {
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
 
               <Nav className="navbar-nav flex-grow">
-                <MenuAAfficher />
+               {/*  <MenuAAfficher /> <AfficherPageEnFonctionDuRole /> <Profile />*/}
 
                 <AfficherPageEnFonctionDuRole />
+                
               </Nav>
-
             </Collapse>
           </Navbar>
         </div>
