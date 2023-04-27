@@ -109,7 +109,6 @@ function AfficherPageEnFonctionDuRole(){
                 }
 
             })
-            
         }
         else
         {
