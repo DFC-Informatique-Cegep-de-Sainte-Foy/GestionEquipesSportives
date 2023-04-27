@@ -83,7 +83,7 @@ namespace GES_DAL.Depots
             }
             //trouver joueur s'il existe
             GES_DAL.BackendProject.Utilisateur? utitlisateurDTO = this.m_context.Utilisateurs.FirstOrDefault(u => u.IdUtilisateur == p_id);
-            if(utitlisateurDTO == null)
+            if (utitlisateurDTO == null)
             {
                 throw new InvalidOperationException($"l'utilisateur avec l'id {p_id} n'existe pas");
             }

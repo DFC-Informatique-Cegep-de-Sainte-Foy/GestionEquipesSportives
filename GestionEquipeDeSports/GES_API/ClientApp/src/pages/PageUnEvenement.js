@@ -1,111 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table, Row, Col } from 'react-bootstrap';
-import { useParams, Link, useFetcher } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { BiCheck, BiX } from "react-icons/bi";
 import './pageUnEvenement.css';
 
 export const PageUnEvenement = () => {
     const [evenement, setEvenement] = useState(null);
-    const [description, setDescription] = useState('');
-    const [emplacement, setEmplacement] = useState('');
-    const [dateDebut, setDateDebut] = useState('');
-    const [dateFin, setDateFin] = useState('');
-    const [typeEvenement, setTypeEvenement] = useState('');
 
-    const [equipeEvenement, setEquipeEvenement] = useState([]);
-    const [equipeJoueur, setEquipeJoueur] = useState([]);
-    const [joueurEvenement, setJoueurEvenement] = useState([]);
-    const [joueurPresenceEvenement, setJoueurPresenceEvenement] = useState([]);
+    const [membresEquipeEvenement, setMembresEquipeEvenement] = useState([]);
+
+    const [isAttending, setIsAttending] = useState(false);
+    const [utilisateur, setUtilisateur] = useState({});
 
     const { getAccessTokenSilently } = useAuth0();
+    const navigate = useNavigate();
+
     const [loading, setLoading] = useState(true);
 
     const { id } = useParams();
-    /*
-        // useEffect(() => {
-        //     getEvenement(id);
-        // }, [id]);
-    
-        // useEffect(() => {
-        //     //getEquipesDansEvenement(id);
-        // }, []);
-    
-        //controler a été changeé pour chercher événements par id joueur (ici c'est contraire), donc ces useEffect ne fonctionne pas!
-        // useEffect(() => {
-        //     trouverJouersPourEquipes();
-        // }, [equipeEvenement]);
-    
-        // useEffect(() => {
-        //     listePresenceJoueursPourEvenement();
-        // }, [joueurPresenceEvenement]);
-    
-        // async function getEvenement(id) {
-        //     const token = await getAccessTokenSilently();
-    
-        //     await fetch(`api/evenements/${id}`, {
-        //         headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-        //     })
-        //         .then(res => res.json())
-        //         .then((result) => {
-        //             console.log(result);
-        //             setEvenement(result);
-        //             console.log(evenement);
-        //             setDescription(result.description);
-        //             setEmplacement(result.emplacement);
-        //             setDateDebut(result.dateDebut);
-        //             setDateFin(result.dateFin);
-        //             setTypeEvenement(result.typeEvenement);
-        //             setLoading(false);
-        //         })
-        //         .then((res) => {
-        //             console.log(res);
-        //             setEvenement(res);
-        //         });
-        // }
-    
-    
-        //recherche joueurs pour id equipe dans table equipeJoueurs
-        // async function getJoueurs(id) {
-        //     const token = await getAccessTokenSilently();
-    
-        //     await fetch(`api/equipeJoueur/${id}`, {
-        //         headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-        //     })
-        //         .then(res => res.json())
-        //         .then((result) => {
-        //             console.log('getJoueur :');
-        //             console.log(result);
-        //             result.forEach(element => {
-        //                 joueurEvenement.push(element);
-        //             });
-    
-        //             setEquipeJoueur(result);
-        //         });
-        // }
-    
-        // async function trouverJouersPourEquipes() {
-        //     //await equipeEvenement.map((equipe) => getJoueurs(equipe.idEquipe));
-        // }
-    
-        // async function listePresenceJoueursPourEvenement() {
-        //     const token = await getAccessTokenSilently();
-    
-        //     await fetch(`api/evenementJoueur/${id}`, {
-        //         headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-        //     })
-        //         .then(res => res.json())
-        //         .then((result) => {
-        //             console.log('Liste presence equipeJoueurs');
-        //             console.log(result);
-        //             if (result.status === 404) {
-        //                 console.log(' status 404, rien trouvee ');
-        //             } else {
-        //                 setJoueurPresenceEvenement(result);
-        //             }
-        //         });
-        // }
-        */
+    const { user } = useAuth0();
+
+    //console.log('user : ');
+    //console.log(user);
 
     function formatDateTime(donnees) {
         var dateTimeEntree = donnees;
@@ -113,121 +30,75 @@ export const PageUnEvenement = () => {
         return date.substring(0, 16);
     }
 
-
-
-    function affichageTypeEvenement(data) {
-        if (data === 0) {
-            return "Entrainement";
-        } else if (data === 1) {
-            return "Partie";
-        } else if (data === 2) {
-            return "Autre";
-        } else {
-            return data;
-        }
-    }
-
-    function afficherEtatPresence(idUtilisateur) {
-        let etatAReturn;
-        if (joueurPresenceEvenement.length !== 0) {
-            for (let i = 0; i < joueurPresenceEvenement.length; i++) {
-                const joueur = joueurPresenceEvenement[i];
-                if (joueur.fk_Id_Utilisateur === idUtilisateur) {
-                    if (joueur.estPresentAevenement === true) {
-                        console.log('Est present');
-                        etatAReturn = <td style={{ color: "green" }}>PRESENT</td>
-                        break;
-                    }
-                    else {
-                        console.log('est absent !!!');
-                        etatAReturn = <td style={{ color: "red" }}>absent</td>
-                        break;
-                    }
-                }
-                else {
-                    console.log('1 if');
-                    etatAReturn = <td style={{ color: "grey" }}>inconnu</td>
-                }
-            }
-        } else {
-            console.log('2 if');
-            etatAReturn = <td style={{ color: "grey" }}>inconnu</td>
-        }
-        return etatAReturn;
-    }
-
-    /*
-        // async function changerEtatPresence(idUtilisateur, etat) {
-        //     console.log(idUtilisateur);
-        //     console.log(etat);
-        //     //const token =  await getAccessTokenSilently();
-    
-        //     let requestOptions = {
-        //         method: 'PUT',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify({
-        //             FK_Id_Utilisateur: idUtilisateur,
-        //             FK_Id_Evenement: id,
-        //             EstPresentAEvenement: etat
-        //         })
-        //     };
-    
-        //     await fetch(`api/evenementJoueur`, requestOptions)
-        //         .then(function (reponse) {
-        //             console.log(reponse);
-    
-        //         }).catch(function (error) {
-        //             console.log(error)
-        //         })
-        //     //afficherEtatPresence(idUtilisateur);
-        //     //trouverJouersPourEquipes();
-        // }
-    
-        // useEffect(() => {
-    
-        //     const fetchData = async () => {
-    
-        //         const token = await getAccessTokenSilently();
-    
-        //         console.log('token : ' + token);
-        //         console.log('id : ' + id);
-    
-        //         const data = await fetch(`api/evenements/${id}`, {
-        //             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-        //         }).then(res => {
-        //             console.log('res : ' + res);
-    
-        //             res.json();
-        //         }
-        //         );
-    
-        //         setEvenement(data);
-        //         console.log('data : ');
-        //     };
-    
-        //     fetchData();
-        // }, []);
-        */
-
     const loadEvenement = async () => {
-
         const token = await getAccessTokenSilently();
 
         fetch(`api/evenements/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         }).then((res) => {
-            console.log(res);
+            //console.log(res);
             return res.json();
         }
         ).then((data) => {
             setEvenement(data);
-            console.log('evenement : ');
-            console.log(evenement);
+            //console.log('evenement : ');
+            //console.log(evenement);
+        });
+    }
+
+    function handleClickPresence() {
+        setIsAttending(true);
+    }
+
+    const handleClickAbsence = async () => {
+        setIsAttending(false);
+        const token = await getAccessTokenSilently();
+        var email = user.email;
+
+        fetch(`api/EvenementJoueurPresence/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ email, estPresent: false }), // Send the email and isAttending value as the request payload
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .catch((error) => {
+                // Handle any errors that occurred during the fetch operation
+                console.error("There was a problem with the fetch operation:", error);
+            });
+    }
+
+    const loadPresence = async () => {
+        const token = await getAccessTokenSilently();
+        // const encodedString = encodeURIComponent(user.id);
+        //console.log(user.id);
+        //load presence of the user       
+        fetch(`api/EvenementJoueurPresence/${id}?yourParam=${user.name}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        }).then((res) => {
+            //console.log(res);
+            return res.json();
         }
-        );
+        ).then((data) => {
+            //console.log(data);
+            if (data === true) {
+                setIsAttending(true);
+            }
+            else {
+                setIsAttending(false);
+            }
+        });
     }
 
     useEffect(() => { loadEvenement() }, []);
+    useEffect(() => { loadPresence() }, []);
 
     if (evenement === null) {
         return <div>Chargement...</div>;
@@ -237,61 +108,51 @@ export const PageUnEvenement = () => {
         <>
             <div>
                 <Row className="Row mt-3">
-                    <h2>Votre événement - {evenement.description} </h2>
-                    <Link to={'/evenements'}>
-                        <Button variant="success">Retour à la page des événements</Button>
-                    </Link>
+                    <Col>
+                        <h1>Votre événement - {evenement.description} </h1>
+                    </Col>
+                    <Col>
+                        <Button className="ml-auto bg-success" onClick={handleClickPresence}>Confirmer ma présence</Button>
+                        <Button className="ml-auto bg-danger mx-2" onClick={handleClickAbsence}>Annuler ma présence</Button>
+                    </Col>
+                    <Col>
+                        <h5>Présence :
+                            {isAttending === true ? "  Présent" : "  Absent"}
+                        </h5>
+
+                    </Col>
                 </Row>
 
                 <Row className="Row">
-                    {Object.keys(evenement)
-                        .filter(keyName => keyName === "description" || keyName === "emplacement" || keyName === "dateDebut" || keyName === "dateFin")
-                        .map((keyName, i) => (
-                            <li className="travelcompany-input" key={i}>
-                                <span className="input-label">{keyName} -- {evenement[keyName]}</span>
-                            </li>
-                        ))}
+
+                    <h4 className="travelcompany-input">
+                        <span className="">Emplacement de l'événement - {evenement.emplacement}</span>
+                    </h4>
+                    <Col>
+                        <h5>
+                            <span className="">Date de début - {formatDateTime(evenement.dateDebut)}</span>
+
+                            <span className=""> Durée : {evenement.duree} heures</span>
+                        </h5>
+                    </Col>
                 </Row>
 
-                {/* <Row>
-                    <Col>
-                        <h5>Liste des équipes</h5>
-                    </Col>
-                </Row>                
-                <Row>
-                    <Table striped bordered>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nom</th>
-                                <th>Region</th>
-                                <th>Sport</th>
-                                <th>Association Sportive</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {equipeEvenement.map((e, index) => (
-                                <tr key={e.idEquipe}>
-                                    <td>{index + 1}</td>
-                                    <td>{e.nom}</td>
-                                    <td>{e.region}</td>
-                                    <td>{e.sport}</td>
-                                    <td>{e.associationSportive}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                
+                {/* <Row className="Row">
+                    {Object.keys(evenement)
+                        .filter(keyName => keyName === "description" || keyName === "emplacement" || keyName === "dateDebut" || keyName === "duree")
+                        .map((keyName, i) => (
+                            <h4 className="travelcompany-input" key={i}>
+                                <span className="input-label">{keyName} -- {evenement[keyName]}</span>
+                            </h4>
+                        ))}
                 </Row> */}
 
-
                 <Row className="Row">
-                    <h5>Liste des participants</h5>
+                    <h5>Membres de l'équipe</h5>
 
                     <Table striped bordered>
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Nom</th>
                                 <th>Prenom</th>
                                 <th>Numero</th>
@@ -301,17 +162,12 @@ export const PageUnEvenement = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {joueurEvenement.map((e, index) => (
+                            {membresEquipeEvenement.map((e, index) => (
                                 <tr key={e.idUtilisateur}>
-                                    <td>{index + 1}</td>
                                     <td>{e.nom}</td>
                                     <td>{e.prenom}</td>
                                     <td>{e.numTelephone}</td>
                                     <td>{e.email}</td>
-                                    {afficherEtatPresence(e.idUtilisateur)}
-                                    {/* <td><Button variant='success' onClick={() => changerEtatPresence(e.idUtilisateur, true)} size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
-                                        <Button variant='warning' onClick={() => changerEtatPresence(e.idUtilisateur, false)} size="sm" className="me-2" title="Est absent"> <BiX /></Button>
-                                    </td> */}
                                 </tr>
                             ))}
                         </tbody>
