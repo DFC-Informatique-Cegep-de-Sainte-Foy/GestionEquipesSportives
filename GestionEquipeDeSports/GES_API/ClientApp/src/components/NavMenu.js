@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import './Profile.js'
 import Profile from './Profile.js';
 import "bootstrap/dist/css/bootstrap.min.css"
+import AfficherPageEnFonctionDuRole from './AfficherPageEnFonctionDuRole';
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -111,6 +112,8 @@ class NavMenu extends React.Component {
 
               <Nav className="navbar-nav flex-grow">
                 <MenuAAfficher />
+
+                <AfficherPageEnFonctionDuRole />
               </Nav>
 
             </Collapse>
