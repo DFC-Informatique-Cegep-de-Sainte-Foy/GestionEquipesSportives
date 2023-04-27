@@ -20,6 +20,7 @@ export const PageUnEvenement = () => {
 
     const { id } = useParams();
     const { user } = useAuth0();
+    
 
     //console.log('user : ');
     //console.log(user);
@@ -54,6 +55,16 @@ export const PageUnEvenement = () => {
         setIsAttending(false);
         const token = await getAccessTokenSilently();
         var email = user.email;
+
+        let requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: idUt,
+                FK_Id_Evenement: id,
+                EstPresentAEvenement: etat
+            })
+        };
 
         fetch(`api/EvenementJoueurPresence/${id}`, {
             method: "PUT",
