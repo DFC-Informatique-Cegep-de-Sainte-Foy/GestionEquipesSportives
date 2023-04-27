@@ -56,15 +56,15 @@ export const PageUnEvenement = () => {
         const token = await getAccessTokenSilently();
         var email = user.email;
 
-        let requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-            body: JSON.stringify({
-                FK_Id_Utilisateur: idUt,
-                FK_Id_Evenement: id,
-                EstPresentAEvenement: etat
-            })
-        };
+        // let requestOptions = {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        //     body: JSON.stringify({
+        //         FK_Id_Utilisateur: idUt,
+        //         FK_Id_Evenement: id,
+        //         EstPresentAEvenement: etat
+        //     })
+        // };
 
         fetch(`api/EvenementJoueurPresence/${id}`, {
             method: "PUT",
