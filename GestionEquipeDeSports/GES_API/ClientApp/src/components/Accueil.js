@@ -1,15 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
+import UtilisateurConnecteHeader from './UtilisateurConnecteHeader';
+import MessagePageAccueil from './MessagePageAccueil';
 
-export class Accueil extends Component {
-  static displayName = Accueil.name;
+export function Accueil() {
+  const { isAuthenticated } = useAuth0();
 
-  render() {
+  if (isAuthenticated === true)
+  {
+    return(
+      <>
+        <UtilisateurConnecteHeader />
+      </>
+    );
+  }
+  else
+  {
     return (
-      <div>
-        <h1>Gérez votre équipe de sport amateur comme un pro</h1>
-
-        <p>GestionEquipeDeSports est l'appli de référence pour organiser vos matchs et gérer votre équipe de foot, rugby, basket ou tout autre sport.</p>
-      </div>
+      <>
+        <MessagePageAccueil />
+      </>
     );
   }
 }
