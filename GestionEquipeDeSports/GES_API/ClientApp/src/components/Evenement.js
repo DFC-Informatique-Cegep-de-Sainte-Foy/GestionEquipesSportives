@@ -5,12 +5,14 @@ import { FormatDateTime } from "./FormatDateTime";
 import { CalculerDuree } from "./CalculerDuree";
 import { useAuth0 } from '@auth0/auth0-react';
 import { IdUtilisateurContext } from "./Context";
+import { useNavigate } from "react-router-dom";
 
 export const Evenement = (props) =>{
     const [joueurPresenceEvenement, setJoueurPresenceEvenement] = useState([]);
-    const [idUtilisateur, setIdUtilisateur] = useState('');
+    // const [idUtilisateur, setIdUtilisateur] = useState('');
     const { getAccessTokenSilently } = useAuth0();
     const idUt = useContext(IdUtilisateurContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         listePresenceJoueurPourEvenement(idUt);
@@ -18,14 +20,14 @@ export const Evenement = (props) =>{
 
     async function listePresenceJoueurPourEvenement(id){
         const token =  await getAccessTokenSilently();
-        console.log(id);
+        // console.log(id);
         await fetch(`api/evenementJoueur/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
         .then(res => res.json())
         .then((result) => {
-            console.log('Liste presence equipeJoueurs');
-            console.log(result);
+            // console.log('Liste presence equipeJoueurs');
+            // console.log(result);
             if(result.status === 404){
                 console.log(' status 404, rien trouvee ');
             }else
@@ -36,7 +38,7 @@ export const Evenement = (props) =>{
     }
 
     function afficherEtatPresence(idEvenement){
-        console.log(idEvenement);
+        // console.log(idEvenement);
         let etatAReturn;
         if(joueurPresenceEvenement.length !== 0)
         {
@@ -45,24 +47,20 @@ export const Evenement = (props) =>{
                 if(ev.fk_Id_Evenement === idEvenement){
                     if(ev.estPresentAevenement === true)
                     {
-                        console.log('Est present');
                         etatAReturn = <td style={{color: "green"}}>PRESENT</td>
                         break;
                     }
                     else
                     {
-                        console.log('est absent !!!');
                         etatAReturn = <td style={{color: "red"}}>absent</td>
                         break;
                     }
                 }
                 else{
-                    console.log('1 if');
                     etatAReturn = <td style={{color: "grey"}}>inconnu</td>
                 }
             }
         }else{
-            console.log('2 if');
             etatAReturn = <td style={{color: "grey"}}>inconnu</td>
         }
         return etatAReturn;
@@ -92,10 +90,8 @@ export const Evenement = (props) =>{
         })
     }
 
-    // console.log('Evenement :');
-    // console.log(props);
     return(
-        <tr>            
+        <tr onClick={() => navigate(`/unEvenement/${props.id}`)} style={{cursor: "pointer"}} >            
             <td>{props.num}</td>
             <td>{props.description}</td>
             <td>{props.emplacement}</td>

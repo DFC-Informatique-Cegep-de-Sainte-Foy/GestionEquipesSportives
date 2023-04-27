@@ -2,10 +2,10 @@ import React from "react";
 import { Evenement } from "./Evenement";
 
 export const ListeEvenementsPourUtilisateur = (props) => {
-    console.log(props.ev);
+    // console.log(props.ev);
     var evenementsPourUtilisateur = props.ev;
-    console.log('Function ListeEvenementsPourUtilisateur :');
-    console.log(evenementsPourUtilisateur);
+    // console.log('Function ListeEvenementsPourUtilisateur :');
+    // console.log(evenementsPourUtilisateur);
     return (
         <tbody>
             {Array.isArray(evenementsPourUtilisateur) ? evenementsPourUtilisateur.map((e, index) => {

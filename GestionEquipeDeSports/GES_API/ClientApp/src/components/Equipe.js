@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Equipe = (props) => {
     const navigate = useNavigate();
-    console.log(props.idEquipe);
+    // console.log(props.idEquipe);
     function MouseOver(event) {
         event.target.style.background = 'grey';
     }

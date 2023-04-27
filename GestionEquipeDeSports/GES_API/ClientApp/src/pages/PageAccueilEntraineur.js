@@ -41,7 +41,7 @@ export const PageAcceuilEntraineur = () => {
     async function getUtilisateur(email){
         var id;
         const token = await getAccessTokenSilently();
-        console.log(email);
+        // console.log(email);
         await fetch(`api/utilisateur/${email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
@@ -52,6 +52,8 @@ export const PageAcceuilEntraineur = () => {
             setIdUtilisateur(result.idUtilisateur);
             setUtilisateur(result);
             // setRoleUtilisateur(result.roles);            
+        }).catch(function (error) {
+            console.log(error);
         });
 
         await fetch(`api/UtilisateurEquipe/${id}`, {
@@ -59,8 +61,8 @@ export const PageAcceuilEntraineur = () => {
           })
             .then(res => res.json())
             .then((result) => {
-                console.log('Equipes :');
-                console.log(result);
+                // console.log('Equipes :');
+                // console.log(result);
                 setEquipes(result);
             }).catch(function (error) {
                 console.log(error);
@@ -71,8 +73,8 @@ export const PageAcceuilEntraineur = () => {
               })
                 .then(res => res.json())
                 .then((result) => {
-                    console.log('Evenements :');
-                    console.log(result);
+                    // console.log('Evenements :');
+                    // console.log(result);
                     setEvenements(result);
                 }).catch(function (error) {
                     console.log(error);
@@ -130,7 +132,7 @@ export const PageAcceuilEntraineur = () => {
         })
             .then(res => res.json())
             .then((result) => {
-                console.log(result); 
+                // console.log(result); 
                 arrayEvenements.push(result);
                 setUtilisateurEvenement([...arrayEvenements]);
         }).catch(function (error) {
@@ -138,7 +140,7 @@ export const PageAcceuilEntraineur = () => {
         });
     }
 
-console.log(utilisateurEvenement);
+// console.log(utilisateurEvenement);
     return (
         <>
         <Container>
