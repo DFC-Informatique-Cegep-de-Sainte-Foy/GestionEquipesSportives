@@ -73,11 +73,16 @@ const AppRoutes = [
     //element: <PageSupprimerEvenement />
     element: <AuthenticationGuard component={PageSupprimerEvenement} />
   },
+
+  /******************************************************************* */
   {
     path: '/uneEquipe/:id',
-    //element: <PageUneEquipe />
-    element: <AuthenticationGuard component={PageUneEquipe} />
+    element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
+    //element: <AuthenticationGuard component={PageUneEquipe} />
   },
+
+/********************************************************************************* */
+
   {
     path: '/supprimerEquipe/:id',
     element: <PageSupprimerEquipe />
