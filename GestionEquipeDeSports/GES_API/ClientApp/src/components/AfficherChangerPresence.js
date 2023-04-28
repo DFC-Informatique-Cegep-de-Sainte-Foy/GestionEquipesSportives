@@ -34,6 +34,6 @@ export const AfficherChangerPresence = (props) => {
     }
 
     return (
-        <td>{afficherEtatPresence()}</td>
+        <>{afficherEtatPresence()}</>
     )
 }
