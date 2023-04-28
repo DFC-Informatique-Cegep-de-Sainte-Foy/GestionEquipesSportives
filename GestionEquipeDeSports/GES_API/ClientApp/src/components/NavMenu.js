@@ -113,7 +113,7 @@ class NavMenu extends React.Component {
               <Nav className="navbar-nav flex-grow">
                {/*  <MenuAAfficher /> <AfficherPageEnFonctionDuRole /> <Profile />*/}
 
-               <MenuAAfficher />
+               <AfficherPageEnFonctionDuRole/>
                 
               </Nav>
             </Collapse>
