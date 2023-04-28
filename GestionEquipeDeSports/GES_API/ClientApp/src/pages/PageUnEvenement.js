@@ -20,15 +20,18 @@ export const PageUnEvenement = () => {
 
     const { id } = useParams();
     const { user } = useAuth0();
-    
 
-    //console.log('user : ');
-    //console.log(user);
-
-    function formatDateTime(donnees) {
-        var dateTimeEntree = donnees;
-        var date = dateTimeEntree.split('T').join(' ');
-        return date.substring(0, 16);
+    const loadUtilisateur = async () => {
+        const token = await getAccessTokenSilently();
+        fetch(`api/utilisateur/${user.name}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        }).then((res) => {
+            return res.json();
+        }).then((data) => {
+            setUtilisateur(data);
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     const loadEvenement = async () => {
@@ -37,68 +40,25 @@ export const PageUnEvenement = () => {
         fetch(`api/evenements/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         }).then((res) => {
-            //console.log(res);
             return res.json();
         }
         ).then((data) => {
             setEvenement(data);
-            //console.log('evenement : ');
-            //console.log(evenement);
+        }).catch((error) => {
+            console.log(error);
         });
-    }
-
-    function handleClickPresence() {
-        setIsAttending(true);
-    }
-
-    const handleClickAbsence = async () => {
-        setIsAttending(false);
-        const token = await getAccessTokenSilently();
-        var email = user.email;
-
-        // let requestOptions = {
-        //     method: 'PUT',
-        //     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        //     body: JSON.stringify({
-        //         FK_Id_Utilisateur: idUt,
-        //         FK_Id_Evenement: id,
-        //         EstPresentAEvenement: etat
-        //     })
-        // };
-
-        fetch(`api/EvenementJoueurPresence/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ email, estPresent: false }), // Send the email and isAttending value as the request payload
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .catch((error) => {
-                // Handle any errors that occurred during the fetch operation
-                console.error("There was a problem with the fetch operation:", error);
-            });
     }
 
     const loadPresence = async () => {
         const token = await getAccessTokenSilently();
-        // const encodedString = encodeURIComponent(user.id);
-        //console.log(user.id);
+
         //load presence of the user       
         fetch(`api/EvenementJoueurPresence/${id}?yourParam=${user.name}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         }).then((res) => {
-            //console.log(res);
             return res.json();
         }
         ).then((data) => {
-            //console.log(data);
             if (data === true) {
                 setIsAttending(true);
             }
@@ -108,8 +68,77 @@ export const PageUnEvenement = () => {
         });
     }
 
+    const loadRole = async () => {
+        const token = await getAccessTokenSilently();
+
+    }
+
+    const loadMembresEquipeEvenement = async () => {
+        const token = await getAccessTokenSilently();
+
+    }
+
+    const handleClickAbsence = async () => {
+        setIsAttending(false);
+        const token = await getAccessTokenSilently();
+        let etat = false;
+
+        let requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: utilisateur.idUtilisateur,
+                FK_Id_Evenement: id,
+                EstPresentAEvenement: etat
+            })
+        };
+
+        fetch(`api/EvenementJoueur`, requestOptions
+        ).then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+        }).catch((error) => {
+            // Handle any errors that occurred during the fetch operation
+            console.error("There was a problem with the fetch operation:", error);
+        });
+    }
+
+    const handleClickPresence = async () => {
+        setIsAttending(true);
+        const token = await getAccessTokenSilently();
+        let etat = true;
+
+        let requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: utilisateur.idUtilisateur,
+                FK_Id_Evenement: id,
+                EstPresentAEvenement: etat
+            })
+        };
+
+        fetch(`api/EvenementJoueur`, requestOptions
+        ).then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+        }).catch((error) => {
+            // Handle any errors that occurred during the fetch operation
+            console.error("There was a problem with the fetch operation:", error);
+        });
+    }
+
+    function formatDateTime(donnees) {
+        var dateTimeEntree = donnees;
+        var date = dateTimeEntree.split('T').join(' ');
+        return date.substring(0, 16);
+    }
+
     useEffect(() => { loadEvenement() }, []);
     useEffect(() => { loadPresence() }, []);
+    useEffect(() => { loadUtilisateur() }, []);
 
     if (evenement === null) {
         return <div>Chargement...</div>;
@@ -125,6 +154,7 @@ export const PageUnEvenement = () => {
                     <Col>
                         <Button className="ml-auto bg-success" onClick={handleClickPresence}>Confirmer ma présence</Button>
                         <Button className="ml-auto bg-danger mx-2" onClick={handleClickAbsence}>Annuler ma présence</Button>
+                        <Button className="ml-auto bg-warning" onClick={() => navigate(`/modifieEvenement/${id}`)}>Modifier l'événement</Button>
                     </Col>
                     <Col>
                         <h5>Présence :
@@ -135,28 +165,20 @@ export const PageUnEvenement = () => {
                 </Row>
 
                 <Row className="Row">
-
                     <h4 className="travelcompany-input">
                         <span className="">Emplacement de l'événement - {evenement.emplacement}</span>
                     </h4>
                     <Col>
                         <h5>
                             <span className="">Date de début - {formatDateTime(evenement.dateDebut)}</span>
-
-                            <span className=""> Durée : {evenement.duree} heures</span>
+                        </h5>
+                    </Col>
+                    <Col>
+                        <h5>
+                            <span className="">Durée - {evenement.duree} heures</span>
                         </h5>
                     </Col>
                 </Row>
-
-                {/* <Row className="Row">
-                    {Object.keys(evenement)
-                        .filter(keyName => keyName === "description" || keyName === "emplacement" || keyName === "dateDebut" || keyName === "duree")
-                        .map((keyName, i) => (
-                            <h4 className="travelcompany-input" key={i}>
-                                <span className="input-label">{keyName} -- {evenement[keyName]}</span>
-                            </h4>
-                        ))}
-                </Row> */}
 
                 <Row className="Row">
                     <h5>Membres de l'équipe</h5>
