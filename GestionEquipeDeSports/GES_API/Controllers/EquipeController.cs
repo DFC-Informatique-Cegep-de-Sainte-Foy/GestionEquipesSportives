@@ -56,8 +56,11 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
+            p_equipeModel.IdEquipe = Guid.NewGuid();
+            Guid guid = p_equipeModel.IdEquipe;
+
             this.m_manipulationDepotEquipe.AjouterEquipe(p_equipeModel.DeModelVersEntite());
-            return Ok();
+            return Ok(guid);
         }
 
         // PUT api/<EquipeController>/5
