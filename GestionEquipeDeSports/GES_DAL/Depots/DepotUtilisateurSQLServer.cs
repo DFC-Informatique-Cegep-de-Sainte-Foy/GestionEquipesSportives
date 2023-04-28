@@ -66,12 +66,12 @@ namespace GES_DAL.Depots
         }
         public Entite.Utilisateur ChercherUtilisateurParEmail(String p_email)
         {
-            if(p_email == null)
+            if (p_email == null)
             {
                 throw new ArgumentNullException(nameof(p_email));
             }
             GES_DAL.BackendProject.Utilisateur? utilisateurDTO = this.m_context.Utilisateurs.FirstOrDefault(e => e.Email == p_email);
-            if(utilisateurDTO == null)
+            if (utilisateurDTO == null)
             {
                 throw new InvalidOperationException($"l'utilisateur avec l'email {p_email} n'existe pas");
             }
