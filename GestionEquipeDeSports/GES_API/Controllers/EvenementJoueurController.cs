@@ -73,9 +73,6 @@ namespace GES_API.Controllers
         [ProducesResponseType(400)]
         public ActionResult Put([FromBody] EvenementJoueurModel p_evenementJoueurModel)
         {
-            bool estPresent = false;
-
-
             if (p_evenementJoueurModel == null)
             {
                 return BadRequest();
@@ -83,13 +80,12 @@ namespace GES_API.Controllers
             try
             {
                 this.m_manipulationDepotEvenementJoueur.AjouterPresencePourJoueur(p_evenementJoueurModel.DeModelVersEntite());
-                estPresent = true;
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            return Ok(estPresent);
+            return Ok();
         }
     }
 }
