@@ -5,110 +5,84 @@ import { Link } from 'react-router-dom';
 
 
 function AfficherPageEnFonctionDuRole(){
-    const [tableauDesroles, setTableauDesroles] = useState([]);
+    const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState([]);
     const { loginWithRedirect, logout,user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-    const rolesVenantDuBackend = [];
 
-    async function getRolesVenantDuBackend(email){
+    async function getRoleVenantDuBackend(email) {
         const token = await getAccessTokenSilently();
 
-        const resultat = await fetch(`api/UtilisateurEquipeRole/${email}`, {
+        const resultat = await fetch(`api/utilisateur/${email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         });
 
         const body = await resultat.json();
-        //console.log(body);
+        console.log(body);
 
-        body.forEach((data) => {
-            rolesVenantDuBackend.push(data.fkIdRole);
-            //console.log(data.fkIdRole);
-        })
+        const roleDeLUtilisateur = await body.roles;
+        //console.log(roleDeLUtilisateur);
 
-        return rolesVenantDuBackend;
+        return roleDeLUtilisateur;
     }
 
     useEffect( () => { 
-        async function getLesRolesDeLUtilisateurConnecte() {
+        async function getLeRoleDeLUtilisateurConnecte() {
             try {
                 console.log(user);
-            
-                const roles = await getRolesVenantDuBackend(user.email); 
-                //console.log(roles);
-                setTableauDesroles(roles);
+    
+                const roleDeLUtilisateur = await getRoleVenantDuBackend(user.email); 
+                //console.log(roleDeLUtilisateur);
+                setRoleDeLUtilisateur(roleDeLUtilisateur);
             } 
             catch (err) 
             {
-                console.log(err);
+                console.log("ERREUR:" +err);
             }
         }
-        getLesRolesDeLUtilisateurConnecte();
+        getLeRoleDeLUtilisateurConnecte();
     }, []);
-
 
     function MenuAAfficher()
     {
         if (isAuthenticated === true)
         {
-            console.log(tableauDesroles);
+            //console.log(roleDeLUtilisateur);
+            
+            if(roleDeLUtilisateur === 0)
+            {
+                return(
+                    <Nav>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
+                        </NavItem>
 
-            tableauDesroles.forEach((role) => {
-                console.log(role);
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/equipes">Équipes</NavLink>
+                        </NavItem>
 
-                if(role === 0)
-                {
-                    console.log("C'est 0");
-                    return(
-                        <Nav>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
-                            </NavItem>
-    
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/equipes">Équipes</NavLink>
-                            </NavItem>
-    
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/utilisateurs">Utilisateurs</NavLink>
-                            </NavItem>
-    
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
-                            </NavItem>
-                        </Nav>
-                    );
-                }
-                else if(role === 1)
-                {
-                    console.log("C'est 1");
-                    return(
-                        <Nav>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entraineur</NavLink>
-                            </NavItem>
-    
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
-                            </NavItem>
-                        </Nav>
-                    );
-                }
-                else
-                {
-                    console.log("C'est 2 ou 3");
-                    return(
-                        <Nav>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" to="/ma-page-accueil">Ma page d'Accueil</NavLink>
-                            </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/utilisateurs">Utilisateurs</NavLink>
+                        </NavItem>
 
-                            <NavItem>
-                                <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
-                            </NavItem>
-                        </Nav>
-                    );
-                }
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
+                        </NavItem>
+                    </Nav>
+                );
+            }
+            else 
+            {
+                return(
+                    <Nav>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entraineur</NavLink>
+                        </NavItem>
 
-            })
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
+                        </NavItem>
+                    </Nav>
+                );
+            }
         }
         else
         {

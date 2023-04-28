@@ -145,10 +145,13 @@ export const PageAcceuilEntraineur = () => {
         <>
         <Container>
             <Row>
+                <Col style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>Bonjour {utilisateur.prenom}!</Col>
+            </Row>
+            <p></p>
+            <Row>
                 <Col>
                     <h5>Liste des équipes</h5>
                 </Col>
-                <Col>Bonjour {utilisateur.prenom}!</Col>
                 <Col>
                     <Button variant="success" className="float-end" onClick={() => navigate("/formulaireEquipe")}>Créer une équipe</Button>
                 </Col>
