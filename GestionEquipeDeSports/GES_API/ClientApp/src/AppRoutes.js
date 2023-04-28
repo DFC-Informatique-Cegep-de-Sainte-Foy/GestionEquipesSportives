@@ -2,7 +2,6 @@ import Equipes from "./components/Equipes";
 import { Accueil } from "./components/Accueil";
 import Evenements from "./components/Evenements";
 import { FormEvenement } from "./components/FormulaireEvenement";
-import { FormEquipe } from "./components/FormulaireEquipe";
 import Utilisateurs from "./components/Utilisateurs";
 import FormEntraineur from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./pages/PageUnEvenement";
@@ -17,6 +16,9 @@ import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
 import Profile from "./components/Profile";
 import { Connexion } from "./components/Connexion";
 import { AuthenticationGuard } from "./components/AuthenticationGuard";
+import PageUneEquipePourUnAthlete from "./pages/PageUneEquipePourUnAthlete";
+import PageUneEquipePourUnEntraineur from "./pages/PageUneEquipePourUnEntraineur";
+import { PageFormEquipe } from "./pages/PageFormulaireEquipe";
 
 const AppRoutes = [
   {
@@ -40,7 +42,7 @@ const AppRoutes = [
   {
     path: '/formulaireEquipe',
     //element: <FormEquipe />
-    element: <AuthenticationGuard component={FormEquipe} />
+    element: <AuthenticationGuard component={PageFormEquipe} />
   },
   {
     path: '/utilisateurs',
@@ -100,6 +102,16 @@ const AppRoutes = [
     path: '/profile',
     //element: <Profile />
     element: <AuthenticationGuard component={Profile} />
+  },
+  {
+    path: '/pageUneEquipePourUnAthlete',
+    //element: <Profile />
+    element: <AuthenticationGuard component={PageUneEquipePourUnAthlete} />
+  },
+  {
+    path: '/pageUneEquipePourUnEntraineur',
+    //element: <Profile />
+    element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
   },
   {
     path: '*',

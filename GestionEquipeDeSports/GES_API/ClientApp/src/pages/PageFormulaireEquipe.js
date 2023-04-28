@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from 'formik';
@@ -24,18 +24,38 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
         .required('Ce champ est obligatoire!'),
 });
 
-export const FormEquipe = () => {
+export const PageFormEquipe = () => {
+    const[idUtilisateur, setIdUtilisateur] = useState('');
+    const[reponse ,setReponse] = useState('');
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
+    const { user } = useAuth0();
+
+    useEffect(() => {
+        getUtilisateur(user.email);
+    }, []);
+
+    async function getUtilisateur(email) {
+        const token = await getAccessTokenSilently();
+        console.log(email);
+        await fetch(`api/utilisateur/${email}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            setIdUtilisateur(result.idUtilisateur);
+            console.log(result);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
 
     async function soumettreFormulaire(values) {
-        console.log('formulaire est Valid!');
-
         const token = await getAccessTokenSilently();
-        console.log("ACCESS TOKEN: " + token);
+        // console.log("ACCESS TOKEN: " + token);
 
-        //POST request fetch
-
+        //POST request fetch dans table equipe
         let requestOptions = {
             method: 'POST',
             headers: {
@@ -50,10 +70,30 @@ export const FormEquipe = () => {
                 AssociationSportive: values.associationSportive
             })
         };
-        await fetch('api/equipe', requestOptions)
+        const reponse = await fetch('api/equipe', requestOptions);
+        console.log(reponse);
+        const data = await reponse.json();
+        console.log(data);
+
+        // POST request fetch dans table equipeJoueur
+        let requestOptionsEquipeJoueur = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                Fk_Id_Utilisateur: idUtilisateur,
+                Fk_Id_Equipe: data
+            })
+        };
+        await fetch('api/equipeJoueur', requestOptionsEquipeJoueur)
             .then(function (reponse) {
                 console.log(reponse);
-
+                if(reponse.ok){
+                    setReponse('Vous avez ajouté une équipe');
+                }
             }).catch(function (error) {
                 console.log(error)
             })
@@ -73,7 +113,6 @@ export const FormEquipe = () => {
                             }}
                             validationSchema={DisplayingErrorMessagesSchema}
                             onSubmit={values => {
-                                console.log(values);
                                 soumettreFormulaire(values);
                             }}
                         >
@@ -113,7 +152,7 @@ export const FormEquipe = () => {
                                         <Field name="associationSportive" className="form-control" />
                                         {touched.associationSportive && errors.associationSportive && <div style={{ color: "red" }}>{errors.associationSportive}</div>}
                                     </div>
-
+                                    {reponse && <p style={{ color: "red" }}>{reponse}</p>}
                                     <div className="row">
                                         <div className="col-6 p-3">
                                             <Button variant='primary' type="submit" >Ajouter</Button>
@@ -125,7 +164,7 @@ export const FormEquipe = () => {
 
                                 </Form>
                             )}
-                        </Formik>
+                        </Formik>                        
                     </Col>
                 </Row>
             </Container>
