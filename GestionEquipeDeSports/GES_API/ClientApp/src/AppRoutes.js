@@ -17,6 +17,8 @@ import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
 import Profile from "./components/Profile";
 import { Connexion } from "./components/Connexion";
 import { AuthenticationGuard } from "./components/AuthenticationGuard";
+import PageUneEquipePourUnAthlete from "./pages/PageUneEquipePourUnAthlete";
+import PageUneEquipePourUnEntraineur from "./pages/PageUneEquipePourUnEntraineur";
 
 const AppRoutes = [
   {
