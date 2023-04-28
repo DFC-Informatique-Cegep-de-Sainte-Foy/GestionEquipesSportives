@@ -50,7 +50,6 @@ class NavMenu extends React.Component {
 
                 <AfficherPageEnFonctionDuRole />
                 <Profile />
-                
               </Nav>
             </Collapse>
           </Navbar>

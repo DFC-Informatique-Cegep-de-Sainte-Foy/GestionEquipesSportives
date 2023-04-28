@@ -20,3 +20,6 @@ insert into Utilisateur (Nom, Prenom, Age, email, Adresse, NumTelephone, DateCre
 insert into Utilisateur (Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles) values ('Clee', 'Salomi', 36, 'scleei@amazon.de', 'Room 999', '(135) 1825539', '2022-05-10', '2022-09-16', 1, 1, 1);
 insert into Utilisateur (Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles) values ('Aylen', 'Charissa', 34, 'caylenj@artisteer.com', 'PO Box 36733', '(667) 9940263', '2022-08-16', '2023-02-10', 1, 1, 1);
 insert into Utilisateur (Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles) values ('Carufel', 'Kevin', 34, 'kevin.carufel@hotmail.com', 'PO Box 36733', '(667) 6927777', '2023-04-22', '2023-04-22', 1, 1, 3);
+
+INSERT INTO Utilisateur(Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles)
+	VALUES('Scott', 'Lucas', 27,'lucasscott494@yahoo.com', '2539 Chemin Sainte-foy, G1V1F9, QC', '819-570-7356','2022-04-26','2023-04-10', 1, 1, 0);
