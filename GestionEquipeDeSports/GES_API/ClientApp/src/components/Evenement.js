@@ -6,6 +6,7 @@ import { CalculerDuree } from "./CalculerDuree";
 import { useAuth0 } from '@auth0/auth0-react';
 import { IdUtilisateurContext } from "./Context";
 import { useNavigate } from "react-router-dom";
+import { AfficherChangerPresence } from "./AfficherChangerPresence";
 
 export const Evenement = (props) =>{
     const [joueurPresenceEvenement, setJoueurPresenceEvenement] = useState([]);
@@ -67,8 +68,8 @@ export const Evenement = (props) =>{
     }
 
     async function changerEtatPresence(id, etat){
-        console.log(idUt);
-        console.log(etat);
+        // console.log(idUt);
+        // console.log(etat);
         const token =  await getAccessTokenSilently();
 
         let requestOptions = {
@@ -83,21 +84,25 @@ export const Evenement = (props) =>{
 
         await fetch(`api/evenementJoueur`, requestOptions)
         .then(function (reponse) {
-            console.log(reponse);
-
+            // console.log(reponse);
+            if(reponse.status === 200){
+                listePresenceJoueurPourEvenement(idUt);
+                // console.log('changer ...');
+            }
         }).catch(function (error) {
             console.log(error)
         })
     }
 
     return(
-        <tr onClick={() => navigate(`/unEvenement/${props.id}`)} style={{cursor: "pointer"}} >            
-            <td>{props.num}</td>
-            <td>{props.description}</td>
-            <td>{props.emplacement}</td>
+        <tr>
+            <td onClick={() => navigate(`/unEvenement/${props.id}`)} style={{cursor: "pointer"}}>{props.num}</td>
+            <td onClick={() => navigate(`/unEvenement/${props.id}`)} style={{cursor: "pointer"}}>{props.description}</td>
+            <td onClick={() => navigate(`/unEvenement/${props.id}`)} style={{cursor: "pointer"}}>{props.emplacement}</td>
             <FormatDateTime doneesDateTime={props.dateDebut} />
             <CalculerDuree dateACalculer={[props.dateDebut, props.dateFin]} />
-            <td>{afficherEtatPresence(props.id)}</td>
+            <AfficherChangerPresence presence={[props.id, joueurPresenceEvenement]} />
+            {/* {<td>{afficherEtatPresence(props.id)}</td>} */}
             <td>
                 <Button variant='success' onClick={() => changerEtatPresence(props.id, true)} size="sm" className="me-2" title="Est présent"> <BiCheck /></Button>
                 <Button variant='warning' onClick={() => changerEtatPresence(props.id, false)} size="sm" className="me-2" title="Est absent"> <BiX /></Button>
