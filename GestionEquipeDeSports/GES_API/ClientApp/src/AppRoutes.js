@@ -102,6 +102,16 @@ const AppRoutes = [
     element: <AuthenticationGuard component={Profile} />
   },
   {
+    path: '/pageUneEquipePourUnAthlete',
+    //element: <Profile />
+    element: <AuthenticationGuard component={PageUneEquipePourUnAthlete} />
+  },
+  {
+    path: '/pageUneEquipePourUnEntraineur',
+    //element: <Profile />
+    element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
+  },
+  {
     path: '*',
     element: <Erreur404 />
   }
