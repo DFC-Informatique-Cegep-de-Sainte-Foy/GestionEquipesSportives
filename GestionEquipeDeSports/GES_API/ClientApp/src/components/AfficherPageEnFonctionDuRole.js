@@ -15,10 +15,10 @@ function AfficherPageEnFonctionDuRole() {
         });
 
         const body = await resultat.json();
-        console.log(body);
+        //console.log(body);
 
         const roleDeLUtilisateur = await body.roles;
-        console.log(roleDeLUtilisateur);
+        //console.log(roleDeLUtilisateur);
 
         return roleDeLUtilisateur;
     }
@@ -26,7 +26,7 @@ function AfficherPageEnFonctionDuRole() {
     useEffect(() => {
         async function getLeRoleDeLUtilisateurConnecte() {
             try {
-                console.log(user);
+                //console.log(user);
 
                 const role = await getRoleVenantDuBackend(user.email);
                 //console.log(role);
