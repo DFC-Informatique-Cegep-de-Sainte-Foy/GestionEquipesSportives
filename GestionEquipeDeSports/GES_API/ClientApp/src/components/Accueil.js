@@ -6,16 +6,14 @@ import MessagePageAccueil from './MessagePageAccueil';
 export function Accueil() {
   const { isAuthenticated } = useAuth0();
 
-  if (isAuthenticated === true)
-  {
-    return(
+  if (isAuthenticated === true) {
+    return (
       <>
         <UtilisateurConnecteHeader />
       </>
     );
   }
-  else
-  {
+  else {
     return (
       <>
         <MessagePageAccueil />
