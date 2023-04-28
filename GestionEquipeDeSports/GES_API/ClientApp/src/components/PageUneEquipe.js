@@ -140,6 +140,7 @@ export const PageUneEquipe = () => {
     }
 
     async function onSelectJoueur(idJoueur){
+        const token =  await getAccessTokenSilently();
         console.log('Vous avez choisi : ');
         console.log(idJoueur);
         console.log('Id dequipe :');
@@ -147,7 +148,7 @@ export const PageUneEquipe = () => {
 
         let requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
             body: JSON.stringify({
                 FK_Id_Utilisateur: idJoueur,
                 FK_Id_Equipe: id
