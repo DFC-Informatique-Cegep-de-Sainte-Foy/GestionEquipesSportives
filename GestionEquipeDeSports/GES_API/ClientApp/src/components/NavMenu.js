@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Nav } from 'reactstrap';
+import { Collapse, Navbar, NavbarBrand, NavbarToggler,  Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -36,71 +36,6 @@ class NavMenu extends React.Component {
   }
 
   render() {
-    const loginWithRedirect = this.props.loginWithRedirect;
-    const logout = this.props.logout;
-    const isAuthenticated = this.props.isAuthenticated;
-
-    function MenuAAfficher() {
-      if (isAuthenticated === true) {
-        return (
-          <Nav>
-            <NavItem>
-              <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entraineur</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink tag={Link} className="text-white" to="/ma-page-accueil">Ma page d'Accueil</NavLink>
-            </NavItem>
-            
-            <NavItem>
-              <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink tag={Link} className="text-white" to="/equipes">Équipes</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink tag={Link} className="text-white" to="/utilisateurs">Utilisateurs</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
-            </NavItem>
-
-            <Profile />
-
-          </Nav>
-        );
-      }
-      else {
-        return (
-          <Nav>
-            <NavItem>
-              <NavLink tag={Link} className="text-white" to="/">Accueil</NavLink>
-            </NavItem>
-
-            <NavItem>
-              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
-            </NavItem>
-
-            <NavItem className="border border-success rounded">
-              <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
-                /*appState: {
-                  returnTo: "/profile",
-                },*/
-                authorizationParams: {
-                  screen_hint: "signup",
-                },
-              })}>
-                <span className='text-success'>Inscription</span>
-              </NavLink>
-            </NavItem>
-          </Nav>
-        );
-      }
-    }
-
     return (
       <header className="header-with-gray-strip">
         <div>
@@ -113,7 +48,8 @@ class NavMenu extends React.Component {
               <Nav className="navbar-nav flex-grow">
                {/*  <MenuAAfficher /> <AfficherPageEnFonctionDuRole /> <Profile />*/}
 
-               <AfficherPageEnFonctionDuRole />
+                <AfficherPageEnFonctionDuRole />
+                <Profile />
                 
               </Nav>
             </Collapse>

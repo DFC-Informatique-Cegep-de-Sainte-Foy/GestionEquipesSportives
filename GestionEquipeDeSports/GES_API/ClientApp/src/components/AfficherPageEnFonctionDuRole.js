@@ -3,7 +3,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { NavItem, NavLink, Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-
 function AfficherPageEnFonctionDuRole(){
     const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState([]);
     const { loginWithRedirect, logout,user, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -75,7 +74,7 @@ function AfficherPageEnFonctionDuRole(){
                 return(
                     <Nav>
                         <NavItem>
-                            <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil Entraineur</NavLink>
+                            <NavLink tag={Link} className="text-white" to="/accueilEntraineur">Page d'accueil</NavLink>
                         </NavItem>
 
                         <NavItem>
