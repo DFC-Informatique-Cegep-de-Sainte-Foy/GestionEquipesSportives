@@ -19,19 +19,19 @@ function AfficherPageEnFonctionDuRole(){
         console.log(body);
 
         const roleDeLUtilisateur = await body.roles;
-        //console.log(roleDeLUtilisateur);
+        console.log(roleDeLUtilisateur);
 
         return roleDeLUtilisateur;
     }
 
     useEffect(() => {
-        async function getLesRolesDeLUtilisateurConnecte() {
+        async function getLeRoleDeLUtilisateurConnecte() {
             try {
                 console.log(user);
 
-                const roles = await getRolesVenantDuBackend(user.email);
-                //console.log(roles);
-                setTableauDesroles(roles);
+                const role = await getRoleVenantDuBackend(user.email);
+                //console.log(role);
+                setRoleDeLUtilisateur(role);
             }
             catch (err) {
                 console.log(err);
@@ -41,9 +41,20 @@ function AfficherPageEnFonctionDuRole(){
     }, []);
 
 
-    function MenuAAfficher() {
-        if (isAuthenticated === true) {
-            console.log(tableauDesroles);
+        
+    function MenuAAfficher()
+    {
+        if (isAuthenticated === true)
+        {
+            //console.log(roleDeLUtilisateur);
+            
+            if(roleDeLUtilisateur === 0)
+            {
+                return(
+                    <Nav>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
+                        </NavItem>
 
                         <NavItem>
                             <NavLink tag={Link} className="text-white" to="/equipes">Équipes</NavLink>
@@ -74,26 +85,27 @@ function AfficherPageEnFonctionDuRole(){
                 );
             }
         }
-        else {
+        else
+        {
             return (
                 <Nav>
-                    <NavItem>
-                        <NavLink tag={Link} className="text-white" to="/">Accueil</NavLink>
-                    </NavItem>
-
-                    <NavItem>
-                        <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
-                    </NavItem>
-
-                    <NavItem className="border border-success rounded">
-                        <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
-                            authorizationParams: {
-                                screen_hint: "signup",
-                            },
-                        })}>
-                            <span className='text-success'>Inscription</span>
-                        </NavLink>
-                    </NavItem>
+                  <NavItem>
+                    <NavLink tag={Link} className="text-white" to="/">Accueil</NavLink>
+                  </NavItem>
+      
+                  <NavItem>
+                    <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
+                  </NavItem>
+      
+                  <NavItem className="border border-success rounded">
+                    <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
+                      authorizationParams: {
+                        screen_hint: "signup",
+                      },
+                    })}>
+                      <span className='text-success'>Inscription</span>
+                    </NavLink>
+                  </NavItem>
                 </Nav>
             );
         }
