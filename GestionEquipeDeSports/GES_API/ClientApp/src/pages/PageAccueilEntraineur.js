@@ -150,7 +150,7 @@ export const PageAcceuilEntraineur = () => {
             <p></p>
             <Row>
                 <Col>
-                    <h5>Liste des équipes</h5>
+                    <h5>Liste de vos équipes</h5>
                 </Col>
                 <Col>
                     <Button variant="success" className="float-end" onClick={() => navigate("/formulaireEquipe")}>Créer une équipe</Button>
