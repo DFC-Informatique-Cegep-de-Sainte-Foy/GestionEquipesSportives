@@ -98,8 +98,8 @@ export const PageModifieUnEvenement = () => {
         <>
             <Container>
                 <Row className="justify-content-md-center">
-                    <Col sm={6}>
-                        <h2>Modification des données d'événement</h2>
+                    <Col sm={8}>
+                        <h2>Modification des données de'événement</h2>
                     </Col>
                 </Row>
                 <Row className="justify-content-md-center">
