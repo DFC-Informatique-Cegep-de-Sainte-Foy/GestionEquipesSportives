@@ -145,7 +145,7 @@ export const PageAcceuilEntraineur = () => {
         <>
         <Container>
             <Row>
-                <Col style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>Bienvenue dans votre compte</Col>
+                <Col style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>Bienvenue dans votre compte !</Col>
             </Row>
             <p></p>
             <Row>

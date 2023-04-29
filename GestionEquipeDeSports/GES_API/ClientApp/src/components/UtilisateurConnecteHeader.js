@@ -29,7 +29,7 @@ function UtilisateurConnecteHeader(){
     {
         return(
             <Row>
-                <Col style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>Bonjour {utilisateur.prenom} !</Col>
+                <Col style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>Bonjour {utilisateur.prenom}, </Col>
             </Row>
         );
     }
