@@ -167,9 +167,9 @@ export const PageUnEvenement = () => {
                 </Row>
 
                 <Row className="Row">
-                    <h4 className="travelcompany-input">
+                    <h5 className="travelcompany-input">
                         <span className="">Lieu de l'événement: {evenement.emplacement}</span>
-                    </h4>
+                    </h5>
                     <Col>
                         <h5>
                             <span className="">Date de début: {formatDateTime(evenement.dateDebut)}</span>
