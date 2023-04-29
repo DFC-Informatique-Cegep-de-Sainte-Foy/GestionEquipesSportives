@@ -10,9 +10,11 @@ function PageUneEquipePourUnEntraineur(){
 
     const [equipeEvenement, setEquipeEvenement] = useState([]);
     const [equipeJoueurs, setEquipeJoueurs] = useState([]);
-    const { getAccessTokenSilently } = useAuth0();
+    const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
     const [loading, setLoading] = useState(true);
 
+    const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState([]);
+    
     const {id} = useParams();
 
     async function getEquipe(id){
@@ -104,6 +106,57 @@ function PageUneEquipePourUnEntraineur(){
         getEvenements(id);
     }
 
+    async function getRoleVenantDuBackend(email) {
+        const token = await getAccessTokenSilently();
+        const resultat = await fetch(`api/utilisateur/${email}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        });
+
+        const body = await resultat.json();
+        const roleDeLUtilisateur = await body.roles;
+        return roleDeLUtilisateur;
+    }
+
+    useEffect(() => {
+        async function getLeRoleDeLUtilisateurConnecte() {
+            try {
+                const role = await getRoleVenantDuBackend(user.email);
+                console.log(role);
+                setRoleDeLUtilisateur(role);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+        getLeRoleDeLUtilisateurConnecte();
+    }, []);
+
+
+    function AfficherBoutonAjouterAthlete()
+    {
+        if (isAuthenticated === true)
+        {
+            if(roleDeLUtilisateur === 1)
+            {
+                return(
+                    <Button variant="success" className="btn btn-success float-end" >Ajouter un joueur</Button>
+                );
+            }
+        }
+    }
+
+    function AfficherBoutonAjouterUnEvenement()
+    {
+        if (isAuthenticated === true)
+        {
+            if(roleDeLUtilisateur === 1)
+            {
+                return(
+                    <Button variant="success" className="btn btn-success float-end">Ajouter un événement</Button>
+                );
+            }
+        }
+    }
 
     return(
         <>
@@ -124,7 +177,7 @@ function PageUneEquipePourUnEntraineur(){
 
                     <Col>
                         <Link to={'/formulaireEvenement'}>
-                            <Button variant="success" className="btn btn-success float-end" >Ajouter un joueur</Button>
+                            <AfficherBoutonAjouterAthlete />
                         </Link>
                     </Col>
                     <p></p>
@@ -167,7 +220,7 @@ function PageUneEquipePourUnEntraineur(){
 
                     <Col>
                         <Link to={'/formulaireEvenement'}>
-                            <Button variant="success" className="btn btn-success float-end">Ajouter un événement</Button>
+                           <AfficherBoutonAjouterUnEvenement />
                         </Link>
                     </Col>
                     <p></p>
