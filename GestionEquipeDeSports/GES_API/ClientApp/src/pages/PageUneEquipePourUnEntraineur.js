@@ -87,6 +87,23 @@ function PageUneEquipePourUnEntraineur(){
         getJoueurs(id);
     }
 
+    async function supprimerEvenementDeLEquipe(idEvenementDansList){
+        const token =  await getAccessTokenSilently();
+        console.log(idEvenementDansList)
+
+        let requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                FK_Id_Evenement: idEvenementDansList,
+                FK_Id_Equipe: id
+            })
+        };
+
+        await fetch(`/api/equipeEvenement`, requestOptions);
+        getEvenements(id);
+    }
+
 
     return(
         <>
@@ -107,7 +124,7 @@ function PageUneEquipePourUnEntraineur(){
 
                     <Col>
                         <Link to={'/formulaireEvenement'}>
-                            <Button variant="success" className="btn btn-success float-end" >Ajouter un joueur</Button><p></p>
+                            <Button variant="success" className="btn btn-success float-end" >Ajouter un joueur</Button>
                         </Link>
                     </Col>
                     <p></p>
@@ -140,6 +157,50 @@ function PageUneEquipePourUnEntraineur(){
                             ))}
                         </tbody>
 
+                    </Table>
+                </Row>
+
+                <Row>
+                    <Col>
+                        <h5>Liste des événements</h5>
+                    </Col>
+
+                    <Col>
+                        <Link to={'/formulaireEvenement'}>
+                            <Button variant="success" className="btn btn-success float-end">Ajouter un événement</Button>
+                        </Link>
+                    </Col>
+                    <p></p>
+                </Row>
+
+                <Row>
+                    <Table striped bordered>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description</th>
+                                <th>Emplacement</th>
+                                <th>Date de début</th>
+                                <th>Date de fin</th>
+                                <th>Type événement</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {equipeEvenement.map((e, index) => (
+                                <tr key={e.id}>
+                                    <td>{index+1}</td>
+                                    <td>{e.description}</td>
+                                    <td>{e.emplacement}</td>
+                                    <td>{e.dateDebut}</td>
+                                    <td>{e.dateFin}</td>
+                                    <td>{e.typeEvenement}</td>
+                                    <td>
+                                        <Button variant='danger' onClick={() => supprimerEvenementDeLEquipe(e.id)} size="sm" title="Supprimer" ><BiTrash /></Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </Table>
                 </Row>
             </Container>
