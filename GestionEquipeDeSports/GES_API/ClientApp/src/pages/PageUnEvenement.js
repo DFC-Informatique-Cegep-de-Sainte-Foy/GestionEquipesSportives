@@ -149,15 +149,17 @@ export const PageUnEvenement = () => {
             <div>
                 <Row className="Row mt-3">
                     <Col>
-                        <h1>Votre événement - {evenement.description} </h1>
+                        <h1>Nom de l'événement: {evenement.description}</h1>
                     </Col>
+                    <br></br>
                     <Col>
                         <Button className="ml-auto bg-success" onClick={handleClickPresence}>Confirmer ma présence</Button>
                         <Button className="ml-auto bg-danger mx-2" onClick={handleClickAbsence}>Annuler ma présence</Button>
                         <Button className="ml-auto bg-warning" onClick={() => navigate(`/modifieEvenement/${id}`)}>Modifier l'événement</Button>
                     </Col>
+                    <br></br>
                     <Col>
-                        <h5>Présence :
+                        <h5>Statut :
                             {isAttending === true ? "  Présent" : "  Absent"}
                         </h5>
 
