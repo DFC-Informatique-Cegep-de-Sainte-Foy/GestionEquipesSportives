@@ -55,7 +55,6 @@ function PageUneEquipePourUnEntraineur(){
     async function getJoueurs(id){
         const token =  await getAccessTokenSilently();
 
-        console.log('On va recevoir une liste des joueurs!');
         await fetch(`api/equipeJoueur/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
@@ -67,61 +66,81 @@ function PageUneEquipePourUnEntraineur(){
         });
     }
 
+    useEffect(() => {
+        getJoueurs(id);
+    }, []);
+
+    
+    async function supprimerJoueurDeLEquipe(idJoueurDansListe){
+        const token =  await getAccessTokenSilently();
+
+        let requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: idJoueurDansListe,
+                FK_Id_Equipe: id
+            })
+        };
+        await fetch("api/equipeJoueur", requestOptions);
+
+        getJoueurs(id);
+    }
+
 
     return(
         <>
             <Container>
                 <Row>
                     <h2>Nom de l'équipe: {nomEquipe}</h2>
+                    <Link to={'/accueilEntraineur'}>
+                        <Button variant='success' className="mb-3">Retour à la page d'accueil</Button>
+                    </Link>
                 </Row>
                 <p></p>
                 <p></p>
                 <p></p>
                 <Row>
                     <Col>
-
-                        <Row>
-                            <Col>
-                                <h5>Liste des joueurs de l'équipe</h5>
-                            </Col>
-                            <Col>
-                                <Link to={'/formulaireEvenement'}>
-                                    <Button variant="success" className="btn btn-success float-end" >Ajouter un joueur</Button><p></p>
-                                </Link>
-                            </Col>
-                        </Row>
-                        <p></p>
-                        <Row>
-                            <Table striped bordered>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {equipeJoueurs.map((j, index) => (
-                                        <tr key={j.idUtilisateur}>
-                                            <td>{index + 1}</td>
-                                            <td>{j.nom}</td>
-                                            <td>{j.prenom}</td>
-                                            <td>{j.email}</td>
-                                            <td>{j.numTelephone}</td>
-                                            <td>
-                                            <Button variant='danger' /*onClick={() => supprimerJoueurFromEquipe(j.idUtilisateur)}*/ size="sm" title="Supprimer" ><BiTrash /></Button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                                
-                            </Table>
-                        </Row>
-                        
+                        <h5>Liste des joueurs de l'équipe</h5>
                     </Col>
+
+                    <Col>
+                        <Link to={'/formulaireEvenement'}>
+                            <Button variant="success" className="btn btn-success float-end" >Ajouter un joueur</Button><p></p>
+                        </Link>
+                    </Col>
+                    <p></p>
+                </Row>
+
+                <Row>
+                    <Table striped bordered>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {equipeJoueurs.map((joueur, index) => (
+                                <tr key={joueur.idUtilisateur}>
+                                    <td>{index + 1}</td>
+                                    <td>{joueur.nom}</td>
+                                    <td>{joueur.prenom}</td>
+                                    <td>{joueur.email}</td>
+                                    <td>{joueur.numTelephone}</td>
+                                    <td>
+                                        <Button variant='danger' onClick={() => supprimerJoueurDeLEquipe(joueur.idUtilisateur)} size="sm" title="Supprimer" ><BiTrash /></Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+
+                    </Table>
                 </Row>
             </Container>
         </>
