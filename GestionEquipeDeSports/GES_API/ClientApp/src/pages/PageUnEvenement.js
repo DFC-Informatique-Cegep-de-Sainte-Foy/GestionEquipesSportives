@@ -168,7 +168,7 @@ export const PageUnEvenement = () => {
 
                 <Row className="Row">
                     <h4 className="travelcompany-input">
-                        <span className="">Emplacement de l'événement: {evenement.emplacement}</span>
+                        <span className="">Lieu de l'événement: {evenement.emplacement}</span>
                     </h4>
                     <Col>
                         <h5>
