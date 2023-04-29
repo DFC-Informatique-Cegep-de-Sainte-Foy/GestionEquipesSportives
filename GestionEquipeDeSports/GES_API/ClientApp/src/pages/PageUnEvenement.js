@@ -166,16 +166,16 @@ export const PageUnEvenement = () => {
 
                 <Row className="Row">
                     <h4 className="travelcompany-input">
-                        <span className="">Emplacement de l'événement - {evenement.emplacement}</span>
+                        <span className="">Emplacement de l'événement: {evenement.emplacement}</span>
                     </h4>
                     <Col>
                         <h5>
-                            <span className="">Date de début - {formatDateTime(evenement.dateDebut)}</span>
+                            <span className="">Date de début: {formatDateTime(evenement.dateDebut)}</span>
                         </h5>
                     </Col>
                     <Col>
                         <h5>
-                            <span className="">Durée - {evenement.duree} heures</span>
+                            <span className="">Durée: {evenement.duree} heures</span>
                         </h5>
                     </Col>
                 </Row>

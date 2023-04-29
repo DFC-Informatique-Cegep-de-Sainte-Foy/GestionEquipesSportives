@@ -243,7 +243,7 @@ function PageUneEquipePourUnEntraineur(){
                             {equipeEvenement.map((e, index) => (
                                 <tr key={e.id}>
                                     <td>{index+1}</td>
-                                    <td>{e.description}</td>
+                                    <td><Link to={{ pathname: `/unEvenement/${e.id}` }}>{e.description}</Link></td>
                                     <td>{e.emplacement}</td>
                                     <td>{e.dateDebut}</td>
                                     <td>{e.dateFin}</td>
