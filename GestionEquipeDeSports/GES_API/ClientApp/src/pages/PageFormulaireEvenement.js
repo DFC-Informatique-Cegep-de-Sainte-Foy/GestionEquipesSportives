@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 
 export function FormEvenement() {
@@ -10,7 +10,33 @@ export function FormEvenement() {
     const [typeEvenement, setTypeEvenement] = useState("");
     const [erreurDonnees, setErreurDonnees] = useState(false);
     const [confirmationAjout, setConfirmationAjout] = useState("");
+    const [idUtilisateur, setIdUtilisateur] = useState('');
     const { getAccessTokenSilently } = useAuth0();
+    const navigate = useNavigate();
+
+    const {id} = useParams();
+
+    const { user } = useAuth0();
+
+    useEffect(() => {
+        getUtilisateur(user.email);
+    }, []);
+
+    async function getUtilisateur(email) {
+        const token = await getAccessTokenSilently();
+        console.log(email);
+        await fetch(`api/utilisateur/${email}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            setIdUtilisateur(result.idUtilisateur);
+            console.log(result);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
 
     function handleChange(e) {
         if (e.target.id === "description") {
@@ -58,16 +84,55 @@ export function FormEvenement() {
         if (descriptionEvenement !== "" && emplacementEvenement !== "" && dateDebutEvenement < dateFinEvenement) {
             setErreurDonnees(false);
 
-            await fetch('api/evenements', optionsRequete)
-                .then(function (reponse) {
-                    console.log(reponse);
-                    console.log(typeEvenement);
-                    setConfirmationAjout("Ajout de l'évenement réussi!");
+            //ajout dans table evenements
+            const reponse = await fetch('api/evenements', optionsRequete);
+            console.log(reponse);
+            const data = await reponse.json();
+            console.log(data);
+                // .then(function (reponse) {
+                //     console.log(reponse);
+                //     console.log(typeEvenement);
+                //     setConfirmationAjout("Ajout de l'évenement réussi!");
 
-                }).catch(function (error) {
-                    console.log(error)
+                // }).catch(function (error) {
+                //     console.log(error)
+                // })
+
+            //ajout dans table EquipEvenement
+            const optionsRequeteEquipeEvenement = {
+                method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                Fk_Id_Equipe: id,
+                Fk_Id_Evenement: data
+            })
+            };
+            await fetch('api/equipeEvenement', optionsRequeteEquipeEvenement)
+            .then(function (reponse) {
+                console.log(reponse);
+            }).catch(function (error) {
+                console.log(error)
+            })
+            
+            //ajout dans table EvenementJoueur
+            const optionsRequeteJoueurEvenement = {
+                method: 'PUT',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            body: JSON.stringify({
+                FK_Id_Utilisateur: idUtilisateur,
+                FK_Id_Evenement: data,
+                EstPresentAEvenement: false
+            })
+            };
+            await fetch('api/evenementJoueur', optionsRequeteJoueurEvenement)
+            .then(function (reponse) {
+                console.log(reponse);
+                if(reponse.ok){
+                    setConfirmationAjout("Ajout de l'évenement réussi!");
                 }
-                )
+            }).catch(function (error) {
+                console.log(error)
+            })
         }
         else {
             setErreurDonnees(true);
@@ -122,11 +187,9 @@ export function FormEvenement() {
 
 
                             <button type="button" onClick={verifierDonnees} className="btn btn-primary">Ajouter</button>&nbsp;
-
-
-                            <Link to="/evenements">
-                                <button type="button" className="btn btn-danger">Annuler</button>
-                            </Link>
+                            
+                            <button type="button" onClick={() => navigate(-1)} className="btn btn-danger">Retour</button>
+                            
                         </form>
                     </div>
                 </div>

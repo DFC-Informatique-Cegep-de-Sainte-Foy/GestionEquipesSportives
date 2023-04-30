@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { Button, Container, Row, Col, Table } from 'react-bootstrap';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { BiTrash } from "react-icons/bi";
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -12,7 +12,7 @@ function PageUneEquipePourUnEntraineur(){
     const [equipeJoueurs, setEquipeJoueurs] = useState([]);
     const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
     const [loading, setLoading] = useState(true);
-
+    const navigate = useNavigate();
     const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState([]);
     
     const {id} = useParams();
@@ -152,7 +152,7 @@ function PageUneEquipePourUnEntraineur(){
             if(roleDeLUtilisateur === 1)
             {
                 return(
-                    <Button variant="success" className="btn btn-success float-end">Ajouter un événement</Button>
+                    <Button variant="success" onClick={() => navigate(`/formulaireEvenement/${id}`)} className="btn btn-success float-end">Ajouter un événement</Button>
                 );
             }
         }
@@ -219,9 +219,7 @@ function PageUneEquipePourUnEntraineur(){
                     </Col>
 
                     <Col>
-                        <Link to={'/formulaireEvenement'}>
-                           <AfficherBoutonAjouterUnEvenement />
-                        </Link>
+                        <AfficherBoutonAjouterUnEvenement />                        
                     </Col>
                     <p></p>
                 </Row>

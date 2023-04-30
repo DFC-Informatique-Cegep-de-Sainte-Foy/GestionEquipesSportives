@@ -1,7 +1,7 @@
 import Equipes from "./components/Equipes";
 import { Accueil } from "./components/Accueil";
 import Evenements from "./components/Evenements";
-import { FormEvenement } from "./components/FormulaireEvenement";
+import { FormEvenement } from "./pages/PageFormulaireEvenement";
 import Utilisateurs from "./components/Utilisateurs";
 import FormEntraineur from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./pages/PageUnEvenement";
@@ -34,7 +34,7 @@ const AppRoutes = [
     element: <AuthenticationGuard component={Evenements} />
   },
   {
-    path: '/formulaireEvenement',
+    path: '/formulaireEvenement/:id',
     //element: <FormEvenement />
     element: <AuthenticationGuard component={FormEvenement} />
   },
@@ -76,8 +76,8 @@ const AppRoutes = [
   /******************************************************************* */
   {
     path: '/uneEquipe/:id',
-    element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
-    //element: <AuthenticationGuard component={PageUneEquipe} />
+    // element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
+    element: <AuthenticationGuard component={PageUneEquipe} />
   },
 
 /********************************************************************************* */
@@ -108,7 +108,7 @@ const AppRoutes = [
     element: <AuthenticationGuard component={Profile} />
   },
   {
-    path: '/pageUneEquipePourUnEntraineur',
+    path: '/pageUneEquipePourUnEntraineur/:id',
     element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
   },
   {

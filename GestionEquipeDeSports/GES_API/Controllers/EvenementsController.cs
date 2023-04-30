@@ -62,9 +62,13 @@ namespace GES_API.Controllers
             {
                 throw new ArgumentNullException(nameof(p_evenementModel));
             }
+
+            p_evenementModel.Id = Guid.NewGuid();
+            Guid guid = p_evenementModel.Id;
+
             GES_Services.Entites.Evenement evenem = p_evenementModel.DeModelVersEntite();
             this.m_maniulationDepotEvenement.AjouterEvenement(evenem);
-            return CreatedAtAction(nameof(Get), new { id = p_evenementModel.Id }, p_evenementModel);
+            return Ok(guid);
         }
 
         // PUT api/<EvenementController>/5
