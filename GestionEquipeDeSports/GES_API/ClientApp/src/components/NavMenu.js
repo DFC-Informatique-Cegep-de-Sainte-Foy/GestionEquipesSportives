@@ -8,7 +8,7 @@ import Profile from './Profile.js';
 import "bootstrap/dist/css/bootstrap.min.css"
 import AfficherPageEnFonctionDuRole from './AfficherPageEnFonctionDuRole';
 import { NavLink } from 'react-bootstrap';
-import logo from './logo.png';
+import logo from '../images/logo.png';
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
