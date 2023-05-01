@@ -35,6 +35,7 @@ export const PageUnEvenement = () => {
     }
 
     const loadEvenement = async () => {
+       
         const token = await getAccessTokenSilently();
 
         fetch(`api/evenements/${id}`, {
@@ -47,6 +48,9 @@ export const PageUnEvenement = () => {
         }).catch((error) => {
             console.log(error);
         });
+
+        console.log("loadEvenement")
+        console.log(evenement)
     }
 
     const loadPresence = async () => {
@@ -75,7 +79,23 @@ export const PageUnEvenement = () => {
 
     const loadMembresEquipeEvenement = async () => {
         const token = await getAccessTokenSilently();
+        const url = `http://localhost:5225/api/EquipeJoueurEvenement/${id}?idEvenement=${evenement.id}`;
 
+        //appele la route suivante avec un fetch : api/EquipeJoueurEvenement/{idEvenement} avec le paramètre idEvenement from  query param key:value
+        await fetch(url, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        }).then((res) => {
+            if (!res.ok) {
+                throw new Error("Network response was not ok");
+            }
+            else {
+                return res.json();
+            }
+        }).then((data) => {
+            setMembresEquipeEvenement(data);
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     const handleClickAbsence = async () => {
@@ -139,6 +159,7 @@ export const PageUnEvenement = () => {
     useEffect(() => { loadEvenement() }, []);
     useEffect(() => { loadPresence() }, []);
     useEffect(() => { loadUtilisateur() }, []);
+    useEffect(() => { loadMembresEquipeEvenement() }, []);
 
     if (evenement === null) {
         return <div>Chargement...</div>;
@@ -188,8 +209,8 @@ export const PageUnEvenement = () => {
                     <Table striped bordered>
                         <thead>
                             <tr>
-                                <th>Nom</th>
                                 <th>Prenom</th>
+                                <th>Nom</th>
                                 <th>Numero</th>
                                 <th>Email</th>
                                 <th>Presence</th>
@@ -199,8 +220,8 @@ export const PageUnEvenement = () => {
                         <tbody>
                             {membresEquipeEvenement.map((e, index) => (
                                 <tr key={e.idUtilisateur}>
-                                    <td>{e.nom}</td>
                                     <td>{e.prenom}</td>
+                                    <td>{e.nom}</td>
                                     <td>{e.numTelephone}</td>
                                     <td>{e.email}</td>
                                 </tr>
