@@ -1,4 +1,5 @@
 use Equipe_sportive
+
 insert into Utilisateur (IdUtilisateur, Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles)
 values
 ('9e06e23b-4215-4bda-bde0-4a860c7ea7f8', 'De''Vere - Hunt', 'Maureene', 47, 'mdeverehunt0@latimes.com', 'PO Box 51373', '(629) 6086917', '2022-10-25', '2022-07-21', 1, 1, 3)

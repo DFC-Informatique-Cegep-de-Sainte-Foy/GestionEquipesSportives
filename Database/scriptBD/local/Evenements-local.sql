@@ -14,6 +14,7 @@
 --    PRIMARY KEY ([EvenementID])
 --);
 --GO
+use Equipe_sportive
 
 INSERT INTO [Evenement] (EvenementID,Description,Emplacement,dateDebut,dateFin, Etat, Fk_Id_TypeEvenement)
 VALUES

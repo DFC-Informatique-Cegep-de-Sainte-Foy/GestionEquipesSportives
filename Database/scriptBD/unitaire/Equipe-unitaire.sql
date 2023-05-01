@@ -1,6 +1,3 @@
-use Equipe_sportive
-
-
 insert into Equipe (IdEquipe, Nom, Region, DateCreation, DateModification, Sport, AssociationSportive, Etat, Fk_Id_Etat) 
 values ('58b220d7-cf7f-467d-9e0f-783825be963e', 'Steuber-Osinski', 'Rulong', '2022-05-15', '2022-07-03', 'Soccer', 'Business Development', 1, 1),
 values ('44dd0ea5-9efe-4155-8a4f-123565118e1a', 'Graham, Reinger and Bergnaum', 'Kitamilo', '2022-12-24', '2022-11-10', 'Soccer', 'Training', 1, 1),

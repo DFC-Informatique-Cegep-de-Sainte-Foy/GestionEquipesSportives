@@ -1,7 +1,6 @@
-use Equipe_sportive
 insert into Utilisateur (IdUtilisateur, Nom, Prenom, Age, email, Adresse, NumTelephone, DateCreation, DateModification, Etat, Fk_Id_Etat, Fk_Id_Roles)
 values
-('9e06e23b-4215-4bda-bde0-4a860c7ea7f8', 'De''Vere - Hunt', 'Maureene', 47, 'mdeverehunt0@latimes.com', 'PO Box 51373', '(629) 6086917', '2022-10-25', '2022-07-21', 1, 1, 3)
+('9e06e23b-4215-4bda-bde0-4a860c7ea7f8', 'De''Vere - Hunt', 'Maureene', 47, 'mdeverehunt0@latimes.com', 'PO Box 51373', '(629) 6086917', '2022-10-25', '2022-07-21', 1, 1, 3),
 ('d7a71e2f-28a6-480b-a232-b33bb0d2e833', 'Rimer', 'Sadella', 27, 'srimer1@theglobeandmail.com', '13th Floor', '(955) 5891978', '2022-06-01', '2023-03-28', 1, 1, 3),
 ('f8b06b1e-a13d-4816-987e-594dbca09fdb', 'Sanger', 'Nina', 37, 'nsanger2@t.co', 'PO Box 44298', '(563) 6271489', '2022-09-18', '2022-04-15', 1, 1, 2),
 ('6a33b0c4-35f4-4b53-a7f7-190410262e4e', 'Dockwray', 'Fayth', 57, 'fdockwray3@usda.gov', '16th Floor', '(871) 6162381', '2022-09-11', '2022-09-24', 1, 1, 1),
