@@ -8,6 +8,7 @@ import Profile from './Profile.js';
 import "bootstrap/dist/css/bootstrap.min.css"
 import AfficherPageEnFonctionDuRole from './AfficherPageEnFonctionDuRole';
 import { NavLink } from 'react-bootstrap';
+import logo from './logo.png';
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -41,19 +42,17 @@ class NavMenu extends React.Component {
       <header className="header-with-gray-strip">
         <div>
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white navbar-dark bg-dark border-bottom box-shadow mb-3">
-          <NavItem>
-            <NavLink tag={Link} className="text-white" to="/">
-              <img src="" alt="Profile" className="profile__avatar" />
-            </NavLink>
-          </NavItem>
+            <NavItem className='d-flex  align-items-center'>
+              <NavLink tag={Link} to="/">
+                <img src={logo} className="App-logo" alt="logo"  />
+              </NavLink>
+            </NavItem>
             <NavbarBrand tag={Link} to="/">
               <span className='text-success'>Gestion</span><span className='text-primary'>Equipe</span><span className='text-warning'>Sportive</span></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
 
               <Nav className="navbar-nav flex-grow">
-               {/*  <MenuAAfficher /> <AfficherPageEnFonctionDuRole /> <Profile />*/}
-
                 <AfficherPageEnFonctionDuRole />
                 <Profile />
               </Nav>
