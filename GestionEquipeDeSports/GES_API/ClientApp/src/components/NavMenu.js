@@ -42,11 +42,11 @@ class NavMenu extends React.Component {
       <header className="header-with-gray-strip">
         <div>
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white navbar-dark bg-dark border-bottom box-shadow mb-3">
-          <NavItem>
-            <NavLink tag={Link} to="/">
-              <img src={logo} className="App-logo" alt="logo"  />
-            </NavLink>
-          </NavItem>
+            <NavItem className='d-flex  align-items-center'>
+              <NavLink tag={Link} to="/">
+                <img src={logo} className="App-logo" alt="logo"  />
+              </NavLink>
+            </NavItem>
             <NavbarBrand tag={Link} to="/">
               <span className='text-success'>Gestion</span><span className='text-primary'>Equipe</span><span className='text-warning'>Sportive</span></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
