@@ -30,27 +30,22 @@ const AppRoutes = [
   },
   {
     path: '/evenements',
-    //element: <Evenements />
     element: <AuthenticationGuard component={Evenements} />
   },
   {
     path: '/formulaireEvenement/:id',
-    //element: <FormEvenement />
     element: <AuthenticationGuard component={FormEvenement} />
   },
   {
     path: '/formulaireEquipe',
-    //element: <FormEquipe />
     element: <AuthenticationGuard component={PageFormEquipe} />
   },
   {
     path: '/utilisateurs',
-    //element: <Utilisateurs />
     element: <AuthenticationGuard component={Utilisateurs} />
   },
   {
     path: '/formulaireEntraineur',
-    //element: <FormEntraineur />
     element: <AuthenticationGuard component={FormEntraineur} />
   },
   {
@@ -59,29 +54,20 @@ const AppRoutes = [
   },
   {
     path: '/unEvenement/:id',
-    //element: <PageUnEvenement />
     element: <AuthenticationGuard component={PageUnEvenement} />
   },
   {
     path: '/modifieEvenement/:id',
-    //element: <PageModifieUnEvenement />
     element: <AuthenticationGuard component={PageModifieUnEvenement} />
   },
   {
     path: '/supprimerEvenement/:id',
-    //element: <PageSupprimerEvenement />
     element: <AuthenticationGuard component={PageSupprimerEvenement} />
   },
-
-  /******************************************************************* */
   {
     path: '/uneEquipe/:id',
-    // element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
     element: <AuthenticationGuard component={PageUneEquipe} />
   },
-
-/********************************************************************************* */
-
   {
     path: '/supprimerEquipe/:id',
     element: <PageSupprimerEquipe />
@@ -89,22 +75,18 @@ const AppRoutes = [
   {
     // path: '/ma-page-accueil/:id',
     path: 'ma-page-accueil/',
-    //element: <PageJoueur />
     element: <AuthenticationGuard component={PageAccueilAthlete} />
   },
   {
     path: '/accueilEntraineur',
-    //element: <PageAcceuilEntraineur />
     element: <AuthenticationGuard component={PageAcceuilEntraineur} />
   },
   {
     path: '/rejoindreUneEquipe',
-    //element: <PageRejoindreUneEquipe />
     element: <AuthenticationGuard component={PageRejoindreUneEquipe} />
   },
   {
     path: '/profile',
-    //element: <Profile />
     element: <AuthenticationGuard component={Profile} />
   },
   {
