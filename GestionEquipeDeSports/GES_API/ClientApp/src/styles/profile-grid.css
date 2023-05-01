@@ -7,3 +7,14 @@
     height: 40px;
     width: 40px;
   }
+
+
+  .App-logo {
+    border: solid 2px var(--aqua);
+    border-radius: 50%;
+  
+    /* responsive */
+  
+    height: 40px;
+    width: 40px;
+  }

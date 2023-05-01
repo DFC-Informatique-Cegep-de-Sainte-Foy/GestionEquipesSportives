@@ -44,7 +44,7 @@ class NavMenu extends React.Component {
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white navbar-dark bg-dark border-bottom box-shadow mb-3">
           <NavItem>
             <NavLink tag={Link} to="/">
-              <img src={logo} className="profile__avatar" alt="logo"  />
+              <img src={logo} className="App-logo" alt="logo"  />
             </NavLink>
           </NavItem>
             <NavbarBrand tag={Link} to="/">
