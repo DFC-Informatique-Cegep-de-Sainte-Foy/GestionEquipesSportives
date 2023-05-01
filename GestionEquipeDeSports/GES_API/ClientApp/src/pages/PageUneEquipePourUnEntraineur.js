@@ -3,6 +3,8 @@ import { Button, Container, Row, Col, Table } from 'react-bootstrap';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { BiTrash } from "react-icons/bi";
 import { useAuth0 } from '@auth0/auth0-react';
+import { CalculerDuree } from '../components/CalculerDuree';
+import EvenementService from '../services/EvenementService.js';
 
 function PageUneEquipePourUnEntraineur(){
     const [equipe, setEquipe] = useState({});
@@ -157,7 +159,7 @@ function PageUneEquipePourUnEntraineur(){
             }
         }
     }
-
+    
     return(
         <>
             <Container>
@@ -232,7 +234,7 @@ function PageUneEquipePourUnEntraineur(){
                                 <th>Description</th>
                                 <th>Emplacement</th>
                                 <th>Date de début</th>
-                                <th>Date de fin</th>
+                                <th>Durée</th>
                                 <th>Type événement</th>
                             </tr>
                         </thead>
@@ -243,9 +245,9 @@ function PageUneEquipePourUnEntraineur(){
                                     <td>{index+1}</td>
                                     <td><Link to={{ pathname: `/unEvenement/${e.id}` }}>{e.description}</Link></td>
                                     <td>{e.emplacement}</td>
-                                    <td>{e.dateDebut}</td>
-                                    <td>{e.dateFin}</td>
-                                    <td>{e.typeEvenement}</td>
+                                    <td>{EvenementService.formatDateTime(e.dateDebut)}</td>
+                                    <CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} />
+                                    <td>{EvenementService.affichageTypeEvenement(e.typeEvenement)}</td>
                                     <td>
                                         <Button variant='danger' onClick={() => supprimerEvenementDeLEquipe(e.id)} size="sm" title="Supprimer" ><BiTrash /></Button>
                                     </td>
