@@ -8,6 +8,7 @@ import Profile from './Profile.js';
 import "bootstrap/dist/css/bootstrap.min.css"
 import AfficherPageEnFonctionDuRole from './AfficherPageEnFonctionDuRole';
 import { NavLink } from 'react-bootstrap';
+import logo from './logo.png';
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -43,7 +44,8 @@ class NavMenu extends React.Component {
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white navbar-dark bg-dark border-bottom box-shadow mb-3">
           <NavItem>
             <NavLink tag={Link} className="text-white" to="/">
-              <img src="" alt="Profile" className="profile__avatar" />
+              
+              <img src={logo} className="profile__avatar" alt="logo"  />
             </NavLink>
           </NavItem>
             <NavbarBrand tag={Link} to="/">
