@@ -52,6 +52,10 @@ function AfficherPageEnFonctionDuRole(){
                 return(
                     <Nav>
                         <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/">Accueil</NavLink>
+                        </NavItem>
+
+                        <NavItem>
                             <NavLink tag={Link} className="text-white" to="/evenements">Événements</NavLink>
                         </NavItem>
 
@@ -88,10 +92,6 @@ function AfficherPageEnFonctionDuRole(){
         {
             return (
                 <Nav>
-                  <NavItem>
-                    <NavLink tag={Link} className="text-white" to="/">Accueil</NavLink>
-                  </NavItem>
-      
                   <NavItem>
                     <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
                   </NavItem>
