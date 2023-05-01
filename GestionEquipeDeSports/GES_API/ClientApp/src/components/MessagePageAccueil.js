@@ -1,12 +1,12 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import Slider from './Slider';
 
 function MessagePageAccueil() {
     return (
-        <div>
-          <h1>Gérez votre équipe de sport amateur comme un pro</h1>
-    
-          <p>GestionEquipeDeSports est l'appli de référence pour organiser vos matchs et gérer votre équipe de foot, rugby, basket ou tout autre sport.</p>
-        </div>
+      <div>
+        <Slider/>
+      </div>
     );
 }
 
