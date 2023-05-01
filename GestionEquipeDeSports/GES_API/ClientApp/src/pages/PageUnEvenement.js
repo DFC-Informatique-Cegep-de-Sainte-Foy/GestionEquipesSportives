@@ -35,7 +35,6 @@ export const PageUnEvenement = () => {
     }
 
     const loadEvenement = async () => {
-       
         const token = await getAccessTokenSilently();
 
         fetch(`api/evenements/${id}`, {
@@ -48,12 +47,9 @@ export const PageUnEvenement = () => {
         }).catch((error) => {
             console.log(error);
         });
-
-        console.log("loadEvenement")
-        console.log(evenement)
     }
 
-    const loadPresence = async () => {
+    const loadPresenceUser = async () => {
         const token = await getAccessTokenSilently();
 
         //load presence of the user       
@@ -79,11 +75,9 @@ export const PageUnEvenement = () => {
 
     const loadMembresEquipeEvenement = async () => {
         const token = await getAccessTokenSilently();
-        const url = `http://localhost:5225/api/EquipeJoueurEvenement/${id}?idEvenement=${evenement.id}`;
 
-        //appele la route suivante avec un fetch : api/EquipeJoueurEvenement/{idEvenement} avec le paramètre idEvenement from  query param key:value
-        await fetch(url, {
-            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        fetch(`api/EquipeJoueurEvenement/${utilisateur.idUtilisateur}?idEvenement=${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` }
         }).then((res) => {
             if (!res.ok) {
                 throw new Error("Network response was not ok");
@@ -94,6 +88,7 @@ export const PageUnEvenement = () => {
         }).then((data) => {
             setMembresEquipeEvenement(data);
         }).catch((error) => {
+            console.log("erreur :");
             console.log(error);
         });
     }
@@ -150,6 +145,10 @@ export const PageUnEvenement = () => {
         });
     }
 
+    const loadPresencesDesMemebres = async () => {
+        const token = await getAccessTokenSilently();
+    }
+
     function formatDateTime(donnees) {
         var dateTimeEntree = donnees;
         var date = dateTimeEntree.split('T').join(' ');
@@ -157,9 +156,13 @@ export const PageUnEvenement = () => {
     }
 
     useEffect(() => { loadEvenement() }, []);
-    useEffect(() => { loadPresence() }, []);
+    useEffect(() => { loadPresenceUser() }, []);
     useEffect(() => { loadUtilisateur() }, []);
-    useEffect(() => { loadMembresEquipeEvenement() }, []);
+    useEffect(() => {
+        if (utilisateur.idUtilisateur !== undefined) {
+            loadMembresEquipeEvenement();
+        }
+    }, [utilisateur]);
 
     if (evenement === null) {
         return <div>Chargement...</div>;
@@ -214,7 +217,6 @@ export const PageUnEvenement = () => {
                                 <th>Numero</th>
                                 <th>Email</th>
                                 <th>Presence</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -224,6 +226,7 @@ export const PageUnEvenement = () => {
                                     <td>{e.nom}</td>
                                     <td>{e.numTelephone}</td>
                                     <td>{e.email}</td>
+                                    <td>{e.estPresentAEvenement === true ? "Présent" : "Absent"}</td>
                                 </tr>
                             ))}
                         </tbody>
