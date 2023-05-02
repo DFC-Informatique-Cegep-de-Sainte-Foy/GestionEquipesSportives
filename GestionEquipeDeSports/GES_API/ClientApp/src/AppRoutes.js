@@ -7,7 +7,7 @@ import FormEntraineur from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./pages/PageUnEvenement";
 import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
-import { PageUneEquipe } from "./components/PageUneEquipe";
+import { PageUneEquipe } from "./pages/PageUneEquipe";
 import { PageSupprimerEquipe } from "./components/PageSupprimerEquipe";
 import { PageAccueilAthlete } from "./pages/PageJoueur";
 import { PageAcceuilEntraineur } from "./pages/PageAccueilEntraineur";
