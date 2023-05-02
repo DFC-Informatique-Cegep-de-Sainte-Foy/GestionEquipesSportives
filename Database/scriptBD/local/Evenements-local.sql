@@ -16,7 +16,7 @@
 --GO
 use Equipe_sportive
 
-INSERT INTO [Evenement] (EvenementID,Description,Emplacement,dateDebut,dateFin, Etat, Fk_Id_TypeEvenement)
+INSERT INTO [Evenement] (IdEvenement,Description,Emplacement,dateDebut,dateFin, Etat, Fk_Id_TypeEvenement)
 VALUES
   ('4af815c6-e466-4b36-a85e-a88758aa33dc', 'Grande finale','Nunc commodo','Apr 20, 2022 11:44','Apr 21, 2022 11:44',1,1),
   ('77f03161-b320-48f6-b65f-9ca8080f40e1', 'Partie contre les capitales','accumsan interdum','Apr 20, 2022 11:44','Apr 21, 2022 11:44',1,1),
