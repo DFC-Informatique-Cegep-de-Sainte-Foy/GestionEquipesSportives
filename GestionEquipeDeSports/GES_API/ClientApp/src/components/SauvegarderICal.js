@@ -1,7 +1,7 @@
 import React from "react";
 import { saveAs } from 'file-saver';
 
-export function SauvegarderICal (event) {
+export function SauvegarderICal(event) {
     var evenements;
     evenements = 'BEGIN:VCALENDAR\n';
     evenements = evenements + 'VERSION:2.0\n';
@@ -32,17 +32,17 @@ export function SauvegarderICal (event) {
 
     console.log('forEach');
     event.forEach(element => {
-                // const newEvent = [];
-                evenements = evenements + 'BEGIN:VEVENT\n' ;
-                UID++;
-                evenements = evenements + 'UID:' + UID + '\n';
-                evenements = evenements + 'DTSTAMP:19970610T172345Z\n';
-                evenements = evenements + 'DTSTART:' + element.dateDebut + '\n';
-                // console.log(element.dateDebut);
-                evenements = evenements + 'DTEND:' + element.dateFin + '\n';
-                evenements = evenements + 'SUMMARY:' + element.description + '\n';
-                evenements = evenements + 'LOCATION:' + element.emplacement + '\n';
-                evenements = evenements + 'END:VEVENT\n';
+        // const newEvent = [];
+        evenements = evenements + 'BEGIN:VEVENT\n';
+        UID++;
+        evenements = evenements + 'UID:' + UID + '\n';
+        evenements = evenements + 'DTSTAMP:19970610T172345Z\n';
+        evenements = evenements + 'DTSTART:' + element.dateDebut + '\n';
+        // console.log(element.dateDebut);
+        evenements = evenements + 'DTEND:' + element.dateFin + '\n';
+        evenements = evenements + 'SUMMARY:' + element.description + '\n';
+        evenements = evenements + 'LOCATION:' + element.emplacement + '\n';
+        evenements = evenements + 'END:VEVENT\n';
     });
     evenements = evenements + 'END:VCALENDAR\n';
 
@@ -53,13 +53,13 @@ export function SauvegarderICal (event) {
     saveAs(blob, "event-schedule.ics");
 
     // const handleSauvegarde = () => {
-        // creerEvent (newEvent, (error, value) => {
-        //     if(error){
-        //         console.log(error);
-        //     }
-        //     const blob = new Blob([value], { type: "text/plain;charset=utf-8" });
-        //     saveAs(blob, "event-schedule.ics");
-        // });
+    // creerEvent (newEvent, (error, value) => {
+    //     if(error){
+    //         console.log(error);
+    //     }
+    //     const blob = new Blob([value], { type: "text/plain;charset=utf-8" });
+    //     saveAs(blob, "event-schedule.ics");
+    // });
     // };
     return (
         <></>
