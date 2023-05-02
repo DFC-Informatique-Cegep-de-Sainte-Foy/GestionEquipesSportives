@@ -5,7 +5,7 @@ import { FormEvenement } from "./pages/PageFormulaireEvenement";
 import Utilisateurs from "./components/Utilisateurs";
 import FormEntraineur from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./pages/PageUnEvenement";
-import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
+import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
 import { PageUneEquipe } from "./components/PageUneEquipe";
 import { PageSupprimerEquipe } from "./components/PageSupprimerEquipe";
