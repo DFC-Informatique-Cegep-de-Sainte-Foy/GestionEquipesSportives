@@ -10,32 +10,7 @@ namespace GES_API.Controllers
     [ApiController]
     public class EquipeJoueurEvenementController : ControllerBase
     {
-        private Equipe_sportiveContext m_contexte;
-        //private ManipulationDepotEvenementJoueur m_manipulationDepotEvenementJoueur;
-        //private ManipulationDepotEvenementEquipe m_manipulationDepotEvenementEquipe;
-        //private ManipulationDepotEquipeJoueur m_manipulationDepotEquipeJoueur;
-
-        //public EquipeJoueurEvenementController(ManipulationDepotEvenementJoueur manipulationDepotEvenementJoueur, ManipulationDepotEvenementEquipe manipulationDepotEvenementEquipe, ManipulationDepotEquipeJoueur manipulationDepotEquipeJoueur)
-        //{
-        //    if (manipulationDepotEquipeJoueur is null)
-        //    {
-        //        throw new ArgumentNullException(nameof(manipulationDepotEquipeJoueur));
-        //    }
-
-        //    if (manipulationDepotEvenementEquipe is null)
-        //    {
-        //        throw new ArgumentNullException(nameof(manipulationDepotEvenementEquipe));
-        //    }
-
-        //    if (manipulationDepotEvenementJoueur is null)
-        //    {
-        //        throw new ArgumentNullException(nameof(manipulationDepotEvenementJoueur));
-        //    }
-
-        //    m_manipulationDepotEvenementJoueur = manipulationDepotEvenementJoueur;
-        //    m_manipulationDepotEvenementEquipe = manipulationDepotEvenementEquipe;
-        //    m_manipulationDepotEquipeJoueur = manipulationDepotEquipeJoueur;
-        //}
+        private Equipe_sportiveContext m_contexte; 
 
         public EquipeJoueurEvenementController(Equipe_sportiveContext contexte)
         {

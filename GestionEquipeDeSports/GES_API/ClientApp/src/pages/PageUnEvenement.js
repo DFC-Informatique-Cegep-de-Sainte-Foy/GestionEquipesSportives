@@ -208,29 +208,30 @@ export const PageUnEvenement = () => {
 
                 <Row className="Row">
                     <h5>Membres de l'équipe</h5>
-
-                    <Table striped bordered>
-                        <thead>
-                            <tr>
-                                <th>Prenom</th>
-                                <th>Nom</th>
-                                <th>Numero</th>
-                                <th>Email</th>
-                                <th>Presence</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {membresEquipeEvenement.map((e, index) => (
-                                <tr key={e.idUtilisateur}>
-                                    <td>{e.prenom}</td>
-                                    <td>{e.nom}</td>
-                                    <td>{e.numTelephone}</td>
-                                    <td>{e.email}</td>
-                                    <td>{e.estPresentAEvenement === true ? "Présent" : "Absent"}</td>
+                    {membresEquipeEvenement && membresEquipeEvenement.length > 0 ?
+                        <Table striped bordered>
+                            <thead>
+                                <tr>
+                                    <th>Prenom</th>
+                                    <th>Nom</th>
+                                    <th>Numero</th>
+                                    <th>Email</th>
+                                    <th>Presence</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </Table>
+                            </thead>
+                            <tbody>
+                                {membresEquipeEvenement.map((e, index) => (
+                                    <tr key={e.idUtilisateur}>
+                                        <td>{e.prenom}</td>
+                                        <td>{e.nom}</td>
+                                        <td>{e.numTelephone}</td>
+                                        <td>{e.email}</td>
+                                        <td>{e.estPresentAEvenement === true ? "Présent" : "Absent"}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                        : <p>Aucun membre d'équipe n'a été trouvé.</p>}
                 </Row>
             </div>
         </>
