@@ -5,6 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { TableEvenementsUtilisateur } from "../components/TableEvenementsUtilisateur";
 import { TableEquipesUtilisateur } from "../components/TableEquipesUtilisateur";
 import { IdUtilisateurContext } from "../components/Context";
+import { SauvegarderICal } from "../components/SauvegarderICal";
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -160,12 +161,15 @@ export const PageAcceuilEntraineur = () => {
             <Row style={{maxHeight: "200px", overflow: "auto"}}>
                 <TableEquipesUtilisateur eq={equipes} />
             </Row>
-            <Row style={{marginTop: "1.5em"}}>
+            <Row style={{marginTop: "1.0em"}}>
                 <Col>
                     <h5>Vos événements à venir</h5>
                 </Col>
+                <Col>
+                    <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" >Exporter vers ICal</Button>
+                </Col>
             </Row>
-            <Row>
+            <Row style={{marginTop: "1.0em"}}>
                 <IdUtilisateurContext.Provider value={idUtilisateur} >
                     <TableEvenementsUtilisateur ev={utilisateurEvenement} />
                 </IdUtilisateurContext.Provider>                
