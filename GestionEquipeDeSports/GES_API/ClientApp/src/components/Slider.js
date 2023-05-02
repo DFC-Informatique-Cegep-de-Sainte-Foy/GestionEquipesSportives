@@ -1,5 +1,5 @@
 import React from 'react'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import './css/Slider.css';
 import foot from '../images/foot.jpg';
@@ -36,7 +36,7 @@ function Slider() {
     ]
 
     return (
-        <Carousel autoPlay infiniteLoop>
+        <Carousel autoPlay infiniteLoop showIndicators={false} showThumbs={false} showStatus={false} showArrows={false}>
             {
                 data.map( (slide) => (
                     <div key={slide.id}>
@@ -49,9 +49,6 @@ function Slider() {
                     </div>
                 ))
             }
-        
-
-            
         </Carousel>
     )
 }
