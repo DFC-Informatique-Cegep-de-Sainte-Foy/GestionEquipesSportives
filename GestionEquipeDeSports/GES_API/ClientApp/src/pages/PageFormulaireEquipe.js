@@ -76,9 +76,7 @@ export const PageFormEquipe = () => {
             }
         }).catch(function (error) {
             console.log(error);
-        });        
-        // const data = await reponse.json();
-        // console.log(data);
+        });    
     }
 
     useEffect(() => {
