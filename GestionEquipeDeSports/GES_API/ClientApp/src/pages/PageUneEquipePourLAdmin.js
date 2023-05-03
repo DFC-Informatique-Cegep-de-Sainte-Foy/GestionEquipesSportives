@@ -233,7 +233,7 @@ export const PageUneEquipePourLAdmin = () => {
                 <hr />
                 <Row>
                     <Col>
-                        <h5>Liste des participants</h5>
+                        <h5>Liste des joueurs:</h5>
                     </Col>
                     <Col>
                         <p style={{ display: 'inline-block' }} >Ajouter :</p>
@@ -274,7 +274,7 @@ export const PageUneEquipePourLAdmin = () => {
                 <hr/>
                 <Row>
                     <Col>
-                        <h5>Liste des événements</h5>
+                        <h5>Liste des événements:</h5>
                     </Col>
 
                     <Col>
