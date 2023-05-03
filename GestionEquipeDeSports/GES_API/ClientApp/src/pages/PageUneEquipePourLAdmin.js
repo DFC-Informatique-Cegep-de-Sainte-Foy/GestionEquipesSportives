@@ -220,13 +220,15 @@ export const PageUneEquipePourLAdmin = () => {
         <>
             <Container>
                 <Row>
-                    <h2>Équipe - {nomEquipe}</h2>
-                    <div>
-                        <Button variant="success"  className="mb-3" onClick={() => navigate(-1)}>Retour à la page des équipes</Button>
-                    </div>
-                    <p>Region - {region}</p>
-                    <p>Sport - {sport}</p>
-                    <p>Association Sportive - {associationSportive}</p>
+                    <Col>
+                        <h2>Équipe: {nomEquipe}</h2>
+                        <p>Region: {region}</p>
+                        <p>Sport: {sport}</p>
+                        <p>Association Sportive: {associationSportive}</p>
+                    </Col>
+                    <Col>
+                        <Button variant="success"  className="mb-3 float-end" onClick={() => navigate(-1)}>Retour à la page des équipes</Button>
+                    </Col>
                 </Row>
                 <Row>
                     <Col>
