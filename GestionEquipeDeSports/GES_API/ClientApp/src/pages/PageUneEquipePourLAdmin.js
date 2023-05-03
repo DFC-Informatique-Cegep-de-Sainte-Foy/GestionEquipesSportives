@@ -3,6 +3,7 @@ import { Button, Container, Row, Col, Table } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
 import { BiTrash } from "react-icons/bi";
 import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from "react-router-dom";
 
 export const PageUneEquipePourLAdmin = () => {
     const [equipe, setEquipe] = useState({});
@@ -17,6 +18,8 @@ export const PageUneEquipePourLAdmin = () => {
     const [listeJoueurs, setListeJoueurs] = useState([]);
     const { getAccessTokenSilently } = useAuth0();
     const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     const { id } = useParams();
 
@@ -218,9 +221,9 @@ export const PageUneEquipePourLAdmin = () => {
             <Container>
                 <Row>
                     <h2>Équipe - {nomEquipe}</h2>
-                    <Link to={'/equipes'}>
-                        <Button variant='success' className="mb-3">Retour à la page des équipes</Button>
-                    </Link>
+                    <div>
+                        <Button variant="success"  className="mb-3" onClick={() => navigate(-1)}>Retour à la page des équipes</Button>
+                    </div>
                     <p>Region - {region}</p>
                     <p>Sport - {sport}</p>
                     <p>Association Sportive - {associationSportive}</p>
