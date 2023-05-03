@@ -24,7 +24,7 @@ export const PageAcceuilEntraineur = () => {
 
     useEffect(() => {
         async function trouverEvenementsPourUtilisateur(){
-            await evenements.map((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
+            evenements.map((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
         }
         trouverEvenementsPourUtilisateur()
             .catch(console.error);

@@ -78,7 +78,7 @@ const AppRoutes = [
     element: <AuthenticationGuard component={PageAccueilAthlete} />
   },
   {
-    path: '/accueilEntraineur',
+    path: '/accueil',
     element: <AuthenticationGuard component={PageAcceuilEntraineur} />
   },
   {
