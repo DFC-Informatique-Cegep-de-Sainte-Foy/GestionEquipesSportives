@@ -37,6 +37,15 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'evenement avec le id {p_equipe.IdEquipe} existe déjà");
             }
 
+            //validation des données, si l'equipe existe deja dans la bd, on ne l'ajoute pas
+            if (m_context.Equipes.Any(e => e.Nom == p_equipe.Nom
+                && m_context.Equipes.Any(e => e.Region == p_equipe.Region
+                && m_context.Equipes.Any(e => e.Sport == p_equipe.Sport
+                && m_context.Equipes.Any(e => e.AssociationSportive == p_equipe.AssociationSportive)))))
+            {
+                throw new InvalidOperationException($"l'evenement avec le nom {p_equipe.Nom} existe déjà");
+            }
+
             m_context.Equipes.Add(new GES_DAL.BackendProject.Equipe(p_equipe));
             m_context.SaveChanges();
         }
@@ -69,12 +78,12 @@ namespace GES_DAL.Depots
 
         public void SupprimerEquipe(Entite.Equipe p_equipe)
         {
-            if(p_equipe == null)
+            if (p_equipe == null)
             {
                 throw new ArgumentNullException(nameof(p_equipe));
             }
             GES_DAL.BackendProject.Equipe? equipeDTO = this.m_context.Equipes.Where(e => e.IdEquipe == p_equipe.IdEquipe).SingleOrDefault();
-            if(equipeDTO is null)
+            if (equipeDTO is null)
             {
                 throw new InvalidOperationException($"l'equipe avec l'id {p_equipe.IdEquipe} n'existe pas");
             }

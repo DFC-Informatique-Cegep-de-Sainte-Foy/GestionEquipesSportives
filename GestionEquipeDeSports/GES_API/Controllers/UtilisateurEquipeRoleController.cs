@@ -46,5 +46,23 @@ namespace GES_API.Controllers
                 return NotFound();
             }
         }
+
+        // PUT api/<UtilisateurEquipeRoleController>
+        [HttpPut]
+        [ProducesResponseType(203)]
+        [ProducesResponseType(400)]
+        public ActionResult Put([FromBody] UtilisateurEquipeRoleModel p_utilisateurEquipeRoleModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            p_utilisateurEquipeRoleModel.IdUtilisateurEquipeRole = Guid.NewGuid();
+
+            this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(p_utilisateurEquipeRoleModel.DeModelVersEntite());
+
+            return Ok();
+        }
     }
 }

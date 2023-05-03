@@ -29,13 +29,17 @@ namespace GES_DAL.Depots
                 throw new InvalidOperationException($"l'evenement avec le id {p_utilisateurEquipeRole.IdUtilisateurEquipeRole} existe déjà");
             }
 
+            this.m_context.UtilisateurEquipeRole.Add(new BackendProject.UtilisateurEquipeRole(p_utilisateurEquipeRole));
+
+            this.m_context.SaveChanges();
         }
 
         public Guid ChercherUtilisateurParEmail(string p_email)
         {
-            if (m_context.Utilisateurs.Any(e => e.Email == p_email))
+            var utilisateur = m_context.Utilisateurs.FirstOrDefault(e => e.Email == p_email);
+            if (utilisateur != null)
             {
-                return m_context.Utilisateurs.Where(e => e.Email == p_email).FirstOrDefault().IdUtilisateur;
+                return utilisateur.IdUtilisateur;
             }
             else
             {

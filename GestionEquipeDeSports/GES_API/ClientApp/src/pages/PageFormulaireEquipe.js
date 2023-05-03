@@ -25,30 +25,25 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 });
 
 export const PageFormEquipe = () => {
-    const[idUtilisateur, setIdUtilisateur] = useState('');
-    const[reponse ,setReponse] = useState('');
+    const [utilisateur, setUtilisateur] = useState({});
+    const [reponse, setReponse] = useState('');
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
     const { user } = useAuth0();
 
-    useEffect(() => {
-        getUtilisateur(user.email);
-    }, []);
-
-    async function getUtilisateur(email) {
+    async function getUtilisateur() {
         const token = await getAccessTokenSilently();
-        console.log(email);
-        await fetch(`api/utilisateur/${email}`, {
+
+        await fetch(`api/utilisateur/${user.name}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
-        .then(res => res.json())
-        .then((result) => {
-            console.log(result);
-            setIdUtilisateur(result.idUtilisateur);
-            console.log(result);
-        }).catch(function (error) {
-            console.log(error);
-        });
+            .then(res => res.json())
+            .then((result) => {
+                setUtilisateur(result);
+                console.log(result);
+            }).catch(function (error) {
+                console.log(error);
+            });
     }
 
     async function soumettreFormulaire(values) {
@@ -56,7 +51,7 @@ export const PageFormEquipe = () => {
         // console.log("ACCESS TOKEN: " + token);
 
         //POST request fetch dans table equipe
-        let requestOptions = {
+        let requestOptionsPost = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,34 +65,17 @@ export const PageFormEquipe = () => {
                 AssociationSportive: values.associationSportive
             })
         };
-        const reponse = await fetch('api/equipe', requestOptions);
-        console.log(reponse);
+
+        console.log(utilisateur)
+
+        const reponse = await fetch(`api/equipe?idUser=${utilisateur.idUtilisateur}`, requestOptionsPost);
         const data = await reponse.json();
         console.log(data);
-
-        // POST request fetch dans table equipeJoueur
-        let requestOptionsEquipeJoueur = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                Fk_Id_Utilisateur: idUtilisateur,
-                Fk_Id_Equipe: data
-            })
-        };
-        await fetch('api/equipeJoueur', requestOptionsEquipeJoueur)
-            .then(function (reponse) {
-                console.log(reponse);
-                if(reponse.ok){
-                    setReponse('Vous avez ajouté une équipe');
-                }
-            }).catch(function (error) {
-                console.log(error)
-            })
     }
+
+    useEffect(() => {
+        getUtilisateur();
+    }, []);
 
     return (
         <>
@@ -141,8 +119,9 @@ export const PageFormEquipe = () => {
                                             <option value="">Choisir un sport</option>
                                             <option value="Soccer">Soccer</option>
                                             <option value="Hockey">Hockey</option>
-                                            <option value="Footbol">Football</option>
+                                            <option value="Football">Football</option>
                                             <option value="Natation">Natation</option>
+                                            <option value="Baseball">Baseball</option>
                                         </Field>
                                         {touched.sport && errors.sport && <div style={{ color: "red" }}>{errors.sport}</div>}
                                     </div>
@@ -158,17 +137,20 @@ export const PageFormEquipe = () => {
                                             <Button variant='primary' type="submit" >Ajouter</Button>
                                         </div>
                                         <div className="col-6 p-3">
-                                                <Button variant="secondary" onClick={() => navigate(-1)} className="float-end">Retour</Button>
+                                            <Button variant="secondary" onClick={() => navigate(-1)} className="float-end">Retour</Button>
                                         </div>
                                     </div>
 
                                 </Form>
                             )}
-                        </Formik>                        
+                        </Formik>
                     </Col>
                 </Row>
             </Container>
         </>
     );
 }
+
+
+
 
