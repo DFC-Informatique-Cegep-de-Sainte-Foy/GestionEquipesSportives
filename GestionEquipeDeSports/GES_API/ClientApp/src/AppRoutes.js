@@ -7,7 +7,7 @@ import FormEntraineur from "./components/FormulaireEntraineur";
 import { PageUnEvenement } from "./pages/PageUnEvenement";
 import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./pages/PageSupprimerEvenement";
-import { PageUneEquipe } from "./pages/PageUneEquipe";
+import { PageUneEquipePourLAdmin } from "./pages/PageUneEquipePourLAdmin";
 import { PageSupprimerEquipe } from "./pages/PageSupprimerEquipe";
 import { PageAccueilAthlete } from "./pages/PageJoueur";
 import { PageAcceuilEntraineur } from "./pages/PageAccueilEntraineur";
@@ -66,7 +66,7 @@ const AppRoutes = [
   },
   {
     path: '/uneEquipe/:id',
-    element: <AuthenticationGuard component={PageUneEquipe} />
+    element: <AuthenticationGuard component={PageUneEquipePourLAdmin} />
   },
   {
     path: '/supprimerEquipe/:id',

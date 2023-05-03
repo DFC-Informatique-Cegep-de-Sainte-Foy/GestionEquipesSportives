@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { BiTrash } from "react-icons/bi";
 import { useAuth0 } from '@auth0/auth0-react';
 
-export const PageUneEquipe = () => {
+export const PageUneEquipePourLAdmin = () => {
     const [equipe, setEquipe] = useState({});
     const [nomEquipe, setNomEquipe] = useState('');
     const [region, setRegion] = useState('');
