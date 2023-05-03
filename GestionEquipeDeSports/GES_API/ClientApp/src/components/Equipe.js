@@ -12,7 +12,7 @@ export const Equipe = (props) => {
     }
 
     return (
-        <tr onClick={() => navigate(`/pageUneEquipePourUnEntraineur/${props.idEquipe}`)} style={{cursor: "pointer"}} onMouseOver={MouseOver} onMouseOut={MouseOut}>
+        <tr onClick={() => navigate(`/uneEquipe/${props.idEquipe}`)} style={{cursor: "pointer"}} onMouseOver={MouseOver} onMouseOut={MouseOut}>
             <td>{props.num}</td>
             <td>{props.nom}</td>
             <td>{props.region}</td>

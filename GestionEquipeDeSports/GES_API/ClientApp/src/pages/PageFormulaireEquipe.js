@@ -72,7 +72,7 @@ export const PageFormEquipe = () => {
         .then((result) => {
             console.log(result);
             if(result.ok){
-                setReponse('Vous avez ajouté une équipe');
+                setReponse('Vous avez ajouté une équipe!');
             }
         }).catch(function (error) {
             console.log(error);
@@ -137,7 +137,7 @@ export const PageFormEquipe = () => {
                                         <Field name="associationSportive" className="form-control" />
                                         {touched.associationSportive && errors.associationSportive && <div style={{ color: "red" }}>{errors.associationSportive}</div>}
                                     </div>
-                                    {reponse && <p style={{ color: "red", fontWeight: "bold", marginTop: "1.0em" }}>{reponse}</p>}
+                                    {reponse && <p style={{ color: "green", fontWeight: "bold", marginTop: "1.0em" }}>{reponse}</p>}
                                     <div className="row">
                                         <div className="col-6 p-3">
                                             <Button variant='primary' type="submit" >Ajouter</Button>
