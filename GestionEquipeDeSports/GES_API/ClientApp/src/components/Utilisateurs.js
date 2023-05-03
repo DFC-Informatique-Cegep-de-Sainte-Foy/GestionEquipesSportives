@@ -75,7 +75,7 @@ class Utilisateurs extends Component {
                         {this.state.utilisateurs.map((u, index) => (
                             <tr key={u.idUtilisateur}>
                                 <td>{index + 1}</td>
-                                <td><Link to={{ pathname: `/pagejoueur/${u.idUtilisateur}`}}>{u.nom}</Link></td>
+                                <td><Link to={{ pathname: `/pageDesEvenementsEtEquipesDUnAthlete/${u.idUtilisateur}`}}>{u.nom}</Link></td>
                                 <td>{u.prenom}</td>
                                 <td>{u.age}</td>
                                 <td>{u.email}</td>

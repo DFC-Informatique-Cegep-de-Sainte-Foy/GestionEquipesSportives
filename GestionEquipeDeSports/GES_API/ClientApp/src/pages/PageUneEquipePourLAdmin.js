@@ -221,7 +221,7 @@ export const PageUneEquipePourLAdmin = () => {
             <Container>
                 <Row>
                     <Col>
-                        <h2>Équipe: {nomEquipe}</h2>
+                        <h2>Nom de l'équipe: {nomEquipe}</h2>
                         <p>Region: {region}</p>
                         <p>Sport: {sport}</p>
                         <p>Association Sportive: {associationSportive}</p>
@@ -230,93 +230,94 @@ export const PageUneEquipePourLAdmin = () => {
                         <Button variant="success"  className="mb-3 float-end" onClick={() => navigate(-1)}>Retour à la page des équipes</Button>
                     </Col>
                 </Row>
+                <hr />
                 <Row>
                     <Col>
-                        <Row>
-                            <Col>
-                                <h5>Liste des participants</h5>
-                            </Col>
-                            <Col>
-                                <p style={{ display: 'inline-block' }} >Ajouter :</p>
-                                <select onChange={event => onSelectJoueur(event.target.value)} className='float-end'>
-                                    <option selected disabled>Choisir joueur</option>
-                                    {listeDropdownJoueur}
-                                </select>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Table striped bordered>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Email</th>
-                                        <th>Téléphone</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {equipeJoueurs.map((j, index) => (
-                                        <tr key={j.idUtilisateur}>
-                                            <td>{index + 1}</td>
-                                            <td>{j.nom}</td>
-                                            <td>{j.prenom}</td>
-                                            <td>{j.email}</td>
-                                            <td>{j.numTelephone}</td>
-                                            <td>
-                                                <Button variant='danger' onClick={() => supprimerJoueurFromEquipe(j.idUtilisateur)} size="sm" title="Supprimer" ><BiTrash /></Button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </Row>
+                        <h5>Liste des participants</h5>
                     </Col>
                     <Col>
-                        <Row>
-                            <Col>
-                                <h5>Liste des événements</h5>
-                            </Col>
-                            <Col>
-                                <p style={{ display: 'inline-block' }} >Ajouter :</p>
-                                <select onChange={event => onSelectEvenement(event.target.value)} className="float-end">
-                                    <option selected disabled>Choisir événement</option>
-                                    {listeDropdownEvenements}
-                                </select>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Table striped bordered>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Description</th>
-                                        <th>Emplacement</th>
-                                        <th>Date de début</th>
-                                        <th>Date de fin</th>
-                                        <th>Type événement</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {equipeEvenement.map((e, index) => (
-                                        <tr key={e.id}>
-                                            <td>{index + 1}</td>
-                                            <td>{e.description}</td>
-                                            <td>{e.emplacement}</td>
-                                            <td>{e.dateDebut}</td>
-                                            <td>{e.dateFin}</td>
-                                            <td>{e.typeEvenement}</td>
-                                            <td>
-                                                <Button variant='danger' onClick={() => supprimerEvenementFromEquipe(e.id)} size="sm" title="Supprimer" ><BiTrash /></Button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </Row>
+                        <p style={{ display: 'inline-block' }} >Ajouter :</p>
+                        <select onChange={event => onSelectJoueur(event.target.value)} className='float-end'>
+                            <option selected disabled>Choisir joueur</option>
+                            {listeDropdownJoueur}
+                        </select>
                     </Col>
+                </Row>    
+                    
+                <Row>
+                    <Table striped bordered>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {equipeJoueurs.map((j, index) => (
+                                <tr key={j.idUtilisateur}>
+                                    <td>{index + 1}</td>
+                                    <td>{j.nom}</td>
+                                    <td>{j.prenom}</td>
+                                    <td>{j.email}</td>
+                                    <td>{j.numTelephone}</td>
+                                    <td>
+                                        <Button variant='danger' onClick={() => supprimerJoueurFromEquipe(j.idUtilisateur)} size="sm" title="Supprimer" ><BiTrash /></Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
                 </Row>
+                <hr/>
+                <Row>
+                    <Col>
+                        <h5>Liste des événements</h5>
+                    </Col>
+
+                    <Col>
+                        <p style={{ display: 'inline-block' }} >Ajouter :</p>
+                        <select onChange={event => onSelectEvenement(event.target.value)} className="float-end">
+                            <option selected disabled>Choisir événement</option>
+                            {listeDropdownEvenements}
+                         </select>
+                    </Col>
+
+                </Row>
+
+                <Row>
+                    <Table striped bordered>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description</th>
+                                <th>Emplacement</th>
+                                <th>Date de début</th>
+                                <th>Date de fin</th>
+                                <th>Type événement</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {equipeEvenement.map((e, index) => (
+                                <tr key={e.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{e.description}</td>
+                                    <td>{e.emplacement}</td>
+                                    <td>{e.dateDebut}</td>
+                                    <td>{e.dateFin}</td>
+                                    <td>{e.typeEvenement}</td>
+                                    <td>
+                                        <Button variant='danger' onClick={() => supprimerEvenementFromEquipe(e.id)} size="sm" title="Supprimer" ><BiTrash /></Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </Row>
+                    
             </Container>
         </>
     )
