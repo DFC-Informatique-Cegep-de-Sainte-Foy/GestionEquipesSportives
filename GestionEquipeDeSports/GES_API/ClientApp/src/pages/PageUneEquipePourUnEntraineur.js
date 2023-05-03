@@ -6,7 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { CalculerDuree } from '../components/CalculerDuree';
 import EvenementService from '../services/EvenementService.js';
 
-function PageUneEquipePourUnEntraineur(){
+function PageUneEquipePourUnEntraineur() {
     const [equipe, setEquipe] = useState({});
     const [nomEquipe, setNomEquipe] = useState('');
 
@@ -15,68 +15,56 @@ function PageUneEquipePourUnEntraineur(){
     const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState([]);
-    
-    const {id} = useParams();
+    const [estEntraineur, setEstEntraineur] = useState(false);
 
-    async function getEquipe(id){
-        const token =  await getAccessTokenSilently();
+    const { id } = useParams();
+
+    async function getEquipe(id) {
+        const token = await getAccessTokenSilently();
 
         await fetch(`api/equipe/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
-        .then(res => res.json())
-        .then((result) => {
-            console.log(result);
-            setEquipe(result);
-            setNomEquipe(result.nom);
-            setLoading(false);
-        });
+            .then(res => res.json())
+            .then((result) => {
+                setEquipe(result);
+                setNomEquipe(result.nom);
+                setLoading(false);
+            });
     }
 
-    useEffect(() => {
-        getEquipe(id);
-    }, [equipe.id]);
-
-
-    async function getEvenements(id){
-        const token =  await getAccessTokenSilently();
+    async function getEvenements(id) {
+        const token = await getAccessTokenSilently();
 
         await fetch(`api/equipeEvenement/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
-        .then(res => res.json())
-        .then((result) => {
-            console.log(result);
-            setEquipeEvenement(result);
-        });
+            .then(res => res.json())
+            .then((result) => {
+                setEquipeEvenement(result);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
-    useEffect(() => {
-        getEvenements(id);
-    }, [equipeEvenement.id]);
-
-    async function getJoueurs(id){
-        const token =  await getAccessTokenSilently();
+    async function getJoueurs(id) {
+        const token = await getAccessTokenSilently();
 
         await fetch(`api/equipeJoueur/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
-        .then(res => res.json())
-        .then((result) => {
-            console.log(result);
-            setEquipeJoueurs(result);
-            console.log(equipeJoueurs);
-        });
+            .then(res => res.json())
+            .then((result) => {
+                setEquipeJoueurs(result);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
-    useEffect(() => {
-        getJoueurs(id);
-    }, []);
-
-    
-    async function supprimerJoueurDeLEquipe(idJoueurDansListe){
-        const token =  await getAccessTokenSilently();
+    async function supprimerJoueurDeLEquipe(idJoueurDansListe) {
+        const token = await getAccessTokenSilently();
 
         let requestOptions = {
             method: 'DELETE',
@@ -91,9 +79,8 @@ function PageUneEquipePourUnEntraineur(){
         getJoueurs(id);
     }
 
-    async function supprimerEvenementDeLEquipe(idEvenementDansList){
-        const token =  await getAccessTokenSilently();
-        console.log(idEvenementDansList)
+    async function supprimerEvenementDeLEquipe(idEvenementDansList) {
+        const token = await getAccessTokenSilently();
 
         let requestOptions = {
             method: 'DELETE',
@@ -110,57 +97,65 @@ function PageUneEquipePourUnEntraineur(){
 
     async function getRoleVenantDuBackend(email) {
         const token = await getAccessTokenSilently();
-        const resultat = await fetch(`api/utilisateur/${email}`, {
+
+        const resultat = await fetch(`api/UtilisateurEquipeRole/${email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         });
 
-        const body = await resultat.json();
-        const roleDeLUtilisateur = await body.roles;
-        return roleDeLUtilisateur;
-    }
+        if (!resultat.ok) {
+            throw new Error("pas de role");
+        }
 
-    useEffect(() => {
-        async function getLeRoleDeLUtilisateurConnecte() {
-            try {
-                const role = await getRoleVenantDuBackend(user.email);
-                console.log(role);
-                setRoleDeLUtilisateur(role);
-            }
-            catch (err) {
-                console.log(err);
+        const body = await resultat.json();
+
+        if (body.length === 0) {
+            return 0;
+        }
+
+        for (let i = 0; i < body.length; i++) {
+            if (body[i].fkIdRole === 1) {
+                setEstEntraineur(true);
             }
         }
-        getLeRoleDeLUtilisateurConnecte();
-    }, []);
+    }
 
-
-    function AfficherBoutonAjouterAthlete()
-    {
-        if (isAuthenticated === true)
-        {
-            if(roleDeLUtilisateur === 1)
-            {
-                return(
+    function AfficherBoutonAjouterAthlete() {
+        if (isAuthenticated === true) {
+            if (estEntraineur) {
+                return (
                     <Button variant="success" className="btn btn-success float-end" >Ajouter un joueur</Button>
                 );
             }
         }
     }
 
-    function AfficherBoutonAjouterUnEvenement()
-    {
-        if (isAuthenticated === true)
-        {
-            if(roleDeLUtilisateur === 1)
-            {
-                return(
+    function AfficherBoutonAjouterUnEvenement() {
+        if (isAuthenticated === true) {
+            if (estEntraineur) {
+                return (
                     <Button variant="success" onClick={() => navigate(`/formulaireEvenement/${id}`)} className="btn btn-success float-end">Ajouter un événement</Button>
                 );
             }
         }
     }
-    
-    return(
+
+    useEffect(() => {
+        getEquipe(id);
+    }, [equipe.id]);
+
+    useEffect(() => {
+        getEvenements(id);
+    }, [equipeEvenement.id]);
+
+    useEffect(() => {
+        getJoueurs(id);
+    }, []);
+
+    useEffect(() => {
+        getRoleVenantDuBackend(user.email);
+    }, []);
+
+    return (
         <>
             <Container>
                 <Row>
@@ -206,7 +201,11 @@ function PageUneEquipePourUnEntraineur(){
                                     <td>{joueur.email}</td>
                                     <td>{joueur.numTelephone}</td>
                                     <td>
-                                        <Button variant='danger' onClick={() => supprimerJoueurDeLEquipe(joueur.idUtilisateur)} size="sm" title="Supprimer" ><BiTrash /></Button>
+                                        {estEntraineur && (
+                                            <Button
+                                                variant='danger' onClick={() => supprimerJoueurDeLEquipe(joueur.idUtilisateur)} size="sm" title="Supprimer" ><BiTrash />
+                                            </Button>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
@@ -221,7 +220,7 @@ function PageUneEquipePourUnEntraineur(){
                     </Col>
 
                     <Col>
-                        <AfficherBoutonAjouterUnEvenement />                        
+                        <AfficherBoutonAjouterUnEvenement />
                     </Col>
                     <p></p>
                 </Row>
@@ -242,7 +241,7 @@ function PageUneEquipePourUnEntraineur(){
                         <tbody>
                             {equipeEvenement.map((e, index) => (
                                 <tr key={e.id}>
-                                    <td>{index+1}</td>
+                                    <td>{index + 1}</td>
                                     <td><Link to={{ pathname: `/unEvenement/${e.id}` }}>{e.description}</Link></td>
                                     <td>{e.emplacement}</td>
                                     <td>{EvenementService.formatDateTime(e.dateDebut)}</td>
