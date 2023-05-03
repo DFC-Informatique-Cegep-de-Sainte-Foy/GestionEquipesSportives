@@ -68,9 +68,17 @@ export const PageFormEquipe = () => {
 
         console.log(utilisateur)
 
-        const reponse = await fetch(`api/equipe?idUser=${utilisateur.idUtilisateur}`, requestOptionsPost);
-        const data = await reponse.json();
-        console.log(data);
+        await fetch(`api/equipe?idUser=${utilisateur.idUtilisateur}`, requestOptionsPost)
+        .then((result) => {
+            console.log(result);
+            if(result.ok){
+                setReponse('Vous avez ajouté une équipe');
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });        
+        // const data = await reponse.json();
+        // console.log(data);
     }
 
     useEffect(() => {
@@ -131,7 +139,7 @@ export const PageFormEquipe = () => {
                                         <Field name="associationSportive" className="form-control" />
                                         {touched.associationSportive && errors.associationSportive && <div style={{ color: "red" }}>{errors.associationSportive}</div>}
                                     </div>
-                                    {reponse && <p style={{ color: "red" }}>{reponse}</p>}
+                                    {reponse && <p style={{ color: "red", fontWeight: "bold", marginTop: "1.0em" }}>{reponse}</p>}
                                     <div className="row">
                                         <div className="col-6 p-3">
                                             <Button variant='primary' type="submit" >Ajouter</Button>
