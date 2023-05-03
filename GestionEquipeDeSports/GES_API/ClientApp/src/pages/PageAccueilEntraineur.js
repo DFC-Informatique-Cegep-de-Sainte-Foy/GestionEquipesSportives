@@ -22,14 +22,6 @@ export const PageAcceuilEntraineur = () => {
         getUtilisateur(user.email);
     }, []);
 
-    // useEffect(() => {
-    //     getEquipesDeJoueur(idUtilisateur);
-    // }, []);
-
-    // useEffect(() => {
-    //     getEvenementsDeJoueur(idUtilisateur);
-    // }, [idUtilisateur]);
-
     useEffect(() => {
         async function trouverEvenementsPourUtilisateur(){
             await evenements.map((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
@@ -42,7 +34,6 @@ export const PageAcceuilEntraineur = () => {
     async function getUtilisateur(email){
         var id;
         const token = await getAccessTokenSilently();
-        // console.log(email);
         await fetch(`api/utilisateur/${email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
@@ -62,8 +53,6 @@ export const PageAcceuilEntraineur = () => {
           })
             .then(res => res.json())
             .then((result) => {
-                // console.log('Equipes :');
-                // console.log(result);
                 setEquipes(result);
             }).catch(function (error) {
                 console.log(error);
@@ -74,54 +63,10 @@ export const PageAcceuilEntraineur = () => {
               })
                 .then(res => res.json())
                 .then((result) => {
-                    // console.log('Evenements :');
-                    // console.log(result);
                     setEvenements(result);
                 }).catch(function (error) {
                     console.log(error);
                 });
-    }
-
-    // async function getEquipesDeJoueur(id){
-    //     const token = await getAccessTokenSilently();
-    //     console.log(id);
-    //     await fetch(`api/UtilisateurEquipe/${id}`, {
-    //         headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-    //       })
-    //         .then(res => res.json())
-    //         .then((result) => {
-    //             console.log('Equipes :');
-    //             console.log(result);
-    //             setEquipes(result);
-    //         }).catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
-
-    // async function getEvenementsDeJoueur(id){
-    //     const token = await getAccessTokenSilently();
-
-    //     await fetch(`api/evenementJoueur/${id}`, {
-    //         headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-    //       })
-    //         .then(res => res.json())
-    //         .then((result) => {
-    //             console.log('Evenements :');
-    //             console.log(result);
-    //             setEvenements(result);
-    //         }).catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
-
-    function convertirPresence(donnees){
-        let etatAReturn;
-        if(donnees === true){
-            etatAReturn = <td style={{color: "green"}}>PRESENT</td>
-        }else{
-            etatAReturn = <td style={{color: "red"}}>absent</td>
-        }
-        return etatAReturn;
     }
 
     async function obtenirEvenementAPartirSonId(idEvenement){
@@ -141,7 +86,6 @@ export const PageAcceuilEntraineur = () => {
         });
     }
 
-// console.log(utilisateurEvenement);
     return (
         <>
         <Container>
