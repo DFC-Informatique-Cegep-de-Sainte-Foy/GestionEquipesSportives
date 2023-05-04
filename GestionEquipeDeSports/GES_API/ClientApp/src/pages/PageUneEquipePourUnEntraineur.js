@@ -16,6 +16,7 @@ function PageUneEquipePourUnEntraineur() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const [estEntraineur, setEstEntraineur] = useState(false);
+    //const [tableauDesroles, setTableauDesroles] = useState([]);
 
     const { id } = useParams();
 
@@ -107,6 +108,7 @@ function PageUneEquipePourUnEntraineur() {
         }
 
         const body = await resultat.json();
+        //setTableauDesroles(body);
 
         if (body.length === 0) {
             return 0;
