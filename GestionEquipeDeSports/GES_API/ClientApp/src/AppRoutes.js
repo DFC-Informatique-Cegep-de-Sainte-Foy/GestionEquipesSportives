@@ -3,7 +3,7 @@ import { Accueil } from "./components/Accueil";
 import Evenements from "./components/Evenements";
 import { FormEvenement } from "./pages/PageFormulaireEvenement";
 import Utilisateurs from "./components/Utilisateurs";
-import FormEntraineur from "./components/FormulaireEntraineur";
+import { FormUtilisateur } from "./pages/PageFormulaireUtilisateur";
 import { PageUnEvenement } from "./pages/PageUnEvenement";
 import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./pages/PageSupprimerEvenement";
@@ -45,8 +45,8 @@ const AppRoutes = [
     element: <AuthenticationGuard component={Utilisateurs} />
   },
   {
-    path: '/formulaireEntraineur',
-    element: <AuthenticationGuard component={FormEntraineur} />
+    path: '/formulaireUtilisateur/:id',
+    element: <AuthenticationGuard component={FormUtilisateur} />
   },
   {
     path: '/connexion',

@@ -86,6 +86,14 @@ export const PageAcceuilEntraineur = () => {
         });
     }
 
+    function exporterVersICal(){
+        if(utilisateurEvenement.length !== 0){
+            console.log('exporter longeur :');
+            console.log(utilisateurEvenement.length);
+            return <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" >Exporter vers ICal</Button>
+        }
+    }
+
     return (
         <>
         <Container>
@@ -110,7 +118,7 @@ export const PageAcceuilEntraineur = () => {
                     <h5>Vos événements à venir</h5>
                 </Col>
                 <Col>
-                    <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" >Exporter vers ICal</Button>
+                    {exporterVersICal()}
                 </Col>
             </Row>
             <Row style={{marginTop: "1.0em"}}>

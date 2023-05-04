@@ -1,6 +1,7 @@
 ﻿using GES_Services.Manipulations;
 using Microsoft.AspNetCore.Mvc;
 using GES_API.Models;
+using GES_Services.Entites;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 
@@ -67,6 +68,32 @@ namespace GES_API.Controllers
             {
                 return NotFound();
             }
+        }
+
+        // POST api/<UtilisateurController>
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public ActionResult Post([FromBody] UtilisateurModel p_utilisateurModel)
+        {
+
+            if (p_utilisateurModel == null)
+            {
+                throw new ArgumentNullException(nameof(p_utilisateurModel));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            p_utilisateurModel.IdUtilisateur = Guid.NewGuid();
+            Guid guid = p_utilisateurModel.IdUtilisateur;
+
+            p_utilisateurModel.Roles = EnumTypeRole.Athlete;
+
+            this.m_manipulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());
+
+            return Ok(guid);
         }
 
         // PUT api/<EntraineurController>/5

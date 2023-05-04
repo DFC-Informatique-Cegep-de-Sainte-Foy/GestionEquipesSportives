@@ -123,7 +123,7 @@ function PageUneEquipePourUnEntraineur() {
         if (isAuthenticated === true) {
             if (estEntraineur) {
                 return (
-                    <Button variant="success" className="btn btn-success float-end" >Ajouter un joueur</Button>
+                    <Button variant="success" onClick={() => navigate(`/formulaireUtilisateur/${id}`)} className="btn btn-success float-end" >Ajouter un joueur</Button>
                 );
             }
         }
@@ -160,7 +160,7 @@ function PageUneEquipePourUnEntraineur() {
             <Container>
                 <Row>
                     <h2>Nom de l'équipe: {nomEquipe}</h2>
-                    <Link to={'/accueilEntraineur'}>
+                    <Link to={'/accueil'}>
                         <Button variant='success' className="mb-3">Retour à la page d'accueil</Button>
                     </Link>
                 </Row>
@@ -173,9 +173,7 @@ function PageUneEquipePourUnEntraineur() {
                     </Col>
 
                     <Col>
-                        <Link to={'/formulaireEvenement'}>
-                            <AfficherBoutonAjouterAthlete />
-                        </Link>
+                        <AfficherBoutonAjouterAthlete />
                     </Col>
                     <p></p>
                 </Row>

@@ -55,9 +55,9 @@ class Utilisateurs extends Component {
         return (
             <Container>
                 <h1>Liste des utilisateurs</h1>
-                <Link to={'/formulaireEntraineur'}>
+                {/* {<Link to={'/formulaireUtilisateur'}>
                     <Button variant="success" >Ajouter un utilisateur</Button><p></p>
-                </Link>
+                </Link>} */}
                 <Table striped bordered>
                     <thead>
                         <tr>

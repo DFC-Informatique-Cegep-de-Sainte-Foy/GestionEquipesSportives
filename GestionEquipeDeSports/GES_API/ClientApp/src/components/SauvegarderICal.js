@@ -2,6 +2,11 @@ import React from "react";
 import { saveAs } from 'file-saver';
 
 export function SauvegarderICal(event) {
+
+    //informations de base tirées de ces sources
+    // https://datatracker.ietf.org/doc/html/rfc5545
+    // https://icalendar.org/Home.html
+
     var evenements;
     evenements = 'BEGIN:VCALENDAR\r\n';
     evenements = evenements + 'PRODID:-GestionEquipeSportive v1.0\r\n';
@@ -10,22 +15,6 @@ export function SauvegarderICal(event) {
     evenements = evenements + 'METHOD:PUBLISH\r\n';
     var UID = 0;
 
-    // const newEvent = {
-    //     BEGIN: 'VCALENDAR',
-    //     VERSION: 2.0,
-    //     PRODID: 'www.website.com',
-    //     BEGIN: 'VEVENT',
-    //     UID: 'info@website.com',
-    //     CATEGORIES: 'APPOINTMENT',
-    //     DTSTAMP: '19970610T172345Z',
-    //     DTSTART: '20230321T153010Z',
-    //     DTEND: '20230321T163010Z',
-    //     SUMMARY: 'My great event',
-    //     END: 'VEVENT',
-    //     LOCATION: 'Location',
-    //     DESCRIPTION: 'Great event in your town',
-    //     END: 'VCALENDAR',
-    // }
     var dateTime = new Date();
     var isoDate = dateTime.toISOString();
     var dateTimeSansSymbols = retireSymbolsDesDate(isoDate);
