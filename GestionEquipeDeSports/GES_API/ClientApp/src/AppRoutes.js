@@ -1,8 +1,8 @@
 import Equipes from "./components/Equipes";
 import { Accueil } from "./components/Accueil";
-import Evenements from "./components/Evenements";
+import Evenements from "./pages/PageEvenements";
 import { FormEvenement } from "./pages/PageFormulaireEvenement";
-import Utilisateurs from "./components/Utilisateurs";
+import Utilisateurs from "./pages/PageUtilisateurs";
 import { FormUtilisateur } from "./pages/PageFormulaireUtilisateur";
 import { PageUnEvenement } from "./pages/PageUnEvenement";
 import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";

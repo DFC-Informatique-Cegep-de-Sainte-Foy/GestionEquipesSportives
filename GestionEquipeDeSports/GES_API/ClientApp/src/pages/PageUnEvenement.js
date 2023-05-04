@@ -3,7 +3,7 @@ import { Button, Table, Row, Col } from 'react-bootstrap';
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { BiCheck, BiX } from "react-icons/bi";
-import './pageUnEvenement.css';
+import '../styles/pageUnEvenement.css';
 
 export const PageUnEvenement = () => {
     const [evenement, setEvenement] = useState(null);
