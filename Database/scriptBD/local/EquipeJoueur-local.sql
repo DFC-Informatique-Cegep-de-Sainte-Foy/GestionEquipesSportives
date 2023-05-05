@@ -1,23 +1,14 @@
 
 
 
--- SELECT TOP (1000) [IdJoueurEquipe]
---       ,[Fk_Id_Utilisateur]
---       ,[FK_Id_Equipe]
---   FROM [Equipe_sportive].[dbo].[EquipeJoueur]
-
-/*
-Evenements
-
-Equipe
-*/
-
-
-
 insert into [dbo].[EquipeJoueur] (FK_Id_Equipe, Fk_Id_Utilisateur)
 values 
--- ('44DD0EA5-9EFE-4155-8A4F-123565118E1A', '581BD387-9FEC-4659-B374-502EFABE61A2'),
-('44DD0EA5-9EFE-4155-8A4F-123565118E1A', 'D7ACF9C2-B303-4EAE-8B6A-2D55920F85A3'),
-('44DD0EA5-9EFE-4155-8A4F-123565118E1A', '1732020C-644B-4E48-BBA4-BB37210F5D3F'),
-('44DD0EA5-9EFE-4155-8A4F-123565118E1A', 'D7A71E2F-28A6-480B-A232-B33BB0D2E833'),
-('44DD0EA5-9EFE-4155-8A4F-123565118E1A', '6A33B0C4-35F4-4B53-A7F7-190410262E4E');
+('', ''),
+('', ''),
+('', ''),
+('', ''),
+
+('', ''),
+('', ''),
+('', ''),
+('', '');

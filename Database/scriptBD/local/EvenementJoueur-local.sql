@@ -1,33 +1,22 @@
-/****** Script for SelectTopNRows command from SSMS  ******/
 -- SELECT TOP (1000) [IdEvenementJoueur]
 --       ,[EstPresentAEvenement]
 --       ,[FK_Id_Evenement]
 --       ,[FK_Id_Utilisateur]
 --   FROM [Equipe_sportive].[dbo].[EvenementJoueur]
 
-/*
-FK_Id_Evenement
-('77f03161-b320-48f6-b65f-9ca8080f40e1', 'Partie contre les capitales','accumsan interdum','Apr 20, 2022 11:44','Apr 21, 2022 11:44',1,1)
-FK_Id_Utilisateur
-IdUtilisateur	Nom	Prenom	Age	Email	Adresse	NumTelephone	DateCreation	DateModification	Etat	Fk_Id_Etat	Fk_Id_Roles
-581BD387-9FEC-4659-B374-502EFABE61A2	Carufel	Kevin	34	kevin.carufel@hotmail.com	PO Box 36733	(667) 6927777	2023-04-22 00:00:00.0000000	2023-04-22 00:00:00.0000000	1	1	3
-*/
+use Equipe_sportive
 
-insert into [dbo].[EvenementJoueur] (FK_Id_Evenement, FK_Id_Utilisateur, EstPresentAEvenement)
- values
-('4E8A76BC-DE7A-4969-BE20-2EB5A6B0C1F0', '6A33B0C4-35F4-4B53-A7F7-190410262E4E', 1),
-('4E8A76BC-DE7A-4969-BE20-2EB5A6B0C1F0', '1732020C-644B-4E48-BBA4-BB37210F5D3F', 1),
-('4E8A76BC-DE7A-4969-BE20-2EB5A6B0C1F0', 'D7A71E2F-28A6-480B-A232-B33BB0D2E833', 1),
-('4E8A76BC-DE7A-4969-BE20-2EB5A6B0C1F0', 'D7ACF9C2-B303-4EAE-8B6A-2D55920F85A3', 1),
-('4E8A76BC-DE7A-4969-BE20-2EB5A6B0C1F0', '581BD387-9FEC-4659-B374-502EFABE61A2', 1);
-
--- autre evenement
-
-('77F03161-B320-48F6-B65F-9CA8080F40E1', '6A33B0C4-35F4-4B53-A7F7-190410262E4E', 1),
-('77F03161-B320-48F6-B65F-9CA8080F40E1', '1732020C-644B-4E48-BBA4-BB37210F5D3F', 1),
-('77F03161-B320-48F6-B65F-9CA8080F40E1', 'D7A71E2F-28A6-480B-A232-B33BB0D2E833', 1),
-('77F03161-B320-48F6-B65F-9CA8080F40E1', 'D7ACF9C2-B303-4EAE-8B6A-2D55920F85A3', 1),
-('77F03161-B320-48F6-B65F-9CA8080F40E1', '581BD387-9FEC-4659-B374-502EFABE61A2', 1);
-
-
-
+insert into [dbo].[EvenementJoueur] (FK_Id_Utilisateur, FK_Id_Evenement, EstPresentAEvenement)
+values 
+-- Kevin Carufel                       -- Premiere partie de la saison
+('6B29FC40-CA47-1067-B31D-00DD010662DA', '4E8A76BC-DE7A-4969-BE20-2EB5A6B0C1F0', 1),
+-- Kevin Carufel                       -- Grande finale
+('6B29FC40-CA47-1067-B31D-00DD010662DA', '4AF815C6-E466-4B36-A85E-A88758AA33DC', 1),
+-- De''Vere - Hunt', 'Maureene'           -- Premiere partie de la saison
+('9e06e23b-4215-4bda-bde0-4a860c7ea7f8', '4E8A76BC-DE7A-4969-BE20-2EB5A6B0C1F0', 1),
+-- 'Rimer', 'Sadella'                     -- Premiere partie de la saison
+('d7a71e2f-28a6-480b-a232-b33bb0d2e833', '4E8A76BC-DE7A-4969-BE20-2EB5A6B0C1F0', 1),
+-- De''Vere - Hunt', 'Maureene'           -- Premiere partie de la saison
+('9e06e23b-4215-4bda-bde0-4a860c7ea7f8', '4AF815C6-E466-4B36-A85E-A88758AA33DC', 1),
+-- 'Rimer', 'Sadella'                     -- Premiere partie de la saison
+('d7a71e2f-28a6-480b-a232-b33bb0d2e833', '4AF815C6-E466-4B36-A85E-A88758AA33DC', 1);
