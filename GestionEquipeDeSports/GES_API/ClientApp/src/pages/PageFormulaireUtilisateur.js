@@ -80,7 +80,7 @@ export const FormUtilisateur = () => {
         .then(function (reponse) {
             console.log(reponse);
             if(reponse.ok){
-                setReponse('Vous avez ajouté un utilisateur!');
+                setReponse('Le joueur a été ajouté avec succès!');
             }
         }).catch(function (error) {
             console.log(error)
