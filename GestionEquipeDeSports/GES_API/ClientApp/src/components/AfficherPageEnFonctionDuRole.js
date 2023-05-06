@@ -52,7 +52,7 @@ function AfficherPageEnFonctionDuRole(){
                 return(
                     <Nav>
                         <NavItem>
-                            <NavLink tag={Link} className="text-white" to="/">Accueil</NavLink>
+                            <NavLink tag={Link} className="text-white" to="/accueil">Accueil</NavLink>
                         </NavItem>
 
                         <NavItem>

@@ -6,6 +6,7 @@ import { TableEvenementsUtilisateur } from "../components/TableEvenementsUtilisa
 import { TableEquipesUtilisateur } from "../components/TableEquipesUtilisateur";
 import { IdUtilisateurContext } from "../components/Context";
 import { SauvegarderICal } from "../components/SauvegarderICal";
+import UtilisateurConnecteHeader from "../components/UtilisateurConnecteHeader";
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -98,6 +99,7 @@ export const PageAcceuilEntraineur = () => {
         <>
         <Container>
             <Row>
+                <UtilisateurConnecteHeader />
                 <Col style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>Bienvenue dans votre compte !</Col>
             </Row>
             <p></p>
