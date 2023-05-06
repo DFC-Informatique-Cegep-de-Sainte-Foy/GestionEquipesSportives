@@ -110,19 +110,19 @@ export const FormUtilisateur = () => {
                                         <h2>Ajouter un joueur</h2>
                                     </Col>
                                 </Row>
-                                <label>Nom de joueur*</label>
+                                <label>Nom*</label>
                                 <div className="form-group">
                                     <Field name="nomUtilisateur" type="text" className="form-control" />
                                     {touched.nomUtilisateur && errors.nomUtilisateur && <div style={{ color: "red" }}>{errors.nomUtilisateur}</div>}
                                 </div>
 
-                                <label>Prénom de joueur*</label>
+                                <label>Prénom*</label>
                                 <div className="form-group">
                                     <Field name="prenomUtilisateur" type="text" className="form-control" />
                                     {touched.prenomUtilisateur && errors.prenomUtilisateur && <div style={{ color: "red" }}>{errors.prenomUtilisateur}</div>}
                                 </div>
 
-                                <label>Age de joueur*</label>
+                                <label>Age*</label>
                                 <div className="form-group">
                                     <Field name="ageUtilisateur" type="text" className="form-control" />
                                     {touched.ageUtilisateur && errors.ageUtilisateur && <div style={{ color: "red" }}>{errors.ageUtilisateur}</div>}
