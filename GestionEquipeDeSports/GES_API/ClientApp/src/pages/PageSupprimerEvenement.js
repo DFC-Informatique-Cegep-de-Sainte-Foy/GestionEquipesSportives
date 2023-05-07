@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { useAuth0 } from '@auth0/auth0-react';
+import EvenementService from '../services/EvenementService.js';
 
 export const PageSupprimerEvenement = () => {
     const [evenement, setEvenement] = useState({});
@@ -77,7 +78,7 @@ export const PageSupprimerEvenement = () => {
                 </Row>
                 <Row>
                     <Col sm={2}><b>Type événement: </b></Col>
-                    <Col>{evenement.typeEvenement}</Col>
+                    <Col>{EvenementService.affichageTypeEvenement(evenement.typeEvenement)}</Col>
                 </Row>
 
                 <Button className="me-4" variant='primary' onClick={supprimerEvenement}>Oui, supprimer l'événement</Button>
