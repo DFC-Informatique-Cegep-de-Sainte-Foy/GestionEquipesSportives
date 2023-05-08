@@ -43,5 +43,13 @@ namespace GES_Services.Manipulations
             }
             this.m_depotEvenementJoueur.AjouterPresencePourJoueur(p_evenementJoueur);
         }
+        public void SupprimerEvenementJoueur(EvenementJoueur p_evenementJoueur)
+        {
+            if (p_evenementJoueur is null)
+            {
+                throw new ArgumentNullException(nameof(p_evenementJoueur));
+            }
+            this.m_depotEvenementJoueur.SupprimerEvenementJoueur(p_evenementJoueur);
+        }
     }
 }
