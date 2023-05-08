@@ -68,6 +68,7 @@ namespace GES_DAL.Depots
 
             return new EvenementJoueur()
             {
+                IdEvenementJoueur = evenement.IdEvenementJoueur,
                 Fk_Id_Evenement = evenement.Fk_Id_Evenement,
                 Fk_Id_Utilisateur = evenement.Fk_Id_Utilisateur,
                 EstPresentAevenement = evenement.EstPresentAevenement
@@ -104,6 +105,24 @@ namespace GES_DAL.Depots
             IEnumerable<EvenementJoueur> evenementJoueurDTO = this.m_context.EvenementJoueurs.Where(e => idEvenementJoueurs.Contains(e.IdEvenementJoueur)).Select(e => e.DeDTOVersEntite());
 
             return evenementJoueurDTO;
+        }
+        public void SupprimerEvenementJoueur(EvenementJoueur p_evenementJoueur)
+        {
+            if (p_evenementJoueur == null)
+            {
+                throw new ArgumentNullException(nameof(p_evenementJoueur));
+            }
+            if (p_evenementJoueur.IdEvenementJoueur == Guid.Empty || p_evenementJoueur.IdEvenementJoueur == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(p_evenementJoueur));
+            }
+            GES_DAL.BackendProject.EvenementJoueur? evenementJoueurDTO = m_context.EvenementJoueurs.Where(e => e.IdEvenementJoueur == p_evenementJoueur.IdEvenementJoueur).SingleOrDefault();
+            if (evenementJoueurDTO is null)
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {p_evenementJoueur.IdEvenementJoueur} n'existe pas");
+            }
+            this.m_context.EvenementJoueurs.Remove(evenementJoueurDTO);
+            this.m_context.SaveChanges();
         }
     }
 }

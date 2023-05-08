@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GES_API.Models;
 using GES_Services.Manipulations;
+using GES_Services.Entites;
 
 namespace GES_API.Controllers
 {
@@ -86,6 +87,29 @@ namespace GES_API.Controllers
                 return BadRequest(e.Message);
             }
             return Ok();
+        }
+
+        //DELETE: api/<EvenementJoueurController
+        [HttpDelete]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public ActionResult Delete([FromBody] EvenementJoueurModel p_evenementJoueurModel)
+        {
+            if (p_evenementJoueurModel == null)
+            {
+                throw new ArgumentNullException(nameof(p_evenementJoueurModel));
+            }
+            EvenementJoueur evenementJoueur = p_evenementJoueurModel.DeModelVersEntite();
+            EvenementJoueurModel model = new EvenementJoueurModel(this.m_manipulationDepotEvenementJoueur.ChercherJoueurParIdEvenementIdJoueur(evenementJoueur));
+            if(model == null)
+            {
+                return NoContent();
+            }
+            else
+            {
+                this.m_manipulationDepotEvenementJoueur.SupprimerEvenementJoueur(model.DeModelVersEntite());
+                return NoContent();
+            }            
         }
     }
 }

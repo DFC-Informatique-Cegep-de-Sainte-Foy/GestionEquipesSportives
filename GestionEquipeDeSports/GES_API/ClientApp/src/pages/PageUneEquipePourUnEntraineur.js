@@ -65,35 +65,63 @@ function PageUneEquipePourUnEntraineur() {
 
     async function supprimerJoueurDeLEquipe(idJoueurDansListe) {
         const token = await getAccessTokenSilently();
+        let estConfirme = window.confirm('Etes-vous sûr que vous voulez supprimer?');
 
-        let requestOptions = {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-            body: JSON.stringify({
-                FK_Id_Utilisateur: idJoueurDansListe,
-                FK_Id_Equipe: id
-            })
-        };
-        await fetch("api/equipeJoueur", requestOptions);
+        if (estConfirme) {
+            let requestOptions = {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({
+                    FK_Id_Utilisateur: idJoueurDansListe,
+                    FK_Id_Equipe: id
+                })
+            };
+            await fetch("api/equipeJoueur", requestOptions);
 
-        getJoueurs(id);
+            getJoueurs(id);
+        }
     }
 
     async function supprimerEvenementDeLEquipe(idEvenementDansList) {
         const token = await getAccessTokenSilently();
+        let estConfirme = window.confirm('Etes-vous sûr que vous voulez supprimer?');
 
-        let requestOptions = {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-            body: JSON.stringify({
-                FK_Id_Evenement: idEvenementDansList,
-                FK_Id_Equipe: id
-            })
-        };
+        if (estConfirme) {
+            let requestOptions = {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({
+                    FK_Id_Evenement: idEvenementDansList,
+                    FK_Id_Equipe: id
+                })
+            };
 
-        await fetch(`/api/equipeEvenement`, requestOptions);
-        getEvenements(id);
+            await fetch(`/api/equipeEvenement`, requestOptions);
+            getEvenements(id);
+
+            //supprimer de table joueurEvenement
+            // equipeJoueurs.forEach(element => {
+            //     supprimerDeTableEvenementJoueur(element.idUtilisateur, idEvenementDansList);
+            // });
+        }
     }
+
+    // async function supprimerDeTableEvenementJoueur(idJoueur, idEvenementList){
+    //     const token = await getAccessTokenSilently();
+    //     let requestOptionsEvenementJoueur = {
+    //         method: 'DELETE',
+    //         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    //         body: JSON.stringify({
+    //             FK_Id_Utilisateur: idJoueur,
+    //             FK_Id_Evenement: idEvenementList
+    //         })
+    //     };
+
+    //     await fetch(`/api/evenementJoueur`, requestOptionsEvenementJoueur)
+    //     .catch(function (error) {
+    //          console.log(error);
+    //      });
+    // }
 
     async function getRoleVenantDuBackend(email) {
         const token = await getAccessTokenSilently();
@@ -187,6 +215,9 @@ function PageUneEquipePourUnEntraineur() {
                                 <th>Prenom</th>
                                 <th>Email</th>
                                 <th>Téléphone</th>
+                                {estEntraineur && (
+                                    <th></th>
+                                )}
                             </tr>
                         </thead>
 
@@ -198,13 +229,13 @@ function PageUneEquipePourUnEntraineur() {
                                     <td>{joueur.prenom}</td>
                                     <td>{joueur.email}</td>
                                     <td>{joueur.numTelephone}</td>
-                                    <td>
-                                        {estEntraineur && (
+                                    {estEntraineur && (
+                                        <td>
                                             <Button
                                                 variant='danger' onClick={() => supprimerJoueurDeLEquipe(joueur.idUtilisateur)} size="sm" title="Supprimer" ><BiTrash />
                                             </Button>
-                                        )}
-                                    </td>
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
@@ -233,6 +264,9 @@ function PageUneEquipePourUnEntraineur() {
                                 <th>Date de début</th>
                                 <th>Durée</th>
                                 <th>Type événement</th>
+                                {estEntraineur && (
+                                    <th></th>
+                                )}
                             </tr>
                         </thead>
 
@@ -245,9 +279,11 @@ function PageUneEquipePourUnEntraineur() {
                                     <td>{EvenementService.formatDateTime(e.dateDebut)}</td>
                                     <CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} />
                                     <td>{EvenementService.affichageTypeEvenement(e.typeEvenement)}</td>
-                                    <td>
-                                        <Button variant='danger' onClick={() => supprimerEvenementDeLEquipe(e.id)} size="sm" title="Supprimer" ><BiTrash /></Button>
-                                    </td>
+                                    {estEntraineur && (
+                                        <td>
+                                            <Button variant='danger' onClick={() => supprimerEvenementDeLEquipe(e.id)} size="sm" title="Supprimer" ><BiTrash /></Button>
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>

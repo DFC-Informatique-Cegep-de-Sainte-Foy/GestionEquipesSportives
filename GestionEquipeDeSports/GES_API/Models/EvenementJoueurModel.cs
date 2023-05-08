@@ -26,6 +26,10 @@ namespace GES_API.Models
 
         public EvenementJoueurModel(EvenementJoueur p_evenementJoueur)
         {
+            if(p_evenementJoueur == null)
+            {
+                throw new ArgumentNullException(nameof(p_evenementJoueur));
+            }
             this.IdEvenementJoueur = p_evenementJoueur.IdEvenementJoueur;
             this.EstPresentAevenement = p_evenementJoueur.EstPresentAevenement;
             this.Fk_Id_Evenement = p_evenementJoueur.Fk_Id_Evenement;
