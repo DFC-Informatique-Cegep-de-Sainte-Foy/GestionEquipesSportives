@@ -141,7 +141,7 @@ function PageUneEquipePourUnEntraineur() {
         }
 
         for (let i = 0; i < body.length; i++) {
-            if (body[i].fkIdRole === 1) {
+            if (body[i].fkIdRole === 1 && body[i].fkIdEquipe === id) {
                 setEstEntraineur(true);
             }
         }

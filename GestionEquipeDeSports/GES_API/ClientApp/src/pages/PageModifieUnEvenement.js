@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 
 export const PageModifieUnEvenement = () => {
@@ -15,6 +15,7 @@ export const PageModifieUnEvenement = () => {
     const [erreurTypeEvenement, setErreurTypeEvenement] = useState('');
     const { getAccessTokenSilently } = useAuth0();
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     async function getEvenement(id) {
         const token = await getAccessTokenSilently();
@@ -165,9 +166,8 @@ export const PageModifieUnEvenement = () => {
                             </Form.Group>
 
                             <Button className="me-4" variant='primary' onClick={soumettreFormulaire}>Enregistrer</Button>
-                            <Link to={'/evenements'}>
-                                <Button className="me-2" variant='danger'>Annuler</Button>
-                            </Link>
+                            
+                            <Button className="me-2" onClick={() => navigate(-1)} variant='danger'>Annuler</Button>
                         </Form>
                     </Col>
                 </Row>
