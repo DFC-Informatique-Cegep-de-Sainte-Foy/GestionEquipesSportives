@@ -99,8 +99,8 @@ export const Evenement = (props) =>{
             <td onClick={() => navigate(`/unEvenement/${props.id}`)} style={{cursor: "pointer"}}>{props.num}</td>
             <td onClick={() => navigate(`/unEvenement/${props.id}`)} style={{cursor: "pointer"}}>{props.description}</td>
             <td onClick={() => navigate(`/unEvenement/${props.id}`)} style={{cursor: "pointer"}}>{props.emplacement}</td>
-            <FormatDateTime doneesDateTime={props.dateDebut} />
-            <CalculerDuree dateACalculer={[props.dateDebut, props.dateFin]} />
+            <td><FormatDateTime doneesDateTime={props.dateDebut} /> </td>
+            <td><CalculerDuree dateACalculer={[props.dateDebut, props.dateFin]} /> </td>
             <AfficherChangerPresence presence={[props.id, joueurPresenceEvenement]} />
             {/* {<td>{afficherEtatPresence(props.id)}</td>} */}
             <td>

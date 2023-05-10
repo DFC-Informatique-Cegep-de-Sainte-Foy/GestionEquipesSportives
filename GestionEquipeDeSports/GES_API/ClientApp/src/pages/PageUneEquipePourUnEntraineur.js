@@ -277,7 +277,7 @@ function PageUneEquipePourUnEntraineur() {
                                     <td><Link to={{ pathname: `/unEvenement/${e.id}` }}>{e.description}</Link></td>
                                     <td>{e.emplacement}</td>
                                     <td>{EvenementService.formatDateTime(e.dateDebut)}</td>
-                                    <CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} />
+                                    <td><CalculerDuree dateACalculer={[e.dateDebut, e.dateFin]} /> </td>
                                     <td>{EvenementService.affichageTypeEvenement(e.typeEvenement)}</td>
                                     {estEntraineur && (
                                         <td>

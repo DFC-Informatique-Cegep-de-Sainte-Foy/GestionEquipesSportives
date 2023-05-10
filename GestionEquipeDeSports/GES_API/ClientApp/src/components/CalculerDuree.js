@@ -11,16 +11,16 @@ export const CalculerDuree = (props) => {
         dureeH = dureeH.toFixed();
         var dureeM = result % 60;
         return (
-            <td>
+            <>
                 {dureeH}H {dureeM}min
-            </td>
+            </>
         )
     }
     else {
         return (
-            <td>
+            <>
                 {result}min
-            </td>
+            </>
         )
     }
 }

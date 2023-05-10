@@ -4,6 +4,8 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import { BiCheck, BiX } from "react-icons/bi";
 import '../styles/pageUnEvenement.css';
+import { CalculerDuree } from '../components/CalculerDuree';
+import { FormatDateTime } from "../components/FormatDateTime";
 
 export const PageUnEvenement = () => {
     const [evenement, setEvenement] = useState(null);
@@ -149,12 +151,6 @@ export const PageUnEvenement = () => {
         const token = await getAccessTokenSilently();
     }
 
-    function formatDateTime(donnees) {
-        var dateTimeEntree = donnees;
-        var date = dateTimeEntree.split('T').join(' ');
-        return date.substring(0, 16);
-    }
-
     useEffect(() => { loadEvenement() }, []);
     useEffect(() => { loadPresenceUser() }, []);
     useEffect(() => { loadUtilisateur() }, []);
@@ -196,12 +192,12 @@ export const PageUnEvenement = () => {
                     </h5>
                     <Col>
                         <h5>
-                            <span className="">Date de début: {formatDateTime(evenement.dateDebut)}</span>
+                            <span className="">Date de début: <FormatDateTime doneesDateTime={evenement.dateDebut} /></span>
                         </h5>
                     </Col>
                     <Col>
                         <h5>
-                            <span className="">Durée: {evenement.duree} heures</span>
+                            <span className="">Durée: <CalculerDuree dateACalculer={[evenement.dateDebut, evenement.dateFin]} /></span>
                         </h5>
                     </Col>
                 </Row>

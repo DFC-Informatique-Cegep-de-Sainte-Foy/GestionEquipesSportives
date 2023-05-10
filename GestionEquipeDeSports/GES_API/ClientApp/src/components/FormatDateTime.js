@@ -5,8 +5,8 @@ export const FormatDateTime = (props) =>{
     var date = dateTimeEntree.split('T').join(' ');
     var dateFormatee = date.substring(0, 16);
     return (
-        <td>
+        <>
             {dateFormatee}
-        </td>
+        </>
     )
 }
