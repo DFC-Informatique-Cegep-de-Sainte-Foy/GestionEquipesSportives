@@ -55,7 +55,6 @@ Dans le projet React(Frontend), nous avons:
 - Le dossier pages: qui contient les différentes pages de notre application
 - Le dossier images: qui contient toutes les images que nous avons utilisées dans l'application
 - Le dossier styles: qui contient le fichier du CSS
-- Le dossier services: 
 
  
  
