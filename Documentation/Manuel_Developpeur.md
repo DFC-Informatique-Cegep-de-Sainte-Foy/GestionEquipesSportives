@@ -1,7 +1,6 @@
 # A- Phases de travail
 
 Tout au long de notre projet, nous avons travaillé sur 3 phases:
-
 #1.La Phase de développement
 Dans cette phase, nous avons utilisé trois environnements distincts. 
 
@@ -19,9 +18,9 @@ Ce qui permet ainsi au client de consulter l'application et faire les tests d'ac
 Les ressources et services sont hébergées sur Azure afin de permettre au client d’y accéder.
 
 * L’environnement de production
-C'est celui vers lequel nous avons migré la solution une fois que le client est satisfait du résultat présent dans l’environnement d’acceptation.
+C'est celui vers lequel nous avons migré la solution une fois que le client etait satisfait du résultat présent dans l’environnement d’acceptation.
 
-Dans cet environnement, les technologies que nous avons utilisées sont : 
+Dans cet environnement, les technologies que nous avons utilisées sont: 
 - ASP .NET 7, 
 - Microsoft SQL server 2022, 
 - React 18.0.2, 
@@ -50,6 +49,13 @@ Le tout hébergé via les services d’Azure et disponible via un DNS à déterm
 
 
 # A- Normes de travail utilisées
+
+Dans le projet React(Frontend), nous avons:
+- Le dossier components: qui contient toutes les composantes communes et réutilisables partout
+- Le dossier pages: qui contient les différentes pages de notre application
+- Le dossier images: qui contient toutes les images que nous avons utilisées dans l'application
+- Le dossier styles: qui contient le fichier du CSS
+- Le dossier services: 
 
  
  
