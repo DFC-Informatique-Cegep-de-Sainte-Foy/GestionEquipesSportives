@@ -3,16 +3,17 @@
 À EXECUTER SUR LA BASE DE DONNÉES MASTER SI LA BD N'EXISTE PAS ENCORE (1ère fois)
 
 */
-
-Use master;
+USE master;
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'Equipe_sportive')
 BEGIN
   CREATE DATABASE Equipe_sportive;
 END;
+GO
 
 USE Equipe_sportive;
+GO
 
 IF OBJECT_ID(N'dbo.Roles', N'U') IS NULL 
 	BEGIN 
@@ -44,6 +45,7 @@ IF OBJECT_ID(N'dbo.Utilisateur', N'U') IS NULL
 		IdUtilisateur UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
 		Nom VARCHAR(50) NOT NULL,
 		Prenom VARCHAR(50) NOT NULL,
+		DateNaissance DATETIME2 NOT NULL,
 		Age INT NOT NULL,
 		Email VARCHAR(100) NOT NULL,
 		Adresse VARCHAR(120),

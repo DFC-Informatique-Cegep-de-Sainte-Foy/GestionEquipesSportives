@@ -36,6 +36,10 @@ builder.Services.AddScoped<ManipulationDepotEquipeJoueur>();
 builder.Services.AddScoped<ManipulationDepotEvenementEquipe>();
 //Manipulation du depot EvenementJoueur pour chercher joueurs
 builder.Services.AddScoped<ManipulationDepotEvenementJoueur>();
+//Manipulation du depot UtilisateurEquipe pour chercher équipes
+builder.Services.AddScoped<ManipulationDepotUtilisateurEquipe>();
+//Manipulation du depot UtilisateurEquipeRole pour chercher utilisateur
+builder.Services.AddScoped<ManipulationDepotUtilisateurEquipeRole>();
 
 //Dependance entre l'interface Evenement et le DepotEvenementSQLServer
 builder.Services.AddScoped<IDepotEvenement, DepotEvenementsSQLServer>();
@@ -53,6 +57,10 @@ builder.Services.AddScoped<IDepotEquipeJoueur, DepotEquipeJoueurSQLServer>();
 builder.Services.AddScoped<IDepotEvenementEquipe, DepotEvenementEquipeSQLServer>();
 //Dependence entre l'interface EvenementJoueur et le DepotEvenementJoueurSQLServer
 builder.Services.AddScoped<IDepotEvenementJoueur, DepotEvenementJoueurSQLServer>();
+//Dependence entre l'interface UtilisateurEquipe et le DepotUtilisateurEquipeSQLServer
+builder.Services.AddScoped<IDepotUtilisateurEquipe, DepotUtilisateurEquipeSQLServer>();
+//Dependence entre l'interface UtilisateurEquipeRole et le DepotUtilisateurEquipeRoleSQLServer
+builder.Services.AddScoped<IDepotUtilisateurEquipeRole, DepotUtilisateurEquipeRoleSQLServer>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Equipe_sportiveContext>();
 

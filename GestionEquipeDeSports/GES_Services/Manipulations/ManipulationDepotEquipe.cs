@@ -33,6 +33,8 @@ namespace GES_Services.Manipulations
             {
                 throw new ArgumentNullException("Le paramètre p_equipe ne peut pas être null", nameof(p_equipe));
             }
+
+
             this.m_depotEquipe.AjouterEquipe(p_equipe);
         }
         

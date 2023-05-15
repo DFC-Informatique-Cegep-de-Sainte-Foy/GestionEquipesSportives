@@ -43,6 +43,8 @@ namespace GES_API.Controllers
         {
             EvenementModel evenementModel = new EvenementModel(this.m_maniulationDepotEvenement.ChercherEvenementParId(id));
 
+            evenementModel = evenementModel.ModifierDateFinEnDuree(evenementModel);
+
             if (evenementModel != null)
             {
                 return Ok(evenementModel);
@@ -60,9 +62,13 @@ namespace GES_API.Controllers
             {
                 throw new ArgumentNullException(nameof(p_evenementModel));
             }
-            GES_Services.Entites.Evenement evenem = p_evenementModel.VersEntite();
+
+            p_evenementModel.Id = Guid.NewGuid();
+            Guid guid = p_evenementModel.Id;
+
+            GES_Services.Entites.Evenement evenem = p_evenementModel.DeModelVersEntite();
             this.m_maniulationDepotEvenement.AjouterEvenement(evenem);
-            return CreatedAtAction(nameof(Get), new { id = p_evenementModel.Id }, p_evenementModel);
+            return Ok(guid);
         }
 
         // PUT api/<EvenementController>/5
@@ -82,7 +88,7 @@ namespace GES_API.Controllers
             {
                 return NotFound();
             }
-            m_maniulationDepotEvenement.ModifierEvenement(p_evenementModel.VersEntite());
+            m_maniulationDepotEvenement.ModifierEvenement(p_evenementModel.DeModelVersEntite());
             return NoContent();
         }
 
@@ -98,7 +104,7 @@ namespace GES_API.Controllers
                 return NotFound();
             }
 
-            m_maniulationDepotEvenement.SupprimerEvenement(model.VersEntite());
+            m_maniulationDepotEvenement.SupprimerEvenement(model.DeModelVersEntite());
             return NoContent();
         }
     }

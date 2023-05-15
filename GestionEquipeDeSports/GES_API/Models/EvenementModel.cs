@@ -16,6 +16,7 @@ namespace GES_API.Models
         public DateTime? DateModification { get; set; }
         public int TypeEvenement { get; set; }
         public int Etat { get; set; }
+        public double? Duree { get; set; }
 
         public EvenementModel()
         {
@@ -34,9 +35,9 @@ namespace GES_API.Models
             this.TypeEvenement = p_evenement.TypeEvenement.IdTypeEvenement;
         }
 
-        public Evenement VersEntite()
+        public Evenement DeModelVersEntite()
         {
-          
+
             return new Evenement(
                     this.Id,
                     this.Description,
@@ -46,5 +47,18 @@ namespace GES_API.Models
                     this.TypeEvenement
                 );
         }
+        public EvenementModel ModifierDateFinEnDuree(EvenementModel evenementModel)
+        {
+            EvenementModel evenementModel1 = new EvenementModel(evenementModel.DeModelVersEntite());
+
+
+            TimeSpan? timeDifference = evenementModel1.DateFin - evenementModel1.DateDebut;
+            double? timeDifferenceInHours = timeDifference?.TotalHours;
+
+            evenementModel1.Duree = timeDifferenceInHours;
+
+            return evenementModel1;
+        }
+
     }
 }

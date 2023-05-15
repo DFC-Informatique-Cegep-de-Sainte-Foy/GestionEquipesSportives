@@ -30,9 +30,9 @@ namespace GES_Services.Manipulations
             return this.m_depotEvenementJoueur.ChercherJoueurParIdEvenementIdJoueur(p_evenementJoueur);
         }
         
-        public IEnumerable<EvenementJoueur> ChercherJoueurParIdEvenement(Guid p_id)
+        public IEnumerable<EvenementJoueur> ChercherEvenementParIdUtilisateur(Guid p_id)
         {
-            return this.m_depotEvenementJoueur.ChercherJoueurParIdEvenement(p_id);
+            return this.m_depotEvenementJoueur.ChercherEvenementParIdUtilisateur(p_id);
         }
         
         public void AjouterPresencePourJoueur(EvenementJoueur p_evenementJoueur)
@@ -42,6 +42,14 @@ namespace GES_Services.Manipulations
                 throw new ArgumentNullException(nameof(p_evenementJoueur));
             }
             this.m_depotEvenementJoueur.AjouterPresencePourJoueur(p_evenementJoueur);
+        }
+        public void SupprimerEvenementJoueur(EvenementJoueur p_evenementJoueur)
+        {
+            if (p_evenementJoueur is null)
+            {
+                throw new ArgumentNullException(nameof(p_evenementJoueur));
+            }
+            this.m_depotEvenementJoueur.SupprimerEvenementJoueur(p_evenementJoueur);
         }
     }
 }

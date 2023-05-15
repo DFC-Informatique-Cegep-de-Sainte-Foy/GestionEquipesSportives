@@ -11,13 +11,29 @@ namespace GES_API.Controllers
     public class EquipeController : ControllerBase
     {
         private ManipulationDepotEquipe m_manipulationDepotEquipe;
-        public EquipeController(ManipulationDepotEquipe p_manipulationDepotEquipe)
+        private ManipulationDepotUtilisateurEquipeRole m_manipulationUtilisateurEquipeRole;
+        private ManipulationDepotEquipeJoueur m_manipulationDepotEquipeJoueur;
+
+        public EquipeController(ManipulationDepotEquipe p_manipulationDepotEquipe,
+                                ManipulationDepotUtilisateurEquipeRole manipulationUtilisateurEquipeRole,
+                                ManipulationDepotEquipeJoueur manipulationDepotEquipeJoueur)
         {
-            if(p_manipulationDepotEquipe == null)
+            if (p_manipulationDepotEquipe == null)
             {
                 throw new ArgumentNullException(nameof(p_manipulationDepotEquipe));
             }
+            if (manipulationUtilisateurEquipeRole == null)
+            {
+                throw new ArgumentNullException(nameof(manipulationUtilisateurEquipeRole));
+            }
+            if (manipulationDepotEquipeJoueur is null)
+            {
+                throw new ArgumentNullException(nameof(manipulationDepotEquipeJoueur));
+            }
+
             this.m_manipulationDepotEquipe = p_manipulationDepotEquipe;
+            this.m_manipulationUtilisateurEquipeRole = manipulationUtilisateurEquipeRole;
+            this.m_manipulationDepotEquipeJoueur = manipulationDepotEquipeJoueur;
         }
 
         //GET: api/<EquipeController>
@@ -35,13 +51,13 @@ namespace GES_API.Controllers
         public ActionResult<EquipeModel> Get(Guid id)
         {
             EquipeModel model = new EquipeModel(this.m_manipulationDepotEquipe.ChercherEquipeParId(id));
-            if(model != null)
+            if (model != null)
             {
                 return Ok(model);
             }
-            else 
-            { 
-                return NotFound(); 
+            else
+            {
+                return NotFound();
             }
         }
 
@@ -49,14 +65,54 @@ namespace GES_API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public ActionResult Post([FromBody] EquipeModel p_equipeModel)
+        public ActionResult Post([FromBody] EquipeModel p_equipeModel, [FromQuery] Guid idUser)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            this.m_manipulationDepotEquipe.AjouterEquipe(p_equipeModel.DeModelVersEntite());
+            try
+            {
+
+                p_equipeModel.IdEquipe = Guid.NewGuid();
+                Guid guid = p_equipeModel.IdEquipe;
+
+                //ajout de lequipe dans la table equipe
+                this.m_manipulationDepotEquipe.AjouterEquipe(p_equipeModel.DeModelVersEntite());
+
+                UtilisateurEquipeRoleModel utilisateurEquipeRoleModel = new UtilisateurEquipeRoleModel()
+                {
+                    IdUtilisateurEquipeRole = Guid.NewGuid(),
+                    FkIdUtilisateur = idUser,
+                    FkIdEquipe = p_equipeModel.IdEquipe,
+                    FkIdRole = 1
+                };
+
+                //ajout de lutilisateur dans la table utilisateurEquipeRole en tant qu'entraineur               
+                this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModel.DeModelVersEntite());
+
+                //ajout de lutilisateur dans la table utilisateurEquipeRole en tant qu'athlete
+                utilisateurEquipeRoleModel.IdUtilisateurEquipeRole = Guid.NewGuid();
+                utilisateurEquipeRoleModel.FkIdRole = 3;
+
+                this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModel.DeModelVersEntite());
+
+                //ajout de lutilisateur dans la table equipeJoueur
+                EquipeJoueurModel equipeJoueurModel = new EquipeJoueurModel()
+                {
+                    IdJoueurEquipe = Guid.NewGuid(),
+                    Fk_Id_Equipe = p_equipeModel.IdEquipe,
+                    Fk_Id_Utilisateur = idUser
+                };
+
+                this.m_manipulationDepotEquipeJoueur.AjouterEquipeJoueur(equipeJoueurModel.DeModelVersEntite());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+
             return Ok();
         }
 

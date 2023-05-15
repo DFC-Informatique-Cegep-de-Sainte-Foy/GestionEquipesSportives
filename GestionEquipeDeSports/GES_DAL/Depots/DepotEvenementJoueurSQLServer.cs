@@ -68,6 +68,7 @@ namespace GES_DAL.Depots
 
             return new EvenementJoueur()
             {
+                IdEvenementJoueur = evenement.IdEvenementJoueur,
                 Fk_Id_Evenement = evenement.Fk_Id_Evenement,
                 Fk_Id_Utilisateur = evenement.Fk_Id_Utilisateur,
                 EstPresentAevenement = evenement.EstPresentAevenement
@@ -75,26 +76,53 @@ namespace GES_DAL.Depots
         }
 
 
-        public IEnumerable<EvenementJoueur> ChercherJoueurParIdEvenement(Guid p_id)
+        public IEnumerable<EvenementJoueur> ChercherEvenementParIdUtilisateur(Guid p_id)
         {
             if (p_id == Guid.Empty)
             {
                 throw new ArgumentOutOfRangeException("le parametre \"id\" doit etre superieur a 0", nameof(p_id));
             }
-            //trouver evenement s'il existe
-            GES_DAL.BackendProject.Evenement? evenementDTO = this.m_context.Evenements.FirstOrDefault(e => e.IdEvenement == p_id);
-            if (evenementDTO == null)
+            //trouver joueur s'il existe
+            GES_DAL.BackendProject.Utilisateur? utitlisateurDTO = this.m_context.Utilisateurs.FirstOrDefault(u => u.IdUtilisateur == p_id);
+            if (utitlisateurDTO == null)
             {
-                throw new InvalidOperationException($"l'evenement avec l'id (p_id) n'existe pas");
+                throw new InvalidOperationException($"l'utilisateur avec l'id {p_id} n'existe pas");
             }
 
             //trouver les idEvenementJoueurs pour l'evenement dans table intersection
-            IEnumerable<Guid> idEvenementJoueurs = this.m_context.EvenementJoueurs.Where(e => e.Fk_Id_Evenement == p_id).Select(e => e.IdEvenementJoueur);
+            IEnumerable<Guid> idEvenementJoueurs = this.m_context.EvenementJoueurs.Where(e => e.Fk_Id_Utilisateur == p_id).Select(e => e.IdEvenementJoueur);
+
+            //GES_DAL.BackendProject.Evenement? evenementDTO = this.m_context.Evenements.FirstOrDefault(e => e.IdEvenement == p_id);
+            //if (evenementDTO == null)
+            //{
+            //    throw new InvalidOperationException($"l'evenement avec l'id (p_id) n'existe pas");
+            //}
+
+            ////trouver les idEvenementJoueurs pour l'evenement dans table intersection
+            //IEnumerable<Guid> idEvenementJoueurs = this.m_context.EvenementJoueurs.Where(e => e.Fk_Id_Evenement == p_id).Select(e => e.IdEvenementJoueur);
 
             //trouver les donnees dans table
             IEnumerable<EvenementJoueur> evenementJoueurDTO = this.m_context.EvenementJoueurs.Where(e => idEvenementJoueurs.Contains(e.IdEvenementJoueur)).Select(e => e.DeDTOVersEntite());
 
             return evenementJoueurDTO;
+        }
+        public void SupprimerEvenementJoueur(EvenementJoueur p_evenementJoueur)
+        {
+            if (p_evenementJoueur == null)
+            {
+                throw new ArgumentNullException(nameof(p_evenementJoueur));
+            }
+            if (p_evenementJoueur.IdEvenementJoueur == Guid.Empty || p_evenementJoueur.IdEvenementJoueur == null)
+            {
+                throw new ArgumentOutOfRangeException(nameof(p_evenementJoueur));
+            }
+            GES_DAL.BackendProject.EvenementJoueur? evenementJoueurDTO = m_context.EvenementJoueurs.Where(e => e.IdEvenementJoueur == p_evenementJoueur.IdEvenementJoueur).SingleOrDefault();
+            if (evenementJoueurDTO is null)
+            {
+                throw new InvalidOperationException($"l'evenement avec le id {p_evenementJoueur.IdEvenementJoueur} n'existe pas");
+            }
+            this.m_context.EvenementJoueurs.Remove(evenementJoueurDTO);
+            this.m_context.SaveChanges();
         }
     }
 }

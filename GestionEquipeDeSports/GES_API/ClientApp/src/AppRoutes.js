@@ -1,22 +1,23 @@
 import Equipes from "./components/Equipes";
 import { Accueil } from "./components/Accueil";
-import Evenements from "./components/Evenements";
-import { FormEvenement } from "./components/FormulaireEvenement";
-import { FormEquipe } from "./components/FormulaireEquipe";
-import Utilisateurs from "./components/Utilisateurs";
-import FormEntraineur from "./components/FormulaireEntraineur";
-import { PageUnEvenement } from "./components/PageUnEvenement";
-import { PageModifieUnEvenement } from "./components/PageModifieUnEvenement";
-import { PageSupprimerEvenement } from "./components/PageSupprimerEvenement";
-import { PageUneEquipe } from "./components/PageUneEquipe";
-import { PageSupprimerEquipe } from "./components/PageSupprimerEquipe";
-import { PageAccueilAthlete } from "./pages/PageJoueur";
+import Evenements from "./pages/PageEvenements";
+import { FormEvenement } from "./pages/PageFormulaireEvenement";
+import Utilisateurs from "./pages/PageUtilisateurs";
+import { FormUtilisateur } from "./pages/PageFormulaireUtilisateur";
+import { PageUnEvenement } from "./pages/PageUnEvenement";
+import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";
+import { PageSupprimerEvenement } from "./pages/PageSupprimerEvenement";
+import { PageUneEquipePourLAdmin } from "./pages/PageUneEquipePourLAdmin";
+import { PageSupprimerEquipe } from "./pages/PageSupprimerEquipe";
+import {  PageDesEvenementsEtEquipesDUnAthlete } from "./pages/PageDesEvenementsEtEquipesDUnAthlete";
 import { PageAcceuilEntraineur } from "./pages/PageAccueilEntraineur";
 import Erreur404 from "./components/Erreur404";
-import PageRejoindreUneEquipe from "./components/PageRejoindreUneEquipe";
+import PageRejoindreUneEquipe from "./pages/PageRejoindreUneEquipe";
 import Profile from "./components/Profile";
 import { Connexion } from "./components/Connexion";
 import { AuthenticationGuard } from "./components/AuthenticationGuard";
+import PageUneEquipePourUnEntraineur from "./pages/PageUneEquipePourUnEntraineur";
+import { PageFormEquipe } from "./pages/PageFormulaireEquipe";
 
 const AppRoutes = [
   {
@@ -29,28 +30,23 @@ const AppRoutes = [
   },
   {
     path: '/evenements',
-    //element: <Evenements />
     element: <AuthenticationGuard component={Evenements} />
   },
   {
-    path: '/formulaireEvenement',
-    //element: <FormEvenement />
+    path: '/formulaireEvenement/:id',
     element: <AuthenticationGuard component={FormEvenement} />
   },
   {
     path: '/formulaireEquipe',
-    //element: <FormEquipe />
-    element: <AuthenticationGuard component={FormEquipe} />
+    element: <AuthenticationGuard component={PageFormEquipe} />
   },
   {
     path: '/utilisateurs',
-    //element: <Utilisateurs />
     element: <AuthenticationGuard component={Utilisateurs} />
   },
   {
-    path: '/formulaireEntraineur',
-    //element: <FormEntraineur />
-    element: <AuthenticationGuard component={FormEntraineur} />
+    path: '/formulaireUtilisateur/:id',
+    element: <AuthenticationGuard component={FormUtilisateur} />
   },
   {
     path: '/connexion',
@@ -58,48 +54,48 @@ const AppRoutes = [
   },
   {
     path: '/unEvenement/:id',
-    //element: <PageUnEvenement />
     element: <AuthenticationGuard component={PageUnEvenement} />
   },
   {
     path: '/modifieEvenement/:id',
-    //element: <PageModifieUnEvenement />
     element: <AuthenticationGuard component={PageModifieUnEvenement} />
   },
   {
     path: '/supprimerEvenement/:id',
-    //element: <PageSupprimerEvenement />
     element: <AuthenticationGuard component={PageSupprimerEvenement} />
   },
   {
     path: '/uneEquipe/:id',
-    //element: <PageUneEquipe />
-    element: <AuthenticationGuard component={PageUneEquipe} />
+    element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
   },
   {
     path: '/supprimerEquipe/:id',
     element: <PageSupprimerEquipe />
   },
   {
+    path: 'pageDesEvenementsEtEquipesDUnAthlete/:id',
+    element: <AuthenticationGuard component={PageDesEvenementsEtEquipesDUnAthlete} />
+  },
+  /*{
     // path: '/ma-page-accueil/:id',
     path: 'ma-page-accueil/',
-    //element: <PageJoueur />
     element: <AuthenticationGuard component={PageAccueilAthlete} />
-  },
+  },*/
   {
-    path: '/accueilEntraineur',
-    //element: <PageAcceuilEntraineur />
+    path: '/accueil',
     element: <AuthenticationGuard component={PageAcceuilEntraineur} />
   },
   {
     path: '/rejoindreUneEquipe',
-    //element: <PageRejoindreUneEquipe />
     element: <AuthenticationGuard component={PageRejoindreUneEquipe} />
   },
   {
     path: '/profile',
-    //element: <Profile />
     element: <AuthenticationGuard component={Profile} />
+  },
+  {
+    path: '/pageUneEquipePourUnEntraineur/:id',
+    element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
   },
   {
     path: '*',

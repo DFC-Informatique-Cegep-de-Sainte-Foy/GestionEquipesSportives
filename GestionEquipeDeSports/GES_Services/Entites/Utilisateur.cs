@@ -51,14 +51,14 @@ public partial class Utilisateur
         }
         Email = email;
 
-        if (adresse == null)
+        if (age == null)
         {
-            throw new ArgumentNullException($"Le parametre email: {email} est invalide", nameof(email));
+            throw new ArgumentNullException($"Le parametre age: {age} est invalide", nameof(age));
         }
-        if (numTelephone == null)
-        {
-            throw new ArgumentNullException($"Le parametre numero telephone: {numTelephone} est invalide", nameof(numTelephone));
-        }
+        //if (numTelephone == null)
+        //{
+        //    throw new ArgumentNullException($"Le parametre numero telephone: {numTelephone} est invalide", nameof(numTelephone));
+        //}
 
         Role = role;
 
