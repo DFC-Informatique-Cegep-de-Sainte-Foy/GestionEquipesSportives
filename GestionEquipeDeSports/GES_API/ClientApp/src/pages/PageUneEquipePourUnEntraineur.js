@@ -151,7 +151,7 @@ function PageUneEquipePourUnEntraineur() {
         if (isAuthenticated === true) {
             if (estEntraineur) {
                 return (
-                    <Button variant="success" onClick={() => navigate(`/formulaireUtilisateur/${id}`)} className="btn btn-success float-end" >Ajouter un joueur</Button>
+                    <Button variant="success" onClick={() => navigate(`/inviterOuAjouterJoueur/${id}`)} className="btn btn-success float-end" >Ajouter un joueur</Button>
                 );
             }
         }
