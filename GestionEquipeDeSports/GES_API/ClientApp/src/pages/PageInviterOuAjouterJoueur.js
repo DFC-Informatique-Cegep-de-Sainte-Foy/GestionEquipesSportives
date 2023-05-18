@@ -20,7 +20,7 @@ function PageInviterOuAjouterJoueur(){
             <Card style={{ width: '20rem', marginRight: "10px"}}>
                 <Card.Img variant="top" src={codeEnGuid} height={150} width={100}/>
                 <Card.Body>
-                    <Button variant="dark" onClick={() => navigate(`/formulaireUtilisateur/${id}`)}>
+                    <Button variant="dark" onClick={() => navigate(`/saisirEtEnvoyerInvitation/${id}`)}>
                         <Card.Title>Inviter de nouveaux membres</Card.Title>
                     </Button>
                     <p></p>

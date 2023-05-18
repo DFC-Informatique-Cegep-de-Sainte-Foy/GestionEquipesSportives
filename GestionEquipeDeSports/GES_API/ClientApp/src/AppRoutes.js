@@ -19,6 +19,7 @@ import { AuthenticationGuard } from "./components/AuthenticationGuard";
 import PageUneEquipePourUnEntraineur from "./pages/PageUneEquipePourUnEntraineur";
 import { PageFormEquipe } from "./pages/PageFormulaireEquipe";
 import PageInviterOuAjouterJoueur from "./pages/PageInviterOuAjouterJoueur";
+import PagePourSaisirLeCourrielDInvitation from "./pages/PagePourSaisirLeCourrielDInvitation";
 
 const AppRoutes = [
   {
@@ -101,6 +102,10 @@ const AppRoutes = [
   {
     path: '/inviterOuAjouterJoueur/:id',
     element: <AuthenticationGuard component={PageInviterOuAjouterJoueur} />
+  },
+  {
+    path: '/saisirEtEnvoyerInvitation/:id',
+    element: <AuthenticationGuard component={PagePourSaisirLeCourrielDInvitation} />
   },
   {
     path: '*',
