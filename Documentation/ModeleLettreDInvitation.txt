@@ -1,0 +1,7 @@
+Bonjour Lucas,
+
+Pour rejoindre mon équipe, tu n’auras qu’à cliquer sur le lien : https://localhost:44474/rejoindreUneEquipe
+
+et ensuite entrer l'identifiant de l'équipe dans le champs approprié.
+
+Bonne journée
