@@ -16,38 +16,34 @@ function PageInviterOuAjouterJoueur(){
         <p></p>
         <p></p>
 
-        <Row>
-            <Col>
-                <Card style={{ width: '20rem' }}>
-                    <Card.Img variant="top" src={codeEnGuid} height={150} width={100}/>
-                    <Card.Body>
-                        <Button variant="dark" onClick={() => navigate(`/formulaireUtilisateur/${id}`)}>
-                            <Card.Title>Inviter de nouveaux membres</Card.Title>
-                        </Button>
-                        <p></p>
-                        <p></p>
-                        <Card.Text>
-                            Récupérez l'id de l"équipe pour l'envoyer par email aux membres de l'équipe.
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-            </Col>
+        <Row style={{textAlign: "center", justifyContent: 'center', paddingLeft: "10px"}}>
+            <Card style={{ width: '20rem', marginRight: "10px"}}>
+                <Card.Img variant="top" src={codeEnGuid} height={150} width={100}/>
+                <Card.Body>
+                    <Button variant="dark" onClick={() => navigate(`/formulaireUtilisateur/${id}`)}>
+                        <Card.Title>Inviter de nouveaux membres</Card.Title>
+                    </Button>
+                    <p></p>
+                    <p></p>
+                    <Card.Text>
+                        Récupérez l'id de l"équipe pour l'envoyer par email aux membres de l'équipe.
+                    </Card.Text>
+                </Card.Body>
+            </Card>
 
-            <Col>
-                <Card style={{ width: '20rem' }}>
-                    <Card.Img variant="top" src={iconeInvitation} height={150} width={100} />
-                    <Card.Body>
-                        <Button variant="dark" onClick={() => navigate(`/formulaireUtilisateur/${id}`)}>
-                            <Card.Title>Ajouter de nouveaux membres</Card.Title>
-                        </Button>
-                        <p></p>
-                        <p></p>
-                        <Card.Text>
-                            Vous pouvez ajouter vos membres en saisissant leurs informations personnelles.
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-            </Col>
+            <Card style={{ width: '20rem', marginLeft: "10px"}}>
+                <Card.Img variant="top" src={codeEnGuid} height={150} width={100}/>
+                <Card.Body>
+                    <Button variant="dark" onClick={() => navigate(`/formulaireUtilisateur/${id}`)}>
+                        <Card.Title>Inviter de nouveaux membres</Card.Title>
+                    </Button>
+                    <p></p>
+                    <p></p>
+                    <Card.Text>
+                        Récupérez l'id de l"équipe pour l'envoyer par email aux membres de l'équipe.
+                    </Card.Text>
+                </Card.Body>
+            </Card>
         </Row>
     </Container>
   )
