@@ -68,6 +68,10 @@ function AfficherPageEnFonctionDuRole(){
                         </NavItem>
 
                         <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/rejoindreUneEquipe">Rejoindre une équipe</NavLink>
+                        </NavItem>
+
+                        <NavItem>
                             <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
                         </NavItem>
                     </Nav>
@@ -79,6 +83,10 @@ function AfficherPageEnFonctionDuRole(){
                     <Nav>
                         <NavItem>
                             <NavLink tag={Link} className="text-white" to="/accueil">Page d'accueil</NavLink>
+                        </NavItem>
+
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/rejoindreUneEquipe">Rejoindre une équipe</NavLink>
                         </NavItem>
 
                         <NavItem>
