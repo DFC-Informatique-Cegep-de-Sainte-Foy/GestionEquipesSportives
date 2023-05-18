@@ -14,8 +14,12 @@ function PageRejoindreUneEquipe(){
             <Row>
                 <Col>
                     <h3 style={{textAlign: "center"}}>1. Le responsable d'équipe vous a invité par email.</h3><p></p>
-                    <p >Regardez dans vos emails si vous avez reçu une invitation.<br></br>Dans l'email, copiez l'id de l'équipe et coller dans le champ ci-dessous.</p>
+                    <p >Regardez dans vos emails si vous avez reçu une invitation.<br></br>Dans l'email, copiez l'id de l'équipe et coller le dans le champ ci-dessous.</p>
 
+                    <div>
+                        <input type="guid" className="form-control" name="identifiant" placeholder="Rentrer l'id de l'équipe" required />
+                        <button type="button" className="btn btn-primary">Rejoindre</button>
+                    </div>
                 </Col>
             </Row>
          
