@@ -1,8 +1,23 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import { useNavigate } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 
 function PagePourSaisirLeCourrielDInvitation() {
     const navigate = useNavigate();
+    const form = useRef();
+
+    const envoyerEmail = (e) => {
+        e.preventDefault();
+    
+        emailjs.sendForm('service_smx852m', 'template_rvwkg48', form.current, 'taazExsjBY4UbJS27')
+          .then((result) => {
+              console.log(result.text);
+          }, (error) => {
+              console.log(error.text);
+          }
+        );
+        e.target.reset();
+    };
 
     return (
         <div className="container col-xl-10">
@@ -10,13 +25,12 @@ function PagePourSaisirLeCourrielDInvitation() {
                 <div className="col-xl-10 mx-auto col-lg-5">
                     <div className="p-4 p-md-5 border rounded-3 bg-light">
                         <div className="mb-3">
-                            <h2 className="text-center">Envoyer l'invitation</h2>
+                            <h2 className="text-center">Nouveau Message</h2>
                         </div>
 
-                        <form>
-                            <input type="text" className="form-control" name="nom" placeholder="Nom Complet" required />
-                            <input type="email" className="form-control" name="email" placeholder="Email" required />
-                            <input type="text" className="form-control" name="objetDuCourriel" placeholder="Objet" required />
+                        <form ref={form} onSubmit={envoyerEmail}>
+                            <input type="email" className="form-control" name="email" placeholder="Email du joueur" required />
+                            <input type="text" className="form-control" name="objetDuCourriel" placeholder="Id de l'équipe" required />
                             <textarea className="form-control" name="message" cols={30} rows={10}></textarea>
                             <p></p>
                             <button type="submit" className="btn btn-primary">Envoyer</button>&nbsp;
