@@ -18,6 +18,7 @@ function PageRejoindreUneEquipe(){
 
                     <div>
                         <input type="guid" className="form-control" name="identifiant" placeholder="Rentrer l'id de l'équipe" required />
+                        <p></p>
                         <button type="button" className="btn btn-primary">Rejoindre</button>
                     </div>
                 </Col>
