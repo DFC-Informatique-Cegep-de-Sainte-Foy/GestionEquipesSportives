@@ -16,7 +16,7 @@ function PageInviterOuAjouterJoueur(){
         <p></p>
         <p></p>
 
-        <Row style={{textAlign: "center", justifyContent: 'center', paddingLeft: "10px"}}>
+        <Row style={{textAlign: "center", justifyContent: 'center'}}>
             <Card style={{ width: '20rem', marginRight: "10px"}}>
                 <Card.Img variant="top" src={codeEnGuid} height={150} width={100}/>
                 <Card.Body>
@@ -32,15 +32,15 @@ function PageInviterOuAjouterJoueur(){
             </Card>
 
             <Card style={{ width: '20rem', marginLeft: "10px"}}>
-                <Card.Img variant="top" src={codeEnGuid} height={150} width={100}/>
+                <Card.Img variant="top" src={iconeInvitation} height={150} width={100}/>
                 <Card.Body>
                     <Button variant="dark" onClick={() => navigate(`/formulaireUtilisateur/${id}`)}>
-                        <Card.Title>Inviter de nouveaux membres</Card.Title>
+                        <Card.Title>Ajouter de nouveaux membres</Card.Title>
                     </Button>
                     <p></p>
                     <p></p>
                     <Card.Text>
-                        Récupérez l'id de l"équipe pour l'envoyer par email aux membres de l'équipe.
+                        Vous pouvez ajouter vos membres en saisissant leurs informations personnelles.
                     </Card.Text>
                 </Card.Body>
             </Card>
