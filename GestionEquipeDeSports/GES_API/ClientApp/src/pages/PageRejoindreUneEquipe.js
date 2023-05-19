@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row } from 'react-bootstrap';
 
 function PageRejoindreUneEquipe(){
+    const [identifiant, setIdentifiant] = useState("")
 
     function handleChange(e){
-        console.log(e.target.value);
+        //console.log(e.target.value);
+        setIdentifiant(e.target.value);
     }
 
-    function handleClick(e){
-        handleChange(e);
+    function handleClick(){
+        console.log(identifiant);
     }
 
 
