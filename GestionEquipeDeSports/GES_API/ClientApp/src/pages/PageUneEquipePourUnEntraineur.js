@@ -60,7 +60,8 @@ function PageUneEquipePourUnEntraineur() {
             })
             .catch((error) => {
                 console.error('Error:', error);
-            });
+            }
+        );
     }
 
     async function supprimerJoueurDeLEquipe(idJoueurDansListe) {

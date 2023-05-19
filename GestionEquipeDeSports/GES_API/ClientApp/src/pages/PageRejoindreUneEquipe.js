@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row } from 'react-bootstrap';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function PageRejoindreUneEquipe(){
-    const [identifiant, setIdentifiant] = useState("")
+    const [identifiant, setIdentifiant] = useState("");
+    const [listeDesJoueursDeLEquipe, setListeDesJoueursDeLEquipe] = useState([]);
+    const { getAccessTokenSilently } = useAuth0();
 
     function handleChange(e){
-        //console.log(e.target.value);
         setIdentifiant(e.target.value);
     }
 
     function handleClick(){
         console.log(identifiant);
+        getJoueurs(identifiant);
+        console.log(listeDesJoueursDeLEquipe);
     }
+
+    async function getJoueurs(id) {
+        const token = await getAccessTokenSilently();
+
+        await fetch(`api/equipeJoueur/${id}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+            .then(res => res.json())
+            .then((result) => {
+                console.log(result);
+                setListeDesJoueursDeLEquipe(result);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            }
+        );
+    }
+
+    useEffect(() => {
+        getJoueurs(identifiant);
+    }, []);
 
 
 
