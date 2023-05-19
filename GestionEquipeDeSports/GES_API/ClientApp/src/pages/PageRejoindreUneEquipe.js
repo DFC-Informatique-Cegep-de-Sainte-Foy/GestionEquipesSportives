@@ -15,7 +15,7 @@ function PageRejoindreUneEquipe(){
                 <h3>1. Le responsable d'équipe vous a invité par email.</h3><p></p>
                 <p>Regardez dans vos emails si vous avez reçu une invitation.<br></br>Dans l'email, copiez l'id de l'équipe et collez le dans le champ ci-dessous, puis cliquez sur Rejoindre.</p>
 
-                <div className="col-xl-10">
+                <div className="col-xl-8">
                     <input type="guid" className="form-control" name="identifiant" placeholder="Rentrer l'id de l'équipe" required />
                     <p></p>
                     <button type="button" className="btn btn-primary">Rejoindre</button>
