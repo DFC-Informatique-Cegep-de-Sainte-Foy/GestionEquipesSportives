@@ -62,10 +62,10 @@ export const FormUtilisateur = () => {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-                body: JSON.stringify({
-                    Fk_Id_Utilisateur: data,
-                    FK_Id_Equipe: id
-                })
+            body: JSON.stringify({
+                Fk_Id_Utilisateur: data,
+                FK_Id_Equipe: id
+            })
         };
         await fetch('api/equipeJoueur', optionsRequeteEquipeJoueur)
         .then(function (reponse) {

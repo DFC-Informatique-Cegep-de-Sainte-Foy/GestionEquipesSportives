@@ -15,6 +15,7 @@ function PageRejoindreUneEquipe(){
     function handleClick(){
         console.log(idEquipe);
         console.log(idJoueurConnecte);
+        ajouterLeJoueurDansLEquipe();
     }
 
     async function getJoueurDuBackend(email) {
@@ -38,10 +39,30 @@ function PageRejoindreUneEquipe(){
         getJoueurDuBackend(user.email);
     }, []);
 
-    
 
+    async function ajouterLeJoueurDansLEquipe() {
+        const token = await getAccessTokenSilently();
 
+        const optionsRequeteEquipeJoueur = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                Fk_Id_Utilisateur: idJoueurConnecte,
+                FK_Id_Equipe: idEquipe
+            })
+        };
 
+        await fetch('api/equipeJoueur', optionsRequeteEquipeJoueur)
+        .then(function (reponse) {
+            console.log(reponse);
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
     
     return(
         <Container style={{ justifyContent: 'center'}}>
