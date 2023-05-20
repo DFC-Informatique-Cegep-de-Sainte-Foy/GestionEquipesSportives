@@ -53,7 +53,7 @@ namespace GES_API.Controllers
         }
         */
 
-        //Get: api/<EquipeController>/5
+        //Get: api/<UtilisateurController>/5
         [HttpGet("{email}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

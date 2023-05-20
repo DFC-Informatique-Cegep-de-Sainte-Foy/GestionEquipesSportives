@@ -3,46 +3,46 @@ import { Container, Row } from 'react-bootstrap';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function PageRejoindreUneEquipe(){
-    const [identifiant, setIdentifiant] = useState("");
-    const [listeDesJoueursDeLEquipe, setListeDesJoueursDeLEquipe] = useState([]);
-    const { getAccessTokenSilently } = useAuth0();
+    const [idEquipe, setIdEquipe] = useState("");
+    const [idJoueurConnecte, setIdJoueurConnecte] = useState("");
+    const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
+    const [loading, setLoading] = useState(true);
 
     function handleChange(e){
-        setIdentifiant(e.target.value);
+        setIdEquipe(e.target.value);
     }
 
     function handleClick(){
-        console.log(identifiant);
-        getJoueurs(identifiant);
-        console.log(listeDesJoueursDeLEquipe);
+        console.log(idEquipe);
+        console.log(idJoueurConnecte);
     }
 
-    async function getJoueurs(id) {
+    async function getJoueurDuBackend(email) {
         const token = await getAccessTokenSilently();
 
-        await fetch(`api/equipeJoueur/${id}`, {
+        const resultat = await fetch(`api/Utilisateur/${email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-        })
-            .then(res => res.json())
-            .then((result) => {
-                console.log(result);
-                setListeDesJoueursDeLEquipe(result);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            }
-        );
+        });
+
+        if (!resultat.ok) 
+        {
+            throw new Error("Le joueur n'existe pas dans la base de donnée.");
+        }
+
+        const body = await resultat.json();
+        console.log(body.idUtilisateur);
+        setIdJoueurConnecte(body.idUtilisateur);
     }
 
     useEffect(() => {
-        getJoueurs(identifiant);
+        getJoueurDuBackend(user.email);
     }, []);
 
+    
 
 
 
-
-
+    
     return(
         <Container style={{ justifyContent: 'center'}}>
             <Row>

@@ -54,15 +54,6 @@ export const FormUtilisateur = () => {
         console.log(reponse);
         const data = await reponse.json();
         console.log(data);
-            // .then((result) => {
-            //     console.log(result);
-            //     if (result.ok) {
-            //         setReponse('Vous avez ajouté un utilisateur!');
-            //     }
-            // })
-            // .catch( function (error) {
-            //     console.log(error);
-            // });
 
         const optionsRequeteEquipeJoueur = {
             method: 'POST',
