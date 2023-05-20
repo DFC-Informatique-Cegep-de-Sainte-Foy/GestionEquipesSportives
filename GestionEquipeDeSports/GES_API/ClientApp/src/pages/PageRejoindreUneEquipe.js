@@ -5,8 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 function PageRejoindreUneEquipe(){
     const [idEquipe, setIdEquipe] = useState("");
     const [idJoueurConnecte, setIdJoueurConnecte] = useState("");
-    const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
-    const [loading, setLoading] = useState(true);
+    const { getAccessTokenSilently, user } = useAuth0();
 
     function handleChange(e){
         setIdEquipe(e.target.value);
