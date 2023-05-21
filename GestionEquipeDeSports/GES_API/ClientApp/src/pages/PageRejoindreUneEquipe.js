@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row } from 'react-bootstrap';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 function PageRejoindreUneEquipe(){
     const [idEquipe, setIdEquipe] = useState("");
     const [idJoueurConnecte, setIdJoueurConnecte] = useState("");
     const { getAccessTokenSilently, user } = useAuth0();
+    const navigate = useNavigate();
 
     function handleChange(e){
         setIdEquipe(e.target.value);
@@ -15,6 +17,7 @@ function PageRejoindreUneEquipe(){
         console.log(idEquipe);
         console.log(idJoueurConnecte);
         ajouterLeJoueurDansLEquipe();
+        navigate('/accueil');
     }
 
     async function getJoueurDuBackend(email) {
