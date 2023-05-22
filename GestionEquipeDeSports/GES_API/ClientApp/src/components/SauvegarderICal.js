@@ -13,7 +13,7 @@ export function SauvegarderICal(event) {
     evenements = evenements + 'VERSION:2.0\r\n';    
     evenements = evenements + 'CALSCALE:GREGORIAN\r\n';
     evenements = evenements + 'METHOD:PUBLISH\r\n';
-    var UID = 0;
+    // var UID = 0;
 
     var dateTime = new Date();
     var isoDate = dateTime.toISOString();
@@ -22,11 +22,11 @@ export function SauvegarderICal(event) {
 
     event.forEach(element => {
         evenements = evenements + 'BEGIN:VEVENT\r\n';
-        UID++;
+        // UID++;
         evenements = evenements + 'DTSTAMP:' + dateTimeStamp +  'Z\r\n';
         evenements = evenements + 'DTSTART:' + retireSymbolsDesDate(element.dateDebut) + '\r\n';
         evenements = evenements + 'DTEND:' + retireSymbolsDesDate(element.dateFin) + '\r\n';
-        evenements = evenements + 'UID:' + element.dateDebut + UID + '@gestionequipesportive.ca' + '\r\n';
+        evenements = evenements + 'UID:' + element.id + '@gestionequipesportive.ca' + '\r\n';
         evenements = evenements + 'SUMMARY:' + element.description + '\r\n';
         evenements = evenements + 'LOCATION:' + element.emplacement + '\r\n';
         evenements = evenements + 'END:VEVENT\r\n';

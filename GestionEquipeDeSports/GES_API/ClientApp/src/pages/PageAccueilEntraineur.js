@@ -7,6 +7,7 @@ import { TableEquipesUtilisateur } from "../components/TableEquipesUtilisateur";
 import { IdUtilisateurContext } from "../components/Context";
 import { SauvegarderICal } from "../components/SauvegarderICal";
 import UtilisateurConnecteHeader from "../components/UtilisateurConnecteHeader";
+import { FcApproval } from "react-icons/fc";
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -15,6 +16,8 @@ export const PageAcceuilEntraineur = () => {
     const [equipes, setEquipes] = useState([]);
     const [evenements, setEvenements] = useState([]);
     const [utilisateurEvenement, setUtilisateurEvenement] = useState([]);
+    const [check, setCheck] = useState(false);
+    const [seconds, setSeconds] = useState(0);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
     const { user } = useAuth0();
@@ -95,6 +98,24 @@ export const PageAcceuilEntraineur = () => {
         }
     }
 
+    function copierLeLien(){
+        // il faudra changer ce lien pour publier vers Azur, car il est évident que l'adresse sera différente
+        navigator.clipboard.writeText(`https://localhost:7225/api/AbonnerCalendrier/${idUtilisateur}`);
+        setCheck(true);
+        setSeconds(2);
+    }
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+          if (seconds > 0) {
+            setSeconds(seconds - 1);
+          } else {
+            setCheck(false);
+          }
+        }, 1000)
+        return () => clearInterval(timer)
+    }, [seconds]);
+
     return (
         <>
         <Container>
@@ -121,6 +142,10 @@ export const PageAcceuilEntraineur = () => {
                 </Col>
                 <Col>
                     {exporterVersICal()}
+                    <p>Pour vous abonner : 
+                        <Button variant="info" onClick={() => {copierLeLien()}} title="AbonnerCalendrier/VotreId" >Copier le lien</Button>
+                        {check && <FcApproval />}
+                    </p>
                 </Col>
             </Row>
             <Row style={{marginTop: "1.0em"}}>
