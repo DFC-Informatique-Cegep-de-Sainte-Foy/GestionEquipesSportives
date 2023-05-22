@@ -30,7 +30,6 @@ function PagePourSaisirLeCourrielDInvitation() {
 
                         <form ref={form} onSubmit={envoyerEmail}>
                             <input type="email" className="form-control" name="email" placeholder="Email du joueur" required />
-                            <input type="text" className="form-control" name="objetDuCourriel" placeholder="Id de l'équipe" required />
                             <textarea className="form-control" name="message" cols={30} rows={10}></textarea>
                             <p></p>
                             <button type="submit" className="btn btn-primary">Envoyer</button>&nbsp;
