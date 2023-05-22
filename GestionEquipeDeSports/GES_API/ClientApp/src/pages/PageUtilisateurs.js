@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Table, Container } from 'react-bootstrap';
+import { Table, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -37,13 +37,13 @@ class Utilisateurs extends Component {
     }
 
     formatTypeUtilisateur(donnees) {
-        if (donnees == 0) {
+        if (donnees === 0) {
             return 'Admin';
         }
-        else if(donnees == 1){
+        else if(donnees === 1){
             return 'Entraineur';
         }
-        else if(donnees == 2){
+        else if(donnees === 2){
             return 'Tuteur';
         }
         else {

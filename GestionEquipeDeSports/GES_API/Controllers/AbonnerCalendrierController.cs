@@ -1,14 +1,8 @@
 ﻿using GES_API.Models;
 using GES_Services.Entites;
 using GES_Services.Manipulations;
-using Ical.Net;
-using Ical.Net.CalendarComponents;
-using Ical.Net.DataTypes;
-using Ical.Net.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
-
-// https://github.com/rianjs/ical.net/tree/master
 
 namespace GES_API.Controllers
 {
@@ -76,32 +70,13 @@ namespace GES_API.Controllers
                 }
                 calendrier = calendrier + "END:VCALENDAR\r\n";
 
-                //Calendar calendrier = new Calendar();
-                //calendrier.ProductId = "-GestionEquipeSportive v1.0";
-                //calendrier.Method = "PUBLISH";
-                //calendrier.Scale = "GREGORIAN";
-                //foreach (var e in evenements)
-                //{
-                //    CalendarEvent iCalEvent = new CalendarEvent
-                //    {
-                //        Start = new CalDateTime((DateTime)e.DateDebut),
-                //        End = new CalDateTime((DateTime)e.DateFin),
-                //        Summary = e.Description,
-                //        Location = e.Emplacement,
-                //        Uid = e.Id.ToString()
-                //    };
-                //    calendrier.Events.Add(iCalEvent);
-                //}
-                //CalendarSerializer serializer = new CalendarSerializer(new SerializationContext());
-                //var serializedCalendar = serializer.SerializeToString(calendrier);
-
                 return File(System.Text.Encoding.UTF8.GetBytes(calendrier), "text/plain;charset=utf-8", "calendar.ics");
             }            
         }
         private string RetireSymbolsDeDate(DateTime? dateACorriger)
         {
             string data = dateACorriger.ToString();
-            return data.Replace("-", "").Replace(":", "");
+            return data.Replace("-", "").Replace(":", "").Replace(" ", "T");
         }
     }
 }
