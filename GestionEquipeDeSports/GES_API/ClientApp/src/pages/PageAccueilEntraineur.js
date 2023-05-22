@@ -121,6 +121,9 @@ export const PageAcceuilEntraineur = () => {
                 </Col>
                 <Col>
                     {exporterVersICal()}
+                    <p>Pour vous abonner : 
+                        <Button variant="info" onClick={() => {navigator.clipboard.writeText(`https://localhost:7225/api/AbonnerCalendrier/${idUtilisateur}`)}} title="AbonnerCalendrier/VotreId" >Copier le lien</Button>
+                    </p>
                 </Col>
             </Row>
             <Row style={{marginTop: "1.0em"}}>
