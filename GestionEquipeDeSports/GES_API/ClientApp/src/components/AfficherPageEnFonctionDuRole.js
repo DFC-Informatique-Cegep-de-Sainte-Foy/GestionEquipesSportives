@@ -3,14 +3,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { NavItem, NavLink, Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function AfficherPageEnFonctionDuRole(){
+function AfficherPageEnFonctionDuRole() {
     const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState([]);
-    const { loginWithRedirect, logout,user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const { loginWithRedirect, logout, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-    async function getRoleVenantDuBackend(email) {
+    async function getRoleVenantDuBackend() {
+
         const token = await getAccessTokenSilently();
 
-        const resultat = await fetch(`api/utilisateur/${email}`, {
+        const resultat = await fetch(`api/utilisateur/${user.email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         });
 
@@ -24,11 +25,13 @@ function AfficherPageEnFonctionDuRole(){
     }
 
     useEffect(() => {
+
         async function getLeRoleDeLUtilisateurConnecte() {
+
             try {
                 //console.log(user);
 
-                const role = await getRoleVenantDuBackend(user.email);
+                const role = await getRoleVenantDuBackend();
                 //console.log(role);
                 setRoleDeLUtilisateur(role);
             }
@@ -37,19 +40,16 @@ function AfficherPageEnFonctionDuRole(){
             }
         }
         getLeRoleDeLUtilisateurConnecte();
-    }, []);
+    }, [isAuthenticated]);
 
 
-        
-    function MenuAAfficher()
-    {
-        if (isAuthenticated === true)
-        {
+
+    function MenuAAfficher() {
+        if (isAuthenticated === true) {
             //console.log(roleDeLUtilisateur);
-            
-            if(roleDeLUtilisateur === 0)
-            {
-                return(
+
+            if (roleDeLUtilisateur === 0) {
+                return (
                     <Nav>
                         <NavItem>
                             <NavLink tag={Link} className="text-white" to="/accueil">Accueil</NavLink>
@@ -77,9 +77,8 @@ function AfficherPageEnFonctionDuRole(){
                     </Nav>
                 );
             }
-            else 
-            {
-                return(
+            else {
+                return (
                     <Nav>
                         <NavItem>
                             <NavLink tag={Link} className="text-white" to="/accueil">Page d'accueil</NavLink>
@@ -96,23 +95,22 @@ function AfficherPageEnFonctionDuRole(){
                 );
             }
         }
-        else
-        {
+        else {
             return (
                 <Nav>
-                  <NavItem>
-                    <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
-                  </NavItem>
-      
-                  <NavItem className="border border-success rounded">
-                    <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
-                      authorizationParams: {
-                        screen_hint: "signup",
-                      },
-                    })}>
-                      <span className='text-success'>Inscription</span>
-                    </NavLink>
-                  </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
+                    </NavItem>
+
+                    <NavItem className="border border-success rounded">
+                        <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
+                            authorizationParams: {
+                                screen_hint: "signup",
+                            },
+                        })}>
+                            <span className='text-success'>Inscription</span>
+                        </NavLink>
+                    </NavItem>
                 </Nav>
             );
         }
