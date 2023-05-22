@@ -18,10 +18,12 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
         .min(3, 'Trop court!')
         .max(30, 'Trop long!')
         .required('Ce champ est obligatoire!'),
-    ageUtilisateur: Yup.string()
+    dateNaissance: Yup.string()
+        .required('Ce champ est obligatoire!'),
+    /*ageUtilisateur: Yup.string()
         .min(0, 'Trop court!')
         .max(2, 'Trop long!')
-        .required('Ce champ est obligatoire!'),
+        .required('Ce champ est obligatoire!'),*/
 });
 
 export const FormUtilisateur = () => {
@@ -34,6 +36,7 @@ export const FormUtilisateur = () => {
 
     async function soumettreFormulaire(values) {
         const token = await getAccessTokenSilently();
+        const today = new Date();
 
         let requestOptions = {
             method: 'POST',
@@ -46,7 +49,7 @@ export const FormUtilisateur = () => {
                 Nom: values.nomUtilisateur,
                 Prenom: values.prenomUtilisateur,
                 Email: values.courriel,
-                Age: values.ageUtilisateur
+                Age: today - values.dateNaissance                  /*values.ageUtilisateur*/
             })
         };
 
@@ -87,7 +90,9 @@ export const FormUtilisateur = () => {
                             nomUtilisateur: '',
                             prenomUtilisateur: '',
                             courriel: '',
-                            ageUtilisateur: '',
+                            //ageUtilisateur: '',
+                            dateNaissance: '',
+                            numeroTelephone: '',
                         }}
                         validationSchema={DisplayingErrorMessagesSchema}
                             onSubmit={values => {
@@ -113,17 +118,24 @@ export const FormUtilisateur = () => {
                                     {touched.prenomUtilisateur && errors.prenomUtilisateur && <div style={{ color: "red" }}>{errors.prenomUtilisateur}</div>}
                                 </div>
 
-                                <label>Age*</label>
+                                <label>Date naissance*</label>
                                 <div className="form-group">
-                                    <Field name="ageUtilisateur" type="text" className="form-control" />
-                                    {touched.ageUtilisateur && errors.ageUtilisateur && <div style={{ color: "red" }}>{errors.ageUtilisateur}</div>}
-                                </div>
+                                    <Field name="dateNaissance" type="Date" className="form-control" />
+                                    {touched.dateNaissance && errors.dateNaissance && <div style={{ color: "red" }}>{errors.dateNaissance}</div>}
+                                </div> 
 
                                 <label>Courriel*</label>
                                 <div className="form-group">
                                     <Field name="courriel" type="text" className="form-control" />
                                     {touched.courriel && errors.courriel && <div style={{ color: "red" }}>{errors.courriel}</div>}
                                 </div>
+
+                                <label>Numéro de téléphone*</label>        
+                                <div className="form-group">
+                                    <Field name="numeroTelephone" type="tel" className="form-control" />
+                                    {touched.numeroTelephone && errors.numeroTelephone && <div style={{ color: "red" }}>{errors.numeroTelephone}</div>}
+                                </div>  
+
                                 {reponse && <p style={{ color: "green", fontWeight: "bold", marginTop: "1.0em" }}>{reponse}</p>}
 
                                 <div className="row">

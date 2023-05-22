@@ -73,7 +73,7 @@ export const FormulaireValidationInscription = () => {
                                 <label>Numéro de téléphone*</label>        
                                 <div className="form-group">
                                     <Field name="numeroTelephone" type="tel" className="form-control" />
-                                    {touched.dateNaissance && errors.dateNaissance && <div style={{ color: "red" }}>{errors.dateNaissance}</div>}
+                                    {touched.numeroTelephone && errors.numeroTelephone && <div style={{ color: "red" }}>{errors.numeroTelephone}</div>}
                                 </div>             
                                 <br></br>
                                 <div className="row">
