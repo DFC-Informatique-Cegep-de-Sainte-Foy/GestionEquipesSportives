@@ -4,6 +4,7 @@ using GES_API.Models;
 using GES_Services.Entites;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using GES_DAL.DbContexts;
 
 namespace GES_API.Controllers
 {
@@ -12,14 +13,20 @@ namespace GES_API.Controllers
     [Authorize]
     public class UtilisateurController : ControllerBase
     {
+        private Equipe_sportiveContext m_context;
         private ManipulationDepotUtilisateur m_manipulationDepotUtilisateur;
-        public UtilisateurController(ManipulationDepotUtilisateur p_manipulationDepotUtilisateur)
+        public UtilisateurController(ManipulationDepotUtilisateur p_manipulationDepotUtilisateur, Equipe_sportiveContext p_context)
         {
+            if (p_context == null)
+            {
+                throw new ArgumentNullException(nameof(p_context));
+            }
             if (p_manipulationDepotUtilisateur == null)
             {
                 throw new ArgumentNullException(nameof(p_manipulationDepotUtilisateur));
             }
             this.m_manipulationDepotUtilisateur = p_manipulationDepotUtilisateur;
+            this.m_context = p_context;
         }
 
         //Get: api/<UtilisateurController>
@@ -57,16 +64,20 @@ namespace GES_API.Controllers
         [HttpGet("{email}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public ActionResult<UtilisateurModel> Get(string email)
         {
-            UtilisateurModel model = new UtilisateurModel(this.m_manipulationDepotUtilisateur.ChercherUtilisateurParEmail(email));
-            if (model != null)
+            GES_DAL.BackendProject.Utilisateur utilisateur = this.m_context?.Utilisateurs.Where(user => user.Email == email).FirstOrDefault();
+
+            if (utilisateur is null)
             {
-                return Ok(model);
+                return NotFound();
             }
             else
             {
-                return NotFound();
+                UtilisateurModel utilisateurModel = new UtilisateurModel(utilisateur.DeDTOVersEntite());
+
+                return Ok(utilisateur);
             }
         }
 
