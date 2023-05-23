@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useAuth0 } from '@auth0/auth0-react';
+import { FormatDateTime } from "../components/FormatDateTime";
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
     nomUtilisateur: Yup.string()
@@ -20,10 +21,6 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
         .required('Ce champ est obligatoire!'),
     dateNaissance: Yup.string()
         .required('Ce champ est obligatoire!'),
-    /*ageUtilisateur: Yup.string()
-        .min(0, 'Trop court!')
-        .max(2, 'Trop long!')
-        .required('Ce champ est obligatoire!'),*/
 });
 
 export const FormUtilisateur = () => {
@@ -36,7 +33,11 @@ export const FormUtilisateur = () => {
 
     async function soumettreFormulaire(values) {
         const token = await getAccessTokenSilently();
-        const today = new Date();
+        
+        const getAge = birthDateEnString => Math.floor((new Date() - new Date(birthDateEnString).getTime()) / 3.15576e+10)
+        const ageDuJoueur = getAge(`${values.dateNaissance}`);
+        console.log(ageDuJoueur);
+        console.log(values.dateNaissance);
 
         let requestOptions = {
             method: 'POST',
@@ -49,7 +50,7 @@ export const FormUtilisateur = () => {
                 Nom: values.nomUtilisateur,
                 Prenom: values.prenomUtilisateur,
                 Email: values.courriel,
-                Age: today - values.dateNaissance                  /*values.ageUtilisateur*/
+                Age: ageDuJoueur
             })
         };
 
@@ -90,7 +91,6 @@ export const FormUtilisateur = () => {
                             nomUtilisateur: '',
                             prenomUtilisateur: '',
                             courriel: '',
-                            //ageUtilisateur: '',
                             dateNaissance: '',
                             numeroTelephone: '',
                         }}
