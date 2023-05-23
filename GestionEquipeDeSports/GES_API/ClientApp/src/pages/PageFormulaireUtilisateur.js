@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useAuth0 } from '@auth0/auth0-react';
-import { FormatDateTime } from "../components/FormatDateTime";
 
 const DisplayingErrorMessagesSchema = Yup.object().shape({
     nomUtilisateur: Yup.string()
