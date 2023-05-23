@@ -9,7 +9,7 @@ import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./pages/PageSupprimerEvenement";
 import { PageUneEquipePourLAdmin } from "./pages/PageUneEquipePourLAdmin";
 import { PageSupprimerEquipe } from "./pages/PageSupprimerEquipe";
-import {  PageDesEvenementsEtEquipesDUnAthlete } from "./pages/PageDesEvenementsEtEquipesDUnAthlete";
+import { PageDesEvenementsEtEquipesDUnAthlete } from "./pages/PageDesEvenementsEtEquipesDUnAthlete";
 import { PageAcceuilEntraineur } from "./pages/PageAccueilEntraineur";
 import Erreur404 from "./components/Erreur404";
 import PageRejoindreUneEquipe from "./pages/PageRejoindreUneEquipe";
@@ -20,11 +20,20 @@ import PageUneEquipePourUnEntraineur from "./pages/PageUneEquipePourUnEntraineur
 import { PageFormEquipe } from "./pages/PageFormulaireEquipe";
 import PageInviterOuAjouterJoueur from "./pages/PageInviterOuAjouterJoueur";
 import PagePourSaisirLeCourrielDInvitation from "./pages/PagePourSaisirLeCourrielDInvitation";
+import PageInscription from "./pages/PageInscription";
 
 const AppRoutes = [
   {
     index: true,
     element: <Accueil />
+  },
+  {
+    path: '/connexion',
+    element: <Connexion />
+  },
+  {
+    path: '/inscription',
+    element: <PageInscription />
   },
   {
     path: '/equipes',
@@ -51,10 +60,6 @@ const AppRoutes = [
     element: <AuthenticationGuard component={FormUtilisateur} />
   },
   {
-    path: '/connexion',
-    element: <Connexion />
-  },
-  {
     path: '/unEvenement/:id',
     element: <AuthenticationGuard component={PageUnEvenement} />
   },
@@ -72,7 +77,7 @@ const AppRoutes = [
   },
   {
     path: '/supprimerEquipe/:id',
-    element: <PageSupprimerEquipe />
+    element: <AuthenticationGuard component={PageSupprimerEquipe} />
   },
   {
     path: 'pageDesEvenementsEtEquipesDUnAthlete/:id',
@@ -84,7 +89,7 @@ const AppRoutes = [
     element: <AuthenticationGuard component={PageAccueilAthlete} />
   },*/
   {
-    path: '/accueil',
+    path: '/pageAcceuil',
     element: <AuthenticationGuard component={PageAcceuilEntraineur} />
   },
   {
