@@ -15,7 +15,6 @@ const root = createRoot(rootElement);
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const audience = process.env.REACT_APP_AUTH0_API_SERVER_AUDIENCE;
-const accueil = "/accueil";
 
 root.render(
   <BrowserRouter basename={baseUrl}>
@@ -24,8 +23,7 @@ root.render(
       clientId={clientId}
       authorizationParams={{
         audience: audience,
-        redirect_uri: window.location.origin + accueil
-        //redirect_uri: "https://localhost:44474/accueil"  
+        redirect_uri: window.location.origin
       }}
     >
       <App />

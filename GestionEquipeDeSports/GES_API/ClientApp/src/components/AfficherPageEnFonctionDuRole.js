@@ -3,51 +3,36 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { NavItem, NavLink, Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function AfficherPageEnFonctionDuRole() {
-    const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState([]);
+function AfficherPageEnFonctionDuRole({ estDansLaBD }) {
+    const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState(-1);
     const { loginWithRedirect, logout, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-    async function getRoleVenantDuBackend() {
+    async function fetchUtilisateur() {
 
         const token = await getAccessTokenSilently();
 
-        const resultat = await fetch(`api/utilisateur/${user.email}`, {
-            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-        });
-
-        const body = await resultat.json();
-        //console.log(body);
-
-        const roleDeLUtilisateur = await body.roles;
-        //console.log(roleDeLUtilisateur);
-
-        return roleDeLUtilisateur;
+        await fetch(`api/utilisateur/${user.email}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    setRoleDeLUtilisateur(data.roles);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
     }
 
     useEffect(() => {
-
-        async function getLeRoleDeLUtilisateurConnecte() {
-
-            try {
-                //console.log(user);
-
-                const role = await getRoleVenantDuBackend();
-                //console.log(role);
-                setRoleDeLUtilisateur(role);
-            }
-            catch (err) {
-                console.log(err);
-            }
+        if (isAuthenticated && estDansLaBD) {
+            fetchUtilisateur();
         }
-        getLeRoleDeLUtilisateurConnecte();
-    }, [isAuthenticated]);
-
+    }, [isAuthenticated, estDansLaBD]);
 
 
     function MenuAAfficher() {
         if (isAuthenticated === true) {
-            //console.log(roleDeLUtilisateur);
-
             if (roleDeLUtilisateur === 0) {
                 return (
                     <Nav>
@@ -81,7 +66,7 @@ function AfficherPageEnFonctionDuRole() {
                 return (
                     <Nav>
                         <NavItem>
-                            <NavLink tag={Link} className="text-white" to="/accueil">Page d'accueil</NavLink>
+                            <NavLink tag={Link} className="text-white" to="/pageAcceuil">Ma page d'accueil</NavLink>
                         </NavItem>
 
                         <NavItem>

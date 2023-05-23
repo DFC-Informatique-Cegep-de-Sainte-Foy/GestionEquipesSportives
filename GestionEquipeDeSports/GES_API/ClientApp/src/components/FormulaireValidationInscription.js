@@ -13,7 +13,7 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
     prenomUtilisateur: Yup.string()
         .min(2, 'Trop court!')
         .max(30, 'Trop long!')
-        .required('Ce champ est obligatoire!'),   
+        .required('Ce champ est obligatoire!'),
     dateNaissance: Yup.string()
         .required('Ce champ est obligatoire!')
 });
@@ -25,7 +25,7 @@ export const FormulaireValidationInscription = () => {
     const navigate = useNavigate();
 
     async function soumettreFormulaire(values) {
-      
+
     }
 
     return (
@@ -68,21 +68,21 @@ export const FormulaireValidationInscription = () => {
                                 <div className="form-group">
                                     <Field name="dateNaissance" type="Date" max={today} className="form-control" />
                                     {touched.dateNaissance && errors.dateNaissance && <div style={{ color: "red" }}>{errors.dateNaissance}</div>}
-                                </div>          
+                                </div>
                                 <br></br>
-                                <label>Numéro de téléphone*</label>        
+                                <label>Numéro de téléphone*</label>
                                 <div className="form-group">
                                     <Field name="numeroTelephone" type="tel" className="form-control" />
                                     {touched.numeroTelephone && errors.numeroTelephone && <div style={{ color: "red" }}>{errors.numeroTelephone}</div>}
-                                </div>             
+                                </div>
                                 <br></br>
                                 <div className="row">
                                     <div className="col-6 p-3">
                                         <Button variant='primary' type="submit">Ajouter</Button>
                                     </div>
-                                    <div className="col-6 p-3">
-                                        <Button variant="secondary" onClick={() => navigate(-1)} className="float-end">Retour</Button>
-                                    </div>
+                                    {/* <div className="col-6 p-3">
+                                    <Button variant="secondary" onClick={() => (window.location.href = window.location.origin)} className="float-end">Retour</Button>
+                                    </div> */}
                                 </div>
                             </Form>
                         )}
