@@ -91,6 +91,7 @@ namespace GES_API.Controllers
         [ProducesResponseType(400)]
         public ActionResult Post([FromBody] UtilisateurModel p_utilisateurModel)
         {
+            UtilisateurModel utilisateurModel = new();
 
             if (!ModelState.IsValid)
             {
@@ -106,19 +107,18 @@ namespace GES_API.Controllers
             {
                 p_utilisateurModel.IdUtilisateur = Guid.NewGuid();
 
-                Guid guid = p_utilisateurModel.IdUtilisateur;
-
                 p_utilisateurModel.Roles = EnumTypeRole.Athlete;
 
                 this.m_manipulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());
-            }
+
+               utilisateurModel = new UtilisateurModel(m_manipulationDepotUtilisateur.ChercherUtilisateurParId(p_utilisateurModel.IdUtilisateur));            }
 
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
-            return Created("", p_utilisateurModel);
+            return CreatedAtAction(nameof(Get), new { id = utilisateurModel.IdUtilisateur }, utilisateurModel);
         }
 
         // PUT api/<EntraineurController>/5

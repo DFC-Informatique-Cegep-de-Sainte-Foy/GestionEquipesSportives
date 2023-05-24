@@ -24,66 +24,13 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 
 export const FormUtilisateur = () => {
     const today = new Date().toISOString().split('T')[0];
-    const [reponse, setReponse] = useState(null);
+    // const [reponse, setReponse] = useState(null);
     const { getAccessTokenSilently, user } = useAuth0();
     const navigate = useNavigate();
-    const [idUtilisateur, setIdUtilisateur] = useState('');
+    // const [idUtilisateur, setIdUtilisateur] = useState('');
     const [userEstDansLaBD, setUserEstDansLaBD] = useState(false);
 
     const { id } = useParams();
-
-    // async function soumettreFormulaire(values) {
-    //     console.log(values);
-
-    //     const token = await getAccessTokenSilently();
-
-    //     await fetch('api/utilisateur', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    //         body: JSON.stringify({
-    //             DateNaissance: values.dateNaissance,
-    //             Nom: values.nomUtilisateur,
-    //             Prenom: values.prenomUtilisateur,
-    //             NumTelephone: values.numeroTelephone,
-    //             Email: values.courriel
-    //         })
-    //     }).then(response => {
-    //         console.log(response, " reponse de lajout du jouer dans la bd");
-    //         if (response.ok) {
-    //             return response.json();
-    //         }
-    //     }).then(data => {
-    //         console.log(data, " data de lajout du jouer dans la bd");
-    //         if (data) {
-    //             setReponse(data);
-    //             setIdUtilisateur(data.IdUtilisateur);
-    //         }
-    //     }).catch(err => {
-    //         console.error(err);
-    //     });
-
-    //     if (reponse) {
-    //         await fetch('api/equipeJoueur', {
-    //             method: 'POST',
-    //             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    //             body: JSON.stringify({
-    //                 idEquipe: id,
-    //                 idJoueur: idUtilisateur
-    //             })
-    //         }).then(response => {
-    //             if (response.ok) {
-    //                 return response.json();
-    //             }
-    //         }).then(data => {
-    //             if (data) {
-    //                 setReponse(data);
-    //                 setUserEstDansLaBD(true);
-    //             }
-    //         }).catch(err => {
-    //             console.error(err);
-    //         });
-    //     }
-    // }
 
     async function soumettreFormulaire(values) {
         console.log(values);
@@ -103,32 +50,29 @@ export const FormUtilisateur = () => {
                 })
             });
 
-            console.log(response, " reponse de lajout du jouer dans la bd");
-
             if (response.ok) {
                 const data = await response.json();
-                console.log(data, " data de lajout du jouer dans la bd");
+                console.log("data de lajout du jouer dans la bd", data);
 
                 if (data) {
-                    setReponse(data);
-                    setIdUtilisateur(data.IdUtilisateur);
-
+                    console.log("data", data.idUtilisateur);  
+                    console.log("id", id);
                     // Second API call
                     const response2 = await fetch('api/equipeJoueur', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                         body: JSON.stringify({
                             Fk_Id_Equipe: id,
-                            Fk_Id_Utilisateur: data.IdUtilisateur // I suppose you want to use the new user's Id here
+                            Fk_Id_Utilisateur: data.idUtilisateur // I suppose you want to use the new user's Id here
                         })
                     });
 
                     if (response2.ok) {
                         const data2 = await response2.json();
-
                         if (data2) {
-                            setReponse(data2);
-                            setUserEstDansLaBD(true);
+                            console.log("data2", data2);
+                            alert("Le joueur a été ajouté avec succès!");
+                            navigate(-1);
                         }
                     }
                 }
