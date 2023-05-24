@@ -189,9 +189,9 @@ function PageUneEquipePourUnEntraineur() {
             <Container>
                 <Row>
                     <h2>Nom de l'équipe: {nomEquipe}</h2>
-                    <Link to={'/accueil'}>
-                        <Button variant='success' className="mb-3">Retour à la page d'accueil</Button>
-                    </Link>
+                    <div>
+                        <Button variant='success' onClick={() => navigate(-1)} className="mb-3">Retour à la page d'accueil</Button>
+                    </div>
                 </Row>
                 <p></p>
                 <p></p>
