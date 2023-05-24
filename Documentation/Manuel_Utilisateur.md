@@ -16,8 +16,8 @@ La page d'accueil est presque la même pour tous les utilisateurs, mais a des fo
 
 	#1.Si L'utilisateur a le rôle de joueur
 	Alors, tout ce qu'il/elle peut faire c'est : 
-	- consulter ses équipes(Cliquer sur le nom d'une équipe pour voir les détails de cette équipe), 
-	- consulter ses événements(Cliquer sur le nom d'un événement pour voir les détails de cet événement), 
+	- Consulter ses équipes(Cliquer sur le nom d'une équipe pour voir les détails de cette équipe), 
+	- Consulter ses événements(Cliquer sur le nom d'un événement pour voir les détails de cet événement), 
 	
 	- Le bouton Exporter vers ICal vous permet d'exporter vos événements et les enregistrer dans votre calendrier,
 	- Le bouton Copier le lien vous permet
