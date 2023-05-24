@@ -35,6 +35,10 @@ const AppRoutes = [
     element: <PageInscription />
   },
   {
+    path: '/pageAccueil',
+    element: <AuthenticationGuard component={PageAcceuilEntraineur} />
+  },
+  {
     path: '/equipes',
     element: <AuthenticationGuard component={Equipes} />
   },
@@ -77,10 +81,6 @@ const AppRoutes = [
   {
     path: '/supprimerEquipe/:id',
     element: <AuthenticationGuard component={PageSupprimerEquipe} />
-  },
-  {
-    path: '/pageAccueil',
-    element: <AuthenticationGuard component={PageAcceuilEntraineur} />
   },
   {
     path: '/rejoindreUneEquipe',
