@@ -142,12 +142,10 @@ export const PageAcceuilEntraineur = () => {
                 </Col>
                 <Col>
                     {exporterVersICal()}
-                    <div className="float-end">
-                        <p>Pour vous abonner: 
-                            <Button variant="info" onClick={() => {copierLeLien()}} title="AbonnerCalendrier/VotreId" >Copier le lien</Button>
-                            {check && <FcApproval />}
-                        </p>
-                    </div>
+                    <p>Pour vous abonner: 
+                        <Button variant="info" onClick={() => {copierLeLien()}} title="AbonnerCalendrier/VotreId" >Copier le lien</Button>
+                        {check && <FcApproval />}
+                    </p>
                 </Col>
             </Row>
             <Row style={{marginTop: "1.0em"}}>
