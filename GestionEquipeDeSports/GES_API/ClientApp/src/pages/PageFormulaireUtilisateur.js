@@ -103,11 +103,9 @@ export const FormUtilisateur = () => {
                         {({ errors, touched }) => (
                             <Form className="p-4 p-md-5 border rounded-3 bg-light">
                                 <Row className="justify-content-md-center">
-                                    <Col sm={8}>
-                                        <h2></h2>
-                                    </Col>
+                                    <h2>Ajouter un nouveau joueur</h2>
                                 </Row>
-                                <h5>Ajouter un nouveau joueur à votre équipe</h5>
+                                <p></p>
                                 <label>Nom*</label>
                                 <div className="form-group">
                                     <Field name="nomUtilisateur" type="text" className="form-control" />
