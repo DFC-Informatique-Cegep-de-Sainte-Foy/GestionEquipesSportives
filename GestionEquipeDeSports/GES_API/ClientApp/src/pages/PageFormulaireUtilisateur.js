@@ -32,56 +32,112 @@ export const FormUtilisateur = () => {
 
     const { id } = useParams();
 
+    // async function soumettreFormulaire(values) {
+    //     console.log(values);
+
+    //     const token = await getAccessTokenSilently();
+
+    //     await fetch('api/utilisateur', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    //         body: JSON.stringify({
+    //             DateNaissance: values.dateNaissance,
+    //             Nom: values.nomUtilisateur,
+    //             Prenom: values.prenomUtilisateur,
+    //             NumTelephone: values.numeroTelephone,
+    //             Email: values.courriel
+    //         })
+    //     }).then(response => {
+    //         console.log(response, " reponse de lajout du jouer dans la bd");
+    //         if (response.ok) {
+    //             return response.json();
+    //         }
+    //     }).then(data => {
+    //         console.log(data, " data de lajout du jouer dans la bd");
+    //         if (data) {
+    //             setReponse(data);
+    //             setIdUtilisateur(data.IdUtilisateur);
+    //         }
+    //     }).catch(err => {
+    //         console.error(err);
+    //     });
+
+    //     if (reponse) {
+    //         await fetch('api/equipeJoueur', {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    //             body: JSON.stringify({
+    //                 idEquipe: id,
+    //                 idJoueur: idUtilisateur
+    //             })
+    //         }).then(response => {
+    //             if (response.ok) {
+    //                 return response.json();
+    //             }
+    //         }).then(data => {
+    //             if (data) {
+    //                 setReponse(data);
+    //                 setUserEstDansLaBD(true);
+    //             }
+    //         }).catch(err => {
+    //             console.error(err);
+    //         });
+    //     }
+    // }
+
     async function soumettreFormulaire(values) {
         console.log(values);
 
         const token = await getAccessTokenSilently();
 
-        await fetch('api/utilisateur', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-            body: JSON.stringify({
-                DateNaissance: values.dateNaissance,
-                Nom: values.nomUtilisateur,
-                Prenom: values.prenomUtilisateur,
-                NumTelephone: values.numeroTelephone,
-                Email: values.courriel
-            })
-        }).then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-        }).then(data => {
-            if (data) {
-                setReponse(data);
-                setIdUtilisateur(data.IdUtilisateur);
-            }
-        }).catch(err => {
-            console.error(err);
-        });
-
-        if (reponse) {
-            await fetch('api/equipeJoueur', {
+        try {
+            const response = await fetch('api/utilisateur', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify({
-                    idEquipe: id,
-                    idJoueur: idUtilisateur
+                    DateNaissance: values.dateNaissance,
+                    Nom: values.nomUtilisateur,
+                    Prenom: values.prenomUtilisateur,
+                    NumTelephone: values.numeroTelephone,
+                    Email: values.courriel
                 })
-            }).then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-            }).then(data => {
+            });
+
+            console.log(response, " reponse de lajout du jouer dans la bd");
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data, " data de lajout du jouer dans la bd");
+
                 if (data) {
                     setReponse(data);
-                    setUserEstDansLaBD(true);
+                    setIdUtilisateur(data.IdUtilisateur);
+
+                    // Second API call
+                    const response2 = await fetch('api/equipeJoueur', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                        body: JSON.stringify({
+                            Fk_Id_Equipe: id,
+                            Fk_Id_Utilisateur: data.IdUtilisateur // I suppose you want to use the new user's Id here
+                        })
+                    });
+
+                    if (response2.ok) {
+                        const data2 = await response2.json();
+
+                        if (data2) {
+                            setReponse(data2);
+                            setUserEstDansLaBD(true);
+                        }
+                    }
                 }
-            }).catch(err => {
-                console.error(err);
-            });
+            }
+        } catch (err) {
+            console.error(err);
         }
     }
+
 
     return (
         <Container>
