@@ -142,7 +142,7 @@ export const PageAcceuilEntraineur = () => {
                 </Col>
                 <Col>
                     {exporterVersICal()}
-                    <p>Pour vous abonner : 
+                    <p>Pour vous abonner: 
                         <Button variant="info" onClick={() => {copierLeLien()}} title="AbonnerCalendrier/VotreId" >Copier le lien</Button>
                         {check && <FcApproval />}
                     </p>
