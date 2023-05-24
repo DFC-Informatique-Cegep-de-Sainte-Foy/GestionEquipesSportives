@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
@@ -21,75 +21,11 @@ const DisplayingErrorMessagesSchema = Yup.object().shape({
 export const FormulaireValidationInscription = () => {
     const today = new Date().toISOString().split('T')[0];
     const [reponse, setReponse] = useState('');
-    const { user, getAccessTokenSilently,isAuthenticated } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
-    const [userEstDansLaBD, setUserEstDansLaBD] = useState(false);
-
-    async function getUtilisateur() {
-      if (isAuthenticated) {
-        const token = await getAccessTokenSilently();
-
-        await fetch(`api/utilisateur/${user.name}`, {
-          headers: {
-            Accept: "application/json", Authorization: `Bearer ${token}`
-          },
-        }).then(response => {
-          if (response.status === 404) {
-            setUserEstDansLaBD(false);
-          } else if (response.ok) {
-            return response.json();
-          }
-        }).then(data => {
-          if (data) {
-            setUserEstDansLaBD(true);
-          }
-        }).catch(err => {
-          console.error(err);
-          setUserEstDansLaBD(false);
-        });
-      } else {
-        setUserEstDansLaBD(false);
-      }
-    }
-
-    useEffect(() => {
-      getUtilisateur();
-    }, [isAuthenticated, userEstDansLaBD]);
-
-    useEffect(() => {
-        if (reponse === '') {
-
-        }       
-    }, [reponse]);
 
     async function soumettreFormulaire(values) {
-        console.log(values);
-        const token = await getAccessTokenSilently();
 
-        await fetch('api/utilisateur', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-            body: JSON.stringify({
-                dateNaissance: values.dateNaissance,
-                Nom: values.nomUtilisateur,
-                Prenom: values.prenomUtilisateur,
-                NumTelephone: values.numeroTelephone,
-                Email: values.courriel
-            })
-        }).then(response => {
-            if (response.ok) {
-                setReponse('Votre inscription a été complétée avec succès!');
-                return response.json();
-            }
-        }).then(data => {
-            setReponse(data);
-            if (reponse === 'Votre inscription a été complétée avec succès!') {
-                alert(reponse);
-                navigate('/Accueil');
-            }
-        }).catch(err => {
-            console.error(err);
-        });
     }
 
     return (
@@ -102,7 +38,6 @@ export const FormulaireValidationInscription = () => {
                             prenomUtilisateur: '',
                             dateNaissance: '',
                             numeroTelephone: '',
-                            courriel: `${user.email}`
                         }}
                         validationSchema={DisplayingErrorMessagesSchema}
                         onSubmit={values => {
@@ -143,7 +78,7 @@ export const FormulaireValidationInscription = () => {
                                 <br></br>
                                 <div className="row">
                                     <div className="col-6 p-3">
-                                        <Button variant='primary' type="submit">Ajouter</Button>
+                                        <Button variant='primary' type="submit" /* onClick={() => navigate('/pageAccueil')}*/>Ajouter</Button>
                                     </div>
                                     {/* <div className="col-6 p-3">
                                     <Button variant="secondary" onClick={() => (window.location.href = window.location.origin)} className="float-end">Retour</Button>

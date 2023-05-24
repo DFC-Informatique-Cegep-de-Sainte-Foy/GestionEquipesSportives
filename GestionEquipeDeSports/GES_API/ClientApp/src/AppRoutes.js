@@ -9,7 +9,6 @@ import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./pages/PageSupprimerEvenement";
 import { PageUneEquipePourLAdmin } from "./pages/PageUneEquipePourLAdmin";
 import { PageSupprimerEquipe } from "./pages/PageSupprimerEquipe";
-import { PageDesEvenementsEtEquipesDUnAthlete } from "./pages/PageDesEvenementsEtEquipesDUnAthlete";
 import { PageAcceuilEntraineur } from "./pages/PageAccueilEntraineur";
 import Erreur404 from "./components/Erreur404";
 import PageRejoindreUneEquipe from "./pages/PageRejoindreUneEquipe";
@@ -80,16 +79,7 @@ const AppRoutes = [
     element: <AuthenticationGuard component={PageSupprimerEquipe} />
   },
   {
-    path: 'pageDesEvenementsEtEquipesDUnAthlete/:id',
-    element: <AuthenticationGuard component={PageDesEvenementsEtEquipesDUnAthlete} />
-  },
-  /*{
-    // path: '/ma-page-accueil/:id',
-    path: 'ma-page-accueil/',
-    element: <AuthenticationGuard component={PageAccueilAthlete} />
-  },*/
-  {
-    path: '/pageAcceuil',
+    path: '/pageAccueil',
     element: <AuthenticationGuard component={PageAcceuilEntraineur} />
   },
   {
