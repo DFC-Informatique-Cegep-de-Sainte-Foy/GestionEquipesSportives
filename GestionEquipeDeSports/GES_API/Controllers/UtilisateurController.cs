@@ -67,6 +67,10 @@ namespace GES_API.Controllers
         [ProducesResponseType(404)]
         public ActionResult<UtilisateurModel> Get(string email)
         {
+            if (email == null)
+            {
+                return BadRequest();
+            }
             GES_DAL.BackendProject.Utilisateur utilisateur = this.m_context?.Utilisateurs.Where(user => user.Email == email).FirstOrDefault();
 
             if (utilisateur is null)
@@ -88,23 +92,33 @@ namespace GES_API.Controllers
         public ActionResult Post([FromBody] UtilisateurModel p_utilisateurModel)
         {
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             if (p_utilisateurModel == null)
             {
                 throw new ArgumentNullException(nameof(p_utilisateurModel));
             }
 
-            if (!ModelState.IsValid)
+            try
+            {
+                p_utilisateurModel.IdUtilisateur = Guid.NewGuid();
+
+                Guid guid = p_utilisateurModel.IdUtilisateur;
+
+                p_utilisateurModel.Roles = EnumTypeRole.Athlete;
+
+                this.m_manipulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());
+            }
+
+            catch (Exception ex)
             {
                 return BadRequest();
             }
-            p_utilisateurModel.IdUtilisateur = Guid.NewGuid();
-            Guid guid = p_utilisateurModel.IdUtilisateur;
 
-            p_utilisateurModel.Roles = EnumTypeRole.Athlete;
-
-            this.m_manipulationDepotUtilisateur.AjouterUtilisateur(p_utilisateurModel.DeModelVersEntite());
-
-            return Ok(guid);
+            return Created("", p_utilisateurModel);
         }
 
         // PUT api/<EntraineurController>/5

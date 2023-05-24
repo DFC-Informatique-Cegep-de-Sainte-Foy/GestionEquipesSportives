@@ -3,7 +3,6 @@ using GES_DAL.BackendProject;
 using GES_Services.Entites;
 using Entite = GES_Services.Entites;
 using GES_Services.Interfaces;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;

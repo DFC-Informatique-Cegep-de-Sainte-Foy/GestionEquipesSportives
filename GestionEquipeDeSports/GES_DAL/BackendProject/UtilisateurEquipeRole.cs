@@ -11,6 +11,10 @@ namespace GES_DAL.BackendProject
         public int FkIdRole { get; set; }
 
 
+        public virtual Equipe FkIdEquipeNavigation { get; set; } = null!;
+
+
+
         public UtilisateurEquipeRole()
         {
             ;

@@ -89,6 +89,7 @@ class NavMenu extends React.Component {
                     <NavItem>
                       <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
                     </NavItem>
+                    <Profile />
                   </Nav>
                 </Collapse>
               </Navbar>

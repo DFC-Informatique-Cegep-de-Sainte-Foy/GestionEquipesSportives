@@ -13,6 +13,7 @@ namespace GES_API.Models
         public string? NumTelephone { get; set; }
         public DateTime? DateCreation { get; set; }
         public DateTime? DateModification { get; set; }
+        public DateTime DateNaissance { get; set; }
         public EnumTypeRole Roles { get; set; }
         public bool? FK_Id_Etat { get; set; }
         public bool? Etat { get; set; }
@@ -44,7 +45,7 @@ namespace GES_API.Models
                 this.IdUtilisateur,
                 this.Nom,
                 this.Prenom,
-                this.Age,
+                this.DateNaissance,
                 this.Email,
                 this.Adresse,
                 this.NumTelephone,

@@ -25,9 +25,10 @@ public partial class Utilisateur
     public string? NumTelephone { get; private set; }
     public DateTime? DateCreation { get; private set; }
     public DateTime? DateModification { get; private set; }
+    public DateTime? DateNaissance { get; private set; }
     public bool? Etat { get; private set; }
     public EnumTypeRole Role { get; private set; }
-    public Utilisateur(Guid guid, string nom, string prenom, int? age,
+    public Utilisateur(Guid guid, string nom, string prenom, DateTime? dateNaissance,
                        string email, string adresse, string numTelephone,
                        EnumTypeRole role)
     {
@@ -51,20 +52,15 @@ public partial class Utilisateur
         }
         Email = email;
 
-        if (age == null)
-        {
-            throw new ArgumentNullException($"Le parametre age: {age} est invalide", nameof(age));
-        }
-        //if (numTelephone == null)
-        //{
-        //    throw new ArgumentNullException($"Le parametre numero telephone: {numTelephone} est invalide", nameof(numTelephone));
-        //}
+        this.DateNaissance = dateNaissance;
 
         Role = role;
 
         NumTelephone = numTelephone;
         Adresse = adresse;
-        Age = age;
+
+        Age = DateTime.Now.Year - DateNaissance.Value.Year;
+ 
         Etat = true;
     }
 

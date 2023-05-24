@@ -10,11 +10,13 @@ namespace GES_DAL.BackendProject
         {
             EquipeJoueurs = new HashSet<EquipeJoueur>();
             EvenementJoueurs = new HashSet<EvenementJoueur>();
+            UtilisateurEquipeRoles = new HashSet<UtilisateurEquipeRole>();
         }
 
         public Guid IdUtilisateur { get; set; }
         public string Nom { get; set; } = null!;
         public string Prenom { get; set; } = null!;
+        public DateTime? DateNaissance { get; set; }
         public int? Age { get; set; }
         public string Email { get; set; } = null!;
         public string? Adresse { get; set; }
@@ -24,10 +26,12 @@ namespace GES_DAL.BackendProject
         public bool? Etat { get; set; }
         public bool? FkIdEtat { get; set; }
         public int? FkIdRoles { get; set; }
+
         public virtual Etat? FkIdEtatNavigation { get; set; }
         public virtual Role? FkIdRolesNavigation { get; set; }
         public virtual ICollection<EquipeJoueur> EquipeJoueurs { get; set; }
         public virtual ICollection<EvenementJoueur> EvenementJoueurs { get; set; }
+        public virtual ICollection<UtilisateurEquipeRole> UtilisateurEquipeRoles { get; set; }
 
         public Utilisateur(GES_Services.Entites.Utilisateur p_utilisateur)
         {
@@ -66,6 +70,7 @@ namespace GES_DAL.BackendProject
                 this.FkIdRoles = 3;
             }
             Etat = p_utilisateur.Etat;
+            this.DateNaissance= p_utilisateur.DateNaissance;
         }
 
         public GES_Services.Entites.Utilisateur DeDTOVersEntite()
@@ -94,7 +99,7 @@ namespace GES_DAL.BackendProject
                 this.IdUtilisateur,
                 this.Nom,
                 this.Prenom,
-                this.Age,
+                this.DateNaissance,
                 this.Email,
                 this.Adresse,
                 this.NumTelephone,
