@@ -28,9 +28,9 @@ namespace GES_DAL.Depots
                 throw new ArgumentNullException($"le parametre {p_utilisateur} ne peut pas etre null", nameof(p_utilisateur));
             }
 
-            if (m_context.Utilisateurs.Any(e => e.IdUtilisateur == p_utilisateur.IdUtilisateur))
+            if (m_context.Utilisateurs.Any(e => e.Email == p_utilisateur.Email))
             {
-                throw new InvalidOperationException($"l'evenement avec le id {p_utilisateur.IdUtilisateur} existe déjà");
+                throw new InvalidOperationException($"l'utilisateur avec le courriel {p_utilisateur.IdUtilisateur} Email déjà");
             }
 
             m_context.Utilisateurs.Add(new GES_DAL.BackendProject.Utilisateur(p_utilisateur));
