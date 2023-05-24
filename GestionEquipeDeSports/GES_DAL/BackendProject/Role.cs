@@ -14,5 +14,7 @@ namespace GES_DAL.BackendProject
         public string Description { get; set; } = null!;
 
         public virtual ICollection<Utilisateur> Utilisateurs { get; set; }
+        public virtual ICollection<UtilisateurEquipeRole> UtilisateurEquipeRoles { get; set; }
+
     }
 }

@@ -270,24 +270,25 @@ namespace GES_DAL.DbContexts
 
                 entity.Property(e => e.FkIdUtilisateur).HasColumnName("FK_Id_Utilisateur");
 
-                //entity.HasOne(d => d.FkIdEquipeNavigation)
-                //    .WithMany(p => p.)
-                //    .HasForeignKey(d => d.FkIdEquipe)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK__Utilisate__FK_Id__59FA5E80");
+                entity.HasOne(d => d.FkIdEquipeNavigation)
+                    .WithMany(p => p.UtilisateurEquipeRoles)
+                    .HasForeignKey(d => d.FkIdEquipe)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Utilisate__FK_Id__59FA5E80");
 
-                //entity.HasOne(d => d.FkIdRoleNavigation)
-                //    .WithMany(p => p.UtilisateurEquipeRoles)
-                //    .HasForeignKey(d => d.FkIdRole)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK__Utilisate__FK_Id__5AEE82B9");
+                entity.HasOne(d => d.FkIdRoleNavigation)
+                    .WithMany(p => p.UtilisateurEquipeRoles)
+                    .HasForeignKey(d => d.FkIdRole)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Utilisate__FK_Id__5AEE82B9");
 
-                //entity.HasOne(d => d.FkIdUtilisateurNavigation)
-                //    .WithMany(p => p.UtilisateurEquipeRoles)
-                //    .HasForeignKey(d => d.FkIdUtilisateur)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK__Utilisate__FK_Id__59063A47");
+                entity.HasOne(d => d.FkIdUtilisateurNavigation)
+                    .WithMany(p => p.UtilisateurEquipeRoles)
+                    .HasForeignKey(d => d.FkIdUtilisateur)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Utilisate__FK_Id__59063A47");
             });
+
 
             OnModelCreatingPartial(modelBuilder);
         }

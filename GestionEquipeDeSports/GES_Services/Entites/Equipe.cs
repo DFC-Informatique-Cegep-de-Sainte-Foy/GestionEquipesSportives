@@ -10,7 +10,7 @@ namespace GES_Services.Entites
         {
             Etat = true;
             DateCreation = DateTime.Now;
-            //DateModification = DateTime.Now;
+            DateModification = DateTime.Now;
             IdEquipe = guid;
             Nom = nom;
             Region = region;

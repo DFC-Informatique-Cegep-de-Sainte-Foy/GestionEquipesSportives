@@ -29,6 +29,7 @@ namespace GES_DAL.BackendProject
 
         public virtual Etat? FkIdEtatNavigation { get; set; }
         public virtual Role? FkIdRolesNavigation { get; set; }
+
         public virtual ICollection<EquipeJoueur> EquipeJoueurs { get; set; }
         public virtual ICollection<EvenementJoueur> EvenementJoueurs { get; set; }
         public virtual ICollection<UtilisateurEquipeRole> UtilisateurEquipeRoles { get; set; }
