@@ -94,12 +94,13 @@ export const PageAcceuilEntraineur = () => {
         if(utilisateurEvenement.length !== 0){
             // console.log('exporter longeur :');
             // console.log(utilisateurEvenement.length);
-            return <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" >Exporter vers ICal</Button>
+            return <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" title="Cliquez pour télécharger votre calendrier" >Exporter vers ICal</Button>
         }
     }
 
     function copierLeLien(){
         // il faudra changer ce lien pour publier vers Azur, car il est évident que l'adresse sera différente
+        // https://gestionequipesportive.azurewebsites.net/api/AbonnerCalendrier/${idUtilisateur}
         navigator.clipboard.writeText(`https://localhost:7225/api/AbonnerCalendrier/${idUtilisateur}`);
         setCheck(true);
         setSeconds(2);
@@ -143,7 +144,7 @@ export const PageAcceuilEntraineur = () => {
                 <Col>
                     {exporterVersICal()}
                     <p>Pour vous abonner: 
-                        <Button variant="info" onClick={() => {copierLeLien()}} title="AbonnerCalendrier/VotreId" >Copier le lien</Button>
+                        <Button variant="info" onClick={() => {copierLeLien()}} title="Cliquez pour copier le lien" >Copier le lien</Button>
                         {check && <FcApproval />}
                     </p>
                 </Col>

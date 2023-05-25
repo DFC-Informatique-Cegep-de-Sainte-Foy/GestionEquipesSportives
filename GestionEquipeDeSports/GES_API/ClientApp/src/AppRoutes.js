@@ -20,6 +20,7 @@ import { PageFormEquipe } from "./pages/PageFormulaireEquipe";
 import PageInviterOuAjouterJoueur from "./pages/PageInviterOuAjouterJoueur";
 import PagePourSaisirLeCourrielDInvitation from "./pages/PagePourSaisirLeCourrielDInvitation";
 import PageInscription from "./pages/PageInscription";
+import { PageAjouterEvenementsCoup } from "./pages/PageAjouterEvenementsCoup";
 
 const AppRoutes = [
   {
@@ -101,6 +102,10 @@ const AppRoutes = [
   {
     path: '/saisirEtEnvoyerInvitation/:id',
     element: <AuthenticationGuard component={PagePourSaisirLeCourrielDInvitation} />
+  },
+  {
+    path: '/ajouterEvenementsCoup',
+    element: <AuthenticationGuard component={PageAjouterEvenementsCoup} />
   },
   {
     path: '*',
