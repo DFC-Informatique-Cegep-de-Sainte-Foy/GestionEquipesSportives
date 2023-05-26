@@ -16,8 +16,9 @@ function AfficherPageEnFonctionDuRole({ estDansLaBD }) {
         })
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 if (data) {
-                    setRoleDeLUtilisateur(data.roles);
+                    setRoleDeLUtilisateur(data.fkIdRoles);
                 }
             }).catch(err => {
                 console.log(err);
@@ -32,7 +33,8 @@ function AfficherPageEnFonctionDuRole({ estDansLaBD }) {
 
 
     function MenuAAfficher() {
-        if (isAuthenticated === true) {
+        console.log(isAuthenticated + "     ", isAuthenticated + "     ", roleDeLUtilisateur);
+        if (isAuthenticated === true && estDansLaBD === true) {
             if (roleDeLUtilisateur === 0) {
                 return (
                     <Nav>

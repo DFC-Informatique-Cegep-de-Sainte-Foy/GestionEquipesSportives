@@ -46,6 +46,7 @@ export function Accueil() {
 
 
   if (isAuthenticated === true && userEstDansLaBD === true) {
+    console.log("Accueil.js: userEstDansLaBD === true et isAuthenticated === true");
     return (
       <>
         <PageAcceuilEntraineur estDansLaBD={userEstDansLaBD} utilisateur={utilisateur} />
@@ -53,6 +54,7 @@ export function Accueil() {
     );
   }
   else if (isAuthenticated === true && userEstDansLaBD === false) {
+    console.log("Accueil.js: userEstDansLaBD === false et isAuthenticated === true");
     return (
       <>
         <PageInscription />
