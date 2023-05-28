@@ -43,7 +43,7 @@ namespace GES_DAL.BackendProject
 
         public GES_Services.Entites.Evenement DeDTOVersEntite()
         {
-            return new GES_Services.Entites.Evenement(IdEvenement, Description, Emplacement, DateDebut, Duree, FkIdTypeEvenement);
+            return new GES_Services.Entites.Evenement(IdEvenement, Description, Emplacement, DateDebut, DateFin, Duree, FkIdTypeEvenement);
         }
     }
 }

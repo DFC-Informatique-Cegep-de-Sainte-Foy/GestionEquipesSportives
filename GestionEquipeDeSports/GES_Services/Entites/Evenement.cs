@@ -17,6 +17,10 @@ namespace GES_Services.Entites
         public bool? Etat { get; private set; }
         public double? Duree { get; private set; }
 
+        public Evenement()
+        {
+            ;
+        }
 
         public Evenement(string description, DateTime dateDebut, double? duree, string emplacement, string typeEvenement)
         {
@@ -87,6 +91,51 @@ namespace GES_Services.Entites
             Etat = true;
             Duree = duree;
             TypeEvenement.IdTypeEvenement = typeEvenement;
+        }
+
+        public Evenement(Guid guid, string description, DateTime dateDebut, DateTime dateFin, double? duree, string emplacement, string typeEvenement)
+        {
+
+            if (guid == Guid.Empty)
+            {
+                IdEvenement = Guid.NewGuid();
+            }
+            else
+            {
+                IdEvenement = guid;
+            }
+            if (typeEvenement == "entrainement")
+            {
+                TypeEvenement.IdTypeEvenement = 0;
+            }
+            else if (typeEvenement == "partie")
+            {
+                TypeEvenement.IdTypeEvenement = 1;
+            }
+            else if (typeEvenement == "autre")
+            {
+                TypeEvenement.IdTypeEvenement = 2;
+            }
+            else
+            {
+                throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
+            }
+
+            if (description is null)
+            {
+                throw new ArgumentNullException($"parametre {description} est invalide", nameof(description));
+            }
+
+            if (emplacement is null)
+            {
+                throw new ArgumentNullException($"parametre {emplacement} est invalide", nameof(emplacement));
+            }
+
+            Duree = duree;
+            Description = description;
+            DateDebut = dateDebut;
+            DateFin = dateFin;
+            Emplacement = emplacement;
         }
     }
 }
