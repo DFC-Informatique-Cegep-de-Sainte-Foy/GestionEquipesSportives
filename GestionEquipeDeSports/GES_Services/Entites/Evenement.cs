@@ -58,7 +58,6 @@ namespace GES_Services.Entites
             Emplacement = emplacement;
         }
 
-
         public Evenement(Guid guid, string description, string emplacement, DateTime? dateDebut, double? duree, int typeEvenement)
         {
             if (guid == Guid.Empty)
@@ -80,8 +79,6 @@ namespace GES_Services.Entites
                 throw new ArgumentNullException($"parametre {emplacement} est invalide", nameof(emplacement));
             }
 
-
-
             TypeEvenement = new TypeEvenement();
 
             Description = description;
@@ -93,7 +90,7 @@ namespace GES_Services.Entites
             TypeEvenement.IdTypeEvenement = typeEvenement;
         }
 
-        public Evenement(Guid guid, string description, DateTime dateDebut, DateTime dateFin, double? duree, string emplacement, string typeEvenement)
+        public Evenement(Guid guid, string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, double? duree, int typeEvenement)
         {
 
             if (guid == Guid.Empty)
@@ -104,22 +101,25 @@ namespace GES_Services.Entites
             {
                 IdEvenement = guid;
             }
-            if (typeEvenement == "entrainement")
-            {
-                TypeEvenement.IdTypeEvenement = 0;
-            }
-            else if (typeEvenement == "partie")
-            {
-                TypeEvenement.IdTypeEvenement = 1;
-            }
-            else if (typeEvenement == "autre")
-            {
-                TypeEvenement.IdTypeEvenement = 2;
-            }
-            else
-            {
-                throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
-            }
+
+            //if (typeEvenement == "entrainement")
+            //{
+            //    TypeEvenement.IdTypeEvenement = 0;
+            //}
+            //else if (typeEvenement == "partie")
+            //{
+            //    TypeEvenement.IdTypeEvenement = 1;
+            //}
+            //else if (typeEvenement == "autre")
+            //{
+            //    TypeEvenement.IdTypeEvenement = 2;
+            //}
+            //else
+            //{
+            //    throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
+            //}
+
+            TypeEvenement.IdTypeEvenement = typeEvenement;
 
             if (description is null)
             {
