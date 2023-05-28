@@ -9,6 +9,7 @@ export function Accueil() {
   const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
   const [userEstDansLaBD, setUserEstDansLaBD] = useState(false);
   const [utilisateur, setUtilisateur] = useState(null);
+  const navigate = useNavigate();
 
   async function getUtilisateur() {
     if (isAuthenticated) {
@@ -41,19 +42,28 @@ export function Accueil() {
   }
 
   useEffect(() => {
+    console.log("reroute vers PageAcceuil si userEstDansLaBD === true et isAuthenticated === true------", isAuthenticated, userEstDansLaBD);
+    if (isAuthenticated && userEstDansLaBD) {
+      navigate("/PageAccueil");
+    }
+  }, [isAuthenticated, userEstDansLaBD]);
+
+  useEffect(() => {
     getUtilisateur();
   }, [isAuthenticated, userEstDansLaBD]);
 
 
-  if (isAuthenticated === true && userEstDansLaBD === true) {
-    console.log("Accueil.js: userEstDansLaBD === true et isAuthenticated === true");
-    return (
-      <>
-        <PageAcceuilEntraineur estDansLaBD={userEstDansLaBD} utilisateur={utilisateur} />
-      </>
-    );
-  }
-  else if (isAuthenticated === true && userEstDansLaBD === false) {
+  // if (isAuthenticated === true && userEstDansLaBD === true) {
+  //   console.log("Accueil.js: userEstDansLaBD === true et isAuthenticated === true");
+  //   return (
+  //     <>
+  //       <PageAcceuilEntraineur />
+  //     </>
+  //   );
+  // }
+  // else 
+  
+  if (isAuthenticated === true && userEstDansLaBD === false) {
     console.log("Accueil.js: userEstDansLaBD === false et isAuthenticated === true");
     return (
       <>
