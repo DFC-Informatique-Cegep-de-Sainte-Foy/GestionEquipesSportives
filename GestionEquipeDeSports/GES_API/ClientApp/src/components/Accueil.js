@@ -64,7 +64,6 @@ export function Accueil() {
   // else 
   
   if (isAuthenticated === true && userEstDansLaBD === false) {
-    console.log("Accueil.js: userEstDansLaBD === false et isAuthenticated === true");
     return (
       <>
         <PageInscription />
