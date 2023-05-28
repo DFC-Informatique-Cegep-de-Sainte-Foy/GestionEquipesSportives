@@ -100,7 +100,7 @@ export const PageAcceuilEntraineur = () => {
 
     function copierLeLien(){
         // il faudra changer ce lien pour publier vers Azur, car il est évident que l'adresse sera différente
-        navigator.clipboard.writeText(`https://localhost:7225/api/AbonnerCalendrier/${idUtilisateur}`);
+        navigator.clipboard.writeText(`api/AbonnerCalendrier/${idUtilisateur}`);
         setCheck(true);
         setSeconds(2);
     }

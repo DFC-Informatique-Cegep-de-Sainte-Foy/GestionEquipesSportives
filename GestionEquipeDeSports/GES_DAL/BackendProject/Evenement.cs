@@ -21,6 +21,7 @@ namespace GES_DAL.BackendProject
         public DateTime? DateModification { get; set; }
         public bool? Etat { get; set; }
         public int FkIdTypeEvenement { get; set; }
+        public double? Duree { get; set; }
 
         public virtual TypeEvenement FkIdTypeEvenementNavigation { get; set; } = null!;
         public virtual ICollection<EquipeEvenement> EquipeEvenements { get; set; }
@@ -37,11 +38,12 @@ namespace GES_DAL.BackendProject
             DateModification = evenement.DateModification;
             FkIdTypeEvenement = (int)evenement.TypeEvenement.IdTypeEvenement;
             Etat = evenement.Etat;
+            Duree = evenement.Duree;
         }
 
         public GES_Services.Entites.Evenement DeDTOVersEntite()
         {
-            return new GES_Services.Entites.Evenement(IdEvenement, Description, Emplacement, DateDebut, DateFin, FkIdTypeEvenement);
+            return new GES_Services.Entites.Evenement(IdEvenement, Description, Emplacement, DateDebut, Duree, FkIdTypeEvenement);
         }
     }
 }

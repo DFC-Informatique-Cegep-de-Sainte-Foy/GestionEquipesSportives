@@ -38,11 +38,11 @@ namespace GES_DAL.Depots
 
             //validation des données, si l'equipe existe deja dans la bd, on ne l'ajoute pas
             if (m_context.Equipes.Any(e => e.Nom == p_equipe.Nom
-                && m_context.Equipes.Any(e => e.Region == p_equipe.Region
-                && m_context.Equipes.Any(e => e.Sport == p_equipe.Sport
-                && m_context.Equipes.Any(e => e.AssociationSportive == p_equipe.AssociationSportive)))))
+                                   && e.Region == p_equipe.Region
+                                   && e.Sport == p_equipe.Sport
+                                   && e.AssociationSportive == p_equipe.AssociationSportive))
             {
-                throw new InvalidOperationException($"l'evenement avec le nom {p_equipe.Nom} existe déjà");
+                throw new InvalidOperationException($"L'équipe avec le nom {p_equipe.Nom} existe déjà.");
             }
 
             m_context.Equipes.Add(new GES_DAL.BackendProject.Equipe(p_equipe));

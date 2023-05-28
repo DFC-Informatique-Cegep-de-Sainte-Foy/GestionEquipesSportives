@@ -37,13 +37,12 @@ namespace GES_API.Models
 
         public Evenement DeModelVersEntite()
         {
-
             return new Evenement(
                     this.Id,
                     this.Description,
                     this.Emplacement,
                     this.DateDebut,
-                    this.DateFin,
+                    this.Duree,
                     this.TypeEvenement
                 );
         }

@@ -96,14 +96,14 @@ namespace GES_API.Controllers
                 this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModelEnt.DeModelVersEntite());
 
                 //ajout de lutilisateur dans la table utilisateurEquipeRole en tant qu'athlete
-                UtilisateurEquipeRoleModel utilisateurEquipeRoleModelAth = new UtilisateurEquipeRoleModel()
-                {
-                    IdUtilisateurEquipeRole = Guid.NewGuid(),
-                    FkIdUtilisateur = idUser,
-                    FkIdEquipe = p_equipeModel.IdEquipe,
-                    FkIdRole = 3
-                }; 
-                this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModelAth.DeModelVersEntite());
+                //UtilisateurEquipeRoleModel utilisateurEquipeRoleModelAth = new UtilisateurEquipeRoleModel()
+                //{
+                //    IdUtilisateurEquipeRole = Guid.NewGuid(),
+                //    FkIdUtilisateur = idUser,
+                //    FkIdEquipe = p_equipeModel.IdEquipe,
+                //    FkIdRole = 3
+                //}; 
+                //this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModelAth.DeModelVersEntite());
 
                 //ajout de lutilisateur dans la table equipeJoueur
                 EquipeJoueurModel equipeJoueurModel = new EquipeJoueurModel()

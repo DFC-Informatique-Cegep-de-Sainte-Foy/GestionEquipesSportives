@@ -15,8 +15,10 @@ namespace GES_Services.Entites
         public DateTime? DateModification { get; private set; }
         public TypeEvenement TypeEvenement { get; private set; }
         public bool? Etat { get; private set; }
+        public double? Duree { get; private set; }
 
-        public Evenement(string description, DateTime dateDebut, DateTime dateFin, string emplacement, string typeEvenement)
+
+        public Evenement(string description, DateTime dateDebut, double? duree, string emplacement, string typeEvenement)
         {
             if (typeEvenement == "entrainement")
             {
@@ -34,25 +36,28 @@ namespace GES_Services.Entites
             {
                 throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
             }
+
+            if (description is null)
+            {
+                throw new ArgumentNullException($"parametre {description} est invalide", nameof(description));
+            }
+
+            if (emplacement is null)
+            {
+                throw new ArgumentNullException($"parametre {emplacement} est invalide", nameof(emplacement));
+            }
+
+            Duree = duree;
             Description = description;
             DateDebut = dateDebut;
-            DateFin = dateFin;
+            DateFin = DateDebut?.AddMinutes((double)duree);
             Emplacement = emplacement;
         }
 
-        //public Evenement(string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, EnumTypeEvenement typeEvenement)
-        //{
-        //   TypeEvenement.IdTypeEvenement = (int)typeEvenement;
-        //    Description = description;
-        //    DateDebut = dateDebut;
-        //    DateFin = dateFin;
-        //    Emplacement = emplacement;
 
-        //}
-
-        public Evenement(Guid guid, string description, string emplacement, DateTime? dateDebut, DateTime? dateFin, int typeEvenement)
-        {         
-            if(guid == Guid.Empty)
+        public Evenement(Guid guid, string description, string emplacement, DateTime? dateDebut, double? duree, int typeEvenement)
+        {
+            if (guid == Guid.Empty)
             {
                 IdEvenement = Guid.NewGuid();
             }
@@ -65,24 +70,22 @@ namespace GES_Services.Entites
             {
                 throw new ArgumentNullException($"parametre {description} est invalide", nameof(description));
             }
-            
-            if(emplacement is null)
+
+            if (emplacement is null)
             {
                 throw new ArgumentNullException($"parametre {emplacement} est invalide", nameof(emplacement));
             }
 
-            if(dateFin < dateDebut)
-            {
-                throw new ArgumentException($"parametre {dateFin} est invalide, doit etre superieur a date de debut", nameof(dateFin));
-            }
+
 
             TypeEvenement = new TypeEvenement();
 
             Description = description;
             Emplacement = emplacement;
             DateDebut = dateDebut;
-            DateFin = dateFin;
+            DateFin = DateDebut?.AddMinutes((double)duree);
             Etat = true;
+            Duree = duree;
             TypeEvenement.IdTypeEvenement = typeEvenement;
         }
     }
