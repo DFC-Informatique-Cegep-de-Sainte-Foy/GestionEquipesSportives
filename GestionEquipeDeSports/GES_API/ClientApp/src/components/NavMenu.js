@@ -71,7 +71,6 @@ class NavMenu extends React.Component {
   render() {
     const { isAuthenticated, userEstDansLaBD, logout, loginWithRedirect } = this.props;
     if (isAuthenticated && !userEstDansLaBD) {
-      console.log("NavMenu, userEstDansLaBD: " + userEstDansLaBD + ", isAuthenticated: " + isAuthenticated);
       return (
         <>
           <header className="header-with-gray-strip">
@@ -100,7 +99,6 @@ class NavMenu extends React.Component {
       );
     }
     else if (isAuthenticated && userEstDansLaBD) {
-      console.log("NavMenu, userEstDansLaBD: " + userEstDansLaBD + ", isAuthenticated: " + isAuthenticated);
       return (
         <>
           <header className="header-with-gray-strip">
@@ -127,7 +125,6 @@ class NavMenu extends React.Component {
       );
     }
     else {
-      console.log("NavMenu, userEstDansLaBD: " + userEstDansLaBD + ", isAuthenticated: " + isAuthenticated);
       return (
         <>
           <header className="header-with-gray-strip">
