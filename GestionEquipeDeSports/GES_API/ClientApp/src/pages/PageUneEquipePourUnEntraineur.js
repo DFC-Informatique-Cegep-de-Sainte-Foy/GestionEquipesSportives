@@ -140,7 +140,10 @@ function PageUneEquipePourUnEntraineur() {
         if (isAuthenticated === true) {
             if (estEntraineur) {
                 return (
-                    <Button variant="success" onClick={() => navigate(`/formulaireEvenement/${id}`)} className="btn btn-success float-end">Ajouter un événement</Button>
+                    <>
+                        <Button variant="info" onClick={() => navigate(`/ajouterEvenementsCoup/${id}`)}>Ajouter via un fichier CSV</Button>
+                        <Button variant="success" onClick={() => navigate(`/formulaireEvenement/${id}`)} className="btn btn-success float-end">Ajouter un événement</Button>
+                    </>
                 );
             }
         }
