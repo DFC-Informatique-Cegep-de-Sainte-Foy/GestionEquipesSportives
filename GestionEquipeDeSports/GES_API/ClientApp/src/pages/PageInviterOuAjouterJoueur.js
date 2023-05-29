@@ -26,7 +26,7 @@ function PageInviterOuAjouterJoueur(){
                     <p></p>
                     <p></p>
                     <Card.Text>
-                        Récupérez l'id de l'équipe pour l'envoyer par email aux membres de l'équipe.
+                        Envoyer un email au membre que vous voulez ajouter dans votre équipe.
                     </Card.Text>
                 </Card.Body>
             </Card>
