@@ -99,30 +99,8 @@ function PageUneEquipePourUnEntraineur() {
 
             await fetch(`/api/equipeEvenement`, requestOptions);
             getEvenements(id);
-
-            //supprimer de table joueurEvenement
-            // equipeJoueurs.forEach(element => {
-            //     supprimerDeTableEvenementJoueur(element.idUtilisateur, idEvenementDansList);
-            // });
         }
     }
-
-    // async function supprimerDeTableEvenementJoueur(idJoueur, idEvenementList){
-    //     const token = await getAccessTokenSilently();
-    //     let requestOptionsEvenementJoueur = {
-    //         method: 'DELETE',
-    //         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    //         body: JSON.stringify({
-    //             FK_Id_Utilisateur: idJoueur,
-    //             FK_Id_Evenement: idEvenementList
-    //         })
-    //     };
-
-    //     await fetch(`/api/evenementJoueur`, requestOptionsEvenementJoueur)
-    //     .catch(function (error) {
-    //          console.log(error);
-    //      });
-    // }
 
     async function getRoleVenantDuBackend(email) {
         const token = await getAccessTokenSilently();
