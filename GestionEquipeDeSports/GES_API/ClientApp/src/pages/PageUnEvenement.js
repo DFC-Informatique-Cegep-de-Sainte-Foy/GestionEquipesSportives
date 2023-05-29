@@ -12,16 +12,13 @@ export const PageUnEvenement = () => {
 
     const [membresEquipeEvenement, setMembresEquipeEvenement] = useState([]);
 
+    const [presenceDesMembres, setPresencesDesMembres] = useState([]);
     const [isAttending, setIsAttending] = useState(false);
     const [utilisateur, setUtilisateur] = useState({});
 
-    const { getAccessTokenSilently } = useAuth0();
+    const { getAccessTokenSilently, user } = useAuth0();
     const navigate = useNavigate();
-
-    const [loading, setLoading] = useState(true);
-
     const { id } = useParams();
-    const { user } = useAuth0();
 
     const loadUtilisateur = async () => {
         const token = await getAccessTokenSilently();
@@ -70,11 +67,6 @@ export const PageUnEvenement = () => {
         });
     }
 
-    const loadRole = async () => {
-        const token = await getAccessTokenSilently();
-
-    }
-
     const loadMembresEquipeEvenement = async () => {
         const token = await getAccessTokenSilently();
 
@@ -90,7 +82,6 @@ export const PageUnEvenement = () => {
         }).then((data) => {
             setMembresEquipeEvenement(data);
         }).catch((error) => {
-            console.log("erreur :");
             console.log(error);
         });
     }
@@ -149,6 +140,19 @@ export const PageUnEvenement = () => {
 
     const loadPresencesDesMemebres = async () => {
         const token = await getAccessTokenSilently();
+
+        await fetch(`api/EvenementJoueurPresence/${id}`, {
+        }).then((res) => {
+
+            return res.json();
+        }
+        ).then((data) => {
+            setPresencesDesMembres(data);
+        }
+        ).catch((error) => {
+            console.log(error);
+        }
+        );
     }
 
     useEffect(() => { loadEvenement() }, []);
@@ -159,6 +163,11 @@ export const PageUnEvenement = () => {
             loadMembresEquipeEvenement();
         }
     }, [utilisateur]);
+    useEffect(() => {
+        if (evenement !== null) {
+            loadPresencesDesMemebres()
+        }
+    }, [evenement]);
 
     if (evenement === null) {
         return <div>Chargement...</div>;

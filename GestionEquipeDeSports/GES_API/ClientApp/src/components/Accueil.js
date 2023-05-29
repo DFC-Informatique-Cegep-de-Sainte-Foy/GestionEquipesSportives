@@ -42,7 +42,6 @@ export function Accueil() {
   }
 
   useEffect(() => {
-    console.log("reroute vers PageAcceuil si userEstDansLaBD === true et isAuthenticated === true------", isAuthenticated, userEstDansLaBD);
     if (isAuthenticated && userEstDansLaBD) {
       navigate("/PageAccueil");
     }
