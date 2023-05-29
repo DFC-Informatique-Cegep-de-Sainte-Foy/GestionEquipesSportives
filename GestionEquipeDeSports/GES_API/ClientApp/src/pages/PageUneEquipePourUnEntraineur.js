@@ -41,6 +41,7 @@ function PageUneEquipePourUnEntraineur() {
         })
             .then(res => res.json())
             .then((result) => {
+                console.log(result);
                 setEquipeEvenement(result);
             })
             .catch((error) => {
