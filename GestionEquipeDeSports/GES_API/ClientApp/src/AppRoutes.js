@@ -47,6 +47,10 @@ const AppRoutes = [
     element: <AuthenticationGuard component={Evenements} />
   },
   {
+    path: '/formulaireEvenement',
+    element: <AuthenticationGuard component={FormEvenement} />
+  },
+  {
     path: '/formulaireEvenement/:id',
     element: <AuthenticationGuard component={FormEvenement} />
   },
