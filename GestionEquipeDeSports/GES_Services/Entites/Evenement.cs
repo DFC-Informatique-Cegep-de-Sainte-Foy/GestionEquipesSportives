@@ -119,6 +119,9 @@ namespace GES_Services.Entites
             //    throw new ArgumentException($"parametre {typeEvenement} est invalide", nameof(typeEvenement));
             //}
 
+
+            TypeEvenement = new TypeEvenement();
+
             TypeEvenement.IdTypeEvenement = typeEvenement;
 
             if (description is null)
