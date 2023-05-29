@@ -37,7 +37,7 @@ function AfficherPageEnFonctionDuRole({ estDansLaBD }) {
                 return (
                     <Nav>
                         <NavItem>
-                            <NavLink tag={Link} className="text-white" to="/accueil">Accueil</NavLink>
+                            <NavLink tag={Link} className="text-white" to="/pageAccueil">Accueil</NavLink>
                         </NavItem>
 
                         <NavItem>
