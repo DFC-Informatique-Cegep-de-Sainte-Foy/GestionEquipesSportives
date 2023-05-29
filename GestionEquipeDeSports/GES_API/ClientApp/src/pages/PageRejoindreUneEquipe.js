@@ -17,7 +17,7 @@ function PageRejoindreUneEquipe(){
         console.log(idEquipe);
         console.log(idJoueurConnecte);
         ajouterLeJoueurDansLEquipe();
-        navigate('/accueil');
+        navigate('/pageAccueil');
     }
 
     async function getJoueurDuBackend(email) {
