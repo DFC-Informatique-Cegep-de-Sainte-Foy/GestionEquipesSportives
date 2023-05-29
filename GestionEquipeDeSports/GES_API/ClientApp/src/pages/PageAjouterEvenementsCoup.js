@@ -24,27 +24,27 @@ export const PageAjouterEvenementsCoup = () => {
 
     async function getUtilisateur(email) {
         const token = await getAccessTokenSilently();
-        console.log(email);
+        // console.log(email);
         await fetch(`api/utilisateur/${email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
         .then(res => res.json())
         .then((result) => {
             setIdUtilisateur(result.idUtilisateur);
-            console.log(result);
+            // console.log(result);
         }).catch(function (error) {
             console.log(error);
         });
     }
 
     function handleChange(e){
-        console.log(e.target.value);
+        // console.log(e.target.value);
         // setEvenementsChampText(e.target.value);
         Papa.parse(e.target.value, {
             header: true,
             skipEmptyLines: true,
             complete: function (results) {
-                console.log(results.data);
+                // console.log(results.data);
                 const rowsTableau = [];
                 const valuesTableau = [];
 
@@ -61,12 +61,12 @@ export const PageAjouterEvenementsCoup = () => {
     }
 
     const changeHandler = (event) => {
-        console.log(event.target.files[0]);
+        // console.log(event.target.files[0]);
         Papa.parse(event.target.files[0], {
             header: true,
             skipEmptyLines: true,
             complete: function (results) {
-                console.log(results.data);
+                // console.log(results.data);
                 const rowsTableau = [];
                 const valuesTableau = [];
 
@@ -94,7 +94,7 @@ export const PageAjouterEvenementsCoup = () => {
         var donneesACorriger = parsedFichier;
         for(var i = 0; i < donneesACorriger.length; i++){
             var array = {};
-            console.log(donneesACorriger[i]);
+            // console.log(donneesACorriger[i]);
             array.Description = donneesACorriger[i].Description;
             array.Emplacement = donneesACorriger[i].Emplacement;
             let dateHeureDebut = donneesACorriger[i].DateDebut + 'T' + donneesACorriger[i].HeureDebut;
@@ -104,7 +104,7 @@ export const PageAjouterEvenementsCoup = () => {
             donneesCorrigeeASauvegarder.push(array);
         }
 
-        console.log(donneesCorrigeeASauvegarder);
+        // console.log(donneesCorrigeeASauvegarder);
         const token = await getAccessTokenSilently();
         const optionRequetePostEvenement = {
             method: 'POST',
@@ -117,9 +117,7 @@ export const PageAjouterEvenementsCoup = () => {
         };
         //ajout dans table evenements
         const reponse = await fetch('api/AjouterEvenementsCoup', optionRequetePostEvenement);
-        // console.log(reponse);
         const data = await reponse.json();
-        // console.log(data);
 
         //ajout dans table EquipeEvenement
         for (let i = 0; i < data.length; i++) {            
@@ -155,7 +153,7 @@ export const PageAjouterEvenementsCoup = () => {
             .then(function (reponse) {
                 // console.log(reponse);
                 if(reponse.ok){
-                    setReponseConfirmation("Ajout de l'évenement réussi!");
+                    setReponseConfirmation("Les événements ont été ajoutés avec succès!");
                 } else {
                     setReponseConfirmation("Il y a une erreur!");
                 }
@@ -166,20 +164,10 @@ export const PageAjouterEvenementsCoup = () => {
     }
 
     function trouverDateFin(dateDebut, duree){
-        console.log(dateDebut);
-        console.log(duree);
         var dateDebutParsed = Date.parse(dateDebut);
         var heureDuree = heuresParse(duree);
-        console.log(dateDebutParsed);
-        console.log(heureDuree);
-        var dateFinTrouvee = new Date(dateDebutParsed + heureDuree).toISOString();
-        // var dateARetourner = dateFinTrouvee.getFullYear() + '-' + (dateFinTrouvee.getMonth() + 1) + '-' + dateFinTrouvee.getDate() + 'T' + dateFinTrouvee.getHours() + ':' + dateFinTrouvee.getMinutes() + ':' + dateFinTrouvee.getSeconds();
-        // var newDateAretourner = new Date(dateARetourner);
-        // const dateFinTrouveeTimeZoneOffset = dateFinTrouvee.getTimezoneOffset();
-        // console.log(dateARetourner);
-        // var dateARetourner = dateDebutParsed.
-        console.log(dateFinTrouvee);
-        // console.log(dateFinTrouveeTimeZoneOffset);
+        // je n'ai pas trouvé une solution pour afficher date de fin en heure locale, donc je soustrais juste 4 heures en millisecondes
+        var dateFinTrouvee = new Date(dateDebutParsed + heureDuree - 14400000).toISOString();
         return dateFinTrouvee;
     }
 
