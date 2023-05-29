@@ -104,7 +104,7 @@ const AppRoutes = [
     element: <AuthenticationGuard component={PagePourSaisirLeCourrielDInvitation} />
   },
   {
-    path: '/ajouterEvenementsCoup',
+    path: '/ajouterEvenementsCoup/:id',
     element: <AuthenticationGuard component={PageAjouterEvenementsCoup} />
   },
   {
