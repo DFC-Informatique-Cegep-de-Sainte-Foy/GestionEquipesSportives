@@ -1,10 +1,11 @@
 import React, {useRef} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 
 function PagePourSaisirLeCourrielDInvitation() {
     const navigate = useNavigate();
     const form = useRef();
+    const { id } = useParams();
 
     const envoyerEmail = (e) => {
         e.preventDefault();
@@ -30,7 +31,7 @@ function PagePourSaisirLeCourrielDInvitation() {
 
                         <form ref={form} onSubmit={envoyerEmail}>
                             <input type="email" className="form-control" name="email" placeholder="Email du joueur" required />
-                            <textarea className="form-control" name="message" cols={30} rows={10}></textarea>
+                            <textarea className="form-control" name="message" cols={30} rows={10} hidden>{id}</textarea>
                             <p></p>
                             <button type="submit" className="btn btn-primary">Envoyer</button>&nbsp;
                             <button type="button" onClick={() => navigate(-1)} className="btn btn-secondary float-end">Retour</button>
