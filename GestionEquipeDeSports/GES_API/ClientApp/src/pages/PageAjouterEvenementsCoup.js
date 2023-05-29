@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 // code de base https://react-papaparse.js.org/
 
 export const PageAjouterEvenementsCoup = () => {
-    const [evenementsChampText, setEvenementsChampText] = useState('');
+    // const [evenementsChampText, setEvenementsChampText] = useState('');
     const [parsedFichier, setParsedFichier] = useState([]);
     const [tableauRows, setTableauRows] = useState([]);
     const [valuesCellules, setValuesCellules] = useState([]);
@@ -39,7 +39,7 @@ export const PageAjouterEvenementsCoup = () => {
 
     function handleChange(e){
         console.log(e.target.value);
-        setEvenementsChampText(e.target.value);
+        // setEvenementsChampText(e.target.value);
         Papa.parse(e.target.value, {
             header: true,
             skipEmptyLines: true,
@@ -82,16 +82,15 @@ export const PageAjouterEvenementsCoup = () => {
         });
     };
 
-    function annulerDonnees(){
-        setParsedFichier([]);
-        setTableauRows([]);
-        setValuesCellules([]);
-        setEvenementsChampText('');
-    }
+    // function annulerDonnees(){
+    //     setParsedFichier([]);
+    //     setTableauRows([]);
+    //     setValuesCellules([]);
+    //     setEvenementsChampText('');
+    // }
 
     async function enregistrerDonnees(){
         var donneesCorrigeeASauvegarder = [];
-        // var array = [];
         var donneesACorriger = parsedFichier;
         for(var i = 0; i < donneesACorriger.length; i++){
             var array = {};
@@ -103,11 +102,7 @@ export const PageAjouterEvenementsCoup = () => {
             array.DateFin = trouverDateFin(dateHeureDebut, donneesACorriger[i].Duree);
             array.TypeEvenement = trouverTypeEvenement(donneesACorriger[i].TypeEvenement);
             donneesCorrigeeASauvegarder.push(array);
-            // console.log(donneesACorriger[i].map((arr) => {console.log(arr)}));
         }
-        
-        // let jsonArray = JSON.stringify(donneesCorrigeeASauvegarder);
-        // console.log(jsonArray);
 
         console.log(donneesCorrigeeASauvegarder);
         const token = await getAccessTokenSilently();
@@ -218,7 +213,7 @@ export const PageAjouterEvenementsCoup = () => {
     return (
         <Container>
             <Alert variant="info">
-                <p>Les champs suivants sont obligatoires dans votre fichier <b>Description</b> <b>Emplacement</b> <b>DateDebut</b> <b>HeureDebut</b> <b>Duree</b> <b>TypeEvenement</b></p>
+                <p>Les champs suivants sont obligatoires dans votre fichier CSV <b>Description</b> <b>Emplacement</b> <b>DateDebut</b> <b>HeureDebut</b> <b>Duree</b> <b>TypeEvenement</b></p>
             </Alert>
             <Form.Group className="mb-3">
                 <Form.Label>Choisir le fichier de type csv</Form.Label>
@@ -227,7 +222,7 @@ export const PageAjouterEvenementsCoup = () => {
             <p>Ou</p>
             <Form.Group className="mb-3">
                 <Form.Label>Entrer des données dans ce champ de texte</Form.Label>
-                <Form.Control as="textarea" onChange={handleChange} defaultValue={evenementsChampText} rows={3}></Form.Control>
+                <Form.Control as="textarea" onChange={handleChange} rows={3}></Form.Control>
             </Form.Group>
 
             <Table>
@@ -252,7 +247,7 @@ export const PageAjouterEvenementsCoup = () => {
             </Table>
             {reponseConfirmation && <p style={{color:"green"}}>{reponseConfirmation}</p>}
             {parsedFichier.length > 0 && <Button variant="success" onClick={enregistrerDonnees}>Enregistrer</Button>}{' '}
-            {parsedFichier.length > 0 && <Button variant="info" onClick={annulerDonnees}>Annuler</Button>}{' '}
+            {/* {parsedFichier.length > 0 && <Button variant="info" onClick={annulerDonnees}>Annuler</Button>}{' '} */}
             <Button variant="danger" onClick={() => navigate(-1)}>Retour</Button>
         </Container>
     )
