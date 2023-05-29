@@ -202,6 +202,7 @@ export function FormEvenement() {
                                     className="form-control"
                                     id="duree" name="duree"
                                     placeholder="Entrer la durée"
+                                    min={0}
                                     required
                                 />
                             </div><p></p>
