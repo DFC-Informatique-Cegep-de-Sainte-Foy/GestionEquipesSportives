@@ -13,6 +13,7 @@ export const PageUnEvenement = () => {
     const [membresEquipeEvenement, setMembresEquipeEvenement] = useState([]);
 
     const [presenceDesMembres, setPresencesDesMembres] = useState([]);
+
     const [isAttending, setIsAttending] = useState(false);
     const [utilisateur, setUtilisateur] = useState({});
 
@@ -81,6 +82,7 @@ export const PageUnEvenement = () => {
             }
         }).then((data) => {
             setMembresEquipeEvenement(data);
+            console.log(data);
         }).catch((error) => {
             console.log(error);
         });
@@ -138,8 +140,8 @@ export const PageUnEvenement = () => {
         });
     }
 
-    const loadPresencesDesMemebres = async () => {
-        const token = await getAccessTokenSilently();
+    const loadPresencesDesMembres = async () => {
+        const token = await getAccessTokenSilently();       
 
         await fetch(`api/EvenementJoueurPresence/${id}`, {
         }).then((res) => {
@@ -158,16 +160,20 @@ export const PageUnEvenement = () => {
     useEffect(() => { loadEvenement() }, []);
     useEffect(() => { loadPresenceUser() }, []);
     useEffect(() => { loadUtilisateur() }, []);
-    useEffect(() => {
-        if (utilisateur.idUtilisateur !== undefined) {
-            loadMembresEquipeEvenement();
-        }
-    }, [utilisateur]);
+
     useEffect(() => {
         if (evenement !== null) {
-            loadPresencesDesMemebres()
+            loadMembresEquipeEvenement();           
+        }        
+    }, [utilisateur]);
+
+    useEffect(() => {
+        if (membresEquipeEvenement !== null) {
+            loadPresencesDesMembres()
         }
-    }, [evenement]);
+    }, [membresEquipeEvenement]);
+
+    
 
     if (evenement === null) {
         return <div>Chargement...</div>;
