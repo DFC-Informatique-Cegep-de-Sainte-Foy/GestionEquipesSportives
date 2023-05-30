@@ -9,11 +9,8 @@ import { FormatDateTime } from "../components/FormatDateTime";
 
 export const PageUnEvenement = () => {
     const [evenement, setEvenement] = useState(null);
-
     const [membresEquipeEvenement, setMembresEquipeEvenement] = useState([]);
-
-    const [presenceDesMembres, setPresencesDesMembres] = useState([]);
-
+    const [presencesDesMembres, setPresencesDesMembres] = useState([]);
     const [isAttending, setIsAttending] = useState(false);
     const [utilisateur, setUtilisateur] = useState({});
 
@@ -82,7 +79,6 @@ export const PageUnEvenement = () => {
             }
         }).then((data) => {
             setMembresEquipeEvenement(data);
-            console.log(data);
         }).catch((error) => {
             console.log(error);
         });
@@ -140,22 +136,33 @@ export const PageUnEvenement = () => {
         });
     }
 
-    const loadPresencesDesMembres = async () => {
-        const token = await getAccessTokenSilently();       
+    const fetchUserPresence = async (id, email) => {
+        const token = await getAccessTokenSilently();
 
-        await fetch(`api/EvenementJoueurPresence/${id}`, {
-        }).then((res) => {
+        const response = await fetch(`api/EvenementJoueurPresence/${id}?yourParam=${email}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` }
+        });
 
-            return res.json();
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
         }
-        ).then((data) => {
-            setPresencesDesMembres(data);
+        else {
+            return await response.json();
         }
-        ).catch((error) => {
-            console.log(error);
-        }
-        );
     }
+
+    useEffect(() => {
+        if (membresEquipeEvenement !== null) {
+            Promise.all(membresEquipeEvenement.map((membre) =>
+                fetchUserPresence(id, membre.email)
+            )).then((presences) => {
+                setPresencesDesMembres(presences);
+            })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [membresEquipeEvenement, id, isAttending]);
 
     useEffect(() => { loadEvenement() }, []);
     useEffect(() => { loadPresenceUser() }, []);
@@ -163,17 +170,10 @@ export const PageUnEvenement = () => {
 
     useEffect(() => {
         if (evenement !== null) {
-            loadMembresEquipeEvenement();           
-        }        
+            loadMembresEquipeEvenement();
+        }
     }, [utilisateur]);
 
-    useEffect(() => {
-        if (membresEquipeEvenement !== null) {
-            loadPresencesDesMembres()
-        }
-    }, [membresEquipeEvenement]);
-
-    
 
     if (evenement === null) {
         return <div>Chargement...</div>;
@@ -237,7 +237,7 @@ export const PageUnEvenement = () => {
                                         <td>{e.nom}</td>
                                         <td>{e.numTelephone}</td>
                                         <td>{e.email}</td>
-                                        <td>{e.estPresentAEvenement === true ? "Présent" : "Absent"}</td>
+                                        <td>{presencesDesMembres[index] ? "Présent" : "Absent"}</td>
                                     </tr>
                                 ))}
                             </tbody>
