@@ -37,7 +37,7 @@ export const PageAjouterEvenementsCoup = () => {
         });
     }
 
-    function handleChange(e){
+    const handleChange = (e) => {
         // console.log(e.target.value);
         // setEvenementsChampText(e.target.value);
         Papa.parse(e.target.value, {
@@ -47,11 +47,11 @@ export const PageAjouterEvenementsCoup = () => {
                 // console.log(results.data);
                 const rowsTableau = [];
                 const valuesTableau = [];
-
-                results.data.map((donnees) => {
+                
+                results.data?.map((donnees) => {
                     rowsTableau.push(Object.keys(donnees));
                     valuesTableau.push(Object.values(donnees));
-                });
+                })
 
                 setParsedFichier(results.data);
                 setTableauRows(rowsTableau[0]);
@@ -70,7 +70,7 @@ export const PageAjouterEvenementsCoup = () => {
                 const rowsTableau = [];
                 const valuesTableau = [];
 
-                results.data.map((donnees) => {
+                results.data?.map((donnees) => {
                     rowsTableau.push(Object.keys(donnees));
                     valuesTableau.push(Object.values(donnees));
                 });
@@ -209,20 +209,20 @@ export const PageAjouterEvenementsCoup = () => {
             </Form.Group>
             <p>Ou</p>
             <Form.Group className="mb-3">
-                <Form.Label>Entrer des données dans ce champ de texte</Form.Label>
+                <Form.Label>Copier coller les données de votre fichier CSV dans ce champ de texte</Form.Label>
                 <Form.Control as="textarea" onChange={handleChange} rows={3}></Form.Control>
             </Form.Group>
 
             <Table>
                 <thead>
                     <tr>
-                        {tableauRows.map((rows, index) => {
+                        {tableauRows?.map((rows, index) => {
                             return <th key={index}>{rows}</th>;
                         })}
                     </tr>
                 </thead>
                 <tbody>
-                    {valuesCellules.map((value, index) => {
+                    {valuesCellules?.map((value, index) => {
                         return (
                             <tr key={index}>
                                 {value.map((val, i) => {
