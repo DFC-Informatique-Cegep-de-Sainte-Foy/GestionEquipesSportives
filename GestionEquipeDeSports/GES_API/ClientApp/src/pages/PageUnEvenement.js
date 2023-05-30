@@ -10,7 +10,6 @@ import { FormatDateTime } from "../components/FormatDateTime";
 export const PageUnEvenement = () => {
     const [evenement, setEvenement] = useState(null);
     const [membresEquipeEvenement, setMembresEquipeEvenement] = useState([]);
-    const [presencesDesMembres, setPresencesDesMembres] = useState([]);
     const [isAttending, setIsAttending] = useState(false);
     const [utilisateur, setUtilisateur] = useState({});
 
@@ -78,7 +77,9 @@ export const PageUnEvenement = () => {
                 return res.json();
             }
         }).then((data) => {
+            console.log(data);
             setMembresEquipeEvenement(data);
+
         }).catch((error) => {
             console.log(error);
         });
@@ -135,34 +136,6 @@ export const PageUnEvenement = () => {
             console.error("There was a problem with the fetch operation:", error);
         });
     }
-
-    const fetchUserPresence = async (id, email) => {
-        const token = await getAccessTokenSilently();
-
-        const response = await fetch(`api/EvenementJoueurPresence/${id}?yourParam=${email}`, {
-            headers: { Accept: "application/json", Authorization: `Bearer ${token}` }
-        });
-
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        else {
-            return await response.json();
-        }
-    }
-
-    useEffect(() => {
-        if (membresEquipeEvenement !== null) {
-            Promise.all(membresEquipeEvenement.map((membre) =>
-                fetchUserPresence(id, membre.email)
-            )).then((presences) => {
-                setPresencesDesMembres(presences);
-            })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, [membresEquipeEvenement, id, isAttending]);
 
     useEffect(() => { loadEvenement() }, []);
     useEffect(() => { loadPresenceUser() }, []);
@@ -237,7 +210,7 @@ export const PageUnEvenement = () => {
                                         <td>{e.nom}</td>
                                         <td>{e.numTelephone}</td>
                                         <td>{e.email}</td>
-                                        <td>{presencesDesMembres[index] ? "Présent" : "Absent"}</td>
+                                        <td>{}</td>
                                     </tr>
                                 ))}
                             </tbody>
