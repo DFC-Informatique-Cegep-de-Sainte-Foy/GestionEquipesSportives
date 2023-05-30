@@ -43,7 +43,6 @@ export const PageAcceuilEntraineur = () => {
         })
             .then(res => res.json())
             .then((result) => {
-                console.log(result);
                 id = result.idUtilisateur;
                 setIdUtilisateur(result.idUtilisateur);
                 setUtilisateur(result);
@@ -101,7 +100,7 @@ export const PageAcceuilEntraineur = () => {
     function copierLeLien() {
         // il faudra changer ce lien pour publier vers Azur, car il est évident que l'adresse sera différente
         // https://gestionequipesportive.azurewebsites.net/api/AbonnerCalendrier/${idUtilisateur}
-        navigator.clipboard.writeText(`https://localhost:7225/api/AbonnerCalendrier/${idUtilisateur}`);
+        navigator.clipboard.writeText(`https://localhost:44474/api/AbonnerCalendrier/${idUtilisateur}`);
         setCheck(true);
         setSeconds(2);
     }
