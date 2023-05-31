@@ -99,7 +99,8 @@ export const PageAjouterEvenementsCoup = () => {
             array.Emplacement = donneesACorriger[i].Emplacement;
             let dateHeureDebut = donneesACorriger[i].DateDebut + 'T' + donneesACorriger[i].HeureDebut;
             array.DateDebut = dateHeureDebut;
-            array.DateFin = trouverDateFin(dateHeureDebut, donneesACorriger[i].Duree);
+            array.Duree = verifierDuree(donneesACorriger[i].Duree);
+            // array.DateFin = trouverDateFin(dateHeureDebut, donneesACorriger[i].Duree);
             array.TypeEvenement = trouverTypeEvenement(donneesACorriger[i].TypeEvenement);
             donneesCorrigeeASauvegarder.push(array);
         }
@@ -163,26 +164,17 @@ export const PageAjouterEvenementsCoup = () => {
         }
     }
 
-    function trouverDateFin(dateDebut, duree){
-        var dateDebutParsed = Date.parse(dateDebut);
-        var heureDuree = heuresParse(duree);
-        // je n'ai pas trouvé une solution pour afficher date de fin en heure locale, donc je soustrais juste 4 heures en millisecondes
-        var dateFinTrouvee = new Date(dateDebutParsed + heureDuree - 14400000).toISOString();
-        return dateFinTrouvee;
-    }
+    function verifierDuree(duree){
+        // console.log(duree);
+        let indexSymbol = duree.indexOf(':');
+        if(indexSymbol > 0){
+            let heuresParsed = duree.split(':')[0];
+            let minutesParsed = duree.split(':')[1];
+            const minutes = parseInt(heuresParsed * 60) + parseInt(minutesParsed);
 
-    function heuresParse(heures){
-        let indexSymbol = heures.indexOf(':');
-        if(indexSymbol > 0) {
-            var heuresparsed = heures.split(':')[0];
-            var minutesParsed = heures.split(':')[1];
-            var minutesMilliseconds = minutesParsed * 60 * 1000;
-            var heuresMilliseconds = heuresparsed * 60 * 60 * 1000;
-            
-            return minutesMilliseconds + heuresMilliseconds;
+            return minutes;
         } else {
-            var minutesEnMilliseconds = heures * 60 * 1000;
-            return minutesEnMilliseconds;
+            return duree;
         }
     }
 
