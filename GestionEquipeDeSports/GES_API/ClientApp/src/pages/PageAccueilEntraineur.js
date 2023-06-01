@@ -93,7 +93,7 @@ export const PageAcceuilEntraineur = () => {
         if (utilisateurEvenement.length !== 0) {
             // console.log('exporter longeur :');
             // console.log(utilisateurEvenement.length);
-            return <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" >Exporter vers ICal</Button>
+            return <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" title="Téléchrger le fichier CSV" >Exporter vers ICal</Button>
         }
     }
 
@@ -143,7 +143,7 @@ export const PageAcceuilEntraineur = () => {
                     <Col>
                         {exporterVersICal()}
                         <p>Pour vous abonner:
-                            <Button variant="info" onClick={() => { copierLeLien() }} title="AbonnerCalendrier/VotreId" >Copier le lien</Button>
+                            <Button variant="info" onClick={() => { copierLeLien() }} title="Copier le lien pour abonner au calendrier" >Copier le lien</Button>
                             {check && <FcApproval />}
                         </p>
                     </Col>
