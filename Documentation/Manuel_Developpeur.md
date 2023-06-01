@@ -69,7 +69,7 @@ Les credentials pour la connection à Auth0 sont :
 Pour effectuer cette tâche, nous avons utilisé le service EmailJS. Pour accéder à ce service, suivez ce lien: https://www.emailjs.com/
 
 Les credentials pour accéder au compte que nous avons crée dans ce service pour notre projet sont:
-- email: lucasscott494@yahoo.com
+- email: devinternationalinc@gmail.com
 - password: Azerty123
 
 	
