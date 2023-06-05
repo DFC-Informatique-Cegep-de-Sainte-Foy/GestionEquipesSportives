@@ -7,9 +7,9 @@ VALUES
 ('53f09484-f07b-4489-aac7-4b5428dc4283', 'Scott', 'Lucas', DATEADD(YEAR, -27, GETDATE()), 27,'lucasscott494@yahoo.com', '2539 Chemin Sainte-foy, G1V1F9, QC', '819-570-7356', GETDATE(), null, 1, 1, 0),
 
 -- ajout de trois entraineurs 
-('bc2362a8-cc57-4e37-b70a-abb1ab611717', 'Addionisio', 'Katheryn', DATEADD(YEAR, -35, GETDATE()), 35, 'kaddionisioe@reddit.com', 'PO Box 20597', '(845) 7898853', GETDATE(), null, 1, 1, 1),
-('6B29FC40-CA47-1067-B31D-00DD010662DA', 'Carufel', 'Kevin', DATEADD(YEAR, -47, GETDATE()), 34, 'kevin.carufel@hotmail.com', 'PO Box 36733', '(667) 6927777', GETDATE(), null, 1, 1, 1),
-('0434894c-51ac-4a0b-816b-0cd3da0d52eb', 'Duinbleton', 'Consuelo', DATEADD(YEAR, -47, GETDATE()), 26, 'cduinbletonb@surveymonkey.com', 'Room 1461', '(930) 1095089', GETDATE(), null, 1, 1, 1),
+('bc2362a8-cc57-4e37-b70a-abb1ab611717', 'Addionisio', 'Katheryn', DATEADD(YEAR, -35, GETDATE()), 35, 'kaddionisioe@reddit.com', 'PO Box 20597', '(845) 7898853', GETDATE(), null, 1, 1, 3),
+('6B29FC40-CA47-1067-B31D-00DD010662DA', 'Carufel', 'Kevin', DATEADD(YEAR, -47, GETDATE()), 34, 'kevin.carufel@hotmail.com', 'PO Box 36733', '(667) 6927777', GETDATE(), null, 1, 1, 3),
+('0434894c-51ac-4a0b-816b-0cd3da0d52eb', 'Duinbleton', 'Consuelo', DATEADD(YEAR, -47, GETDATE()), 26, 'cduinbletonb@surveymonkey.com', 'Room 1461', '(930) 1095089', GETDATE(), null, 1, 1, 3),
 
 -- ajout de joueurs
 ('9e06e23b-4215-4bda-bde0-4a860c7ea7f8', 'De''Vere - Hunt', 'Maureene', DATEADD(YEAR, -47, GETDATE()), 47, 'mdeverehunt0@latimes.com', 'PO Box 51373', '(629) 6086917', GETDATE(), null, 1, 1, 3),
