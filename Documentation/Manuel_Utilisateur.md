@@ -2,13 +2,14 @@
 Pour acceder à l'application, Ouvrir un navigateur et taper dans la barre de recherche l'addresse : https://localhost:44474/
 
 	#1.Si L'utilisateur a déjà un compte
-	cliquer sur Connexion puis entrer son email et mot de passe et cliquer sur  Continue
+	cliquer sur Connexion puis entrer son email et mot de passe et cliquer sur Continue
 	
 	#2.Si L'utilisateur n'a pas de compte
-	cliquer sur Inscription puis entrer un email et mot de passe et cliquer sur  Continue
+	cliquer sur Inscription puis entrer un email et mot de passe et cliquer sur Continue, ensuite vous allez être redirigé vers la page pour entrer les informations de cet utilisateur,
 	
-	#3.Lien de la vidéo décrivant cette procédure
 	
+	#3.Vidéo décrivant cette procédure
+	La vidéo se trouve dans le dossier VideosFonctionnementApplication du projet
 	
 
 # B- Procédure d'utilisation de la page d'accueil et vidéo
@@ -40,7 +41,8 @@ La page d'accueil est presque la même pour tous les utilisateurs, mais a des fo
 	Pour celà il suffit de cliquer sur le nom de l'équipe, ce qui redirige vers la page cette de équipe là puis sur cette page, cliquer sur le bouton Ajouter un événement.
 	Ce qui redirige vers le formulaire permettant se saisir les informations de l'événement qu'on veut ajouter.
 	
-	#3.Lien de la vidéo décrivant cette procédure
+	#3.Vidéo décrivant cette procédure
+	La vidéo se trouve dans le dossier VideosFonctionnementApplication du projet
 	 
 	 
 # C- Procédure pour rejoindre une équipe et vidéo
@@ -51,7 +53,8 @@ Pour rejoindre une équipe dans laquelle vous avez été invité, il suffit:
 - Ensuite vous connecter à votre compte et cliquer sur l'onglet Rejoindre une équipe (Qui se trouve sur la barre de navigation), 
 - Enfin Coller l'identifiant de l'équipe et cliquer sur le bouton Rejoindre.
 
-#Lien de la vidéo décrivant cette procédure
+#Vidéo décrivant cette procédure
+La vidéo se trouve dans le dossier VideosFonctionnementApplication du projet
 
 	
 
