@@ -1,5 +1,4 @@
-﻿using GES_DAL.DbContexts;
-using GES_Services.Entites;
+﻿using GES_Services.Entites;
 using GES_Services.Interfaces;
 using Entite = GES_Services.Entites;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GES_DAL.DbContexts;
 
 namespace GES_DAL.Depots
 {

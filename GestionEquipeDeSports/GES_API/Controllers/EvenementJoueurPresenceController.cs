@@ -46,7 +46,10 @@ namespace GES_API.Controllers
             }
 
             //trouver la ligne ou utilisateur.id et le parametre id sont les memes dans la table EvenementJoueur
-            EvenementJoueur? evenementJoueurDAL = this.m_context.EvenementJoueurs.Where(e => e.Fk_Id_Evenement == id && e.Fk_Id_Utilisateur == utilisateur.IdUtilisateur).FirstOrDefault();
+            EvenementJoueur? evenementJoueurDAL = this.m_context.EvenementJoueurs
+                                                      .Where(e => e.Fk_Id_Evenement == id 
+                                                               && e.Fk_Id_Utilisateur == utilisateur.IdUtilisateur)
+                                                      .FirstOrDefault();
 
             if(evenementJoueurDAL == null)
             {

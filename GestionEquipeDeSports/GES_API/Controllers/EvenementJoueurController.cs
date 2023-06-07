@@ -30,7 +30,9 @@ namespace GES_API.Controllers
             IEnumerable<EvenementJoueurModel> listeEvenementsPourJoueur;
             try
             {
-                listeEvenementsPourJoueur = this.m_manipulationDepotEvenementJoueur.ChercherEvenementParIdUtilisateur(id).Select(e => new EvenementJoueurModel(e));
+                listeEvenementsPourJoueur = this.m_manipulationDepotEvenementJoueur
+                                                .ChercherEvenementParIdUtilisateur(id)
+                                                .Select(e => new EvenementJoueurModel(e));
             }
             catch(Exception ex)
             {

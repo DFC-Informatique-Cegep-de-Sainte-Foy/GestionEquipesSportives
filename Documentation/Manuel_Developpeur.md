@@ -48,7 +48,7 @@ Dans cette phase les services utilisés sont sensiblement les mêmes que dans la
 Le tout hébergé via les services d’Azure et disponible via un DNS à déterminer avec le client.
 
 
-# A- Normes de travail utilisées
+# B- Normes de travail utilisées
 
 Dans le projet React(Frontend), nous avons:
 - Le dossier components: qui contient toutes les composantes communes et réutilisables partout
@@ -57,7 +57,26 @@ Dans le projet React(Frontend), nous avons:
 - Le dossier styles: qui contient le fichier du CSS
 
  
- 
+# C- Autres éléments utilisés dans le projet
+* Authentification
+Pour l'authentification, nous avons utilisé Auth0.
+
+Les credentials pour la connection à Auth0 sont :
+- email: ndiamounh@gmail.com
+- password: Authentification0
+	
+*Génerer le courriel pour inviter un joueur à rejoindre une équipe
+Pour effectuer cette tâche, nous avons utilisé le service EmailJS. Pour accéder à ce service, suivez ce lien: https://www.emailjs.com/
+
+Les credentials pour accéder au compte que nous avons crée dans ce service pour notre projet sont:
+- email: devinternationalinc@gmail.com
+- password: Azerty123
+
+	
+	
+	
+	
+
  
  
  

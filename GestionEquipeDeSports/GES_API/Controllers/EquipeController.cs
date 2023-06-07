@@ -72,31 +72,38 @@ namespace GES_API.Controllers
                 return BadRequest();
             }
 
+            if(p_equipeModel is null)
+            {
+                return BadRequest();
+            }
+
             try
             {
-
                 p_equipeModel.IdEquipe = Guid.NewGuid();
-                Guid guid = p_equipeModel.IdEquipe;
+                //Guid guidEquipe = p_equipeModel.IdEquipe;
 
-                //ajout de lequipe dans la table equipe
+                //Ajout de lequipe dans la table equipe
                 this.m_manipulationDepotEquipe.AjouterEquipe(p_equipeModel.DeModelVersEntite());
 
-                UtilisateurEquipeRoleModel utilisateurEquipeRoleModel = new UtilisateurEquipeRoleModel()
+                //Ajout de lutilisateur dans la table utilisateurEquipeRole en tant qu'entraineur               
+                UtilisateurEquipeRoleModel utilisateurEquipeRoleModelEnt = new UtilisateurEquipeRoleModel()
                 {
                     IdUtilisateurEquipeRole = Guid.NewGuid(),
                     FkIdUtilisateur = idUser,
                     FkIdEquipe = p_equipeModel.IdEquipe,
                     FkIdRole = 1
                 };
-
-                //ajout de lutilisateur dans la table utilisateurEquipeRole en tant qu'entraineur               
-                this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModel.DeModelVersEntite());
+                this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModelEnt.DeModelVersEntite());
 
                 //ajout de lutilisateur dans la table utilisateurEquipeRole en tant qu'athlete
-                utilisateurEquipeRoleModel.IdUtilisateurEquipeRole = Guid.NewGuid();
-                utilisateurEquipeRoleModel.FkIdRole = 3;
-
-                this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModel.DeModelVersEntite());
+                //UtilisateurEquipeRoleModel utilisateurEquipeRoleModelAth = new UtilisateurEquipeRoleModel()
+                //{
+                //    IdUtilisateurEquipeRole = Guid.NewGuid(),
+                //    FkIdUtilisateur = idUser,
+                //    FkIdEquipe = p_equipeModel.IdEquipe,
+                //    FkIdRole = 3
+                //}; 
+                //this.m_manipulationUtilisateurEquipeRole.AjouterUtilisateurEquipeRole(utilisateurEquipeRoleModelAth.DeModelVersEntite());
 
                 //ajout de lutilisateur dans la table equipeJoueur
                 EquipeJoueurModel equipeJoueurModel = new EquipeJoueurModel()
@@ -105,7 +112,6 @@ namespace GES_API.Controllers
                     Fk_Id_Equipe = p_equipeModel.IdEquipe,
                     Fk_Id_Utilisateur = idUser
                 };
-
                 this.m_manipulationDepotEquipeJoueur.AjouterEquipeJoueur(equipeJoueurModel.DeModelVersEntite());
             }
             catch (Exception ex)

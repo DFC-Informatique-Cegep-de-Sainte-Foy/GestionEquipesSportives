@@ -3,56 +3,41 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { NavItem, NavLink, Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function AfficherPageEnFonctionDuRole(){
-    const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState([]);
-    const { loginWithRedirect, logout,user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+function AfficherPageEnFonctionDuRole({ estDansLaBD }) {
+    const [roleDeLUtilisateur, setRoleDeLUtilisateur] = useState(-1);
+    const { loginWithRedirect, logout, user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-    async function getRoleVenantDuBackend(email) {
+    async function fetchUtilisateur() {
+
         const token = await getAccessTokenSilently();
 
-        const resultat = await fetch(`api/utilisateur/${email}`, {
-            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-        });
-
-        const body = await resultat.json();
-        //console.log(body);
-
-        const roleDeLUtilisateur = await body.roles;
-        //console.log(roleDeLUtilisateur);
-
-        return roleDeLUtilisateur;
+        await fetch(`api/utilisateur/${user.email}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    setRoleDeLUtilisateur(data.fkIdRoles);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
     }
 
     useEffect(() => {
-        async function getLeRoleDeLUtilisateurConnecte() {
-            try {
-                //console.log(user);
-
-                const role = await getRoleVenantDuBackend(user.email);
-                //console.log(role);
-                setRoleDeLUtilisateur(role);
-            }
-            catch (err) {
-                console.log(err);
-            }
+        if (isAuthenticated && estDansLaBD) {
+            fetchUtilisateur();
         }
-        getLeRoleDeLUtilisateurConnecte();
-    }, []);
+    }, [isAuthenticated, estDansLaBD]);
 
 
-        
-    function MenuAAfficher()
-    {
-        if (isAuthenticated === true)
-        {
-            //console.log(roleDeLUtilisateur);
-            
-            if(roleDeLUtilisateur === 0)
-            {
-                return(
+    function MenuAAfficher() {
+        if (isAuthenticated === true && estDansLaBD === true) {
+            if (roleDeLUtilisateur === 0) {
+                return (
                     <Nav>
                         <NavItem>
-                            <NavLink tag={Link} className="text-white" to="/accueil">Accueil</NavLink>
+                            <NavLink tag={Link} className="text-white" to="/pageAccueil">Accueil</NavLink>
                         </NavItem>
 
                         <NavItem>
@@ -68,17 +53,24 @@ function AfficherPageEnFonctionDuRole(){
                         </NavItem>
 
                         <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/rejoindreUneEquipe">Rejoindre une équipe</NavLink>
+                        </NavItem>
+
+                        <NavItem>
                             <NavLink tag={Link} className="text-white" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Déconnexion</NavLink>
                         </NavItem>
                     </Nav>
                 );
             }
-            else 
-            {
-                return(
+            else {
+                return (
                     <Nav>
                         <NavItem>
-                            <NavLink tag={Link} className="text-white" to="/accueil">Page d'accueil</NavLink>
+                            <NavLink tag={Link} className="text-white" to="/pageAccueil">Ma page d'accueil</NavLink>
+                        </NavItem>
+
+                        <NavItem>
+                            <NavLink tag={Link} className="text-white" to="/rejoindreUneEquipe">Rejoindre une équipe</NavLink>
                         </NavItem>
 
                         <NavItem>
@@ -88,23 +80,22 @@ function AfficherPageEnFonctionDuRole(){
                 );
             }
         }
-        else
-        {
+        else {
             return (
                 <Nav>
-                  <NavItem>
-                    <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
-                  </NavItem>
-      
-                  <NavItem className="border border-success rounded">
-                    <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
-                      authorizationParams: {
-                        screen_hint: "signup",
-                      },
-                    })}>
-                      <span className='text-success'>Inscription</span>
-                    </NavLink>
-                  </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect()}>Connexion</NavLink>
+                    </NavItem>
+
+                    <NavItem className="border border-success rounded">
+                        <NavLink tag={Link} className="text-white" onClick={() => loginWithRedirect({
+                            authorizationParams: {
+                                screen_hint: "signup",
+                            },
+                        })}>
+                            <span className='text-success'>Inscription</span>
+                        </NavLink>
+                    </NavItem>
                 </Nav>
             );
         }

@@ -24,12 +24,12 @@ namespace GES_DAL.Depots
                 throw new ArgumentNullException($"le parametre {p_utilisateurEquipeRole} ne peut pas etre null", nameof(p_utilisateurEquipeRole));
             }
 
-            if (m_context.UtilisateurEquipeRole.Any(e => e.IdUtilisateurEquipeRole == p_utilisateurEquipeRole.IdUtilisateurEquipeRole))
+            if (m_context.UtilisateurEquipeRoles.Any(e => e.IdUtilisateurEquipeRole == p_utilisateurEquipeRole.IdUtilisateurEquipeRole))
             {
                 throw new InvalidOperationException($"l'evenement avec le id {p_utilisateurEquipeRole.IdUtilisateurEquipeRole} existe déjà");
             }
 
-            this.m_context.UtilisateurEquipeRole.Add(new BackendProject.UtilisateurEquipeRole(p_utilisateurEquipeRole));
+            this.m_context.UtilisateurEquipeRoles.Add(new BackendProject.UtilisateurEquipeRole(p_utilisateurEquipeRole));
 
             this.m_context.SaveChanges();
         }
@@ -54,7 +54,7 @@ namespace GES_DAL.Depots
                 throw new ArgumentNullException($"le parametre {p_id} ne peut pas etre null", nameof(p_id));
             }
 
-            List<UtilisateurEquipeRole> listeUER = m_context.UtilisateurEquipeRole.Where(user => user.FkIdUtilisateur == p_id).Select(u => u.DeDTOVersEntite()).ToList();
+            List<UtilisateurEquipeRole> listeUER = m_context.UtilisateurEquipeRoles.Where(user => user.FkIdUtilisateur == p_id).Select(u => u.DeDTOVersEntite()).ToList();
 
             return listeUER;
 

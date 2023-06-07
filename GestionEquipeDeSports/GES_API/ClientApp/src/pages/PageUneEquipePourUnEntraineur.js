@@ -60,7 +60,8 @@ function PageUneEquipePourUnEntraineur() {
             })
             .catch((error) => {
                 console.error('Error:', error);
-            });
+            }
+        );
     }
 
     async function supprimerJoueurDeLEquipe(idJoueurDansListe) {
@@ -98,30 +99,8 @@ function PageUneEquipePourUnEntraineur() {
 
             await fetch(`/api/equipeEvenement`, requestOptions);
             getEvenements(id);
-
-            //supprimer de table joueurEvenement
-            // equipeJoueurs.forEach(element => {
-            //     supprimerDeTableEvenementJoueur(element.idUtilisateur, idEvenementDansList);
-            // });
         }
     }
-
-    // async function supprimerDeTableEvenementJoueur(idJoueur, idEvenementList){
-    //     const token = await getAccessTokenSilently();
-    //     let requestOptionsEvenementJoueur = {
-    //         method: 'DELETE',
-    //         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    //         body: JSON.stringify({
-    //             FK_Id_Utilisateur: idJoueur,
-    //             FK_Id_Evenement: idEvenementList
-    //         })
-    //     };
-
-    //     await fetch(`/api/evenementJoueur`, requestOptionsEvenementJoueur)
-    //     .catch(function (error) {
-    //          console.log(error);
-    //      });
-    // }
 
     async function getRoleVenantDuBackend(email) {
         const token = await getAccessTokenSilently();
@@ -151,7 +130,7 @@ function PageUneEquipePourUnEntraineur() {
         if (isAuthenticated === true) {
             if (estEntraineur) {
                 return (
-                    <Button variant="success" onClick={() => navigate(`/formulaireUtilisateur/${id}`)} className="btn btn-success float-end" >Ajouter un joueur</Button>
+                    <Button variant="success" onClick={() => navigate(`/inviterOuAjouterJoueur/${id}`)} className="btn btn-success float-end" >Ajouter un joueur</Button>
                 );
             }
         }
@@ -161,7 +140,10 @@ function PageUneEquipePourUnEntraineur() {
         if (isAuthenticated === true) {
             if (estEntraineur) {
                 return (
-                    <Button variant="success" onClick={() => navigate(`/formulaireEvenement/${id}`)} className="btn btn-success float-end">Ajouter un événement</Button>
+                    <>
+                        <Button variant="info" onClick={() => navigate(`/ajouterEvenementsCoup/${id}`)}>Ajouter via un fichier CSV</Button>
+                        <Button variant="success" onClick={() => navigate(`/formulaireEvenement/${id}`)} className="btn btn-success float-end">Ajouter un événement</Button>
+                    </>
                 );
             }
         }
@@ -188,9 +170,9 @@ function PageUneEquipePourUnEntraineur() {
             <Container>
                 <Row>
                     <h2>Nom de l'équipe: {nomEquipe}</h2>
-                    <Link to={'/accueil'}>
-                        <Button variant='success' className="mb-3">Retour à la page d'accueil</Button>
-                    </Link>
+                    <div>
+                        <Button variant='success' onClick={() => navigate(-1)} className="mb-3">Retour à la page d'accueil</Button>
+                    </div>
                 </Row>
                 <p></p>
                 <p></p>

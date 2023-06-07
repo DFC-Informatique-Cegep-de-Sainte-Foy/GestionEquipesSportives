@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
@@ -8,136 +8,137 @@ import { useAuth0 } from '@auth0/auth0-react';
 const DisplayingErrorMessagesSchema = Yup.object().shape({
     nomUtilisateur: Yup.string()
         .min(2, 'Trop court!')
-        .max(30, 'Trop long!')
+        .max(50, 'Trop long!')
         .required('Ce champ est obligatoire!'),
     prenomUtilisateur: Yup.string()
         .min(2, 'Trop court!')
-        .max(30, 'Trop long!')
+        .max(50, 'Trop long!')
         .required('Ce champ est obligatoire!'),
     courriel: Yup.string()
         .min(3, 'Trop court!')
-        .max(30, 'Trop long!')
+        .max(50, 'Trop long!')
         .required('Ce champ est obligatoire!'),
-    ageUtilisateur: Yup.string()
-        .min(0, 'Trop court!')
-        .max(2, 'Trop long!')
+    dateNaissance: Yup.string()
         .required('Ce champ est obligatoire!'),
 });
 
 export const FormUtilisateur = () => {
-    const [reponse, setReponse] = useState('');
-    const { getAccessTokenSilently } = useAuth0();
+    const today = new Date().toISOString().split('T')[0];
+    // const [reponse, setReponse] = useState(null);
+    const { getAccessTokenSilently, user } = useAuth0();
     const navigate = useNavigate();
+    // const [idUtilisateur, setIdUtilisateur] = useState('');
+    const [userEstDansLaBD, setUserEstDansLaBD] = useState(false);
 
-    const {id} = useParams();
-    console.log(id);
+    const { id } = useParams();
 
     async function soumettreFormulaire(values) {
+        console.log(values);
+
         const token = await getAccessTokenSilently();
 
-        let requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                Nom: values.nomUtilisateur,
-                Prenom: values.prenomUtilisateur,
-                Email: values.courriel,
-                Age: values.ageUtilisateur
-            })
-        };
-
-        const reponse = await fetch('api/utilisateur', requestOptions);
-        console.log(reponse);
-        const data = await reponse.json();
-        console.log(data);
-            // .then((result) => {
-            //     console.log(result);
-            //     if (result.ok) {
-            //         setReponse('Vous avez ajouté un utilisateur!');
-            //     }
-            // })
-            // .catch( function (error) {
-            //     console.log(error);
-            // });
-
-        const optionsRequeteEquipeJoueur = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
+        try {
+            const response = await fetch('api/utilisateur', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify({
-                    Fk_Id_Utilisateur: data,
-                    FK_Id_Equipe: id
+                    DateNaissance: values.dateNaissance,
+                    Nom: values.nomUtilisateur,
+                    Prenom: values.prenomUtilisateur,
+                    NumTelephone: values.numeroTelephone,
+                    Email: values.courriel
                 })
-        };
-        await fetch('api/equipeJoueur', optionsRequeteEquipeJoueur)
-        .then(function (reponse) {
-            console.log(reponse);
-            if(reponse.ok){
-                setReponse('Le joueur a été ajouté avec succès!');
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("data de lajout du jouer dans la bd", data);
+
+                if (data) {
+                    console.log("data", data.idUtilisateur);  
+                    console.log("id", id);
+                    // Second API call
+                    const response2 = await fetch('api/equipeJoueur', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                        body: JSON.stringify({
+                            Fk_Id_Equipe: id,
+                            Fk_Id_Utilisateur: data.idUtilisateur // I suppose you want to use the new user's Id here
+                        })
+                    });
+
+                    if (response2.ok) {
+                        const data2 = await response2.json();
+                        if (data2) {
+                            console.log("data2", data2);
+                            alert("Le joueur a été ajouté avec succès!");
+                            navigate(-1);
+                        }
+                    }
+                }
             }
-        }).catch(function (error) {
-            console.log(error)
-        })
+        } catch (err) {
+            console.error(err);
+        }
     }
+
 
     return (
         <Container>
             <Row className="justify-content-md-center">
-                <Col sm={8}>
+                <Col sm={6}>
                     <Formik
                         initialValues={{
                             nomUtilisateur: '',
                             prenomUtilisateur: '',
-                            courriel: '',
-                            ageUtilisateur: '',
+                            dateNaissance: '',
+                            numeroTelephone: '',
+                            courriel: ''
                         }}
                         validationSchema={DisplayingErrorMessagesSchema}
-                            onSubmit={values => {
+                        onSubmit={values => {
                             soumettreFormulaire(values);
                         }}
                     >
                         {({ errors, touched }) => (
                             <Form className="p-4 p-md-5 border rounded-3 bg-light">
                                 <Row className="justify-content-md-center">
-                                    <Col sm={8}>
-                                        <h2>Ajouter un joueur</h2>
-                                    </Col>
+                                    <h2>Ajouter un nouveau joueur</h2>
                                 </Row>
+                                <p></p>
                                 <label>Nom*</label>
                                 <div className="form-group">
                                     <Field name="nomUtilisateur" type="text" className="form-control" />
                                     {touched.nomUtilisateur && errors.nomUtilisateur && <div style={{ color: "red" }}>{errors.nomUtilisateur}</div>}
                                 </div>
-
+                                <br></br>
                                 <label>Prénom*</label>
                                 <div className="form-group">
                                     <Field name="prenomUtilisateur" type="text" className="form-control" />
                                     {touched.prenomUtilisateur && errors.prenomUtilisateur && <div style={{ color: "red" }}>{errors.prenomUtilisateur}</div>}
                                 </div>
-
-                                <label>Age*</label>
-                                <div className="form-group">
-                                    <Field name="ageUtilisateur" type="text" className="form-control" />
-                                    {touched.ageUtilisateur && errors.ageUtilisateur && <div style={{ color: "red" }}>{errors.ageUtilisateur}</div>}
-                                </div>
-
+                                <br></br>
                                 <label>Courriel*</label>
                                 <div className="form-group">
                                     <Field name="courriel" type="text" className="form-control" />
                                     {touched.courriel && errors.courriel && <div style={{ color: "red" }}>{errors.courriel}</div>}
                                 </div>
-                                {reponse && <p style={{ color: "green", fontWeight: "bold", marginTop: "1.0em" }}>{reponse}</p>}
-
+                                <br></br>
+                                <label>Date naissance*</label>
+                                <div className="form-group">
+                                    <Field name="dateNaissance" type="Date" max={today} className="form-control" />
+                                    {touched.dateNaissance && errors.dateNaissance && <div style={{ color: "red" }}>{errors.dateNaissance}</div>}
+                                </div>
+                                <br></br>
+                                <label>Numéro de téléphone*</label>
+                                <div className="form-group">
+                                    <Field name="numeroTelephone" type="tel" className="form-control" />
+                                    {touched.numeroTelephone && errors.numeroTelephone && <div style={{ color: "red" }}>{errors.numeroTelephone}</div>}
+                                </div>
+                                <br></br>
                                 <div className="row">
                                     <div className="col-6 p-3">
-                                        <Button variant='primary' type="submit" >Ajouter</Button>
+                                        <Button variant='primary' type="submit">Ajouter</Button>
                                     </div>
                                     <div className="col-6 p-3">
                                         <Button variant="secondary" onClick={() => navigate(-1)} className="float-end">Retour</Button>
@@ -148,6 +149,6 @@ export const FormUtilisateur = () => {
                     </Formik>
                 </Col>
             </Row>
-        </Container>            
+        </Container>
     );
 }

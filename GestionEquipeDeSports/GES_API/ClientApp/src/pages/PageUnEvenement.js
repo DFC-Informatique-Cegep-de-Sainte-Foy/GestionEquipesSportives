@@ -9,19 +9,13 @@ import { FormatDateTime } from "../components/FormatDateTime";
 
 export const PageUnEvenement = () => {
     const [evenement, setEvenement] = useState(null);
-
     const [membresEquipeEvenement, setMembresEquipeEvenement] = useState([]);
-
     const [isAttending, setIsAttending] = useState(false);
     const [utilisateur, setUtilisateur] = useState({});
 
-    const { getAccessTokenSilently } = useAuth0();
+    const { getAccessTokenSilently, user } = useAuth0();
     const navigate = useNavigate();
-
-    const [loading, setLoading] = useState(true);
-
     const { id } = useParams();
-    const { user } = useAuth0();
 
     const loadUtilisateur = async () => {
         const token = await getAccessTokenSilently();
@@ -70,11 +64,6 @@ export const PageUnEvenement = () => {
         });
     }
 
-    const loadRole = async () => {
-        const token = await getAccessTokenSilently();
-
-    }
-
     const loadMembresEquipeEvenement = async () => {
         const token = await getAccessTokenSilently();
 
@@ -88,9 +77,10 @@ export const PageUnEvenement = () => {
                 return res.json();
             }
         }).then((data) => {
+            console.log(data);
             setMembresEquipeEvenement(data);
+
         }).catch((error) => {
-            console.log("erreur :");
             console.log(error);
         });
     }
@@ -147,18 +137,16 @@ export const PageUnEvenement = () => {
         });
     }
 
-    const loadPresencesDesMemebres = async () => {
-        const token = await getAccessTokenSilently();
-    }
-
     useEffect(() => { loadEvenement() }, []);
     useEffect(() => { loadPresenceUser() }, []);
     useEffect(() => { loadUtilisateur() }, []);
+
     useEffect(() => {
-        if (utilisateur.idUtilisateur !== undefined) {
+        if (evenement !== null) {
             loadMembresEquipeEvenement();
         }
     }, [utilisateur]);
+
 
     if (evenement === null) {
         return <div>Chargement...</div>;
@@ -222,7 +210,7 @@ export const PageUnEvenement = () => {
                                         <td>{e.nom}</td>
                                         <td>{e.numTelephone}</td>
                                         <td>{e.email}</td>
-                                        <td>{e.estPresentAEvenement === true ? "Présent" : "Absent"}</td>
+                                        <td>{}</td>
                                     </tr>
                                 ))}
                             </tbody>

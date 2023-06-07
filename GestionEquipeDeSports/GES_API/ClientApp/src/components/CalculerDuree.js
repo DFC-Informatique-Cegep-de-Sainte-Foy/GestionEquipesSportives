@@ -6,9 +6,8 @@ export const CalculerDuree = (props) => {
     var dateDebutParsed = Date.parse(dateDebut);
     var dateFinParsed = Date.parse(dateFin);
     var result = (dateFinParsed - dateDebutParsed) / 60000;
-    if (result > 60) {
-        var dureeH = result / 60;
-        dureeH = dureeH.toFixed();
+    if (result > 59) {
+        var dureeH = Math.floor(result / 60);
         var dureeM = result % 60;
         return (
             <>

@@ -114,7 +114,7 @@ namespace GES_DAL.Depots
                                 Evenement evenement = new Evenement(
                                             valeursColonne[0],
                                             dateDebut,
-                                            dateFin,
+                                            55,
                                             valeursColonne[5],
                                             valeursColonne[6]
                                     );

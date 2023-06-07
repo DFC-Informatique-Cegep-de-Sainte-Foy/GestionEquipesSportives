@@ -33,17 +33,17 @@ namespace GES_API.Models
             this.DateCreation = p_evenement.DateCreation;
             this.DateModification = p_evenement.DateModification;
             this.TypeEvenement = p_evenement.TypeEvenement.IdTypeEvenement;
+            this.Duree = p_evenement.Duree;
         }
 
         public Evenement DeModelVersEntite()
         {
-
             return new Evenement(
                     this.Id,
                     this.Description,
                     this.Emplacement,
                     this.DateDebut,
-                    this.DateFin,
+                    this.Duree,
                     this.TypeEvenement
                 );
         }

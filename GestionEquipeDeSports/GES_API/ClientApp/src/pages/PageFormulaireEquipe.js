@@ -73,6 +73,7 @@ export const PageFormEquipe = () => {
             console.log(result);
             if(result.ok){
                 setReponse('Vous avez ajouté une équipe!');
+                alert('Vous avez ajouté une équipe!');
             }
         }).catch(function (error) {
             console.log(error);

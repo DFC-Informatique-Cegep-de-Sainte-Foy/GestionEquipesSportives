@@ -18,8 +18,9 @@ namespace GES_Services.Entites
             ;
         }
 
-        public UtilisateurEquipeRole( Guid p_fkIdUtilisateur, Guid p_fkIdEquipe, int p_fkIdRole)
+        public UtilisateurEquipeRole(Guid p_idUtilisateurEquipeRole, Guid p_fkIdUtilisateur, Guid p_fkIdEquipe, int p_fkIdRole)
         {
+            this.IdUtilisateurEquipeRole = p_idUtilisateurEquipeRole;
             this.FkIdUtilisateur = p_fkIdUtilisateur;
             this.FkIdEquipe = p_fkIdEquipe;
             this.FkIdRole = p_fkIdRole;

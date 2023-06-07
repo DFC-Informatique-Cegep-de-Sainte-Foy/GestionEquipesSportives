@@ -23,7 +23,7 @@ namespace GES_API.Models
 
         public UtilisateurEquipeRole DeModelVersEntite()
         {
-            return new UtilisateurEquipeRole(this.FkIdUtilisateur, this.FkIdEquipe, this.FkIdRole);
+            return new UtilisateurEquipeRole( this.IdUtilisateurEquipeRole, this.FkIdUtilisateur, this.FkIdEquipe, this.FkIdRole);
         }
     }
 }

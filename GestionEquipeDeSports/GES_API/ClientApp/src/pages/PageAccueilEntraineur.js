@@ -7,6 +7,7 @@ import { TableEquipesUtilisateur } from "../components/TableEquipesUtilisateur";
 import { IdUtilisateurContext } from "../components/Context";
 import { SauvegarderICal } from "../components/SauvegarderICal";
 import UtilisateurConnecteHeader from "../components/UtilisateurConnecteHeader";
+import { FcApproval } from "react-icons/fc";
 
 export const PageAcceuilEntraineur = () => {
     const [utilisateur, setUtilisateur] = useState({});
@@ -15,6 +16,8 @@ export const PageAcceuilEntraineur = () => {
     const [equipes, setEquipes] = useState([]);
     const [evenements, setEvenements] = useState([]);
     const [utilisateurEvenement, setUtilisateurEvenement] = useState([]);
+    const [check, setCheck] = useState(false);
+    const [seconds, setSeconds] = useState(0);
     const { getAccessTokenSilently } = useAuth0();
     const navigate = useNavigate();
     const { user } = useAuth0();
@@ -24,7 +27,7 @@ export const PageAcceuilEntraineur = () => {
     }, []);
 
     useEffect(() => {
-        async function trouverEvenementsPourUtilisateur(){
+        async function trouverEvenementsPourUtilisateur() {
             evenements.map((ev) => obtenirEvenementAPartirSonId(ev.fk_Id_Evenement));
         }
         trouverEvenementsPourUtilisateur()
@@ -32,26 +35,25 @@ export const PageAcceuilEntraineur = () => {
     }, [evenements]);
 
     //trouver utilisateur dans BD par son email
-    async function getUtilisateur(email){
+    async function getUtilisateur(email) {
         var id;
         const token = await getAccessTokenSilently();
         await fetch(`api/utilisateur/${email}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
         })
-        .then(res => res.json())
-        .then((result) => {
-            console.log(result);
-            id = result.idUtilisateur;
-            setIdUtilisateur(result.idUtilisateur);
-            setUtilisateur(result);
-            // setRoleUtilisateur(result.roles);            
-        }).catch(function (error) {
-            console.log(error);
-        });
+            .then(res => res.json())
+            .then((result) => {
+                id = result.idUtilisateur;
+                setIdUtilisateur(result.idUtilisateur);
+                setUtilisateur(result);
+                // setRoleUtilisateur(result.roles);            
+            }).catch(function (error) {
+                console.log(error);
+            });
 
         await fetch(`api/UtilisateurEquipe/${id}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-          })
+        })
             .then(res => res.json())
             .then((result) => {
                 setEquipes(result);
@@ -60,17 +62,17 @@ export const PageAcceuilEntraineur = () => {
             });
 
         await fetch(`api/evenementJoueur/${id}`, {
-                headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-              })
-                .then(res => res.json())
-                .then((result) => {
-                    setEvenements(result);
-                }).catch(function (error) {
-                    console.log(error);
-                });
+            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
+        })
+            .then(res => res.json())
+            .then((result) => {
+                setEvenements(result);
+            }).catch(function (error) {
+                console.log(error);
+            });
     }
 
-    async function obtenirEvenementAPartirSonId(idEvenement){
+    async function obtenirEvenementAPartirSonId(idEvenement) {
         let arrayEvenements = [];
         arrayEvenements = utilisateurEvenement;
         const token = await getAccessTokenSilently();
@@ -82,53 +84,76 @@ export const PageAcceuilEntraineur = () => {
                 // console.log(result); 
                 arrayEvenements.push(result);
                 setUtilisateurEvenement([...arrayEvenements]);
-        }).catch(function (error) {
-            console.log(error);
-        });
+            }).catch(function (error) {
+                console.log(error);
+            });
     }
 
-    function exporterVersICal(){
-        if(utilisateurEvenement.length !== 0){
+    function exporterVersICal() {
+        if (utilisateurEvenement.length !== 0) {
             // console.log('exporter longeur :');
             // console.log(utilisateurEvenement.length);
-            return <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" >Exporter vers ICal</Button>
+            return <Button variant="info" onClick={() => SauvegarderICal(utilisateurEvenement)} className="float-end" title="Téléchrger le fichier CSV" >Exporter vers ICal</Button>
         }
     }
 
+    function copierLeLien() {
+        // il faudra changer ce lien pour publier vers Azur, car il est évident que l'adresse sera différente
+        // https://gestionequipesportive.azurewebsites.net/api/AbonnerCalendrier/${idUtilisateur}
+        navigator.clipboard.writeText(`https://localhost:44474/api/AbonnerCalendrier/${idUtilisateur}`);
+        setCheck(true);
+        setSeconds(2);
+    }
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (seconds > 0) {
+                setSeconds(seconds - 1);
+            } else {
+                setCheck(false);
+            }
+        }, 1000)
+        return () => clearInterval(timer)
+    }, [seconds]);
+
     return (
         <>
-        <Container>
-            <Row>
-                <UtilisateurConnecteHeader />
-                <Col style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>Bienvenue dans votre compte !</Col>
-            </Row>
-            <p></p>
-            <Row>
-                <Col>
-                    <h5>Liste de vos équipes</h5>
-                </Col>
-                <Col>
-                    <Button variant="success" className="float-end" onClick={() => navigate("/formulaireEquipe")}>Créer une équipe</Button>
-                </Col>
-            </Row>
-            <p></p>
-            <Row style={{maxHeight: "200px", overflow: "auto"}}>
-                <TableEquipesUtilisateur eq={equipes} />
-            </Row>
-            <Row style={{marginTop: "1.0em"}}>
-                <Col>
-                    <h5>Vos événements à venir</h5>
-                </Col>
-                <Col>
-                    {exporterVersICal()}
-                </Col>
-            </Row>
-            <Row style={{marginTop: "1.0em"}}>
-                <IdUtilisateurContext.Provider value={idUtilisateur} >
-                    <TableEvenementsUtilisateur ev={utilisateurEvenement} />
-                </IdUtilisateurContext.Provider>                
-            </Row>
-        </Container>
+            <Container>
+                <Row>
+                    <UtilisateurConnecteHeader />
+                    <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>Bienvenue dans votre compte !</Col>
+                </Row>
+                <p></p>
+                <Row>
+                    <Col>
+                        <h5>Liste de vos équipes</h5>
+                    </Col>
+                    <Col>
+                        <Button variant="success" className="float-end" onClick={() => navigate("/formulaireEquipe")}>Créer une équipe</Button>
+                    </Col>
+                </Row>
+                <p></p>
+                <Row style={{ maxHeight: "200px", overflow: "auto" }}>
+                    <TableEquipesUtilisateur eq={equipes} />
+                </Row>
+                <Row style={{ marginTop: "1.0em" }}>
+                    <Col>
+                        <h5>Vos événements à venir</h5>
+                    </Col>
+                    <Col>
+                        {exporterVersICal()}
+                        <p>Pour vous abonner:
+                            <Button variant="info" onClick={() => { copierLeLien() }} title="Copier le lien pour abonner au calendrier" >Copier le lien</Button>
+                            {check && <FcApproval />}
+                        </p>
+                    </Col>
+                </Row>
+                <Row style={{ marginTop: "1.0em" }}>
+                    <IdUtilisateurContext.Provider value={idUtilisateur} >
+                        <TableEvenementsUtilisateur ev={utilisateurEvenement} />
+                    </IdUtilisateurContext.Provider>
+                </Row>
+            </Container>
         </>
     )
 }

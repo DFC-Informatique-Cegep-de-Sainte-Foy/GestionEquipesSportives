@@ -9,7 +9,6 @@ import { PageModifieUnEvenement } from "./pages/PageModifieUnEvenement";
 import { PageSupprimerEvenement } from "./pages/PageSupprimerEvenement";
 import { PageUneEquipePourLAdmin } from "./pages/PageUneEquipePourLAdmin";
 import { PageSupprimerEquipe } from "./pages/PageSupprimerEquipe";
-import {  PageDesEvenementsEtEquipesDUnAthlete } from "./pages/PageDesEvenementsEtEquipesDUnAthlete";
 import { PageAcceuilEntraineur } from "./pages/PageAccueilEntraineur";
 import Erreur404 from "./components/Erreur404";
 import PageRejoindreUneEquipe from "./pages/PageRejoindreUneEquipe";
@@ -18,11 +17,27 @@ import { Connexion } from "./components/Connexion";
 import { AuthenticationGuard } from "./components/AuthenticationGuard";
 import PageUneEquipePourUnEntraineur from "./pages/PageUneEquipePourUnEntraineur";
 import { PageFormEquipe } from "./pages/PageFormulaireEquipe";
+import PageInviterOuAjouterJoueur from "./pages/PageInviterOuAjouterJoueur";
+import PagePourSaisirLeCourrielDInvitation from "./pages/PagePourSaisirLeCourrielDInvitation";
+import PageInscription from "./pages/PageInscription";
+import { PageAjouterEvenementsCoup } from "./pages/PageAjouterEvenementsCoup";
 
 const AppRoutes = [
   {
     index: true,
     element: <Accueil />
+  },
+  {
+    path: '/connexion',
+    element: <Connexion />
+  },
+  {
+    path: '/inscription',
+    element: <PageInscription />
+  },
+  {
+    path: '/pageAccueil',
+    element: <AuthenticationGuard component={PageAcceuilEntraineur} />
   },
   {
     path: '/equipes',
@@ -31,6 +46,10 @@ const AppRoutes = [
   {
     path: '/evenements',
     element: <AuthenticationGuard component={Evenements} />
+  },
+  {
+    path: '/formulaireEvenement',
+    element: <AuthenticationGuard component={FormEvenement} />
   },
   {
     path: '/formulaireEvenement/:id',
@@ -47,10 +66,6 @@ const AppRoutes = [
   {
     path: '/formulaireUtilisateur/:id',
     element: <AuthenticationGuard component={FormUtilisateur} />
-  },
-  {
-    path: '/connexion',
-    element: <Connexion />
   },
   {
     path: '/unEvenement/:id',
@@ -70,20 +85,7 @@ const AppRoutes = [
   },
   {
     path: '/supprimerEquipe/:id',
-    element: <PageSupprimerEquipe />
-  },
-  {
-    path: 'pageDesEvenementsEtEquipesDUnAthlete/:id',
-    element: <AuthenticationGuard component={PageDesEvenementsEtEquipesDUnAthlete} />
-  },
-  /*{
-    // path: '/ma-page-accueil/:id',
-    path: 'ma-page-accueil/',
-    element: <AuthenticationGuard component={PageAccueilAthlete} />
-  },*/
-  {
-    path: '/accueil',
-    element: <AuthenticationGuard component={PageAcceuilEntraineur} />
+    element: <AuthenticationGuard component={PageSupprimerEquipe} />
   },
   {
     path: '/rejoindreUneEquipe',
@@ -96,6 +98,18 @@ const AppRoutes = [
   {
     path: '/pageUneEquipePourUnEntraineur/:id',
     element: <AuthenticationGuard component={PageUneEquipePourUnEntraineur} />
+  },
+  {
+    path: '/inviterOuAjouterJoueur/:id',
+    element: <AuthenticationGuard component={PageInviterOuAjouterJoueur} />
+  },
+  {
+    path: '/saisirEtEnvoyerInvitation/:id',
+    element: <AuthenticationGuard component={PagePourSaisirLeCourrielDInvitation} />
+  },
+  {
+    path: '/ajouterEvenementsCoup/:id',
+    element: <AuthenticationGuard component={PageAjouterEvenementsCoup} />
   },
   {
     path: '*',
